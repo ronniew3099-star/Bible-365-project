@@ -365,10 +365,39 @@ function initCloud(){
  try{cloud=window.supabase.createClient(url,key);cloud.auth.onAuthStateChange(async(event,session)=>{cloudUser=session?.user||null;if(cloudUser){cloudStatus(`Signed in as ${cloudUser.email}. Syncing…`);await pullAndMerge();cloudStatus(`Cloud sync is active for ${cloudUser.email}.`)}else cloudStatus("Not signed in. Local progress is still saved.");});cloud.auth.getSession().then(({data})=>{cloudUser=data.session?.user||null;if(cloudUser)pullAndMerge();else cloudStatus("Sync configured. Sign in with your email to enable cross-device sync.");});}catch(e){cloudStatus("Could not initialize sync. Check your project URL and key.");}
 }
 async function signInCloud(){if(!cloud){saveCloudConfig();if(!cloud)return}const email=document.getElementById("syncEmail").value.trim();if(!email){showToast("Enter your email address.");return}const {error}=await cloud.auth.signInWithOtp({email,options:{emailRedirectTo:location.href.split("#")[0]}});if(error){cloudStatus(error.message);return}cloudStatus("Sign-in link sent. Open it from this device to connect your account.");showToast("Check your email for the sign-in link.");}
-function mergeStates(a,b){
- const completed=[...new Set([...(a?.completed||[]),...(b?.completed||[])])].sort((x,y)=>x-y);
- const logs={};for(const src of [a?.logs||{},b?.logs||{}])for(const [date,l] of Object.entries(src)){if(!logs[date])logs[date]={chapters:[],ireap:false,extra:0};logs[date].chapters=[...new Set([...logs[date].chapters,...(l.chapters||[])])].sort((x,y)=>x-y);logs[date].unable=[...new Set([...(logs[date].unable||[]),...(l.unable||[])])].sort((x,y)=>x-y);logs[date].ireap=logs[date].ireap||!!l.ireap;logs[date].extra=Math.max(logs[date].extra||0,l.extra||0)}
- return {completed,logs,createdAt:a?.createdAt||b?.createdAt||new Date().toISOString()};
+function mergeStates(localState, cloudState) {
+  // Keep overall completed chapters from both sources.
+  const completed = [...new Set([
+    ...(localState?.completed || []),
+    ...(cloudState?.completed || [])
+  ])].sort((a, b) => a - b);
+
+  // Keep cloud-only dates, but prefer the browser's record
+  // whenever both sources contain the same date.
+  const logs = {
+    ...(cloudState?.logs || {}),
+    ...(localState?.logs || {})
+  };
+
+  // Make sure every date has the expected fields.
+  for (const [date, log] of Object.entries(logs)) {
+    logs[date] = {
+      ...log,
+      chapters: Array.isArray(log.chapters) ? log.chapters : [],
+      unable: Array.isArray(log.unable) ? log.unable : [],
+      ireap: !!log.ireap,
+      extra: Number(log.extra) || 0
+    };
+  }
+
+  return {
+    completed,
+    logs,
+    createdAt:
+      localState?.createdAt ||
+      cloudState?.createdAt ||
+      new Date().toISOString()
+  };
 }
 async function pullAndMerge(){
  if(!cloud||!cloudUser)return;
