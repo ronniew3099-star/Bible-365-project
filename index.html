@@ -79,7 +79,7 @@ main{padding:34px clamp(18px,4vw,60px) 90px;min-width:0}.topbar{display:flex;jus
         <button class="btn ghost" id="extraBtn" style="margin-top:17px" onclick="addExtra()">＋ Read one more chapter</button>
       </div>
       <div class="reading-side">
-        <div class="panel ireap-card"><div class="eyebrow">Personal journal</div><h3 style="font:400 21px Georgia,serif;margin:5px 0">IREAP reflection</h3><p class="subtle">Complete your IREAP in your journal. This app only tracks whether you did it—no outlines or notes here.</p><label class="ireap-toggle"><input type="checkbox" id="ireapCheck" onchange="toggleIreap(this.checked)"> I completed my IREAP</label></div>
+        <div class="panel ireap-card"><div class="eyebrow">Personal journal</div><h3 style="font:400 21px Georgia,serif;margin:5px 0">Outstanding IREAPs</h3><p class="subtle">Complete each reflection in your journal. Pending reflections stay here until you mark them complete.</p><div id="outstandingIreapList"></div></div>
         <div class="side-note"><h3>Give yourself grace</h3><p>This plan is a guide, not a measure of your faith. If you miss a day, simply return to the next unread chapter. No doubling up is required.</p></div>
       </div>
     </div>
@@ -87,7 +87,7 @@ main{padding:34px clamp(18px,4vw,60px) 90px;min-width:0}.topbar{display:flex;jus
 
   <section class="view" id="view-calendar">
     <h2 class="section-title">Reading calendar</h2><p class="section-intro">A gentle record of the days you spent in Scripture.</p>
-    <div class="calendar-panel panel"><div class="calendar-top"><button class="btn outline" onclick="shiftMonth(-1)">←</button><h3 id="monthTitle"></h3><button class="btn outline" onclick="shiftMonth(1)">→</button></div><div class="calendar-grid" id="calendarGrid"></div><div class="subtle" style="margin-top:13px">● Reading completed &nbsp; <span style="color:var(--gold)">●</span> IREAP completed</div><div id="selectedDay" class="finish-box" style="margin-top:17px"><p>Select a day to see your reading history.</p></div></div>
+    <div class="calendar-panel panel"><div class="calendar-top"><button class="btn outline" onclick="shiftMonth(-1)">←</button><h3 id="monthTitle"></h3><button class="btn outline" onclick="shiftMonth(1)">→</button></div><div class="calendar-grid" id="calendarGrid"></div><div class="subtle" style="margin-top:13px">● Reading completed &nbsp; <span style="color:var(--gold)">●</span> At least one IREAP completed</div><div id="selectedDay" class="finish-box" style="margin-top:17px"><p>Select a day to see your reading history.</p></div></div>
   </section>
 
   <section class="view" id="view-books">
@@ -127,8 +127,20 @@ function parseDate(s){const [y,m,d]=s.split("-").map(Number);return new Date(y,m
 function prettyDate(s,opts={month:"long",day:"numeric",year:"numeric"}){return parseDate(s).toLocaleDateString(undefined,opts)}
 function todayISO(){return localISO(new Date())}
 function loadState(){
-  try { const x=JSON.parse(localStorage.getItem(STORAGE_KEY)); if(x&&Array.isArray(x.completed)) return {...{completed:[],logs:{}},...x,logs:x.logs||{}}; } catch(e){}
-  return {completed:[],logs:{},createdAt:new Date().toISOString()};
+  try {
+    const x=JSON.parse(localStorage.getItem(STORAGE_KEY));
+    if(x&&Array.isArray(x.completed)){
+      const loaded={...{completed:[],logs:{}},...x,logs:x.logs||{}};
+      const reflections=new Set(Array.isArray(loaded.ireapCompleted)?loaded.ireapCompleted:[]);
+      // Migrate the old daily IREAP checkbox to each chapter completed on that date.
+      for(const log of Object.values(loaded.logs)){
+        if(log?.ireap && Array.isArray(log.chapters)) log.chapters.forEach(i=>reflections.add(i));
+      }
+      loaded.ireapCompleted=[...reflections].sort((a,b)=>a-b);
+      return loaded;
+    }
+  } catch(e){}
+  return {completed:[],logs:{},ireapCompleted:[],createdAt:new Date().toISOString()};
 }
 function saveState({sync=true}={}){
   localStorage.setItem(STORAGE_KEY,JSON.stringify(state));
@@ -180,7 +192,7 @@ function renderDashboard(){
  document.getElementById("finishLarge").textContent=prettyDate(finish);
  document.getElementById("finishMessage").textContent=remain===0?"You've completed the entire reading sequence. Praise God!":`At the original pace of ${ORIGINAL_PACE.toFixed(2)} chapters per day, you have ${remain.toLocaleString()} chapters left.`;
  const readDays=Object.values(state.logs).filter(l=>(l.chapters||[]).length>0).length;
- const ireaps=Object.values(state.logs).filter(l=>l.ireap).length;
+ const ireaps=(state.ireapCompleted||[]).length;
  document.getElementById("daysStat").textContent=readDays;
  document.getElementById("ireapStat").textContent=ireaps+" IREAP reflections";
  const target=totalTarget();document.getElementById("todayTargetPill").textContent=`Today's goal · ${target} chapters`;
@@ -195,10 +207,9 @@ function renderToday(){
  document.getElementById("todayReadingTitle").textContent=idx>=CHAPTERS.length?"Reading plan complete":currentBook();
  document.getElementById("dailyProgressPill").textContent=`${read} of ${target} completed`;
  document.getElementById("targetLabel").textContent=`Daily target: ${target}`;
- document.getElementById("ireapCheck").checked=!!log.ireap;
  const list=document.getElementById("readingList");list.innerHTML="";
  // Today's completed chapters first.
- (log.chapters||[]).forEach(i=>{const row=document.createElement("div");row.className="chapter-row done";row.innerHTML=`<input class="chapter-check" type="checkbox" checked aria-label="Completed ${CHAPTERS[i]}"><div><div class="chapter-name">${CHAPTERS[i]}</div><div class="chapter-tag">Completed today</div></div><span class="chapter-meta">✓ Done</span>`;row.querySelector("input").addEventListener("change",()=>undoChapter(i,date));list.appendChild(row)});
+ (log.chapters||[]).forEach(i=>{const row=document.createElement("div");row.className="chapter-row done";row.innerHTML=`<input class="chapter-check" type="checkbox" checked aria-label="Completed ${CHAPTERS[i]}"><div><div class="chapter-name">${CHAPTERS[i]}</div><div class="chapter-tag">Completed today · ${isIreapComplete(i)?"IREAP completed":"IREAP pending"}</div></div><span class="chapter-meta">✓ Done</span>`;row.querySelector("input").addEventListener("change",()=>undoChapter(i,date));list.appendChild(row)});
  if(idx<CHAPTERS.length && left>0){
    for(let k=0;k<left && idx+k<CHAPTERS.length;k++){
      const i=idx+k,row=document.createElement("label");row.className="chapter-row";
@@ -206,10 +217,32 @@ function renderToday(){
      row.querySelector("input").addEventListener("change",e=>{if(e.target.checked)completeChapter(i,date)});list.appendChild(row);
    }
  }
+ renderOutstandingIreaps();
  const reached=read>=target || idx>=CHAPTERS.length;
  document.getElementById("goalReached").style.display=reached?"block":"none";
  document.getElementById("extraBtn").style.display=(reached && idx<CHAPTERS.length)?"inline-block":"none";
  if(idx>=CHAPTERS.length && !log.chapters.length)list.innerHTML='<div class="side-note"><h3>All chapters completed</h3><p>You have finished the entire Bible reading sequence. Celebrate this milestone.</p></div>';
+}
+function isIreapComplete(i){return (state.ireapCompleted||[]).includes(i)}
+function toggleChapterIreap(i,checked){
+ const set=new Set(state.ireapCompleted||[]);
+ if(checked)set.add(i);else set.delete(i);
+ state.ireapCompleted=[...set].sort((a,b)=>a-b);
+ saveState();
+ showToast(checked?`${CHAPTERS[i]} IREAP marked complete.`:`${CHAPTERS[i]} IREAP is pending.`);
+}
+function renderOutstandingIreaps(){
+ const box=document.getElementById("outstandingIreapList");
+ if(!box)return;
+ const pending=(state.completed||[]).filter(i=>!isIreapComplete(i)).sort((a,b)=>a-b);
+ box.innerHTML="";
+ if(!pending.length){box.innerHTML="<p class='subtle'>No outstanding reflections. You are all caught up!</p>";return;}
+ pending.forEach(i=>{
+   const row=document.createElement("label");row.className="ireap-toggle";
+   row.innerHTML=`<input type="checkbox" aria-label="Complete IREAP for ${CHAPTERS[i]}"><span><strong>${CHAPTERS[i]}</strong><span class="subtle" style="display:block">Reading completed · IREAP pending</span></span>`;
+   row.querySelector("input").addEventListener("change",e=>toggleChapterIreap(i,e.target.checked));
+   box.appendChild(row);
+ });
 }
 function completeChapter(i,date){
  const idx=firstUnread();if(i!==idx){showToast("Read in sequence—start with the next unread chapter.");renderToday();return}
@@ -217,7 +250,7 @@ function completeChapter(i,date){
 }
 function undoChapter(i,date){
  if(state.completed[state.completed.length-1]!==i){showToast("To keep the sequence consistent, you can only undo your most recently completed chapter.");renderToday();return}
- state.completed.pop();const log=logFor(date);log.chapters=log.chapters.filter(x=>x!==i);saveState();showToast("Chapter completion undone.");
+ state.completed.pop();const log=logFor(date);log.chapters=log.chapters.filter(x=>x!==i);state.ireapCompleted=(state.ireapCompleted||[]).filter(x=>x!==i);saveState();showToast("Chapter completion undone.");
 }
 function addExtra(){const log=logFor(todayISO());log.extra=(log.extra||0)+1;saveState();showToast("One more chapter added to today's goal.");}
 function toggleIreap(v){logFor(todayISO()).ireap=v;saveState();showToast(v?"IREAP marked complete.":"IREAP mark removed.");}
@@ -234,7 +267,7 @@ function renderCalendar(){
  ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"].forEach(x=>{const e=document.createElement("div");e.className="cal-head";e.textContent=x;grid.appendChild(e)});
  for(let i=0;i<first.getDay();i++){const e=document.createElement("div");e.className="cal-day empty";grid.appendChild(e)}
  for(let d=1;d<=days;d++){
-  const date=localISO(new Date(year,month,d)),log=state.logs[date],read=!!(log?.chapters?.length),ireap=!!log?.ireap;
+  const date=localISO(new Date(year,month,d)),log=state.logs[date],read=!!(log?.chapters?.length),ireap=(log?.chapters||[]).some(i=>isIreapComplete(i));
   const b=document.createElement("button");b.className="cal-day"+(read?" read":"")+(ireap?" ireap":"")+(selectedCalendarDate===date?" selected":"");
   b.innerHTML=`<span class="num">${d}</span><span style="display:flex;gap:4px">${read?'<i class="dot"></i>':""}${ireap?'<i class="dot" style="background:var(--gold)"></i>':""}</span>${read?`<small>${log.chapters.length} ch.</small>`:""}`;
   b.addEventListener("click",()=>{selectedCalendarDate=date;renderCalendar()});grid.appendChild(b);
@@ -246,7 +279,7 @@ function renderCalendar(){
  const isPastOrToday=selectedCalendarDate<=todayISO();
  const title=`<div class="subtle">${prettyDate(selectedCalendarDate,{weekday:"long",month:"long",day:"numeric",year:"numeric"})}</div>`;
 if(assigned.length && isPastOrToday){
-  box.innerHTML=title+`<p style="margin:8px 0 12px">Your scheduled chapters for this day. Mark each one as completed or unable to complete. Missed chapters carry forward to the next day.</p><div id="scheduledChapterList"></div><label class="ireap-toggle" style="margin-top:14px"><input type="checkbox" id="calendarIreap" ${log.ireap?'checked':''}> I completed my IREAP</label>`;
+  box.innerHTML=title+`<p style="margin:8px 0 12px">Your scheduled chapters for this day. Mark each one as completed or unable to complete. Missed chapters carry forward to the next day.</p><div id="scheduledChapterList"></div>`;
 
   const list=box.querySelector('#scheduledChapterList');
 
@@ -274,6 +307,14 @@ if(assigned.length && isPastOrToday){
       </div>
       <span class="chapter-meta">${done?'✓ Done':unable?'Carried forward':''}</span>
     `;
+    if(done){
+      const reflection=document.createElement('label');
+      reflection.className='ireap-toggle';
+      reflection.style.margin='8px 0 0 36px';
+      reflection.innerHTML=`<input type="checkbox" ${isIreapComplete(i)?'checked':''} aria-label="IREAP completed for ${CHAPTERS[i]}"> ${isIreapComplete(i)?'Completed IREAP':'Mark IREAP complete'}`;
+      reflection.querySelector('input').addEventListener('change',e=>toggleChapterIreap(i,e.target.checked));
+      row.appendChild(reflection);
+    }
 
     row.querySelectorAll('input').forEach(input=>{
       input.addEventListener('change',e=>{
@@ -286,16 +327,10 @@ if(assigned.length && isPastOrToday){
     list.appendChild(row);
   });
 
-  box.querySelector('#calendarIreap').addEventListener('change',e=>{
-    logFor(selectedCalendarDate).ireap=e.target.checked;
-    saveState();
-    showToast(e.target.checked?'IREAP marked complete.':'IREAP mark removed.');
-  });
-
 }else{
   const names=(log.chapters||[]).map(i=>CHAPTERS[i]);
-  box.innerHTML=title+`<p>${names.length?names.join(' · '):'No reading recorded for this day.'}</p><p>${log.ireap?'IREAP completed ✓':'IREAP not marked complete'}</p>`;
- }
+  box.innerHTML=title+`<p>${names.length?names.join(' · '):'No reading recorded for this day.'}</p>`;
+}
 }
 function getAssignedChapters(date){
  const idx=SCHEDULE.findIndex(x=>x.date===date);if(idx<0)return [];
@@ -319,6 +354,7 @@ function markScheduledChapter(date,i,status){
 
  }else if(status==='unable'){
    log.chapters=log.chapters.filter(x=>x!==i);
+   state.ireapCompleted=(state.ireapCompleted||[]).filter(x=>x!==i);
    if(!log.unable.includes(i))log.unable.push(i);
 
    const recordedElsewhere=Object.entries(state.logs)
@@ -331,6 +367,7 @@ function markScheduledChapter(date,i,status){
  }else{
    log.unable=log.unable.filter(x=>x!==i);
    log.chapters=log.chapters.filter(x=>x!==i);
+   state.ireapCompleted=(state.ireapCompleted||[]).filter(x=>x!==i);
 
    const recordedElsewhere=Object.entries(state.logs)
      .some(([d,l])=>d!==date&&(l.chapters||[]).includes(i));
@@ -357,7 +394,7 @@ function markScheduledChapter(date,i,status){
 function shiftMonth(n){calendarMonth.setMonth(calendarMonth.getMonth()+n);renderCalendar()}
 function renderAll(){document.getElementById("dateLabel").textContent=prettyDate(todayISO(),{weekday:"short",month:"short",day:"numeric"});renderDashboard();if(activeView==="today")renderToday();if(activeView==="calendar")renderCalendar();if(activeView==="books")renderBooks()}
 function exportBackup(){const blob=new Blob([JSON.stringify({app:"Ronnie's Bible Challenge",version:1,exportedAt:new Date().toISOString(),state},null,2)],{type:"application/json"});const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download="ronnies-bible-challenge-backup.json";a.click();URL.revokeObjectURL(a.href);showToast("Backup downloaded.");}
-function importBackup(e){const file=e.target.files[0];if(!file)return;const reader=new FileReader();reader.onload=()=>{try{const data=JSON.parse(reader.result);const incoming=data.state||data;if(!Array.isArray(incoming.completed)||!incoming.logs)throw new Error("Invalid backup");if(!confirm("Restore this backup? It will replace the progress currently saved in this browser."))return;state={completed:incoming.completed,logs:incoming.logs,createdAt:incoming.createdAt||new Date().toISOString()};saveState();showToast("Backup restored.");}catch(err){showToast("That backup file could not be read.");}};reader.readAsText(file);}
+function importBackup(e){const file=e.target.files[0];if(!file)return;const reader=new FileReader();reader.onload=()=>{try{const data=JSON.parse(reader.result);const incoming=data.state||data;if(!Array.isArray(incoming.completed)||!incoming.logs)throw new Error("Invalid backup");if(!confirm("Restore this backup? It will replace the progress currently saved in this browser."))return;state={completed:incoming.completed,logs:incoming.logs,ireapCompleted:[...new Set([...(incoming.ireapCompleted||[]),...Object.values(incoming.logs||{}).flatMap(l=>l.ireap?(l.chapters||[]):[])])],createdAt:incoming.createdAt||new Date().toISOString()};saveState();showToast("Backup restored.");}catch(err){showToast("That backup file could not be read.");}};reader.readAsText(file);}
 function saveCloudConfig(){const url=document.getElementById("supabaseUrl").value.trim(),key=document.getElementById("supabaseKey").value.trim();if(!url||!key){showToast("Enter both the project URL and public anon key.");return}localStorage.setItem("mbj.supabase.url",url);localStorage.setItem("mbj.supabase.key",key);initCloud();showToast("Sync settings saved on this device.");}
 function cloudStatus(msg){const el=document.getElementById("syncStatus");if(el)el.textContent=msg}
 function initCloud(){
@@ -391,9 +428,16 @@ function mergeStates(localState, cloudState) {
     };
   }
 
+  const ireapCompleted = [...new Set([
+    ...(localState?.ireapCompleted || []),
+    ...(cloudState?.ireapCompleted || []),
+    ...Object.values(logs).flatMap(log => log.ireap ? (log.chapters || []) : [])
+  ])].sort((a, b) => a - b);
+
   return {
     completed,
     logs,
+    ireapCompleted,
     createdAt:
       localState?.createdAt ||
       cloudState?.createdAt ||
