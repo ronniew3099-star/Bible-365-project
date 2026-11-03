@@ -23,7 +23,7 @@ The MyBibleLog project is provided "AS IS", without warranty of any kind.
 button,input{font:inherit}button{cursor:pointer}.app{min-height:100vh;display:grid;grid-template-columns:250px 1fr;max-width:1600px;margin:auto}
 .sidebar{padding:28px 18px;border-right:1px solid var(--line);background:rgba(255,254,250,.65);display:flex;flex-direction:column;gap:26px}
 .brand{display:flex;gap:12px;align-items:center;padding:0 10px}.brand-mark{width:42px;height:42px;border-radius:14px;background:var(--green);color:white;display:grid;place-items:center;font-size:21px}.brand strong{display:block;font-family:Georgia,serif;font-size:18px}.brand small{color:var(--muted);font-size:11px;letter-spacing:.08em;text-transform:uppercase}
-.nav{display:grid;gap:7px}.nav button{border:0;background:transparent;color:#68736b;text-align:left;padding:12px 14px;border-radius:13px;font-weight:600;display:flex;gap:12px;align-items:center}.nav button.active,.nav button:hover{background:var(--green2);color:var(--green)}.nav .ico{width:20px;text-align:center;font-size:17px}
+.nav{display:grid;gap:7px}.nav button{border:0;background:transparent;color:#68736b;text-align:left;padding:12px 14px;border-radius:13px;font-weight:600;display:flex;gap:12px;align-items:center}.nav button.active,.nav button:hover{background:var(--green2);color:var(--green)}.nav .ico{width:20px;text-align:center;font-size:17px;line-height:1}
 .side-verse{margin-top:auto;padding:18px;border-radius:18px;background:var(--goldbg);color:#68532f;font:italic 15px/1.55 Georgia,serif}.side-verse small{display:block;font:600 10px/1.4 system-ui;letter-spacing:.12em;text-transform:uppercase;margin-top:10px;color:#90774a}
 main{padding:34px clamp(18px,4vw,60px) 90px;min-width:0}.topbar{display:flex;justify-content:space-between;align-items:center;gap:15px;margin-bottom:30px}.eyebrow{font-size:11px;text-transform:uppercase;letter-spacing:.15em;color:var(--muted);font-weight:700}.topbar h1{font:400 clamp(26px,3vw,36px)/1.2 Georgia,serif;margin:5px 0 0}.today-label{padding:9px 13px;border:1px solid var(--line);border-radius:999px;color:var(--muted);font-size:12px;background:var(--paper)}
 .view{display:none}.view.active{display:block}.hero{background:var(--green);color:white;border-radius:28px;padding:30px;display:grid;grid-template-columns:1fr auto;gap:20px;align-items:center;box-shadow:var(--shadow);position:relative;overflow:hidden}.hero:after{content:"";position:absolute;width:280px;height:280px;border:1px solid rgba(255,255,255,.12);border-radius:50%;right:100px;top:-170px}.hero h2{font:400 clamp(25px,3vw,34px)/1.2 Georgia,serif;margin:7px 0 9px}.hero p{color:#dce8df;margin:0;max-width:540px}.hero .eyebrow{color:#c4d7c9}.hero-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:20px}
@@ -42,7 +42,7 @@ main{padding:34px clamp(18px,4vw,60px) 90px;min-width:0}.topbar{display:flex;jus
 .toast{position:fixed;bottom:25px;left:50%;transform:translate(-50%,20px);opacity:0;pointer-events:none;background:#202a25;color:white;padding:11px 16px;border-radius:12px;box-shadow:var(--shadow);font-size:13px;transition:.25s;z-index:20}.toast.show{opacity:1;transform:translate(-50%,0)}
 .mobile-nav{display:none}
 @media(max-width:980px){.app{grid-template-columns:210px 1fr}.stats{grid-template-columns:repeat(2,1fr)}.reading-layout{grid-template-columns:1fr}.reading-side{grid-template-columns:1fr 1fr}.book-grid{grid-template-columns:repeat(2,1fr)}}
-@media(max-width:700px){.app{display:block}.sidebar{display:none}main{padding:22px 15px 100px}.topbar{margin-bottom:20px}.today-label{display:none}.hero{padding:23px;grid-template-columns:1fr auto}.progress-ring{width:88px;height:88px}.progress-ring strong{font-size:21px}.stats{gap:9px;margin:13px 0 18px}.stat{padding:14px}.stat strong{font-size:21px}.grid2{grid-template-columns:1fr}.reading-side{grid-template-columns:1fr}.book-grid{grid-template-columns:1fr 1fr}.settings-grid{grid-template-columns:1fr}.panel{padding:17px}.cal-day{min-height:57px;padding:6px}.calendar-grid{gap:3px}.mobile-nav{position:fixed;display:grid;grid-template-columns:repeat(5,1fr);bottom:0;left:0;right:0;background:rgba(255,254,250,.96);backdrop-filter:blur(14px);border-top:1px solid var(--line);padding:8px 5px calc(8px + env(safe-area-inset-bottom));z-index:10}.mobile-nav button{border:0;background:transparent;color:var(--muted);font-size:10px;display:grid;gap:3px;justify-items:center;padding:4px}.mobile-nav button span{font-size:18px}.mobile-nav button.active{color:var(--green);font-weight:800}.hero-actions .btn{padding:10px 12px;font-size:12px}}
+@media(max-width:700px){.app{display:block}.sidebar{display:none}main{padding:22px 15px 100px}.topbar{margin-bottom:20px}.today-label{display:none}.hero{padding:23px;grid-template-columns:1fr auto}.progress-ring{width:88px;height:88px}.progress-ring strong{font-size:21px}.stats{gap:9px;margin:13px 0 18px}.stat{padding:14px}.stat strong{font-size:21px}.grid2{grid-template-columns:1fr}.reading-side{grid-template-columns:1fr}.book-grid{grid-template-columns:1fr 1fr}.settings-grid{grid-template-columns:1fr}.panel{padding:17px}.cal-day{min-height:57px;padding:6px}.calendar-grid{gap:3px}.mobile-nav{position:fixed;display:grid;grid-template-columns:repeat(6,1fr);bottom:0;left:0;right:0;background:rgba(255,254,250,.96);backdrop-filter:blur(14px);border-top:1px solid var(--line);padding:8px 5px calc(8px + env(safe-area-inset-bottom));z-index:10}.mobile-nav button{border:0;background:transparent;color:var(--muted);font-size:10px;display:grid;gap:3px;justify-items:center;padding:4px}.mobile-nav button span{font-size:18px}.mobile-nav button.active{color:var(--green);font-weight:800}.hero-actions .btn{padding:10px 12px;font-size:12px}}
 
 .feature-section{margin-top:18px}.feature-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}.feature-card{background:var(--paper);border:1px solid var(--line);border-radius:18px;padding:17px}.feature-card label{font-size:10px;color:var(--muted);font-weight:800;letter-spacing:.08em;text-transform:uppercase}.feature-card strong{display:block;font:25px Georgia,serif;margin:5px 0}.feature-card small{color:var(--muted);font-size:11px}.book-toolbar{display:flex;justify-content:space-between;align-items:center;gap:12px;margin:0 0 16px;flex-wrap:wrap}.book-toolbar select,.setting-box select,.setting-box input[type=time]{border:1px solid var(--line);border-radius:10px;padding:10px 12px;background:white;color:var(--ink);font:inherit}.book-card .bar{margin-top:8px}.achievement-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.achievement{border:1px solid var(--line);border-radius:14px;padding:13px;display:flex;gap:10px;align-items:center;background:#fffefa}.achievement.locked{opacity:.55}.achievement .medal{font-size:23px}.achievement strong{display:block;font-size:13px}.achievement small{display:block;color:var(--muted);font-size:11px}.heatmap{display:grid;grid-template-columns:repeat(15,minmax(0,1fr));gap:5px}.heat-cell{aspect-ratio:1;border-radius:5px;background:#edf0eb;border:1px solid rgba(0,0,0,.03)}.heat-cell.level1{background:#dce9df}.heat-cell.level2{background:#a9c7b1}.heat-cell.level3{background:#6e9b7d}.heat-cell.level4{background:#315c48}.reminder-row{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin:10px 0}.reminder-row label{font-size:12px;font-weight:700;color:#59665d}.reminder-status{font-size:12px;color:var(--muted);margin-top:8px}
 @media(max-width:700px){.feature-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.achievement-list{grid-template-columns:1fr}.heatmap{grid-template-columns:repeat(10,minmax(0,1fr))}}
@@ -58,6 +58,7 @@ main{padding:34px clamp(18px,4vw,60px) 90px;min-width:0}.topbar{display:flex;jus
     <button data-view="today"><span class="ico">▤</span>Today's reading</button>
     <button data-view="calendar"><span class="ico">▦</span>Reading calendar</button>
     <button data-view="books"><span class="ico">▥</span>Books of the Bible</button>
+    <button data-view="ireap"><span class="ico" aria-hidden="true">💡</span>About IREAP</button>
     <button data-view="settings"><span class="ico">⚙</span>Settings & backup</button>
   </nav>
   <div class="side-verse">“Your word is a lamp to my feet and a light to my path.”<small>Psalm 119:105</small></div>
@@ -149,6 +150,44 @@ main{padding:34px clamp(18px,4vw,60px) 90px;min-width:0}.topbar{display:flex;jus
     <h2 class="section-title">Books of the Bible</h2><p class="section-intro">Watch your progress unfold across all 66 books.</p><div class="book-toolbar"><span class="subtle">Sort the books to explore your progress.</span><label for="bookSort">Sort by <select id="bookSort" onchange="setBookSort(this.value)"><option value="plan">Reading plan order</option><option value="traditional">Traditional order</option><option value="alpha">Alphabetical order</option></select></label></div><div class="book-grid" id="bookGrid"></div>
   </section>
 
+  <section class="view" id="view-ireap">
+    <h2 class="section-title"><span aria-hidden="true" style="font-size:.82em;color:var(--gold)">💡</span> About IREAP</h2>
+    <p class="section-intro">A simple framework for slowing down, understanding Scripture, and putting God's Word into practice.</p>
+
+    <div class="panel" style="margin-bottom:18px;background:var(--green);color:white">
+      <div class="eyebrow" style="color:#dce8df">A framework for intentional Bible study</div>
+      <h3 style="font:400 24px Georgia,serif;margin:7px 0 8px;color:white">What is IREAP?</h3>
+      <p style="margin:0;color:#e5eee7;max-width:760px">IREAP is a five-step reflection method to help you engage with what you read, understand its meaning, and respond to God in practical ways.</p>
+    </div>
+
+    <div class="panel" style="margin-bottom:18px">
+      <div class="panel-head"><h3>The five steps</h3><span class="subtle">Take your time with each one</span></div>
+      <div style="display:grid;gap:0">
+        <div class="chapter-row"><span class="brand-mark" style="background:var(--gold);color:#202a25;flex:none">I</span><div><strong class="chapter-name">Insightful Verse(s)</strong><div class="subtle">What verse(s) stood out? Write them down.</div></div></div>
+        <div class="chapter-row"><span class="brand-mark" style="background:var(--gold);color:#202a25;flex:none">R</span><div><strong class="chapter-name">Recap</strong><div class="subtle">What happened in the chapter(s)? Give a summary.</div></div></div>
+        <div class="chapter-row"><span class="brand-mark" style="background:var(--gold);color:#202a25;flex:none">E</span><div><strong class="chapter-name">Examine</strong><div class="subtle">What does what I read teach me about God, People, or Faith?</div></div></div>
+        <div class="chapter-row"><span class="brand-mark" style="background:var(--gold);color:#202a25;flex:none">A</span><div><strong class="chapter-name">Apply</strong><div class="subtle">How can I put what I learned into practice?</div></div></div>
+        <div class="chapter-row"><span class="brand-mark" style="background:var(--gold);color:#202a25;flex:none">P</span><div><strong class="chapter-name">Pray</strong><div class="subtle">Respond to God in prayer based on what you read.</div></div></div>
+      </div>
+    </div>
+
+    <div class="panel" style="margin-bottom:18px">
+      <div class="panel-head"><h3>Example: IREAP for Ruth 1</h3><span class="pill">Sample reflection</span></div>
+      <div style="display:grid;gap:15px">
+        <div><strong style="color:var(--green)">I — Insightful Verse(s)</strong><p class="subtle" style="margin:4px 0 0">Ruth 1:16 — Ruth's commitment to Naomi stands out: she chooses to stay with her and share her journey.</p></div>
+        <div><strong style="color:var(--green)">R — Recap</strong><p class="subtle" style="margin:4px 0 0">Naomi returns to Bethlehem after losing her husband and sons. Ruth refuses to leave her and travels with her to Bethlehem.</p></div>
+        <div><strong style="color:var(--green)">E — Examine</strong><p class="subtle" style="margin:4px 0 0">The chapter highlights loyalty, commitment, grief, and the importance of remaining faithful through difficult seasons.</p></div>
+        <div><strong style="color:var(--green)">A — Apply</strong><p class="subtle" style="margin:4px 0 0">I can practice faithful love by showing up for the people God has placed in my life, especially when circumstances are difficult.</p></div>
+        <div><strong style="color:var(--green)">P — Pray</strong><p class="subtle" style="margin:4px 0 0">God, help me show faithful love, remain present through difficult seasons, and trust You when the next step is unclear. Amen.</p></div>
+      </div>
+    </div>
+
+    <div class="finish-box">
+      <strong style="font-size:21px">Progress, not perfection.</strong>
+      <p>IREAP is a guide, not a test. Your reflections do not have to be long or perfect. Be honest, take your time, and let what you read shape how you live and pray.</p>
+    </div>
+  </section>
+
   <section class="view" id="view-settings">
     <h2 class="section-title">Settings & backup</h2><p class="section-intro">Your progress is saved in this browser. Set up cloud sync to use the same progress on your computer and phone.</p>
     <div class="settings-grid">
@@ -162,7 +201,7 @@ main{padding:34px clamp(18px,4vw,60px) 90px;min-width:0}.topbar{display:flex;jus
 </main>
 </div>
 <nav class="mobile-nav" id="mobileNav">
-<button class="active" data-view="dashboard"><span>⌂</span>Home</button><button data-view="today"><span>▤</span>Read</button><button data-view="calendar"><span>▦</span>Calendar</button><button data-view="books"><span>▥</span>Books</button><button data-view="settings"><span>⚙</span>Settings</button>
+<button class="active" data-view="dashboard"><span>⌂</span>Home</button><button data-view="today"><span>▤</span>Read</button><button data-view="calendar"><span>▦</span>Calendar</button><button data-view="books"><span>▥</span>Books</button><button data-view="ireap"><span>💡</span>IREAP</button><button data-view="settings"><span>⚙</span>Settings</button>
 </nav>
 <div class="toast" id="toast"></div>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -246,7 +285,7 @@ function showView(v){
  activeView=v;
  document.querySelectorAll(".view").forEach(x=>x.classList.toggle("active",x.id==="view-"+v));
  document.querySelectorAll("[data-view]").forEach(x=>x.classList.toggle("active",x.dataset.view===v));
- const titles={dashboard:"Your journey, one chapter at a time.",today:"Make room for the Word.",calendar:"Your days in Scripture.",books:"Every book, one chapter at a time.",settings:"Make this journey your own."};
+ const titles={dashboard:"Your journey, one chapter at a time.",today:"Make room for the Word.",calendar:"Your days in Scripture.",books:"Every book, one chapter at a time.",ireap:"A simple framework for intentional Bible study.",settings:"Make this journey your own."};
  document.getElementById("pageTitle").textContent=titles[v]||"Ronnie's Bible Challenge";
  if(v==="calendar")renderCalendar();if(v==="today")renderToday();if(v==="books")renderBooks();
  window.scrollTo({top:0,behavior:"smooth"});
