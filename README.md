@@ -1,3 +1,7 @@
+## Development
+
+This project is actively maintained and improved.
+
 Ronnie's Bible Challenge 📖
 
 Progress, not perfection.
