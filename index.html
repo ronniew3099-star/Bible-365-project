@@ -273,21 +273,51 @@ function getAssignedChapters(date){
  return Array.from({length:count},(_,k)=>start+k).filter(i=>i<CHAPTERS.length);
 }
 function markScheduledChapter(date,i,status){
- const log=logFor(date);log.unable=log.unable||[];log.chapters=log.chapters||[];
+ const log=logFor(date);
+ log.unable=log.unable||[];
+ log.chapters=log.chapters||[];
+
  if(status==='completed'){
-   if(log.unable.includes(i)){showToast('Clear the unable status first.');renderCalendar();return;}
+   log.unable=log.unable.filter(x=>x!==i);
    if(!log.chapters.includes(i))log.chapters.push(i);
    if(!state.completed.includes(i))state.completed.push(i);
+
  }else if(status==='unable'){
-   if(state.completed.includes(i)){showToast('This chapter is already recorded as completed.');renderCalendar();return;}
-   log.chapters=log.chapters.filter(x=>x!==i);if(!log.unable.includes(i))log.unable.push(i);
+   log.chapters=log.chapters.filter(x=>x!==i);
+   if(!log.unable.includes(i))log.unable.push(i);
+
+   const recordedElsewhere=Object.entries(state.logs)
+     .some(([d,l])=>d!==date&&(l.chapters||[]).includes(i));
+
+   if(!recordedElsewhere){
+     state.completed=state.completed.filter(x=>x!==i);
+   }
+
  }else{
-   log.unable=log.unable.filter(x=>x!==i);log.chapters=log.chapters.filter(x=>x!==i);
-   const recordedElsewhere=Object.entries(state.logs).some(([d,l])=>d!==date&&(l.chapters||[]).includes(i));
-   if(!recordedElsewhere)state.completed=state.completed.filter(x=>x!==i);
+   log.unable=log.unable.filter(x=>x!==i);
+   log.chapters=log.chapters.filter(x=>x!==i);
+
+   const recordedElsewhere=Object.entries(state.logs)
+     .some(([d,l])=>d!==date&&(l.chapters||[]).includes(i));
+
+   if(!recordedElsewhere){
+     state.completed=state.completed.filter(x=>x!==i);
+   }
  }
- state.completed=[...new Set(state.completed)].sort((a,b)=>a-b);log.chapters=[...new Set(log.chapters)].sort((a,b)=>a-b);log.unable=[...new Set(log.unable)].sort((a,b)=>a-b);
- saveState();showToast(status==='completed'?`${CHAPTERS[i]} marked complete.`:status==='unable'?`${CHAPTERS[i]} will carry forward.`:`${CHAPTERS[i]} status cleared.`);
+
+ state.completed=[...new Set(state.completed)].sort((a,b)=>a-b);
+ log.chapters=[...new Set(log.chapters)].sort((a,b)=>a-b);
+ log.unable=[...new Set(log.unable)].sort((a,b)=>a-b);
+
+ saveState();
+
+ showToast(
+   status==='completed'
+     ? `${CHAPTERS[i]} marked complete.`
+     : status==='unable'
+       ? `${CHAPTERS[i]} will carry forward.`
+       : `${CHAPTERS[i]} status cleared.`
+ );
 }
 function shiftMonth(n){calendarMonth.setMonth(calendarMonth.getMonth()+n);renderCalendar()}
 function renderAll(){document.getElementById("dateLabel").textContent=prettyDate(todayISO(),{weekday:"short",month:"short",day:"numeric"});renderDashboard();if(activeView==="today")renderToday();if(activeView==="calendar")renderCalendar();if(activeView==="books")renderBooks()}
