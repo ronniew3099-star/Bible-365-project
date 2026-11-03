@@ -224,29 +224,55 @@ function renderToday(){
  if(idx>=CHAPTERS.length && !log.chapters.length)list.innerHTML='<div class="side-note"><h3>All chapters completed</h3><p>You have finished the entire Bible reading sequence. Celebrate this milestone.</p></div>';
 }
 function isIreapComplete(i){return (state.ireapCompleted||[]).includes(i)}
-function toggleChapterIreap(i,checked){
- const set=new Set(state.ireapCompleted||[]);
- if(checked)set.add(i);else set.delete(i);
- state.ireapCompleted=[...set].sort((a,b)=>a-b);
- saveState();
- showToast(checked?`${CHAPTERS[i]} IREAP marked complete.`:`${CHAPTERS[i]} IREAP is pending.`);
-}
 function renderOutstandingIreaps(){
  const box=document.getElementById("outstandingIreapList");
  if(!box)return;
- const pending=(state.completed||[]).filter(i=>!isIreapComplete(i)).sort((a,b)=>a-b);
+
+ const chapters=(state.completed||[]).slice().sort((a,b)=>a-b);
  box.innerHTML="";
- if(!pending.length){box.innerHTML="<p class='subtle'>No outstanding reflections. You are all caught up!</p>";return;}
- pending.forEach(i=>{
-   const row=document.createElement("label");row.className="ireap-toggle";
-   row.innerHTML=`<input type="checkbox" aria-label="Complete IREAP for ${CHAPTERS[i]}"><span><strong>${CHAPTERS[i]}</strong><span class="subtle" style="display:block">Reading completed · IREAP pending</span></span>`;
-   row.querySelector("input").addEventListener("change",e=>toggleChapterIreap(i,e.target.checked));
+
+ if(!chapters.length){
+   box.innerHTML="<p class='subtle'>Complete a chapter to start tracking its IREAP.</p>";
+   return;
+ }
+
+ chapters.forEach(i=>{
+   const complete=isIreapComplete(i);
+   const row=document.createElement("div");
+   row.className="ireap-toggle";
+   row.style.display="block";
+
+   row.innerHTML=`
+     <div>
+       <strong>${CHAPTERS[i]}</strong>
+       <span class="subtle" style="display:block">Reading completed</span>
+     </div>
+
+     <div class="ireap-options">
+       <label>
+         <input type="radio" name="ireap-${i}" value="completed" ${complete?'checked':''}>
+         Completed
+       </label>
+
+       <label>
+         <input type="radio" name="ireap-${i}" value="pending" ${!complete?'checked':''}>
+         Not completed
+       </label>
+     </div>
+
+     <div class="subtle" style="margin-top:4px">
+       ${complete?'Completed IREAP':'Not completed · Carries forward'}
+     </div>
+   `;
+
+   row.querySelectorAll('input[type="radio"]').forEach(input=>{
+     input.addEventListener('change',e=>
+       toggleChapterIreap(i,e.target.value==='completed')
+     );
+   });
+
    box.appendChild(row);
  });
-}
-function completeChapter(i,date){
- const idx=firstUnread();if(i!==idx){showToast("Read in sequence—start with the next unread chapter.");renderToday();return}
- state.completed.push(i);const log=logFor(date);log.chapters.push(i);saveState();showToast(`${CHAPTERS[i]} completed. Well done!`);
 }
 function undoChapter(i,date){
  if(state.completed[state.completed.length-1]!==i){showToast("To keep the sequence consistent, you can only undo your most recently completed chapter.");renderToday();return}
