@@ -249,7 +249,7 @@ function renderCalendar(){
   box.innerHTML=title+`<p style="margin:8px 0 12px">Your scheduled chapters for this day. Mark each one as completed or unable to complete. Missed chapters carry forward to the next day.</p><div id="scheduledChapterList"></div><label class="ireap-toggle" style="margin-top:14px"><input type="checkbox" id="calendarIreap" ${log.ireap?'checked':''}> I completed my IREAP</label>`;
   const list=box.querySelector('#scheduledChapterList');
   assigned.forEach(i=>{
-    const done=(log.chapters||[]).includes(i) || state.completed.includes(i), unable=(log.unable||[]).includes(i);
+    const done=(log.chapters||[]).includes(i), unable=(log.unable||[]).includes(i); unable=(log.unable||[]).includes(i);
     const row=document.createElement('div');row.className='chapter-row';row.style.alignItems='flex-start';
     row.innerHTML=`<div style="min-width:0;flex:1"><div class="chapter-name">${CHAPTERS[i]}</div><div class="chapter-tag">Scheduled chapter ${i+1} of ${CHAPTERS.length}</div><div style="display:flex;gap:16px;flex-wrap:wrap;margin-top:9px"><label style="display:flex;gap:6px;align-items:center;font-size:12px"><input type="checkbox" class="status-done" ${done?'checked':''} ${unable?'disabled':''}> Completed</label><label style="display:flex;gap:6px;align-items:center;font-size:12px"><input type="checkbox" class="status-unable" ${unable?'checked':''} ${done?'disabled':''}> Unable to complete</label></div></div><span class="chapter-meta">${done?'✓ Done':unable?'Carried forward':'Pending'}</span>`;
     row.querySelector('.status-done').addEventListener('change',e=>markScheduledChapter(selectedCalendarDate,i,e.target.checked?'completed':'pending'));
