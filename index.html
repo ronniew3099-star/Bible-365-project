@@ -295,6 +295,7 @@ if(assigned.length && isPastOrToday){
 }else{
   const names=(log.chapters||[]).map(i=>CHAPTERS[i]);
   box.innerHTML=title+`<p>${names.length?names.join(' · '):'No reading recorded for this day.'}</p><p>${log.ireap?'IREAP completed ✓':'IREAP not marked complete'}</p>`;
+ }
 }
 function getAssignedChapters(date){
  const idx=SCHEDULE.findIndex(x=>x.date===date);if(idx<0)return [];
