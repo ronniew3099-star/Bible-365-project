@@ -245,15 +245,56 @@ function renderCalendar(){
  const scheduleIndex=SCHEDULE.findIndex(x=>x.date===selectedCalendarDate);
  const isPastOrToday=selectedCalendarDate<=todayISO();
  const title=`<div class="subtle">${prettyDate(selectedCalendarDate,{weekday:"long",month:"long",day:"numeric",year:"numeric"})}</div>`;
- if(assigned.length && isPastOrToday){
+if(assigned.length && isPastOrToday){
   box.innerHTML=title+`<p style="margin:8px 0 12px">Your scheduled chapters for this day. Mark each one as completed or unable to complete. Missed chapters carry forward to the next day.</p><div id="scheduledChapterList"></div><label class="ireap-toggle" style="margin-top:14px"><input type="checkbox" id="calendarIreap" ${log.ireap?'checked':''}> I completed my IREAP</label>`;
+
   const list=box.querySelector('#scheduledChapterList');
-const done=(log.chapters||[]).includes(i), unable=(log.unable||[]).includes(i);
-  box.querySelector('#calendarIreap').addEventListener('change',e=>{logFor(selectedCalendarDate).ireap=e.target.checked;saveState();showToast(e.target.checked?'IREAP marked complete.':'IREAP mark removed.')});
- } else {
+
+  assigned.forEach(i=>{
+    const done=(log.chapters||[]).includes(i);
+    const unable=(log.unable||[]).includes(i);
+
+    const row=document.createElement('div');
+    row.className='chapter-row';
+
+    row.innerHTML=`
+      <div style="flex:1;min-width:0">
+        <strong class="chapter-name">${CHAPTERS[i]}</strong>
+        <div class="subtle">Scheduled chapter ${i+1} of ${CHAPTERS.length}</div>
+        <div style="display:flex;gap:18px;flex-wrap:wrap;margin-top:10px">
+          <label>
+            <input type="checkbox" class="chapter-check" data-status="completed" ${done?'checked':''}>
+            Completed
+          </label>
+          <label>
+            <input type="checkbox" class="chapter-check" data-status="unable" ${unable?'checked':''}>
+            Unable to complete
+          </label>
+        </div>
+      </div>
+      <span class="chapter-meta">${done?'✓ Done':unable?'Carried forward':''}</span>
+    `;
+
+    row.querySelectorAll('input').forEach(input=>{
+      input.addEventListener('change',e=>{
+        const status=e.target.checked?e.target.dataset.status:'clear';
+        markScheduledChapter(selectedCalendarDate,i,status);
+        renderCalendar();
+      });
+    });
+
+    list.appendChild(row);
+  });
+
+  box.querySelector('#calendarIreap').addEventListener('change',e=>{
+    logFor(selectedCalendarDate).ireap=e.target.checked;
+    saveState();
+    showToast(e.target.checked?'IREAP marked complete.':'IREAP mark removed.');
+  });
+
+}else{
   const names=(log.chapters||[]).map(i=>CHAPTERS[i]);
   box.innerHTML=title+`<p>${names.length?names.join(' · '):'No reading recorded for this day.'}</p><p>${log.ireap?'IREAP completed ✓':'IREAP not marked complete'}</p>`;
- }
 }
 function getAssignedChapters(date){
  const idx=SCHEDULE.findIndex(x=>x.date===date);if(idx<0)return [];
