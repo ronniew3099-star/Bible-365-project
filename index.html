@@ -1,4 +1,13 @@
 <!doctype html>
+<!--
+MyBibleLog inspiration / MIT license attribution:
+Copyright (c) 2025 Aaron Smith
+MIT License: Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files, to deal in the Software without restriction,
+subject to inclusion of this copyright and permission notice in copies or substantial portions.
+The MyBibleLog project is provided "AS IS", without warranty of any kind.
+-->
+
 <html lang="en">
 <head>
 <meta charset="utf-8">
@@ -34,6 +43,10 @@ main{padding:34px clamp(18px,4vw,60px) 90px;min-width:0}.topbar{display:flex;jus
 .mobile-nav{display:none}
 @media(max-width:980px){.app{grid-template-columns:210px 1fr}.stats{grid-template-columns:repeat(2,1fr)}.reading-layout{grid-template-columns:1fr}.reading-side{grid-template-columns:1fr 1fr}.book-grid{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:700px){.app{display:block}.sidebar{display:none}main{padding:22px 15px 100px}.topbar{margin-bottom:20px}.today-label{display:none}.hero{padding:23px;grid-template-columns:1fr auto}.progress-ring{width:88px;height:88px}.progress-ring strong{font-size:21px}.stats{gap:9px;margin:13px 0 18px}.stat{padding:14px}.stat strong{font-size:21px}.grid2{grid-template-columns:1fr}.reading-side{grid-template-columns:1fr}.book-grid{grid-template-columns:1fr 1fr}.settings-grid{grid-template-columns:1fr}.panel{padding:17px}.cal-day{min-height:57px;padding:6px}.calendar-grid{gap:3px}.mobile-nav{position:fixed;display:grid;grid-template-columns:repeat(5,1fr);bottom:0;left:0;right:0;background:rgba(255,254,250,.96);backdrop-filter:blur(14px);border-top:1px solid var(--line);padding:8px 5px calc(8px + env(safe-area-inset-bottom));z-index:10}.mobile-nav button{border:0;background:transparent;color:var(--muted);font-size:10px;display:grid;gap:3px;justify-items:center;padding:4px}.mobile-nav button span{font-size:18px}.mobile-nav button.active{color:var(--green);font-weight:800}.hero-actions .btn{padding:10px 12px;font-size:12px}}
+
+.feature-section{margin-top:18px}.feature-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}.feature-card{background:var(--paper);border:1px solid var(--line);border-radius:18px;padding:17px}.feature-card label{font-size:10px;color:var(--muted);font-weight:800;letter-spacing:.08em;text-transform:uppercase}.feature-card strong{display:block;font:25px Georgia,serif;margin:5px 0}.feature-card small{color:var(--muted);font-size:11px}.book-toolbar{display:flex;justify-content:space-between;align-items:center;gap:12px;margin:0 0 16px;flex-wrap:wrap}.book-toolbar select,.setting-box select,.setting-box input[type=time]{border:1px solid var(--line);border-radius:10px;padding:10px 12px;background:white;color:var(--ink);font:inherit}.book-card .bar{margin-top:8px}.achievement-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.achievement{border:1px solid var(--line);border-radius:14px;padding:13px;display:flex;gap:10px;align-items:center;background:#fffefa}.achievement.locked{opacity:.55}.achievement .medal{font-size:23px}.achievement strong{display:block;font-size:13px}.achievement small{display:block;color:var(--muted);font-size:11px}.heatmap{display:grid;grid-template-columns:repeat(15,minmax(0,1fr));gap:5px}.heat-cell{aspect-ratio:1;border-radius:5px;background:#edf0eb;border:1px solid rgba(0,0,0,.03)}.heat-cell.level1{background:#dce9df}.heat-cell.level2{background:#a9c7b1}.heat-cell.level3{background:#6e9b7d}.heat-cell.level4{background:#315c48}.reminder-row{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin:10px 0}.reminder-row label{font-size:12px;font-weight:700;color:#59665d}.reminder-status{font-size:12px;color:var(--muted);margin-top:8px}
+@media(max-width:700px){.feature-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.achievement-list{grid-template-columns:1fr}.heatmap{grid-template-columns:repeat(10,minmax(0,1fr))}}
+
 </style>
 </head>
 <body>
@@ -78,6 +91,20 @@ main{padding:34px clamp(18px,4vw,60px) 90px;min-width:0}.topbar{display:flex;jus
       </div>
       <div id="dashOutstandingIreaps" class="subtle" style="margin-top:12px"></div>
     </div>
+    <div class="feature-section panel">
+      <div class="panel-head"><h3>Reading insights</h3><span class="subtle">Your recent rhythm</span></div>
+      <div class="feature-grid">
+        <div class="feature-card"><label>This week</label><strong id="insightWeek">0</strong><small>chapters completed</small></div>
+        <div class="feature-card"><label>This month</label><strong id="insightMonth">0</strong><small>chapters completed</small></div>
+        <div class="feature-card"><label>Reading days</label><strong id="insightDays">0</strong><small>days with at least one chapter</small></div>
+      </div>
+      <div class="panel-head" style="margin:18px 0 10px"><h3>Last 30 days</h3><span class="subtle">Daily reading activity</span></div>
+      <div class="heatmap" id="readingHeatmap" aria-label="Reading activity for the last 30 days"></div>
+    </div>
+    <div class="feature-section panel">
+      <div class="panel-head"><h3>Achievements</h3><span class="subtle" id="achievementCount">0 earned</span></div>
+      <div class="achievement-list" id="achievementList"></div>
+    </div>
     <div class="grid2">
       <div class="panel"><div class="panel-head"><h3>Up next</h3><span class="pill" id="todayTargetPill">Today's goal</span></div><div id="dashboardNext"></div><button class="btn ghost" style="margin-top:14px" onclick="showView('today')">Go to today's reading</button></div>
       <div class="panel"><div class="panel-head"><h3>Your finish line</h3><span class="subtle">A living estimate</span></div><div class="finish-box"><div class="subtle">Projected Bible completion</div><strong id="finishLarge">—</strong><p id="finishMessage">Your estimate updates whenever you complete or miss reading days.</p></div><p class="subtle" style="margin:14px 0 0">Original target: <strong>December 31, 2027</strong>. Your estimate uses the original plan's average pace and the number of chapters you have left.</p></div>
@@ -119,13 +146,14 @@ main{padding:34px clamp(18px,4vw,60px) 90px;min-width:0}.topbar{display:flex;jus
   </section>
 
   <section class="view" id="view-books">
-    <h2 class="section-title">Books of the Bible</h2><p class="section-intro">Watch your progress unfold across all 66 books.</p><div class="book-grid" id="bookGrid"></div>
+    <h2 class="section-title">Books of the Bible</h2><p class="section-intro">Watch your progress unfold across all 66 books.</p><div class="book-toolbar"><span class="subtle">Sort the books to explore your progress.</span><label for="bookSort">Sort by <select id="bookSort" onchange="setBookSort(this.value)"><option value="plan">Reading plan order</option><option value="traditional">Traditional order</option><option value="alpha">Alphabetical order</option></select></label></div><div class="book-grid" id="bookGrid"></div>
   </section>
 
   <section class="view" id="view-settings">
     <h2 class="section-title">Settings & backup</h2><p class="section-intro">Your progress is saved in this browser. Set up cloud sync to use the same progress on your computer and phone.</p>
     <div class="settings-grid">
       <div class="setting-box"><h3>Backup your progress</h3><p>Download a backup file or restore a backup you saved earlier.</p><button class="btn ghost" onclick="exportBackup()">Download backup</button><div class="form-row"><label for="importFile">Restore from backup</label><input id="importFile" type="file" accept="application/json" onchange="importBackup(event)"></div></div>
+      <div class="setting-box"><h3>Daily reading reminders</h3><p>Choose a reminder time. Browser notifications work while this app is open; your browser must allow notifications.</p><div class="reminder-row"><label><input type="checkbox" id="reminderEnabled" onchange="updateReminderSettings()"> Enable reminders</label><input type="time" id="reminderTime" value="21:00" onchange="updateReminderSettings()" aria-label="Reminder time"></div><button class="btn ghost" onclick="requestReminderPermission()">Allow notifications</button><p class="reminder-status" id="reminderStatus">Reminders are off.</p></div>
       <div class="setting-box"><h3>Cloud sync (optional setup)</h3><p>Connect a Supabase project to sync progress across devices. The setup guide is included with this app.</p><div class="form-row"><label for="supabaseUrl">Supabase project URL</label><input id="supabaseUrl" placeholder="https://your-project.supabase.co"></div><div class="form-row"><label for="supabaseKey">Supabase anon/public key</label><input id="supabaseKey" placeholder="Paste your anon/public key"></div><button class="btn ghost" onclick="saveCloudConfig()">Save sync settings</button><div class="form-row"><label for="syncEmail">Email for sign-in link</label><input id="syncEmail" type="email" placeholder="you@example.com"></div><button class="btn primary" onclick="signInCloud()">Email me a sign-in link</button><button class="btn outline" style="margin-left:6px" onclick="syncNow()">Sync now</button><p id="syncStatus" class="subtle" style="margin-top:12px">Cloud sync is not configured.</p></div>
       <div class="setting-box"><h3>Reading plan</h3><p>Your original 426-day reading sequence is preserved: November 1, 2026 through December 31, 2027.</p><p><strong>1,189 chapters</strong> · Average target: <strong id="paceText">2.79 chapters/day</strong></p><p>Daily assignments always begin with your next unread chapter. Extra reading advances the sequence immediately.</p></div>
       <div class="setting-box"><h3>Install on your devices</h3><p>Once this app is hosted securely, use your browser's Install or Add to Home Screen option. Cloud sync lets both devices share the same progress.</p><button class="btn ghost" id="installBtn" style="display:none" onclick="installApp()">Install app</button><p class="subtle">For iPhone: Safari → Share → Add to Home Screen.</p></div>
@@ -149,6 +177,10 @@ let activeView = "dashboard";
 let calendarMonth = new Date();
 let selectedCalendarDate = localISO(new Date());
 let cloud = null, cloudUser = null, cloudTimer = null, installPrompt = null;
+let bookSortPreference = localStorage.getItem("rbc.bookSort") || "plan";
+let reminderTimer = null;
+let lastReminderDate = localStorage.getItem("rbc.lastReminderDate") || "";
+
 
 function localISO(d){const x=new Date(d.getTime()-d.getTimezoneOffset()*60000);return x.toISOString().slice(0,10)}
 function parseDate(s){const [y,m,d]=s.split("-").map(Number);return new Date(y,m-1,d)}
@@ -220,6 +252,77 @@ function showView(v){
  window.scrollTo({top:0,behavior:"smooth"});
 }
 document.querySelectorAll("[data-view]").forEach(b=>b.addEventListener("click",()=>showView(b.dataset.view)));
+
+function getBookProgress(){
+ const map=new Map(),done=doneSet();
+ CHAPTERS.forEach((c,i)=>{const {book}=bookAndChapter(c);if(!map.has(book))map.set(book,{total:0,done:0,firstIndex:i});const x=map.get(book);x.total++;if(done.has(i))x.done++});
+ return map;
+}
+const TRADITIONAL_BOOK_ORDER=["Genesis","Exodus","Leviticus","Numbers","Deuteronomy","Joshua","Judges","Ruth","1 Samuel","2 Samuel","1 Kings","2 Kings","1 Chronicles","2 Chronicles","Ezra","Nehemiah","Esther","Job","Psalms","Proverbs","Ecclesiastes","Song of Solomon","Isaiah","Jeremiah","Lamentations","Ezekiel","Daniel","Hosea","Joel","Amos","Obadiah","Jonah","Micah","Nahum","Habakkuk","Zephaniah","Haggai","Zechariah","Malachi","Matthew","Mark","Luke","John","Acts","Romans","1 Corinthians","2 Corinthians","Galatians","Ephesians","Philippians","Colossians","1 Thessalonians","2 Thessalonians","1 Timothy","2 Timothy","Titus","Philemon","Hebrews","James","1 Peter","2 Peter","1 John","2 John","3 John","Jude","Revelation"];
+function setBookSort(value){bookSortPreference=value;localStorage.setItem("rbc.bookSort",value);renderBooks()}
+function renderInsights(){
+ const today=parseDate(todayISO()),startWeek=new Date(today);startWeek.setDate(today.getDate()-((today.getDay()+6)%7));
+ const monthStart=new Date(today.getFullYear(),today.getMonth(),1);
+ const entries=Object.entries(state.logs||{});
+ const chapterCountSince=start=>entries.reduce((sum,[date,log])=>sum+(parseDate(date)>=start&&parseDate(date)<=today?(log.chapters||[]).length:0),0);
+ const readingDays=entries.filter(([date,log])=>parseDate(date)<=today&&(log.chapters||[]).length>0).length;
+ document.getElementById("insightWeek").textContent=chapterCountSince(startWeek);
+ document.getElementById("insightMonth").textContent=chapterCountSince(monthStart);
+ document.getElementById("insightDays").textContent=readingDays;
+ const heat=document.getElementById("readingHeatmap");heat.innerHTML="";
+ for(let offset=29;offset>=0;offset--){
+   const d=new Date(today);d.setDate(today.getDate()-offset);const key=localISO(d),count=(state.logs[key]?.chapters||[]).length;
+   const cell=document.createElement("div");cell.className="heat-cell"+(count>=4?" level4":count===3?" level3":count===2?" level2":count===1?" level1":"");
+   cell.title=`${prettyDate(key,{month:"short",day:"numeric"})}: ${count} chapter${count===1?"":"s"}`;heat.appendChild(cell);
+ }
+}
+function renderAchievements(){
+ const bookMap=getBookProgress(),completedBooks=[...bookMap.values()].filter(x=>x.done===x.total).length;
+ const days=Object.values(state.logs||{}).filter(l=>(l.chapters||[]).length>0).length;
+ const chapters=state.completed.length,ireaps=(state.ireapCompleted||[]).length;
+ const milestones=[
+  {name:"First steps",detail:"Complete your first chapter",icon:"🌱",earned:chapters>=1},
+  {name:"Finding a rhythm",detail:"Complete 7 reading days",icon:"📖",earned:days>=7},
+  {name:"A month of faithfulness",detail:"Complete 30 reading days",icon:"🌿",earned:days>=30},
+  {name:"100 chapters",detail:"Complete 100 chapters",icon:"💯",earned:chapters>=100},
+  {name:"A whole book",detail:"Finish any one Bible book",icon:"🏆",earned:completedBooks>=1},
+  {name:"Five books",detail:"Finish five Bible books",icon:"📚",earned:completedBooks>=5},
+  {name:"IREAP in action",detail:"Complete 10 IREAP reflections",icon:"✨",earned:ireaps>=10},
+  {name:"Halfway there",detail:"Complete 50% of the Bible",icon:"🕊️",earned:chapters>=Math.ceil(CHAPTERS.length/2)},
+  {name:"The whole journey",detail:"Complete all 1,189 chapters",icon:"👑",earned:chapters>=CHAPTERS.length}
+ ];
+ const earned=milestones.filter(m=>m.earned).length;document.getElementById("achievementCount").textContent=`${earned} of ${milestones.length} earned`;
+ const list=document.getElementById("achievementList");list.innerHTML="";
+ milestones.forEach(m=>{const el=document.createElement("div");el.className="achievement"+(m.earned?"":" locked");el.innerHTML=`<span class="medal">${m.icon}</span><div><strong>${m.name} ${m.earned?"✓":""}</strong><small>${m.detail}</small></div>`;list.appendChild(el)});
+}
+function reminderConfig(){return JSON.parse(localStorage.getItem("rbc.reminder")||'{"enabled":false,"time":"21:00"}')}
+function updateReminderStatus(){
+ const cfg=reminderConfig(),status=document.getElementById("reminderStatus");if(!status)return;
+ status.textContent=!cfg.enabled?"Reminders are off.":!("Notification" in window)?"Notifications are not supported in this browser.":Notification.permission==="granted"?`Reminder set for ${cfg.time} while the app is open.`:Notification.permission==="denied"?"Notifications are blocked in browser settings.":"Allow notifications to activate your reminder.";
+}
+function updateReminderSettings(){
+ const enabled=document.getElementById("reminderEnabled")?.checked||false,time=document.getElementById("reminderTime")?.value||"21:00";
+ localStorage.setItem("rbc.reminder",JSON.stringify({enabled,time}));setupReminderTimer();updateReminderStatus();
+}
+async function requestReminderPermission(){
+ if(!("Notification" in window)){showToast("This browser does not support notifications.");return}
+ const result=await Notification.requestPermission();updateReminderStatus();
+ if(result==="granted"){setupReminderTimer();showToast("Notifications are allowed.")}
+ else showToast("Notification permission was not granted.");
+}
+function setupReminderTimer(){
+ if(reminderTimer)clearInterval(reminderTimer);
+ const cfg=reminderConfig();if(!cfg.enabled||!("Notification" in window)||Notification.permission!=="granted"){updateReminderStatus();return}
+ reminderTimer=setInterval(()=>{
+  const now=new Date(),today=localISO(now),time=String(now.getHours()).padStart(2,"0")+":"+String(now.getMinutes()).padStart(2,"0");
+  if(time===cfg.time&&lastReminderDate!==today){
+   lastReminderDate=today;localStorage.setItem("rbc.lastReminderDate",today);
+   if(!state.completed.length||chaptersReadToday(today)===0)new Notification("Ronnie's Bible Challenge",{body:"A gentle reminder: make a little room for Scripture and your IREAP reflection."});
+  }
+ },30000);
+ updateReminderStatus();
+}
+
 function renderDashboard(){
  const n=state.completed.length,remain=CHAPTERS.length-n,pct=Math.round(n/CHAPTERS.length*100),finish=projectedFinish();
  document.getElementById("progressPct").textContent=pct+"%";
@@ -249,11 +352,14 @@ function renderDashboard(){
  document.getElementById("dashIreapToday").textContent=todayIreap.length;
  document.getElementById("dashIreapTotal").textContent=completedIreaps.length;
  document.getElementById("dashOutstandingIreaps").textContent=outstanding.length?"Outstanding: "+outstanding.map(i=>CHAPTERS[i]).join(" · "):"No outstanding IREAP reflections.";
+ renderInsights();
+ renderAchievements();
  const target=totalTarget();document.getElementById("todayTargetPill").textContent=`Today's plan · ${planned.length} chapters`;
  const idx=firstUnread(), box=document.getElementById("dashboardNext");box.innerHTML="";
  const next=[...carry,...planned].filter((v,i,a)=>a.indexOf(v)===i&&!doneSet().has(v));
  if(!next.length){box.innerHTML='<p class="subtle">No outstanding reading assignments. Well done!</p>';return}
  next.slice(0,3).forEach((i,k)=>{const div=document.createElement("div");div.className="next-reading";div.innerHTML=`<div><div class="chapter-name">${CHAPTERS[i]}</div><div class="chapter-tag">${carry.includes(i)?"Carry over": "Planned today"}</div></div><span class="pill">${i+1} / 1189</span>`;box.appendChild(div)});
+
 }
 function renderToday(){
  const date=todayISO(),log=logFor(date),planned=getPlannedChapterIndexes(date),carry=getCarryOverChapterIndexes(date);
@@ -339,10 +445,13 @@ function undoChapter(i,date){
 function addExtra(){const log=logFor(todayISO());log.extra=(log.extra||0)+1;saveState();showToast("One more chapter added to today's goal.");}
 function toggleIreap(v){logFor(todayISO()).ireap=v;saveState();showToast(v?"IREAP marked complete.":"IREAP mark removed.");}
 function renderBooks(){
- const map=new Map(),done=doneSet();
- CHAPTERS.forEach((c,i)=>{const {book}=bookAndChapter(c);if(!map.has(book))map.set(book,{total:0,done:0});const x=map.get(book);x.total++;if(done.has(i))x.done++});
- const grid=document.getElementById("bookGrid");grid.innerHTML="";
- for(const [name,x] of map){const pct=x.done/x.total*100,card=document.createElement("div");card.className="book-card";card.innerHTML=`<h3>${name}</h3><div class="bar"><span style="width:${pct}%"></span></div><div class="book-foot"><span>${x.done} of ${x.total} chapters</span><strong>${Math.round(pct)}%</strong></div>`;grid.appendChild(card)}
+ const map=getBookProgress(),grid=document.getElementById("bookGrid");grid.innerHTML="";
+ const names=[...map.keys()];
+ if(bookSortPreference==="alpha")names.sort((a,b)=>a.localeCompare(b));
+ else if(bookSortPreference==="traditional")names.sort((a,b)=>TRADITIONAL_BOOK_ORDER.indexOf(a)-TRADITIONAL_BOOK_ORDER.indexOf(b));
+ else names.sort((a,b)=>map.get(a).firstIndex-map.get(b).firstIndex);
+ const selector=document.getElementById("bookSort");if(selector)selector.value=bookSortPreference;
+ for(const name of names){const x=map.get(name),pct=x.done/x.total*100,card=document.createElement("div");card.className="book-card";card.innerHTML=`<h3>${name}</h3><div class="bar"><span style="width:${pct}%"></span></div><div class="book-foot"><span>${x.done} of ${x.total} chapters</span><strong>${Math.round(pct)}%</strong></div>`;grid.appendChild(card)}
 }
 function renderCalendar(){
  const year=calendarMonth.getFullYear(),month=calendarMonth.getMonth(),first=new Date(year,month,1),days=new Date(year,month+1,0).getDate();
@@ -556,9 +665,12 @@ function installApp(){if(installPrompt){installPrompt.prompt();installPrompt=nul
 window.addEventListener("beforeinstallprompt",e=>{e.preventDefault();installPrompt=e;const b=document.getElementById("installBtn");if(b)b.style.display="inline-block"});
 window.addEventListener("online",()=>{if(cloudUser)pullAndMerge()});
 if("serviceWorker" in navigator && location.protocol.startsWith("http"))window.addEventListener("load",()=>navigator.serviceWorker.register("sw.js").catch(()=>{}));
+const savedReminder=reminderConfig();
+document.getElementById("reminderEnabled").checked=!!savedReminder.enabled;
+document.getElementById("reminderTime").value=savedReminder.time||"21:00";
 document.getElementById("supabaseUrl").value=localStorage.getItem("mbj.supabase.url")||"";
 document.getElementById("supabaseKey").value=localStorage.getItem("mbj.supabase.key")||"";
 document.getElementById("paceText").textContent=ORIGINAL_PACE.toFixed(2)+" chapters/day";
-renderAll();initCloud();
+renderAll();initCloud();setupReminderTimer();
 </script>
 </body></html>
