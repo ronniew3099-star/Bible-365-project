@@ -333,14 +333,44 @@ if(assigned.length && isPastOrToday){
       </div>
       <span class="chapter-meta">${done?'✓ Done':unable?'Carried forward':''}</span>
     `;
-    if(done){
-      const reflection=document.createElement('label');
-      reflection.className='ireap-toggle';
-      reflection.style.margin='8px 0 0 36px';
-      reflection.innerHTML=`<input type="checkbox" ${isIreapComplete(i)?'checked':''} aria-label="IREAP completed for ${CHAPTERS[i]}"> ${isIreapComplete(i)?'Completed IREAP':'Mark IREAP complete'}`;
-      reflection.querySelector('input').addEventListener('change',e=>toggleChapterIreap(i,e.target.checked));
-      row.appendChild(reflection);
-    }
+
+if(done){
+  const reflection=document.createElement('div');
+  reflection.className='ireap-toggle';
+  reflection.style.margin='8px 0 0 36px';
+  reflection.style.display='block';
+
+  const complete=isIreapComplete(i);
+
+  reflection.innerHTML=`
+    <div class="subtle">IREAP status</div>
+
+    <div class="ireap-options">
+      <label>
+        <input type="radio" name="calendar-ireap-${i}" value="completed" ${complete?'checked':''}>
+        Completed
+      </label>
+
+      <label>
+        <input type="radio" name="calendar-ireap-${i}" value="pending" ${!complete?'checked':''}>
+        Not completed
+      </label>
+    </div>
+
+    <div class="subtle" style="margin-top:4px">
+      ${complete?'Completed IREAP':'Not completed · Carries forward'}
+    </div>
+  `;
+
+  reflection.querySelectorAll('input[type="radio"]').forEach(input=>{
+    input.addEventListener('change',e=>
+      toggleChapterIreap(i,e.target.value==='completed')
+    );
+  });
+
+  row.appendChild(reflection);
+}
+
 
     row.querySelectorAll('input').forEach(input=>{
       input.addEventListener('change',e=>{
