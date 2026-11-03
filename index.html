@@ -63,6 +63,21 @@ main{padding:34px clamp(18px,4vw,60px) 90px;min-width:0}.topbar{display:flex;jus
       <div class="stat"><label>Projected finish</label><strong id="finishStat">—</strong><small id="finishDelta">Based on your plan's pace</small></div>
       <div class="stat"><label>Days with reading</label><strong id="daysStat">0</strong><small id="ireapStat">0 IREAP reflections</small></div>
     </div>
+    <div class="panel" style="margin:0 0 18px">
+      <div class="panel-head"><h3>Today's reading overview</h3><span class="subtle" id="dashboardDateLabel"></span></div>
+      <div class="stats" style="grid-template-columns:repeat(3,minmax(0,1fr));margin:0 0 14px">
+        <div class="stat"><label>Planned chapters</label><strong id="dashPlannedCount">0</strong><small id="dashPlannedNames">Today's assignment</small></div>
+        <div class="stat"><label>Carry-over chapters</label><strong id="dashCarryCount">0</strong><small id="dashCarryNames">Outstanding from earlier days</small></div>
+        <div class="stat"><label>Completed today</label><strong id="dashReadToday">0</strong><small>Chapters completed today</small></div>
+      </div>
+      <div class="panel-head" style="margin:8px 0 10px"><h3>IREAP reflections</h3><span class="subtle">Tracked separately from reading</span></div>
+      <div class="stats" style="grid-template-columns:repeat(3,minmax(0,1fr));margin:0">
+        <div class="stat"><label>Outstanding</label><strong id="dashIreapOutstanding">0</strong><small>Need reflection</small></div>
+        <div class="stat"><label>Completed today</label><strong id="dashIreapToday">0</strong><small>Reflections finished today</small></div>
+        <div class="stat"><label>Total completed</label><strong id="dashIreapTotal">0</strong><small>All-time reflections</small></div>
+      </div>
+      <div id="dashOutstandingIreaps" class="subtle" style="margin-top:12px"></div>
+    </div>
     <div class="grid2">
       <div class="panel"><div class="panel-head"><h3>Up next</h3><span class="pill" id="todayTargetPill">Today's goal</span></div><div id="dashboardNext"></div><button class="btn ghost" style="margin-top:14px" onclick="showView('today')">Go to today's reading</button></div>
       <div class="panel"><div class="panel-head"><h3>Your finish line</h3><span class="subtle">A living estimate</span></div><div class="finish-box"><div class="subtle">Projected Bible completion</div><strong id="finishLarge">—</strong><p id="finishMessage">Your estimate updates whenever you complete or miss reading days.</p></div><p class="subtle" style="margin:14px 0 0">Original target: <strong>December 31, 2027</strong>. Your estimate uses the original plan's average pace and the number of chapters you have left.</p></div>
@@ -73,9 +88,22 @@ main{padding:34px clamp(18px,4vw,60px) 90px;min-width:0}.topbar{display:flex;jus
     <h2 class="section-title">Today's reading</h2><p class="section-intro" id="todayIntro">Your next chapters are ready when you are.</p>
     <div class="reading-layout">
       <div class="reading-card">
-        <div class="reading-head"><div><div class="eyebrow" id="todayLongDate"></div><h2 id="todayReadingTitle">Your next chapters</h2><span class="pill" id="dailyProgressPill">0 of 0 completed</span></div><div class="subtle" id="targetLabel">Daily target: 2</div></div>
-        <div id="readingList"></div>
-        <div id="goalReached" style="display:none;padding-top:18px"><div class="pill">Today's goal reached ✓</div><p class="subtle">Wonderful. You can stop here, or continue reading to move your projected finish date earlier.</p></div>
+        <div class="reading-head"><div><div class="eyebrow" id="todayLongDate"></div><h2 id="todayReadingTitle">Your reading</h2><span class="pill" id="dailyProgressPill">0 of 0 completed</span></div><div class="subtle" id="targetLabel">Daily target: 2</div></div>
+        <section style="margin-bottom:20px">
+          <div class="panel-head"><h3>Carry Over Chapters</h3><span class="pill" id="carryProgressPill">0 outstanding</span></div>
+          <p class="subtle">Unfinished chapters from previous days.</p>
+          <div id="carryOverList"></div>
+        </section>
+        <section style="margin-bottom:20px">
+          <div class="panel-head"><h3>Planned Daily Chapters</h3><span class="pill" id="plannedProgressPill">0 assigned</span></div>
+          <p class="subtle">Your original assignment for today. This plan does not shift when you miss a day.</p>
+          <div id="plannedReadingList"></div>
+        </section>
+        <section>
+          <div class="panel-head"><h3>Completed Today</h3><span class="pill" id="completedTodayPill">0 completed</span></div>
+          <div id="completedTodayList"></div>
+        </section>
+        <div id="goalReached" style="display:none;padding-top:18px"><div class="pill">Today's planned reading reached ✓</div><p class="subtle">Wonderful. Carry-over remains separate; you can continue at a manageable pace.</p></div>
         <button class="btn ghost" id="extraBtn" style="margin-top:17px" onclick="addExtra()">＋ Read one more chapter</button>
       </div>
       <div class="reading-side">
@@ -137,10 +165,11 @@ function loadState(){
         if(log?.ireap && Array.isArray(log.chapters)) log.chapters.forEach(i=>reflections.add(i));
       }
       loaded.ireapCompleted=[...reflections].sort((a,b)=>a-b);
+      loaded.ireapCompletedAt=loaded.ireapCompletedAt||{};
       return loaded;
     }
   } catch(e){}
-  return {completed:[],logs:{},ireapCompleted:[],createdAt:new Date().toISOString()};
+  return {completed:[],logs:{},ireapCompleted:[],ireapCompletedAt:{},createdAt:new Date().toISOString()};
 }
 function saveState({sync=true}={}){
   localStorage.setItem(STORAGE_KEY,JSON.stringify(state));
@@ -154,6 +183,16 @@ function firstUnread(){const done=doneSet();for(let i=0;i<CHAPTERS.length;i++)if
 function getTarget(date=todayISO()){const x=SCHEDULE.find(s=>s.date===date);return x?x.target:3}
 function chaptersReadToday(date=todayISO()){return (state.logs[date]?.chapters||[]).length}
 function totalTarget(date=todayISO()){return getTarget(date)+(state.logs[date]?.extra||0)}
+function getPlannedChapterIndexes(date=todayISO()){
+ const idx=SCHEDULE.findIndex(x=>x.date===date);if(idx<0)return [];
+ let start=0;for(let j=0;j<idx;j++)start+=SCHEDULE[j].target;
+ return Array.from({length:SCHEDULE[idx].target},(_,k)=>start+k).filter(i=>i<CHAPTERS.length);
+}
+function getCarryOverChapterIndexes(date=todayISO()){
+ const planned=getPlannedChapterIndexes(date),plannedStart=planned.length?planned[0]:CHAPTERS.length;
+ const done=doneSet();
+ return Array.from({length:plannedStart},(_,i)=>i).filter(i=>!done.has(i));
+}
 function projectedFinish(){
  let remaining=CHAPTERS.length-state.completed.length;
  if(!remaining)return todayISO();
@@ -195,46 +234,66 @@ function renderDashboard(){
  const ireaps=(state.ireapCompleted||[]).length;
  document.getElementById("daysStat").textContent=readDays;
  document.getElementById("ireapStat").textContent=ireaps+" IREAP reflections";
- const target=totalTarget();document.getElementById("todayTargetPill").textContent=`Today's goal · ${target} chapters`;
+ const date=todayISO(), planned=getPlannedChapterIndexes(date), carry=getCarryOverChapterIndexes(date);
+ const todayLog=state.logs[date]||{chapters:[]}, completedToday=todayLog.chapters||[];
+ document.getElementById("dashboardDateLabel").textContent=prettyDate(date,{month:"short",day:"numeric"});
+ document.getElementById("dashPlannedCount").textContent=planned.length;
+ document.getElementById("dashPlannedNames").textContent=planned.length?planned.map(i=>CHAPTERS[i]).join(" · "):"No scheduled chapters";
+ document.getElementById("dashCarryCount").textContent=carry.length;
+ document.getElementById("dashCarryNames").textContent=carry.length?carry.map(i=>CHAPTERS[i]).join(" · "):"No outstanding carry-over";
+ document.getElementById("dashReadToday").textContent=completedToday.length;
+ const completedIreaps=state.ireapCompleted||[];
+ const outstanding=state.completed.filter(i=>!completedIreaps.includes(i));
+ const todayIreap=completedIreaps.filter(i=>state.ireapCompletedAt?.[i]?.slice(0,10)===date);
+ document.getElementById("dashIreapOutstanding").textContent=outstanding.length;
+ document.getElementById("dashIreapToday").textContent=todayIreap.length;
+ document.getElementById("dashIreapTotal").textContent=completedIreaps.length;
+ document.getElementById("dashOutstandingIreaps").textContent=outstanding.length?"Outstanding: "+outstanding.map(i=>CHAPTERS[i]).join(" · "):"No outstanding IREAP reflections.";
+ const target=totalTarget();document.getElementById("todayTargetPill").textContent=`Today's plan · ${planned.length} chapters`;
  const idx=firstUnread(), box=document.getElementById("dashboardNext");box.innerHTML="";
- if(idx>=CHAPTERS.length){box.innerHTML='<p class="subtle">All 1,189 chapters completed. What a milestone!</p>';return}
- for(let i=idx;i<Math.min(idx+3,CHAPTERS.length);i++){const div=document.createElement("div");div.className="next-reading";div.innerHTML=`<div><div class="chapter-name">${CHAPTERS[i]}</div><div class="chapter-tag">${i===idx?"Next chapter":"Coming up"}</div></div><span class="pill">${i+1} / 1189</span>`;box.appendChild(div)}
+ const next=[...carry,...planned].filter((v,i,a)=>a.indexOf(v)===i&&!doneSet().has(v));
+ if(!next.length){box.innerHTML='<p class="subtle">No outstanding reading assignments. Well done!</p>';return}
+ next.slice(0,3).forEach((i,k)=>{const div=document.createElement("div");div.className="next-reading";div.innerHTML=`<div><div class="chapter-name">${CHAPTERS[i]}</div><div class="chapter-tag">${carry.includes(i)?"Carry over": "Planned today"}</div></div><span class="pill">${i+1} / 1189</span>`;box.appendChild(div)});
 }
 function renderToday(){
- const date=todayISO(),log=logFor(date),target=totalTarget(date),read=chaptersReadToday(date),idx=firstUnread(),left=Math.max(0,target-read);
+ const date=todayISO(),log=logFor(date),planned=getPlannedChapterIndexes(date),carry=getCarryOverChapterIndexes(date);
+ const completedToday=(log.chapters||[]),target=planned.length+(log.extra||0);
  document.getElementById("todayLongDate").textContent=prettyDate(date,{weekday:"long",month:"long",day:"numeric",year:"numeric"});
- document.getElementById("todayIntro").textContent=idx>=CHAPTERS.length?"You've reached the end of your reading plan.":`Your next unread chapter is ${CHAPTERS[idx]}. No need to catch up all at once.`;
- document.getElementById("todayReadingTitle").textContent=idx>=CHAPTERS.length?"Reading plan complete":currentBook();
- document.getElementById("dailyProgressPill").textContent=`${read} of ${target} completed`;
- document.getElementById("targetLabel").textContent=`Daily target: ${target}`;
- const list=document.getElementById("readingList");list.innerHTML="";
- // Today's completed chapters first.
- (log.chapters||[]).forEach(i=>{
-   const locked=isIreapComplete(i);
-   const row=document.createElement("div");
-   row.className="chapter-row done";
-   row.innerHTML=`<input class="chapter-check" type="checkbox" checked ${locked?'disabled':''} aria-label="Completed ${CHAPTERS[i]}"><div><div class="chapter-name">${CHAPTERS[i]}</div><div class="chapter-tag">Completed today · ${locked?"IREAP completed · Locked":"IREAP pending"}</div></div><span class="chapter-meta">✓ Done${locked?' · 🔒':''}</span>`;
-   row.querySelector("input").addEventListener("change",()=>undoChapter(i,date));
-   list.appendChild(row);
- });
- if(idx<CHAPTERS.length && left>0){
-   for(let k=0;k<left && idx+k<CHAPTERS.length;k++){
-     const i=idx+k,row=document.createElement("label");row.className="chapter-row";
-     row.innerHTML=`<input class="chapter-check" type="checkbox" aria-label="Mark ${CHAPTERS[i]} complete"><div><div class="chapter-name">${CHAPTERS[i]}</div><div class="chapter-tag">Chapter ${i+1} of ${CHAPTERS.length}</div></div><span class="chapter-meta">${k===0?"Next up":"Coming next"}</span>`;
-     row.querySelector("input").addEventListener("change",e=>{if(e.target.checked)completeChapter(i,date)});list.appendChild(row);
-   }
- }
+ document.getElementById("todayIntro").textContent="Your original plan stays consistent. Earlier unfinished chapters are tracked separately as carry-over.";
+ document.getElementById("todayReadingTitle").textContent="Your daily reading";
+ document.getElementById("dailyProgressPill").textContent=`${completedToday.length} completed today`;
+ document.getElementById("targetLabel").textContent=`Planned target: ${target}`;
+ document.getElementById("carryProgressPill").textContent=`${carry.length} outstanding`;
+ document.getElementById("plannedProgressPill").textContent=`${planned.length} assigned`;
+ document.getElementById("completedTodayPill").textContent=`${completedToday.length} completed`;
+ const renderRows=(containerId,indices,category)=>{
+   const box=document.getElementById(containerId);box.innerHTML="";
+   if(!indices.length){box.innerHTML='<p class="subtle">None right now.</p>';return}
+   indices.forEach(i=>{
+     const isDone=doneSet().has(i),doneToday=completedToday.includes(i),locked=isIreapComplete(i);
+     const row=document.createElement("label");row.className="chapter-row"+(isDone?" done":"");
+     row.innerHTML=`<input class="chapter-check" type="checkbox" ${isDone?"checked":""} ${(locked||(isDone&&!doneToday))?"disabled":""} aria-label="Mark ${CHAPTERS[i]} complete"><div><div class="chapter-name">${CHAPTERS[i]}</div><div class="chapter-tag">${doneToday?"Completed today":isDone?"Previously completed":category}${locked?" · IREAP completed · Locked":""}</div></div><span class="chapter-meta">${isDone?"✓ Done":i===firstUnread()?"Next up":"In sequence"}</span>`;
+     const input=row.querySelector("input");
+     input.addEventListener("change",e=>{if(e.target.checked)completeChapter(i,date);else if(doneToday)undoChapter(i,date);});
+     box.appendChild(row);
+   });
+ };
+ renderRows("carryOverList",carry,"Carry over from an earlier day");
+ renderRows("plannedReadingList",planned,"Original daily assignment");
+ renderRows("completedTodayList",completedToday,"Completed today");
+ const allPlannedDone=planned.every(i=>doneSet().has(i));
+ document.getElementById("goalReached").style.display=allPlannedDone&&planned.length?"block":"none";
+ document.getElementById("extraBtn").style.display=allPlannedDone?"inline-block":"none";
  renderOutstandingIreaps();
- const reached=read>=target || idx>=CHAPTERS.length;
- document.getElementById("goalReached").style.display=reached?"block":"none";
- document.getElementById("extraBtn").style.display=(reached && idx<CHAPTERS.length)?"inline-block":"none";
- if(idx>=CHAPTERS.length && !log.chapters.length)list.innerHTML='<div class="side-note"><h3>All chapters completed</h3><p>You have finished the entire Bible reading sequence. Celebrate this milestone.</p></div>';
 }
 function isIreapComplete(i){return (state.ireapCompleted||[]).includes(i)}
 function toggleChapterIreap(i,checked){
  const set=new Set(state.ireapCompleted||[]);
  if(checked)set.add(i);else set.delete(i);
  state.ireapCompleted=[...set].sort((a,b)=>a-b);
+ state.ireapCompletedAt=state.ireapCompletedAt||{};
+ if(checked)state.ireapCompletedAt[i]=new Date().toISOString();
+ else delete state.ireapCompletedAt[i];
  saveState();
  showToast(checked?`${CHAPTERS[i]} IREAP marked complete.`:`${CHAPTERS[i]} IREAP will carry forward.`);
  renderDashboard();
@@ -427,7 +486,7 @@ function markScheduledChapter(date,i,status){
 function shiftMonth(n){calendarMonth.setMonth(calendarMonth.getMonth()+n);renderCalendar()}
 function renderAll(){document.getElementById("dateLabel").textContent=prettyDate(todayISO(),{weekday:"short",month:"short",day:"numeric"});renderDashboard();if(activeView==="today")renderToday();if(activeView==="calendar")renderCalendar();if(activeView==="books")renderBooks()}
 function exportBackup(){const blob=new Blob([JSON.stringify({app:"Ronnie's Bible Challenge",version:1,exportedAt:new Date().toISOString(),state},null,2)],{type:"application/json"});const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download="ronnies-bible-challenge-backup.json";a.click();URL.revokeObjectURL(a.href);showToast("Backup downloaded.");}
-function importBackup(e){const file=e.target.files[0];if(!file)return;const reader=new FileReader();reader.onload=()=>{try{const data=JSON.parse(reader.result);const incoming=data.state||data;if(!Array.isArray(incoming.completed)||!incoming.logs)throw new Error("Invalid backup");if(!confirm("Restore this backup? It will replace the progress currently saved in this browser."))return;state={completed:incoming.completed,logs:incoming.logs,ireapCompleted:[...new Set([...(incoming.ireapCompleted||[]),...Object.values(incoming.logs||{}).flatMap(l=>l.ireap?(l.chapters||[]):[])])],createdAt:incoming.createdAt||new Date().toISOString()};saveState();showToast("Backup restored.");}catch(err){showToast("That backup file could not be read.");}};reader.readAsText(file);}
+function importBackup(e){const file=e.target.files[0];if(!file)return;const reader=new FileReader();reader.onload=()=>{try{const data=JSON.parse(reader.result);const incoming=data.state||data;if(!Array.isArray(incoming.completed)||!incoming.logs)throw new Error("Invalid backup");if(!confirm("Restore this backup? It will replace the progress currently saved in this browser."))return;state={completed:incoming.completed,logs:incoming.logs,ireapCompleted:[...new Set([...(incoming.ireapCompleted||[]),...Object.values(incoming.logs||{}).flatMap(l=>l.ireap?(l.chapters||[]):[])])],ireapCompletedAt:incoming.ireapCompletedAt||{},createdAt:incoming.createdAt||new Date().toISOString()};saveState();showToast("Backup restored.");}catch(err){showToast("That backup file could not be read.");}};reader.readAsText(file);}
 function saveCloudConfig(){const url=document.getElementById("supabaseUrl").value.trim(),key=document.getElementById("supabaseKey").value.trim();if(!url||!key){showToast("Enter both the project URL and public anon key.");return}localStorage.setItem("mbj.supabase.url",url);localStorage.setItem("mbj.supabase.key",key);initCloud();showToast("Sync settings saved on this device.");}
 function cloudStatus(msg){const el=document.getElementById("syncStatus");if(el)el.textContent=msg}
 function initCloud(){
@@ -466,11 +525,16 @@ function mergeStates(localState, cloudState) {
     ...(cloudState?.ireapCompleted || []),
     ...Object.values(logs).flatMap(log => log.ireap ? (log.chapters || []) : [])
   ])].sort((a, b) => a - b);
+  const ireapCompletedAt = {
+    ...(cloudState?.ireapCompletedAt || {}),
+    ...(localState?.ireapCompletedAt || {})
+  };
 
   return {
     completed,
     logs,
     ireapCompleted,
+    ireapCompletedAt,
     createdAt:
       localState?.createdAt ||
       cloudState?.createdAt ||
