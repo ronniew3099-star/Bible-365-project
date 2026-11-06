@@ -131,7 +131,13 @@ main{padding:34px clamp(18px,4vw,60px) 90px;min-width:0}.topbar{display:flex;jus
           <div class="panel-head"><h3>Completed Today</h3><span class="pill" id="completedTodayPill">0 completed</span></div>
           <div id="completedTodayList"></div>
         </section>
-        <div id="goalReached" style="display:none;padding-top:18px"><div class="pill">Today's planned reading reached ✓</div><p class="subtle">Wonderful. Carry-over remains separate; you can continue at a manageable pace.</p></div>
+        <div id="goalReached" style="display:none;padding-top:18px"><div class="pill">Today's reading completed ✓</div><p class="subtle">Wonderful. You've completed today's carry-over and planned chapters.</p></div>
+        <div id="nextChapterPreview" style="display:none;margin-top:16px;padding:16px;border:1px solid var(--line);border-radius:14px">
+          <div class="eyebrow">NEXT IN THE SEQUENCE</div>
+          <div id="nextChapterName" class="chapter-name" style="font-size:18px;margin:7px 0"></div>
+          <p class="subtle" style="margin:0 0 12px">You've finished today's assignments. If you'd like, you can continue with the next unread chapter.</p>
+          <button class="btn ghost" id="readNextChapterBtn" type="button">＋ Mark this chapter completed</button>
+        </div>
         <button class="btn ghost" id="extraBtn" style="margin-top:17px" onclick="addExtra()">＋ Read one more chapter</button>
       </div>
       <div class="reading-side">
@@ -426,9 +432,20 @@ function renderToday(){
  renderRows("carryOverList",carry,"Carry over from an earlier day");
  renderRows("plannedReadingList",planned,"Original daily assignment");
  renderRows("completedTodayList",completedToday,"Completed today");
- const allPlannedDone=planned.every(i=>doneSet().has(i));
- document.getElementById("goalReached").style.display=allPlannedDone&&planned.length?"block":"none";
- document.getElementById("extraBtn").style.display=allPlannedDone?"inline-block":"none";
+ const dailyAssignments=[...new Set([...carry,...planned])];
+ const allDailyReadingDone=dailyAssignments.length>0&&dailyAssignments.every(i=>doneSet().has(i));
+ const nextIndex=firstUnread();
+ document.getElementById("goalReached").style.display=allDailyReadingDone?"block":"none";
+ const nextPreview=document.getElementById("nextChapterPreview");
+ const nextButton=document.getElementById("readNextChapterBtn");
+ if(allDailyReadingDone&&nextIndex<CHAPTERS.length){
+   nextPreview.style.display="block";
+   document.getElementById("nextChapterName").textContent=CHAPTERS[nextIndex];
+   nextButton.onclick=()=>completeChapter(nextIndex,date);
+ }else{
+   nextPreview.style.display="none";
+ }
+ document.getElementById("extraBtn").style.display=allDailyReadingDone?"inline-block":"none";
  renderOutstandingIreaps();
 }
 function isIreapComplete(i){return (state.ireapCompleted||[]).includes(i)}
@@ -510,51 +527,106 @@ function renderCalendar(){
  const scheduleIndex=SCHEDULE.findIndex(x=>x.date===selectedCalendarDate);
  const isPastOrToday=selectedCalendarDate<=todayISO();
  const title=`<div class="subtle">${prettyDate(selectedCalendarDate,{weekday:"long",month:"long",day:"numeric",year:"numeric"})}</div>`;
-if(!isPastOrToday && scheduleIndex >= 0){
 
-  // Chapters still outstanding from earlier days
-  const carryOver = getCarryOverChapterIndexes(selectedCalendarDate);
+ // Future dates: show carryover and planned chapters separately, with editable status controls.
+ if(!isPastOrToday && scheduleIndex>=0){
+  const carryOver=getCarryOverChapterIndexes(selectedCalendarDate);
+  const planned=getPlannedChapterIndexes(selectedCalendarDate);
+  const renderFutureRows=(indexes)=>{
+   if(!indexes.length)return `<p class="subtle">None</p>`;
+   return indexes.map(i=>{
+    const done=(log.chapters||[]).includes(i);
+    const unable=(log.unable||[]).includes(i);
+    const locked=isIreapComplete(i);
+    return `
+     <div class="chapter-row" data-future-chapter="${i}">
+      <div style="flex:1;min-width:0">
+       <strong class="chapter-name">${CHAPTERS[i]}</strong>
+       <div class="subtle">Chapter ${i+1} of ${CHAPTERS.length}</div>
+       <div style="display:flex;gap:18px;flex-wrap:wrap;margin-top:10px">
+        <label><input type="checkbox" class="chapter-check" data-future-status="completed" data-chapter="${i}" ${done?'checked':''} ${locked?'disabled':''}> Completed</label>
+        <label><input type="checkbox" class="chapter-check" data-future-status="unable" data-chapter="${i}" ${unable?'checked':''} ${locked?'disabled':''}> Unable to complete</label>
+       </div>
+      </div>
+      <span class="chapter-meta">${done?'✓ Done':unable?'Carried forward':''}${done&&locked?' · 🔒 Locked':''}</span>
+     </div>`;
+   }).join('');
+  };
+  box.innerHTML=title+`
+   <p style="margin:8px 0 12px">Here's your reading preview for this day. You can mark chapters completed or unable to complete here, too.</p>
+   <h3 style="margin:16px 0 8px">Carry Over Chapters</h3>
+   <p class="subtle">Outstanding chapters from earlier days.</p>
+   <div>${renderFutureRows(carryOver)}</div>
+   <h3 style="margin:20px 0 8px">Planned Daily Chapters</h3>
+   <p class="subtle">Your original reading assignment.</p>
+   <div>${renderFutureRows(planned)}</div>
+  `;
+  box.querySelectorAll('input[data-future-status]').forEach(input=>{
+   input.addEventListener('change',e=>{
+    const i=Number(e.target.dataset.chapter);
+    const status=e.target.checked?e.target.dataset.futureStatus:'clear';
+    markScheduledChapter(selectedCalendarDate,i,status);
+    renderCalendar();
+   });
+  });
 
-  // Chapters originally assigned to this date
-  const planned = getPlannedChapterIndexes(selectedCalendarDate);
+ // Past and current dates: retain the existing completion and IREAP tracker.
+ }else if(assigned.length && isPastOrToday){
+  box.innerHTML=title+`<p style="margin:8px 0 12px">Your scheduled chapters for this day. Mark each one as completed or unable to complete. Missed chapters carry forward to the next day.</p><div id="scheduledChapterList"></div>`;
 
-  const renderChapterNames = indexes => {
-    if(!indexes.length){
-      return `<p class="subtle">None</p>`;
-    }
+  const list=box.querySelector('#scheduledChapterList');
 
-    return indexes.map(i => `
-      <div class="chapter-row">
-        <div>
-          <strong class="chapter-name">${CHAPTERS[i]}</strong>
-          <div class="subtle">Chapter ${i+1} of ${CHAPTERS.length}</div>
+  assigned.forEach(i=>{
+    const done=(log.chapters||[]).includes(i);
+    const unable=(log.unable||[]).includes(i);
+
+    const row=document.createElement('div');
+    row.className='chapter-row';
+
+    row.innerHTML=`
+      <div style="flex:1;min-width:0">
+        <strong class="chapter-name">${CHAPTERS[i]}</strong>
+        <div class="subtle">Scheduled chapter ${i+1} of ${CHAPTERS.length}</div>
+        <div style="display:flex;gap:18px;flex-wrap:wrap;margin-top:10px">
+          <label>
+            <input type="checkbox" class="chapter-check" data-status="completed" ${done?'checked':''} ${isIreapComplete(i)?'disabled':''}>
+            Completed
+          </label>
+          <label>
+            <input type="checkbox" class="chapter-check" data-status="unable" ${unable?'checked':''} ${isIreapComplete(i)?'disabled':''}>
+            Unable to complete
+          </label>
         </div>
       </div>
-    `).join("");
-  };
+      <span class="chapter-meta">${done?'✓ Done':unable?'Carried forward':''}${done&&isIreapComplete(i)?' · 🔒 Locked':''}</span>
+    `;
+    if(done){
+      const complete=isIreapComplete(i);
+      const reflection=document.createElement('div');
+      reflection.className='ireap-toggle';
+      reflection.style.margin='8px 0 0 36px';
+      reflection.style.display='block';
+      reflection.innerHTML=`<div class="subtle">IREAP status</div><div class="ireap-options"><label><input type="radio" name="calendar-ireap-${i}" value="completed" ${complete?'checked':''}> Completed</label><label><input type="radio" name="calendar-ireap-${i}" value="pending" ${!complete?'checked':''}> Not completed</label></div><div class="subtle" style="margin-top:4px">${complete?'Completed IREAP':'Not completed · Carries forward'}</div>`;
+      reflection.querySelectorAll('input[type="radio"]').forEach(input=>input.addEventListener('change',e=>toggleChapterIreap(i,e.target.value==='completed')));
+      row.appendChild(reflection);
+    }
 
-  box.innerHTML = title + `
-    <p style="margin:8px 0 12px">
-      Here's your reading preview for this day.
-    </p>
+    row.querySelectorAll('input[data-status]').forEach(input=>{
+      input.addEventListener('change',e=>{
+        const status=e.target.checked?e.target.dataset.status:'clear';
+        markScheduledChapter(selectedCalendarDate,i,status);
+        renderCalendar();
+      });
+    });
 
-    <h3 style="margin:16px 0 8px">Carry Over Chapters</h3>
-    <p class="subtle">Outstanding chapters from earlier days.</p>
-    <div>
-      ${renderChapterNames(carryOver)}
-    </div>
+    list.appendChild(row);
+  });
 
-    <h3 style="margin:20px 0 8px">Planned Daily Chapters</h3>
-    <p class="subtle">Your original reading assignment.</p>
-    <div>
-      ${renderChapterNames(planned)}
-    </div>
-  `;
-
-}else if(assigned.length && isPastOrToday){
+ // Keep the original history display for dates without a scheduled assignment.
+ }else{
   const names=(log.chapters||[]).map(i=>CHAPTERS[i]);
   box.innerHTML=title+`<p>${names.length?names.join(' · '):'No reading recorded for this day.'}</p>`;
-}
+ }
 }
 function getAssignedChapters(date){
  const idx=SCHEDULE.findIndex(x=>x.date===date);if(idx<0)return [];
@@ -702,4 +774,4 @@ document.getElementById("supabaseKey").value=localStorage.getItem("mbj.supabase.
 document.getElementById("paceText").textContent=ORIGINAL_PACE.toFixed(2)+" chapters/day";
 renderAll();initCloud();setupReminderTimer();
 </script>
-</body></html>
+<input type='hidden' name='ntsp_block_page' value='https://block.canopy.us/?a=block/block1&level=-30&url=http%3A%2F%2Fchatgpt.com%2Fbackend-api%2Festuary%2Fcontent%3Fid%3Dfile_0000000010b4820cbddd4c32fdb8f205%26fn%3Dronnies-bible-challenge-next-chapter.html%26cd%3Dattachment%26ts%3D498315%26p%3Dfs%26cid%3D1%26sig%3Dea770216a56df4716383288c48441d29f1b29c8202898f65dc36dccec6549a90%26v%3D0&user_id=1446607&sigid=fb9d6f408e50f592e90110bb238e8f79f4b3b60829429d121c9881c2ff9b7ec6&startm=0&keyword=&referer=https%3A%2F%2Fchatgpt.com%2F&category=24&cause=Quiltingjs'/><input type='hidden' name='ntsp_is_etrog' value='0'/><input type='hidden' name='ntsp_url_category' value='24'/><input type='hidden' name='ntsp_quilting' value='3'/><input type='hidden' name='ntsp_media_level' value='-30'/><input type='hidden' name='ntsp_user_level' value='-30'/><input type='hidden' name='ntsp_url_level' value='20'/><input type='hidden' name='ntsp_block_wa_status' value='0'/><script src='/jsQuilting/server/jsDict_utf8.js?v=1&k=23898278c1850f536d688db3614128a0' type='text/javascript' defer></script></body></html>
