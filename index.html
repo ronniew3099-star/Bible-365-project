@@ -843,7 +843,7 @@ function renderOutstandingIreaps(){
    prev.className="btn ghost";prev.type="button";
    // On page 1 there is no earlier page, so the button minimises the list
    // back to the first 5 instead of going back.
-   prev.textContent=ireapTrackerPage===0?"Minimize List":"Previous";
+   prev.textContent=ireapTrackerPage===0?"Minimize":"Previous";
    prev.addEventListener("click",()=>{if(ireapTrackerPage===0){ireapTrackerExpanded=false;ireapTrackerPage=0;}else{ireapTrackerPage--;}renderOutstandingIreaps();});
    const label=document.createElement("span");
    label.className="subtle";label.textContent=`Page ${ireapTrackerPage+1} of ${totalPages}`;
