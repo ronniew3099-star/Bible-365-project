@@ -781,13 +781,46 @@ function toggleChapterIreap(i,checked){
  if(activeView==="today")renderToday();
  if(activeView==="calendar")renderCalendar();
 }
+// IREAP Tracker paging — kept in memory only, never saved. The tracker shows
+// the most recently completed chapters first: 5 at first, "View more" expands
+// to 10 at a time, and more than 10 entries pages 10 at a time. The expanded
+// state and current page live here so a radio change (which re-renders the
+// Today view through toggleChapterIreap) keeps the user's place.
+let ireapTrackerExpanded=false;
+let ireapTrackerPage=0;
+const IREAP_TRACKER_FIRST=5;
+const IREAP_TRACKER_PAGE=10;
+function ireapCompletionDate(i){
+ let found=null;
+ for(const date of Object.keys(state.logs||{})){
+   const log=state.logs[date];
+   if(log&&Array.isArray(log.chapters)&&log.chapters.includes(i)){
+     if(found===null||date<found)found=date;
+   }
+ }
+ return found;
+}
+function sortedIreapChapters(){
+ return (state.completed||[]).slice().sort((a,b)=>{
+   const da=ireapCompletionDate(a)||"",db=ireapCompletionDate(b)||"";
+   if(da!==db)return db.localeCompare(da);
+   return b-a;
+ });
+}
 function renderOutstandingIreaps(){
  const box=document.getElementById("outstandingIreapList");
  if(!box)return;
- const chapters=(state.completed||[]).slice().sort((a,b)=>a-b);
+ const chapters=sortedIreapChapters();
  box.innerHTML="";
- if(!chapters.length){box.innerHTML="<p class='subtle'>Complete a chapter to start tracking its IREAP.</p>";return;}
- chapters.forEach(i=>{
+ if(!chapters.length){box.innerHTML="<p class='subtle'>Complete a chapter to start tracking its IREAP.</p>";updateIreapScratch();return;}
+ if(chapters.length<=IREAP_TRACKER_FIRST){ireapTrackerExpanded=false;ireapTrackerPage=0;}
+ const pageSize=ireapTrackerExpanded?IREAP_TRACKER_PAGE:IREAP_TRACKER_FIRST;
+ const totalPages=Math.max(1,Math.ceil(chapters.length/pageSize));
+ if(ireapTrackerPage>totalPages-1)ireapTrackerPage=totalPages-1;
+ if(ireapTrackerPage<0)ireapTrackerPage=0;
+ const start=ireapTrackerExpanded?ireapTrackerPage*pageSize:0;
+ const visible=chapters.slice(start,start+pageSize);
+ visible.forEach(i=>{
    const complete=isIreapComplete(i);
    const row=document.createElement("div");row.className="ireap-toggle";
    row.style.display="block";
@@ -795,6 +828,26 @@ function renderOutstandingIreaps(){
    row.querySelectorAll('input[type="radio"]').forEach(input=>input.addEventListener('change',e=>toggleChapterIreap(i,e.target.value==='completed')));
    box.appendChild(row);
  });
+ if(!ireapTrackerExpanded&&chapters.length>IREAP_TRACKER_FIRST){
+   const more=document.createElement("button");
+   more.className="btn ghost";more.type="button";more.style.cssText="margin-top:12px";
+   more.textContent="View more";
+   more.addEventListener("click",()=>{ireapTrackerExpanded=true;ireapTrackerPage=0;renderOutstandingIreaps();});
+   box.appendChild(more);
+ }else if(ireapTrackerExpanded&&totalPages>1){
+   const pager=document.createElement("div");
+   pager.style.cssText="display:flex;gap:8px;align-items:center;margin-top:12px";
+   const prev=document.createElement("button");
+   prev.className="btn ghost";prev.type="button";prev.textContent="Previous";prev.disabled=ireapTrackerPage===0;
+   prev.addEventListener("click",()=>{if(ireapTrackerPage>0){ireapTrackerPage--;renderOutstandingIreaps();}});
+   const label=document.createElement("span");
+   label.className="subtle";label.textContent=`Page ${ireapTrackerPage+1} of ${totalPages}`;
+   const next=document.createElement("button");
+   next.className="btn ghost";next.type="button";next.textContent="Next";next.disabled=ireapTrackerPage>=totalPages-1;
+   next.addEventListener("click",()=>{if(ireapTrackerPage<totalPages-1){ireapTrackerPage++;renderOutstandingIreaps();}});
+   pager.appendChild(prev);pager.appendChild(label);pager.appendChild(next);
+   box.appendChild(pager);
+ }
  updateIreapScratch();
 }
 // Scratch notes for IREAP: deliberately never saved. These textareas have no

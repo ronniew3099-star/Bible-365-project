@@ -104,6 +104,16 @@ Covered in fix 1: `planAnchor`, `readingOrder`, `detourBook`, `detourBeforeBook`
 
 Both repo files end with content-filter artifacts (hidden inputs + an external script tag) injected after `</script>`. Removed from this fixed copy. The file now ends cleanly with `</script></body></html>`.
 
+## 17. IREAP Tracker: most-recent-first, 5 at first, View more, pagination — `renderOutstandingIreaps()`, lines 784–852
+
+The tracker used to list every completed chapter (32 now, growing) in chapter order. It now shows the most recently completed first and pages through the list.
+
+**Fix.**
+- New `ireapCompletionDate(i)` finds the log date a chapter was completed on (earliest date if it appears in more than one log, matching the reconcile rule in fix 4); a chapter with no log date counts as oldest. New `sortedIreapChapters()` sorts by that date, latest first, with ties on the same date broken by higher chapter index first.
+- The tracker shows only the first 5 entries initially. With more than 5, a "View more" button appears under the list; tapping it expands to 10 entries. With more than 10, Previous / Next buttons and a "Page X of Y" label page through the full list 10 at a time (Previous disabled on page 1, Next disabled on the last page). With 10 or fewer, View more shows them all and no pagination appears. With 5 or fewer, no View more button appears at all.
+- The Completed / Not completed radios are unchanged (same markup, same `toggleChapterIreap` wiring, same status text). The paging state (`ireapTrackerExpanded`, `ireapTrackerPage`) is module-level memory only, so a radio change — which re-renders the Today view through `toggleChapterIreap()` — keeps the user's place (expanded state and page). The page is clamped if the list shrinks, and the expanded state resets if the list drops to 5 or fewer.
+- **No reflection text is stored.** The tracker still shows completion status only. The ephemeral IREAP scratch area (fix 6) is untouched: its textareas still have no handlers that write to state, localStorage, the cloud, or backups.
+
 ## Also changed
 
 - Reminders checkbox reflects the effective state (`effectiveReminderOn()` / `syncReminderCheckbox()`, lines 610–617; `updateReminderSettings()`, line 618; `setupReminderTimer()`, line 650; boot, line ~1311): checked only when reminders are enabled **and** notification permission is granted. Enabling reminders now asks for notification permission if it has not been granted yet, instead of silently doing nothing.
@@ -139,4 +149,5 @@ Both repo files end with content-filter artifacts (hidden inputs + an external s
 - The in-app confirmation dialog, the per-day clear flow, the service-worker registration, and the install prompt were verified only by reading the code and by syntax checks. They need a live check after deploy.
 - The cloud round-trip after a restore (restored state pushed immediately, then a later sync) was verified only by reading the code. Confirm after deploy that a restore survives a page reload and a Refresh.
 - The projected-finish date after deploy depends on the real log data at that moment; the value in step 5 is a direction ("later than Jan 4, 2028"), not an exact date.
+- The IREAP Tracker paging (fix 17: 5 at first, View more to 10, Previous/Next past 10, most-recent-first order, place kept after a radio change) was verified only by reading the code and by syntax checks. It needs a live check after deploy: with 32 completed chapters the tracker should show 5, View more should show 10, and the pager should read "Page 1 of 4" with working Previous/Next.
 - The generated icons are placeholders. The manifest references them by filename; if the deploy serves files from a subfolder, adjust the `src` paths in `manifest.json` and the `<link>` tags in `index.html` to match.
