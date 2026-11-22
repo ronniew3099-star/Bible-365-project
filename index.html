@@ -551,7 +551,7 @@ function showView(v){
  activeView=v;
  document.querySelectorAll(".view").forEach(x=>x.classList.toggle("active",x.id==="view-"+v));
  document.querySelectorAll("[data-view]").forEach(x=>x.classList.toggle("active",x.dataset.view===v));
- const titles={dashboard:"Your journey, one chapter at a time.",today:"Make room for the Word.",calendar:"Your days in Scripture.",books:"Every book, one chapter at a time.",ireap:"A simple framework for intentional Bible study.",settings:"Make this journey your own."};
+ const titles={dashboard:"Your journey, one chapter at a time.",today:"Make room for the Word.",calendar:"Your days in Scripture.",books:"Every book, one chapter at a time.",ireap:"Bible Devotional Guide",settings:"Make this journey your own."};
  document.getElementById("pageTitle").textContent=titles[v]||"Ronnie's Bible Challenge";
  if(v==="calendar")renderCalendar();if(v==="today")renderToday();if(v==="books")renderBooks();if(v==="settings")updateDailyTargetHint();
  window.scrollTo({top:0,behavior:"smooth"});
