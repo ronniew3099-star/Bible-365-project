@@ -13,6 +13,8 @@ The MyBibleLog project is provided "AS IS", without warranty of any kind.
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#f6f4ef">
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="icon-192.png">
 <meta name="description" content="A flexible Bible reading companion that adjusts to your real progress.">
 
 
@@ -38,8 +40,14 @@ main{padding:34px clamp(18px,4vw,60px) 90px;min-width:0}.topbar{display:flex;jus
 .reading-side{display:grid;gap:14px}.side-note{padding:19px;border-radius:18px;background:var(--goldbg);color:#675735}.side-note h3{font:400 19px Georgia,serif;margin:0 0 8px}.side-note p{font-size:12px;margin:0}.ireap-card{padding:19px}.ireap-toggle{display:flex;gap:10px;align-items:center;margin-top:12px;font-size:13px;font-weight:600}.ireap-toggle input{width:17px;height:17px;accent-color:var(--green)}.ireap-options{display:flex;gap:14px;flex-wrap:wrap;margin-top:7px}.ireap-options label{display:inline-flex;align-items:center;gap:5px;font-size:12px;font-weight:500;color:var(--muted)}.ireap-options input{width:15px;height:15px;accent-color:var(--green)}.chapter-row input[type="checkbox"]{accent-color:var(--green);width:17px;height:17px}
 .calendar-panel{padding:22px}.calendar-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px}.calendar-top h3{font:400 22px Georgia,serif;margin:0}.calendar-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:6px}.cal-head{text-align:center;font-size:10px;color:var(--muted);font-weight:700;padding:6px}.cal-day{min-height:72px;border:1px solid var(--line);border-radius:12px;background:#fffefa;padding:8px;text-align:left;color:var(--ink);display:flex;flex-direction:column;gap:5px}.cal-day.empty{background:transparent;border:0}.cal-day .num{font-size:12px}.cal-day .dot{width:7px;height:7px;border-radius:50%;background:#b9c4ba}.cal-day.read .dot{background:var(--green)}.cal-day.ireap .dot{background:var(--gold)}.cal-day.selected{outline:2px solid var(--green)}.cal-day small{font-size:9px;color:var(--muted)}
 .book-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}.book-card{padding:16px}.book-card h3{font:400 17px Georgia,serif;margin:0 0 10px}.bar{height:6px;background:#edf0eb;border-radius:10px;overflow:hidden}.bar span{height:100%;display:block;background:var(--green);border-radius:10px}.book-foot{display:flex;justify-content:space-between;color:var(--muted);font-size:10px;margin-top:8px}
-.form-row{display:grid;gap:6px;margin:14px 0}.form-row label{font-size:12px;font-weight:700;color:#59665d}.form-row input{border:1px solid var(--line);border-radius:10px;padding:11px;background:white;color:var(--ink);width:100%}.settings-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}.setting-box{border:1px solid var(--line);border-radius:17px;padding:18px}.setting-box h3{font:400 19px Georgia,serif;margin:0 0 6px}.setting-box p{font-size:12px;color:var(--muted);margin:0 0 12px}
+.form-row{display:grid;gap:6px;margin:14px 0}.form-row label{font-size:12px;font-weight:700;color:#59665d}.form-row input{border:1px solid var(--line);border-radius:10px;padding:11px;background:white;color:var(--ink);width:100%}
+.form-row textarea{border:1px solid var(--line);border-radius:10px;padding:11px;background:white;color:var(--ink);width:100%;font:inherit;resize:vertical}.settings-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}.setting-box{border:1px solid var(--line);border-radius:17px;padding:18px}.setting-box h3{font:400 19px Georgia,serif;margin:0 0 6px}.setting-box p{font-size:12px;color:var(--muted);margin:0 0 12px}
 .toast{position:fixed;bottom:25px;left:50%;transform:translate(-50%,20px);opacity:0;pointer-events:none;background:#202a25;color:white;padding:11px 16px;border-radius:12px;box-shadow:var(--shadow);font-size:13px;transition:.25s;z-index:20}.toast.show{opacity:1;transform:translate(-50%,0)}
+.confirm-overlay{position:fixed;inset:0;background:rgba(32,42,37,.45);display:grid;place-items:center;z-index:30;padding:18px}
+.confirm-overlay[hidden]{display:none}
+.confirm-box{background:var(--paper);border-radius:18px;padding:22px;max-width:420px;box-shadow:var(--shadow)}
+.confirm-box p{margin:0 0 16px}
+.confirm-actions{display:flex;gap:10px;justify-content:flex-end}
 .mobile-nav{display:none}
 @media(max-width:980px){.app{grid-template-columns:210px 1fr}.stats{grid-template-columns:repeat(2,1fr)}.reading-layout{grid-template-columns:1fr}.reading-side{grid-template-columns:1fr 1fr}.book-grid{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:700px){.app{display:block}.sidebar{display:none}main{padding:22px 15px 100px}.topbar{margin-bottom:20px}.today-label{display:none}.topbar-actions{gap:0}.topbar-actions .btn{padding:9px 12px}.hero{padding:23px;grid-template-columns:1fr auto}.progress-ring{width:88px;height:88px}.progress-ring strong{font-size:21px}.stats{gap:9px;margin:13px 0 18px}.stat{padding:14px}.stat strong{font-size:21px}.grid2{grid-template-columns:1fr}.reading-side{grid-template-columns:1fr}.book-grid{grid-template-columns:1fr 1fr}.settings-grid{grid-template-columns:1fr}.panel{padding:17px}.cal-day{min-height:57px;padding:6px}.calendar-grid{gap:3px}.mobile-nav{position:fixed;display:grid;grid-template-columns:repeat(6,1fr);bottom:0;left:0;right:0;background:rgba(255,254,250,.96);backdrop-filter:blur(14px);border-top:1px solid var(--line);padding:8px 5px calc(8px + env(safe-area-inset-bottom));z-index:10}.mobile-nav button{border:0;background:transparent;color:var(--muted);font-size:10px;display:grid;gap:3px;justify-items:center;padding:4px}.mobile-nav button span{font-size:18px}.mobile-nav button.active{color:var(--green);font-weight:800}.hero-actions .btn{padding:10px 12px;font-size:12px}}
@@ -119,7 +127,7 @@ main{padding:34px clamp(18px,4vw,60px) 90px;min-width:0}.topbar{display:flex;jus
     </div>
     <div class="grid2">
       <div class="panel"><div class="panel-head"><h3>Up next</h3><span class="pill" id="todayTargetPill">Today's goal</span></div><div id="dashboardNext"></div><button class="btn ghost" style="margin-top:14px" onclick="showView('today')">Go to today's reading</button></div>
-      <div class="panel"><div class="panel-head"><h3>Your finish line</h3><span class="subtle">A living estimate</span></div><div class="finish-box"><div class="subtle">Projected Bible completion</div><strong id="finishLarge">—</strong><p id="finishMessage">Your estimate updates whenever you complete or miss reading days.</p></div><p class="subtle" style="margin:14px 0 0">Original target: <strong>December 31, 2027</strong>. Your estimate uses the original plan's average pace and the number of chapters you have left.</p></div>
+      <div class="panel"><div class="panel-head"><h3>Your finish line</h3><span class="subtle">A living estimate</span></div><div class="finish-box"><div class="subtle">Projected Bible completion</div><strong id="finishLarge">—</strong><p id="finishMessage">Your estimate updates whenever you complete or miss reading days.</p></div><p class="subtle" style="margin:14px 0 0">Original target: <strong>December 31, 2027</strong>. Your estimate uses your recent reading pace and the chapters you have left.</p></div>
     </div>
   </section>
 
@@ -128,7 +136,7 @@ main{padding:34px clamp(18px,4vw,60px) 90px;min-width:0}.topbar{display:flex;jus
     <div id="catchUpAction" style="display:none;margin:-8px 0 18px;padding:15px 17px;border:1px solid var(--line);border-radius:16px;background:var(--paper)"><strong>Fallen behind? You can reset your pace.</strong><p class="subtle" style="margin:4px 0 11px">Catch Me Up moves your plan to your next unread chapter. It will not mark missed chapters as completed.</p><button class="btn ghost" type="button" onclick="catchMeUp()">↻ Catch Me Up</button></div>
     <div class="reading-layout">
       <div class="reading-card">
-        <div class="reading-head"><div><div class="eyebrow" id="todayLongDate"></div><h2 id="todayReadingTitle">Your reading</h2><span class="pill" id="dailyProgressPill">0 of 0 completed</span></div><div class="subtle" id="targetLabel">Daily target: 2</div></div>
+        <div class="reading-head"><div><div class="eyebrow" id="todayLongDate"></div><h2 id="todayReadingTitle">Your reading</h2><span class="pill" id="dailyProgressPill">0 of 0 completed</span></div><div class="subtle" id="targetLabel">Daily target: 3</div></div>
         <section style="margin-bottom:20px">
           <div class="panel-head"><h3>Carry Over Chapters</h3><span class="pill" id="carryProgressPill">0 outstanding</span></div>
           <p class="subtle">Unfinished chapters from previous days.</p>
@@ -143,6 +151,11 @@ main{padding:34px clamp(18px,4vw,60px) 90px;min-width:0}.topbar{display:flex;jus
           <div class="panel-head"><h3>Completed Today</h3><span class="pill" id="completedTodayPill">0 completed</span></div>
           <div id="completedTodayList"></div>
         </section>
+        <section id="skippedSection" style="display:none">
+          <div class="panel-head"><h3>Skipped for now</h3><span class="pill" id="skippedPill">0 skipped</span></div>
+          <p class="subtle">Chapters you marked unable to complete. They are out of your daily plan until you bring them back.</p>
+          <div id="skippedList"></div>
+        </section>
         <div id="goalReached" style="display:none;padding-top:18px"><div class="pill">Today's reading completed ✓</div><p class="subtle">Wonderful. You've completed today's carry-over and planned chapters.</p></div>
         <div id="nextChapterPreview" style="display:none;margin-top:16px;padding:16px;border:1px solid var(--line);border-radius:14px">
           <div class="eyebrow">NEXT IN THE SEQUENCE</div>
@@ -153,7 +166,19 @@ main{padding:34px clamp(18px,4vw,60px) 90px;min-width:0}.topbar{display:flex;jus
         <button class="btn ghost" id="extraBtn" style="margin-top:17px" onclick="addExtra()">＋ Read one more chapter</button>
       </div>
       <div class="reading-side">
-        <div class="panel ireap-card"><div class="eyebrow">Personal journal</div><h3 style="font:400 21px Georgia,serif;margin:5px 0">IREAP Tracker</h3><p class="subtle">Choose a status for each chapter. Completed reflections stay visible; unfinished reflections carry forward.</p><div id="outstandingIreapList"></div></div>
+        <div class="panel ireap-card"><div class="eyebrow">Personal journal</div><h3 style="font:400 21px Georgia,serif;margin:5px 0">IREAP Tracker</h3><p class="subtle">Choose a status for each chapter. Completed reflections stay visible; unfinished reflections carry forward.</p><div id="outstandingIreapList"></div>
+        <!-- Scratch notes are never saved: no handlers write them to state, localStorage, the cloud, or backups. -->
+        <div style="margin-top:18px;border-top:1px solid var(--line);padding-top:16px">
+          <div class="eyebrow">Write it out — just for now</div>
+          <h3 style="font:400 19px Georgia,serif;margin:5px 0 4px">Reflect on <span id="ireapScratchChapter">your next chapter</span></h3>
+          <p class="subtle" style="margin:0 0 12px">Nothing written here is saved. It clears when you switch chapters, leave this page, or reload.</p>
+          <div class="form-row"><label for="scratchInsight">Insight — verse(s) that stood out</label><textarea id="scratchInsight" rows="2"></textarea></div>
+          <div class="form-row"><label for="scratchRecap">Recap — what happened</label><textarea id="scratchRecap" rows="2"></textarea></div>
+          <div class="form-row"><label for="scratchExamine">Examine — what it teaches about God, people, or faith</label><textarea id="scratchExamine" rows="2"></textarea></div>
+          <div class="form-row"><label for="scratchApply">Apply — how to put it into practice</label><textarea id="scratchApply" rows="2"></textarea></div>
+          <div class="form-row"><label for="scratchPray">Pray — your response to God</label><textarea id="scratchPray" rows="2"></textarea></div>
+          <button class="btn ghost" type="button" onclick="clearIreapScratch()">Start fresh</button>
+        </div></div>
         <div class="side-note"><h3>Give yourself grace</h3><p>This plan is a guide, not a measure of your faith. If you miss a day, simply return to the next unread chapter. No doubling up is required.</p></div>
       </div>
     </div>
@@ -239,9 +264,9 @@ main{padding:34px clamp(18px,4vw,60px) 90px;min-width:0}.topbar{display:flex;jus
         <div id="authSignedIn" hidden><div class="auth-account"><span>Cloud sync enabled · Signed in as <strong id="signedInEmail"></strong></span><button class="btn outline" type="button" id="signOutButton">Sign out</button></div></div>
         <div class="auth-message" id="authMessage" role="status" aria-live="polite">Your progress is saved on this device. Sign in to sync it with your other devices.</div>
       </section>
-      <p id="syncStatus" class="subtle" style="margin-top:12px">Not signed in. Your progress is saved on this device.</p><button class="btn ghost" type="button" onclick="syncNow()">Sync now</button></div>
-      <div class="setting-box"><h3>Reading plan</h3><p>Your original 426-day reading sequence is preserved: November 1, 2026 through December 31, 2027.</p><p><strong>1,189 chapters</strong> · Average target: <strong id="paceText">2.79 chapters/day</strong></p><p>Daily assignments always begin with your next unread chapter. Extra reading advances the sequence immediately.</p></div>
-      <div class="setting-box"><h3>Install on your devices</h3><p>Once this app is hosted securely, use your browser's Install or Add to Home Screen option. Cloud sync lets both devices share the same progress.</p><button class="btn ghost" id="installBtn" style="display:none" onclick="installApp()">Install app</button><p class="subtle">For iPhone: Safari → Share → Add to Home Screen.</p></div>
+      <p id="syncStatus" class="subtle" style="margin-top:12px">Not signed in.</p><button class="btn ghost" type="button" id="syncNowButton" onclick="syncNow()">Sync now</button></div>
+      <div class="setting-box"><h3>Reading plan</h3><p>Your original 426-day reading sequence is preserved: November 1, 2026 through December 31, 2027.</p><p><strong>1,189 chapters</strong> · Average target: <strong id="paceText">2.79 chapters/day</strong></p><div class="form-row"><label for="dailyTargetInput">Daily target (chapters per day)</label><input id="dailyTargetInput" type="number" min="1" max="10" step="1" value="3" onchange="updateDailyTarget(this.value)"></div><p class="subtle" id="dailyTargetHint"></p><p>Daily assignments always begin with your next unread chapter. Extra reading advances the sequence immediately.</p></div>
+      <div class="setting-box"><h3>Install on your devices</h3><p>This site is already secure, so you can install it on your devices. Cloud sync lets both devices share the same progress.</p><button class="btn ghost" id="installBtn" style="display:none" onclick="installApp()">Install app</button><p class="subtle">For iPhone: Safari → Share → Add to Home Screen.</p></div>
     </div>
   </section>
 </main>
@@ -249,6 +274,7 @@ main{padding:34px clamp(18px,4vw,60px) 90px;min-width:0}.topbar{display:flex;jus
 <nav class="mobile-nav" id="mobileNav">
 <button class="active" data-view="dashboard"><span>⌂</span>Home</button><button data-view="today"><span>▤</span>Read</button><button data-view="calendar"><span>▦</span>Calendar</button><button data-view="books"><span>▥</span>Books</button><button data-view="ireap"><span>💡</span>IREAP</button><button data-view="settings"><span>⚙</span>Settings</button>
 </nav>
+<div class="confirm-overlay" id="confirmOverlay" hidden><div class="confirm-box"><p id="confirmMessage"></p><div class="confirm-actions"><button class="btn primary" id="confirmYes" type="button">Yes</button><button class="btn ghost" id="confirmNo" type="button">Cancel</button></div></div></div>
 <div class="toast" id="toast"></div>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>const CHAPTERS = ["Ruth 1", "Ruth 2", "Ruth 3", "Ruth 4", "Philippians 1", "Philippians 2", "Philippians 3", "Philippians 4", "James 1", "James 2", "James 3", "James 4", "James 5", "1 John 1", "1 John 2", "1 John 3", "1 John 4", "1 John 5", "Mark 1", "Mark 2", "Mark 3", "Mark 4", "Mark 5", "Mark 6", "Mark 7", "Mark 8", "Mark 9", "Mark 10", "Mark 11", "Mark 12", "Mark 13", "Mark 14", "Mark 15", "Mark 16", "Jonah 1", "Jonah 2", "Jonah 3", "Jonah 4", "Ephesians 1", "Ephesians 2", "Ephesians 3", "Ephesians 4", "Ephesians 5", "Ephesians 6", "Colossians 1", "Colossians 2", "Colossians 3", "Colossians 4", "Psalms 1", "Psalms 2", "Psalms 3", "Psalms 4", "Psalms 5", "Psalms 6", "Psalms 7", "Psalms 8", "Psalms 9", "Psalms 10", "Psalms 11", "Psalms 12", "Psalms 13", "Psalms 14", "Psalms 15", "Psalms 16", "Psalms 17", "Psalms 18", "Psalms 19", "Psalms 20", "Psalms 21", "Psalms 22", "Psalms 23", "Psalms 24", "Psalms 25", "Psalms 26", "Psalms 27", "Psalms 28", "Psalms 29", "Psalms 30", "Psalms 31", "Psalms 32", "Psalms 33", "Psalms 34", "Psalms 35", "Psalms 36", "Psalms 37", "Psalms 38", "Psalms 39", "Psalms 40", "Psalms 41", "Psalms 42", "Psalms 43", "Psalms 44", "Psalms 45", "Psalms 46", "Psalms 47", "Psalms 48", "Psalms 49", "Psalms 50", "Psalms 51", "Psalms 52", "Psalms 53", "Psalms 54", "Psalms 55", "Psalms 56", "Psalms 57", "Psalms 58", "Psalms 59", "Psalms 60", "Psalms 61", "Psalms 62", "Psalms 63", "Psalms 64", "Psalms 65", "Psalms 66", "Psalms 67", "Psalms 68", "Psalms 69", "Psalms 70", "Psalms 71", "Psalms 72", "Psalms 73", "Psalms 74", "Psalms 75", "Psalms 76", "Psalms 77", "Psalms 78", "Psalms 79", "Psalms 80", "Psalms 81", "Psalms 82", "Psalms 83", "Psalms 84", "Psalms 85", "Psalms 86", "Psalms 87", "Psalms 88", "Psalms 89", "Psalms 90", "Psalms 91", "Psalms 92", "Psalms 93", "Psalms 94", "Psalms 95", "Psalms 96", "Psalms 97", "Psalms 98", "Psalms 99", "Psalms 100", "Psalms 101", "Psalms 102", "Psalms 103", "Psalms 104", "Psalms 105", "Psalms 106", "Psalms 107", "Psalms 108", "Psalms 109", "Psalms 110", "Psalms 111", "Psalms 112", "Psalms 113", "Psalms 114", "Psalms 115", "Psalms 116", "Psalms 117", "Psalms 118", "Psalms 119", "Psalms 120", "Psalms 121", "Psalms 122", "Psalms 123", "Psalms 124", "Psalms 125", "Psalms 126", "Psalms 127", "Psalms 128", "Psalms 129", "Psalms 130", "Psalms 131", "Psalms 132", "Psalms 133", "Psalms 134", "Psalms 135", "Psalms 136", "Psalms 137", "Psalms 138", "Psalms 139", "Psalms 140", "Psalms 141", "Psalms 142", "Psalms 143", "Psalms 144", "Psalms 145", "Psalms 146", "Psalms 147", "Psalms 148", "Psalms 149", "Psalms 150", "Proverbs 1", "Proverbs 2", "Proverbs 3", "Proverbs 4", "Proverbs 5", "Proverbs 6", "Proverbs 7", "Proverbs 8", "Proverbs 9", "Proverbs 10", "Proverbs 11", "Proverbs 12", "Proverbs 13", "Proverbs 14", "Proverbs 15", "Proverbs 16", "Proverbs 17", "Proverbs 18", "Proverbs 19", "Proverbs 20", "Proverbs 21", "Proverbs 22", "Proverbs 23", "Proverbs 24", "Proverbs 25", "Proverbs 26", "Proverbs 27", "Proverbs 28", "Proverbs 29", "Proverbs 30", "Proverbs 31", "Genesis 1", "Genesis 2", "Genesis 3", "Genesis 4", "Genesis 5", "Genesis 6", "Genesis 7", "Genesis 8", "Genesis 9", "Genesis 10", "Genesis 11", "Genesis 12", "Genesis 13", "Genesis 14", "Genesis 15", "Genesis 16", "Genesis 17", "Genesis 18", "Genesis 19", "Genesis 20", "Genesis 21", "Genesis 22", "Genesis 23", "Genesis 24", "Genesis 25", "Genesis 26", "Genesis 27", "Genesis 28", "Genesis 29", "Genesis 30", "Genesis 31", "Genesis 32", "Genesis 33", "Genesis 34", "Genesis 35", "Genesis 36", "Genesis 37", "Genesis 38", "Genesis 39", "Genesis 40", "Genesis 41", "Genesis 42", "Genesis 43", "Genesis 44", "Genesis 45", "Genesis 46", "Genesis 47", "Genesis 48", "Genesis 49", "Genesis 50", "Exodus 1", "Exodus 2", "Exodus 3", "Exodus 4", "Exodus 5", "Exodus 6", "Exodus 7", "Exodus 8", "Exodus 9", "Exodus 10", "Exodus 11", "Exodus 12", "Exodus 13", "Exodus 14", "Exodus 15", "Exodus 16", "Exodus 17", "Exodus 18", "Exodus 19", "Exodus 20", "Exodus 21", "Exodus 22", "Exodus 23", "Exodus 24", "Exodus 25", "Exodus 26", "Exodus 27", "Exodus 28", "Exodus 29", "Exodus 30", "Exodus 31", "Exodus 32", "Exodus 33", "Exodus 34", "Exodus 35", "Exodus 36", "Exodus 37", "Exodus 38", "Exodus 39", "Exodus 40", "Leviticus 1", "Leviticus 2", "Leviticus 3", "Leviticus 4", "Leviticus 5", "Leviticus 6", "Leviticus 7", "Leviticus 8", "Leviticus 9", "Leviticus 10", "Leviticus 11", "Leviticus 12", "Leviticus 13", "Leviticus 14", "Leviticus 15", "Leviticus 16", "Leviticus 17", "Leviticus 18", "Leviticus 19", "Leviticus 20", "Leviticus 21", "Leviticus 22", "Leviticus 23", "Leviticus 24", "Leviticus 25", "Leviticus 26", "Leviticus 27", "Numbers 1", "Numbers 2", "Numbers 3", "Numbers 4", "Numbers 5", "Numbers 6", "Numbers 7", "Numbers 8", "Numbers 9", "Numbers 10", "Numbers 11", "Numbers 12", "Numbers 13", "Numbers 14", "Numbers 15", "Numbers 16", "Numbers 17", "Numbers 18", "Numbers 19", "Numbers 20", "Numbers 21", "Numbers 22", "Numbers 23", "Numbers 24", "Numbers 25", "Numbers 26", "Numbers 27", "Numbers 28", "Numbers 29", "Numbers 30", "Numbers 31", "Numbers 32", "Numbers 33", "Numbers 34", "Numbers 35", "Numbers 36", "Deuteronomy 1", "Deuteronomy 2", "Deuteronomy 3", "Deuteronomy 4", "Deuteronomy 5", "Deuteronomy 6", "Deuteronomy 7", "Deuteronomy 8", "Deuteronomy 9", "Deuteronomy 10", "Deuteronomy 11", "Deuteronomy 12", "Deuteronomy 13", "Deuteronomy 14", "Deuteronomy 15", "Deuteronomy 16", "Deuteronomy 17", "Deuteronomy 18", "Deuteronomy 19", "Deuteronomy 20", "Deuteronomy 21", "Deuteronomy 22", "Deuteronomy 23", "Deuteronomy 24", "Deuteronomy 25", "Deuteronomy 26", "Deuteronomy 27", "Deuteronomy 28", "Deuteronomy 29", "Deuteronomy 30", "Deuteronomy 31", "Deuteronomy 32", "Deuteronomy 33", "Deuteronomy 34", "Joshua 1", "Joshua 2", "Joshua 3", "Joshua 4", "Joshua 5", "Joshua 6", "Joshua 7", "Joshua 8", "Joshua 9", "Joshua 10", "Joshua 11", "Joshua 12", "Joshua 13", "Joshua 14", "Joshua 15", "Joshua 16", "Joshua 17", "Joshua 18", "Joshua 19", "Joshua 20", "Joshua 21", "Joshua 22", "Joshua 23", "Joshua 24", "Judges 1", "Judges 2", "Judges 3", "Judges 4", "Judges 5", "Judges 6", "Judges 7", "Judges 8", "Judges 9", "Judges 10", "Judges 11", "Judges 12", "Judges 13", "Judges 14", "Judges 15", "Judges 16", "Judges 17", "Judges 18", "Judges 19", "Judges 20", "Judges 21", "1 Samuel 1", "1 Samuel 2", "1 Samuel 3", "1 Samuel 4", "1 Samuel 5", "1 Samuel 6", "1 Samuel 7", "1 Samuel 8", "1 Samuel 9", "1 Samuel 10", "1 Samuel 11", "1 Samuel 12", "1 Samuel 13", "1 Samuel 14", "1 Samuel 15", "1 Samuel 16", "1 Samuel 17", "1 Samuel 18", "1 Samuel 19", "1 Samuel 20", "1 Samuel 21", "1 Samuel 22", "1 Samuel 23", "1 Samuel 24", "1 Samuel 25", "1 Samuel 26", "1 Samuel 27", "1 Samuel 28", "1 Samuel 29", "1 Samuel 30", "1 Samuel 31", "2 Samuel 1", "2 Samuel 2", "2 Samuel 3", "2 Samuel 4", "2 Samuel 5", "2 Samuel 6", "2 Samuel 7", "2 Samuel 8", "2 Samuel 9", "2 Samuel 10", "2 Samuel 11", "2 Samuel 12", "2 Samuel 13", "2 Samuel 14", "2 Samuel 15", "2 Samuel 16", "2 Samuel 17", "2 Samuel 18", "2 Samuel 19", "2 Samuel 20", "2 Samuel 21", "2 Samuel 22", "2 Samuel 23", "2 Samuel 24", "1 Kings 1", "1 Kings 2", "1 Kings 3", "1 Kings 4", "1 Kings 5", "1 Kings 6", "1 Kings 7", "1 Kings 8", "1 Kings 9", "1 Kings 10", "1 Kings 11", "1 Kings 12", "1 Kings 13", "1 Kings 14", "1 Kings 15", "1 Kings 16", "1 Kings 17", "1 Kings 18", "1 Kings 19", "1 Kings 20", "1 Kings 21", "1 Kings 22", "2 Kings 1", "2 Kings 2", "2 Kings 3", "2 Kings 4", "2 Kings 5", "2 Kings 6", "2 Kings 7", "2 Kings 8", "2 Kings 9", "2 Kings 10", "2 Kings 11", "2 Kings 12", "2 Kings 13", "2 Kings 14", "2 Kings 15", "2 Kings 16", "2 Kings 17", "2 Kings 18", "2 Kings 19", "2 Kings 20", "2 Kings 21", "2 Kings 22", "2 Kings 23", "2 Kings 24", "2 Kings 25", "1 Chronicles 1", "1 Chronicles 2", "1 Chronicles 3", "1 Chronicles 4", "1 Chronicles 5", "1 Chronicles 6", "1 Chronicles 7", "1 Chronicles 8", "1 Chronicles 9", "1 Chronicles 10", "1 Chronicles 11", "1 Chronicles 12", "1 Chronicles 13", "1 Chronicles 14", "1 Chronicles 15", "1 Chronicles 16", "1 Chronicles 17", "1 Chronicles 18", "1 Chronicles 19", "1 Chronicles 20", "1 Chronicles 21", "1 Chronicles 22", "1 Chronicles 23", "1 Chronicles 24", "1 Chronicles 25", "1 Chronicles 26", "1 Chronicles 27", "1 Chronicles 28", "1 Chronicles 29", "2 Chronicles 1", "2 Chronicles 2", "2 Chronicles 3", "2 Chronicles 4", "2 Chronicles 5", "2 Chronicles 6", "2 Chronicles 7", "2 Chronicles 8", "2 Chronicles 9", "2 Chronicles 10", "2 Chronicles 11", "2 Chronicles 12", "2 Chronicles 13", "2 Chronicles 14", "2 Chronicles 15", "2 Chronicles 16", "2 Chronicles 17", "2 Chronicles 18", "2 Chronicles 19", "2 Chronicles 20", "2 Chronicles 21", "2 Chronicles 22", "2 Chronicles 23", "2 Chronicles 24", "2 Chronicles 25", "2 Chronicles 26", "2 Chronicles 27", "2 Chronicles 28", "2 Chronicles 29", "2 Chronicles 30", "2 Chronicles 31", "2 Chronicles 32", "2 Chronicles 33", "2 Chronicles 34", "2 Chronicles 35", "2 Chronicles 36", "Ezra 1", "Ezra 2", "Ezra 3", "Ezra 4", "Ezra 5", "Ezra 6", "Ezra 7", "Ezra 8", "Ezra 9", "Ezra 10", "Nehemiah 1", "Nehemiah 2", "Nehemiah 3", "Nehemiah 4", "Nehemiah 5", "Nehemiah 6", "Nehemiah 7", "Nehemiah 8", "Nehemiah 9", "Nehemiah 10", "Nehemiah 11", "Nehemiah 12", "Nehemiah 13", "Esther 1", "Esther 2", "Esther 3", "Esther 4", "Esther 5", "Esther 6", "Esther 7", "Esther 8", "Esther 9", "Esther 10", "Job 1", "Job 2", "Job 3", "Job 4", "Job 5", "Job 6", "Job 7", "Job 8", "Job 9", "Job 10", "Job 11", "Job 12", "Job 13", "Job 14", "Job 15", "Job 16", "Job 17", "Job 18", "Job 19", "Job 20", "Job 21", "Job 22", "Job 23", "Job 24", "Job 25", "Job 26", "Job 27", "Job 28", "Job 29", "Job 30", "Job 31", "Job 32", "Job 33", "Job 34", "Job 35", "Job 36", "Job 37", "Job 38", "Job 39", "Job 40", "Job 41", "Job 42", "Ecclesiastes 1", "Ecclesiastes 2", "Ecclesiastes 3", "Ecclesiastes 4", "Ecclesiastes 5", "Ecclesiastes 6", "Ecclesiastes 7", "Ecclesiastes 8", "Ecclesiastes 9", "Ecclesiastes 10", "Ecclesiastes 11", "Ecclesiastes 12", "Song of Solomon 1", "Song of Solomon 2", "Song of Solomon 3", "Song of Solomon 4", "Song of Solomon 5", "Song of Solomon 6", "Song of Solomon 7", "Song of Solomon 8", "Isaiah 1", "Isaiah 2", "Isaiah 3", "Isaiah 4", "Isaiah 5", "Isaiah 6", "Isaiah 7", "Isaiah 8", "Isaiah 9", "Isaiah 10", "Isaiah 11", "Isaiah 12", "Isaiah 13", "Isaiah 14", "Isaiah 15", "Isaiah 16", "Isaiah 17", "Isaiah 18", "Isaiah 19", "Isaiah 20", "Isaiah 21", "Isaiah 22", "Isaiah 23", "Isaiah 24", "Isaiah 25", "Isaiah 26", "Isaiah 27", "Isaiah 28", "Isaiah 29", "Isaiah 30", "Isaiah 31", "Isaiah 32", "Isaiah 33", "Isaiah 34", "Isaiah 35", "Isaiah 36", "Isaiah 37", "Isaiah 38", "Isaiah 39", "Isaiah 40", "Isaiah 41", "Isaiah 42", "Isaiah 43", "Isaiah 44", "Isaiah 45", "Isaiah 46", "Isaiah 47", "Isaiah 48", "Isaiah 49", "Isaiah 50", "Isaiah 51", "Isaiah 52", "Isaiah 53", "Isaiah 54", "Isaiah 55", "Isaiah 56", "Isaiah 57", "Isaiah 58", "Isaiah 59", "Isaiah 60", "Isaiah 61", "Isaiah 62", "Isaiah 63", "Isaiah 64", "Isaiah 65", "Isaiah 66", "Jeremiah 1", "Jeremiah 2", "Jeremiah 3", "Jeremiah 4", "Jeremiah 5", "Jeremiah 6", "Jeremiah 7", "Jeremiah 8", "Jeremiah 9", "Jeremiah 10", "Jeremiah 11", "Jeremiah 12", "Jeremiah 13", "Jeremiah 14", "Jeremiah 15", "Jeremiah 16", "Jeremiah 17", "Jeremiah 18", "Jeremiah 19", "Jeremiah 20", "Jeremiah 21", "Jeremiah 22", "Jeremiah 23", "Jeremiah 24", "Jeremiah 25", "Jeremiah 26", "Jeremiah 27", "Jeremiah 28", "Jeremiah 29", "Jeremiah 30", "Jeremiah 31", "Jeremiah 32", "Jeremiah 33", "Jeremiah 34", "Jeremiah 35", "Jeremiah 36", "Jeremiah 37", "Jeremiah 38", "Jeremiah 39", "Jeremiah 40", "Jeremiah 41", "Jeremiah 42", "Jeremiah 43", "Jeremiah 44", "Jeremiah 45", "Jeremiah 46", "Jeremiah 47", "Jeremiah 48", "Jeremiah 49", "Jeremiah 50", "Jeremiah 51", "Jeremiah 52", "Lamentations 1", "Lamentations 2", "Lamentations 3", "Lamentations 4", "Lamentations 5", "Ezekiel 1", "Ezekiel 2", "Ezekiel 3", "Ezekiel 4", "Ezekiel 5", "Ezekiel 6", "Ezekiel 7", "Ezekiel 8", "Ezekiel 9", "Ezekiel 10", "Ezekiel 11", "Ezekiel 12", "Ezekiel 13", "Ezekiel 14", "Ezekiel 15", "Ezekiel 16", "Ezekiel 17", "Ezekiel 18", "Ezekiel 19", "Ezekiel 20", "Ezekiel 21", "Ezekiel 22", "Ezekiel 23", "Ezekiel 24", "Ezekiel 25", "Ezekiel 26", "Ezekiel 27", "Ezekiel 28", "Ezekiel 29", "Ezekiel 30", "Ezekiel 31", "Ezekiel 32", "Ezekiel 33", "Ezekiel 34", "Ezekiel 35", "Ezekiel 36", "Ezekiel 37", "Ezekiel 38", "Ezekiel 39", "Ezekiel 40", "Ezekiel 41", "Ezekiel 42", "Ezekiel 43", "Ezekiel 44", "Ezekiel 45", "Ezekiel 46", "Ezekiel 47", "Ezekiel 48", "Daniel 1", "Daniel 2", "Daniel 3", "Daniel 4", "Daniel 5", "Daniel 6", "Daniel 7", "Daniel 8", "Daniel 9", "Daniel 10", "Daniel 11", "Daniel 12", "Hosea 1", "Hosea 2", "Hosea 3", "Hosea 4", "Hosea 5", "Hosea 6", "Hosea 7", "Hosea 8", "Hosea 9", "Hosea 10", "Hosea 11", "Hosea 12", "Hosea 13", "Hosea 14", "Joel 1", "Joel 2", "Joel 3", "Amos 1", "Amos 2", "Amos 3", "Amos 4", "Amos 5", "Amos 6", "Amos 7", "Amos 8", "Amos 9", "Obadiah 1", "Micah 1", "Micah 2", "Micah 3", "Micah 4", "Micah 5", "Micah 6", "Micah 7", "Nahum 1", "Nahum 2", "Nahum 3", "Habakkuk 1", "Habakkuk 2", "Habakkuk 3", "Zephaniah 1", "Zephaniah 2", "Zephaniah 3", "Haggai 1", "Haggai 2", "Zechariah 1", "Zechariah 2", "Zechariah 3", "Zechariah 4", "Zechariah 5", "Zechariah 6", "Zechariah 7", "Zechariah 8", "Zechariah 9", "Zechariah 10", "Zechariah 11", "Zechariah 12", "Zechariah 13", "Zechariah 14", "Malachi 1", "Malachi 2", "Malachi 3", "Malachi 4", "Matthew 1", "Matthew 2", "Matthew 3", "Matthew 4", "Matthew 5", "Matthew 6", "Matthew 7", "Matthew 8", "Matthew 9", "Matthew 10", "Matthew 11", "Matthew 12", "Matthew 13", "Matthew 14", "Matthew 15", "Matthew 16", "Matthew 17", "Matthew 18", "Matthew 19", "Matthew 20", "Matthew 21", "Matthew 22", "Matthew 23", "Matthew 24", "Matthew 25", "Matthew 26", "Matthew 27", "Matthew 28", "Luke 1", "Luke 2", "Luke 3", "Luke 4", "Luke 5", "Luke 6", "Luke 7", "Luke 8", "Luke 9", "Luke 10", "Luke 11", "Luke 12", "Luke 13", "Luke 14", "Luke 15", "Luke 16", "Luke 17", "Luke 18", "Luke 19", "Luke 20", "Luke 21", "Luke 22", "Luke 23", "Luke 24", "John 1", "John 2", "John 3", "John 4", "John 5", "John 6", "John 7", "John 8", "John 9", "John 10", "John 11", "John 12", "John 13", "John 14", "John 15", "John 16", "John 17", "John 18", "John 19", "John 20", "John 21", "Acts 1", "Acts 2", "Acts 3", "Acts 4", "Acts 5", "Acts 6", "Acts 7", "Acts 8", "Acts 9", "Acts 10", "Acts 11", "Acts 12", "Acts 13", "Acts 14", "Acts 15", "Acts 16", "Acts 17", "Acts 18", "Acts 19", "Acts 20", "Acts 21", "Acts 22", "Acts 23", "Acts 24", "Acts 25", "Acts 26", "Acts 27", "Acts 28", "Romans 1", "Romans 2", "Romans 3", "Romans 4", "Romans 5", "Romans 6", "Romans 7", "Romans 8", "Romans 9", "Romans 10", "Romans 11", "Romans 12", "Romans 13", "Romans 14", "Romans 15", "Romans 16", "1 Corinthians 1", "1 Corinthians 2", "1 Corinthians 3", "1 Corinthians 4", "1 Corinthians 5", "1 Corinthians 6", "1 Corinthians 7", "1 Corinthians 8", "1 Corinthians 9", "1 Corinthians 10", "1 Corinthians 11", "1 Corinthians 12", "1 Corinthians 13", "1 Corinthians 14", "1 Corinthians 15", "1 Corinthians 16", "2 Corinthians 1", "2 Corinthians 2", "2 Corinthians 3", "2 Corinthians 4", "2 Corinthians 5", "2 Corinthians 6", "2 Corinthians 7", "2 Corinthians 8", "2 Corinthians 9", "2 Corinthians 10", "2 Corinthians 11", "2 Corinthians 12", "2 Corinthians 13", "Galatians 1", "Galatians 2", "Galatians 3", "Galatians 4", "Galatians 5", "Galatians 6", "1 Thessalonians 1", "1 Thessalonians 2", "1 Thessalonians 3", "1 Thessalonians 4", "1 Thessalonians 5", "2 Thessalonians 1", "2 Thessalonians 2", "2 Thessalonians 3", "1 Timothy 1", "1 Timothy 2", "1 Timothy 3", "1 Timothy 4", "1 Timothy 5", "1 Timothy 6", "2 Timothy 1", "2 Timothy 2", "2 Timothy 3", "2 Timothy 4", "Titus 1", "Titus 2", "Titus 3", "Philemon 1", "Hebrews 1", "Hebrews 2", "Hebrews 3", "Hebrews 4", "Hebrews 5", "Hebrews 6", "Hebrews 7", "Hebrews 8", "Hebrews 9", "Hebrews 10", "Hebrews 11", "Hebrews 12", "Hebrews 13", "1 Peter 1", "1 Peter 2", "1 Peter 3", "1 Peter 4", "1 Peter 5", "2 Peter 1", "2 Peter 2", "2 Peter 3", "2 John 1", "3 John 1", "Jude 1", "Revelation 1", "Revelation 2", "Revelation 3", "Revelation 4", "Revelation 5", "Revelation 6", "Revelation 7", "Revelation 8", "Revelation 9", "Revelation 10", "Revelation 11", "Revelation 12", "Revelation 13", "Revelation 14", "Revelation 15", "Revelation 16", "Revelation 17", "Revelation 18", "Revelation 19", "Revelation 20", "Revelation 21", "Revelation 22"];
@@ -262,6 +288,7 @@ let activeView = "dashboard";
 let calendarMonth = new Date();
 let selectedCalendarDate = localISO(new Date());
 let cloud = null, cloudUser = null, cloudTimer = null, installPrompt = null, cloudSyncing = false;
+let restoringBackup=false;
 let bookSortPreference = localStorage.getItem("rbc.bookSort") || "plan";
 let reminderTimer = null;
 let lastReminderDate = localStorage.getItem("rbc.lastReminderDate") || "";
@@ -283,21 +310,79 @@ function loadState(){
       }
       loaded.ireapCompleted=[...reflections].sort((a,b)=>a-b);
       loaded.ireapCompletedAt=loaded.ireapCompletedAt||{};
+      // Migrate IREAP timestamps stored as UTC ISO strings to local dates.
+      // A UTC date recorded after 7pm Eastern is the next day, which made
+      // "Completed today" always read 0 in the evening.
+      for(const key of Object.keys(loaded.ireapCompletedAt)){
+        const value=loaded.ireapCompletedAt[key];
+        if(typeof value==="string"&&value.length>10)loaded.ireapCompletedAt[key]=localISO(new Date(value));
+      }
       loaded.planAnchor=loaded.planAnchor||null;
       loaded.readingOrder=normalizeReadingOrder(loaded.readingOrder);
       loaded.detourBook=loaded.detourBook||null;
       loaded.detourBeforeBook=loaded.detourBeforeBook||null;
-      return loaded;
+      loaded.dailyTarget=Number(loaded.dailyTarget)||3;
+      return reconcileState(loaded);
     }
   } catch(e){}
-  return {completed:[],logs:{},ireapCompleted:[],ireapCompletedAt:{},planAnchor:null,readingOrder:defaultReadingOrder(),detourBook:null,detourBeforeBook:null,createdAt:new Date().toISOString()};
+  return {completed:[],logs:{},ireapCompleted:[],ireapCompletedAt:{},planAnchor:null,readingOrder:defaultReadingOrder(),detourBook:null,detourBeforeBook:null,dailyTarget:3,createdAt:new Date().toISOString()};
 }
 function saveState({sync=true}={}){
+  reconcileState(state);
   localStorage.setItem(STORAGE_KEY,JSON.stringify(state));
   renderAll();
   if(sync && cloudUser) scheduleCloudSave();
 }
+// One chapter may live in only one date's log: keep the earliest date and
+// drop it from later dates. Then rebuild `completed` from the logs, keeping
+// any completion that has no dated record so real progress is never lost.
+// Log entries left completely empty are removed. Run on every save and on
+// every state that enters from storage, the cloud, or a backup, so the two
+// sources of truth (completed vs logs) can never drift apart again.
+function reconcileState(s){
+  const logs=s.logs||{};
+  for(const date of Object.keys(logs))if(!logs[date]||typeof logs[date]!=="object")delete logs[date];
+  const done=new Set(Object.values(logs).flatMap(l=>l.chapters||[]));
+  const firstDateFor={};
+  for(const date of Object.keys(logs).sort()){
+    logs[date].chapters=[...(logs[date].chapters||[])].filter(i=>{
+      if(firstDateFor[i]!==undefined)return false;
+      firstDateFor[i]=date;
+      return true;
+    });
+    // An "unable" mark for a chapter that is completed anywhere is stale.
+    logs[date].unable=[...(logs[date].unable||[])].filter(i=>!done.has(i));
+  }
+  for(const date of Object.keys(logs)){
+    const l=logs[date];
+    if(!(l.chapters||[]).length&&!(l.unable||[]).length&&!l.extra&&!l.ireap)delete logs[date];
+  }
+  const logged=new Set(Object.values(logs).flatMap(l=>l.chapters||[]));
+  const orphaned=(s.completed||[]).filter(i=>!logged.has(i));
+  s.completed=[...new Set([...logged,...orphaned])].sort((a,b)=>a-b);
+  const doneSet2=new Set(s.completed);
+  s.ireapCompleted=(s.ireapCompleted||[]).filter(i=>doneSet2.has(i));
+  s.ireapCompletedAt=s.ireapCompletedAt||{};
+  for(const key of Object.keys(s.ireapCompletedAt))if(!doneSet2.has(Number(key)))delete s.ireapCompletedAt[key];
+  return s;
+}
 function showToast(msg){const t=document.getElementById("toast");t.textContent=msg;t.classList.add("show");setTimeout(()=>t.classList.remove("show"),2400)}
+// In-app confirmation dialog. Native confirm() is auto-dismissed (and returns
+// false) in some browsers, which silently aborted the backup restore. All
+// destructive actions in this app must use this dialog instead.
+function confirmDialog(message){
+  return new Promise(resolve=>{
+    const overlay=document.getElementById("confirmOverlay");
+    const msg=document.getElementById("confirmMessage");
+    const yes=document.getElementById("confirmYes");
+    const no=document.getElementById("confirmNo");
+    msg.textContent=message;
+    overlay.hidden=false;
+    const done=value=>{overlay.hidden=true;yes.onclick=null;no.onclick=null;resolve(value)};
+    yes.onclick=()=>done(true);
+    no.onclick=()=>done(false);
+  });
+}
 function logFor(date){if(!state.logs[date])state.logs[date]={chapters:[],ireap:false,extra:0};return state.logs[date]}
 function doneSet(){return new Set(state.completed)}
 function defaultReadingOrder(){
@@ -323,19 +408,19 @@ function getReadingSequence(){
  return sequence;
 }
 function firstUnreadInOrder(order){
- const done=doneSet(),byBook=new Map();
+ const done=doneSet(),skipped=skippedSet(),byBook=new Map();
  CHAPTERS.forEach((chapter,index)=>{const book=bookAndChapter(chapter).book;if(!byBook.has(book))byBook.set(book,[]);byBook.get(book).push(index)});
- for(const book of normalizeReadingOrder(order))for(const index of (byBook.get(book)||[]))if(!done.has(index))return index;
+ for(const book of normalizeReadingOrder(order))for(const index of (byBook.get(book)||[]))if(!done.has(index)&&!skipped.has(index))return index;
  return CHAPTERS.length;
 }
 // The active sequence includes a temporary book detour at the original plan's
 // next-book position. All daily reading and Catch Me Up decisions must use it.
 function firstUnread(){
- const done=doneSet();
- for(const index of getReadingSequence())if(!done.has(index))return index;
+ const done=doneSet(),skipped=skippedSet();
+ for(const index of getReadingSequence())if(!done.has(index)&&!skipped.has(index))return index;
  return CHAPTERS.length;
 }
-function scheduleTargetAt(index){return SCHEDULE[Math.min(Math.max(index,0),SCHEDULE.length-1)]?.target||3}
+function scheduleTargetAt(index){return state.dailyTarget||3}
 function scheduleIndexForDate(date=todayISO()){
  const exact=SCHEDULE.findIndex(x=>x.date===date);if(exact>=0)return exact;
  const prior=SCHEDULE.findIndex(x=>x.date>date);return prior>=0?prior:Math.max(0,SCHEDULE.length-1);
@@ -349,38 +434,48 @@ function anchorSequencePosition(){
 }
 function plannedStartPosition(date=todayISO()){
  const sequence=getReadingSequence();
+ const perDay=state.dailyTarget||3;
  if(state.planAnchor&&date>=state.planAnchor.date){
    const offset=Math.max(0,Math.round((parseDate(date)-parseDate(state.planAnchor.date))/86400000));
-   let start=anchorSequencePosition();for(let j=0;j<offset;j++)start+=scheduleTargetAt(state.planAnchor.scheduleIndex+j);return Math.min(start,sequence.length);
+   return Math.min(anchorSequencePosition()+offset*perDay,sequence.length);
  }
  const idx=SCHEDULE.findIndex(x=>x.date===date);if(idx<0)return sequence.length;
- let start=0;for(let j=0;j<idx;j++)start+=SCHEDULE[j].target;return Math.min(start,sequence.length);
+ return Math.min(idx*perDay,sequence.length);
 }
 function getTarget(date=todayISO()){
- if(state.planAnchor&&date>=state.planAnchor.date){
-   const offset=Math.max(0,Math.round((parseDate(date)-parseDate(state.planAnchor.date))/86400000));
-   return scheduleTargetAt(state.planAnchor.scheduleIndex+offset);
- }
- const x=SCHEDULE.find(s=>s.date===date);return x?x.target:3;
+ return state.dailyTarget||3;
 }
 function chaptersReadToday(date=todayISO()){return (state.logs[date]?.chapters||[]).length}
 function totalTarget(date=todayISO()){return getTarget(date)+(state.logs[date]?.extra||0)}
 function getPlannedChapterIndexes(date=todayISO()){
- const sequence=getReadingSequence(),done=doneSet(),start=plannedStartPosition(date),target=getTarget(date),out=[];
- for(let pos=start;pos<sequence.length&&out.length<target;pos++){const index=sequence[pos];if(!done.has(index))out.push(index)}
+ const sequence=getReadingSequence(),done=doneSet(),skipped=skippedSet(),start=plannedStartPosition(date),target=getTarget(date),out=[];
+ for(let pos=start;pos<sequence.length&&out.length<target;pos++){const index=sequence[pos];if(!done.has(index)&&!skipped.has(index))out.push(index)}
  return out;
 }
 function getCarryOverChapterIndexes(date=todayISO()){
- const sequence=getReadingSequence(),done=doneSet(),start=plannedStartPosition(date);
- return sequence.slice(0,start).filter(index=>!done.has(index));
+ const sequence=getReadingSequence(),done=doneSet(),skipped=skippedSet(),start=plannedStartPosition(date);
+ return sequence.slice(0,start).filter(index=>!done.has(index)&&!skipped.has(index));
 }
-function catchMeUp(){
+// Chapters marked "unable to complete" are skipped for now: they leave the
+// daily plan (carry-over and planned) until the user brings them back.
+function skippedChapters(){
+  const out=[];
+  for(const date of Object.keys(state.logs||{}).sort()){
+    for(const i of (state.logs[date].unable||[])){
+      if(!doneSet().has(i)&&!out.some(x=>x.index===i))out.push({index:i,date});
+    }
+  }
+  return out;
+}
+function skippedSet(){return new Set(skippedChapters().map(x=>x.index))}
+async function catchMeUp(){
  const next=firstUnread();
  if(next>=CHAPTERS.length){showToast("You've completed the entire Bible reading sequence!");return;}
  const today=todayISO(),scheduleIndex=state.planAnchor&&today>=state.planAnchor.date
    ? state.planAnchor.scheduleIndex+Math.max(0,Math.round((parseDate(today)-parseDate(state.planAnchor.date))/86400000))
    : scheduleIndexForDate(today);
- if(!confirm(`Catch Me Up will reset today's plan to ${CHAPTERS[next]} and remove the accumulated daily backlog from your schedule. Your missed chapters will remain unread, not completed. Continue?`))return;
+ const ok=await confirmDialog(`Catch Me Up will reset today's plan to ${CHAPTERS[next]} and remove the accumulated daily backlog from your schedule. Your missed chapters will remain unread, not completed. Continue?`);
+ if(!ok)return;
  state.planAnchor={date:today,chapterIndex:next,scheduleIndex};
  saveState();showToast(`Plan reset. Start fresh with ${CHAPTERS[next]}.`);
 }
@@ -406,33 +501,48 @@ function switchToBook(book){
  showToast(`${book} will start when ${nextOriginalBook} was scheduled. Afterward, your original plan continues with ${nextOriginalBook}.`);
  if(activeView!=="today")showView("today");
 }
-function resumeOriginalPlan(){
+async function resumeOriginalPlan(){
  const originalOrder=defaultReadingOrder();
  const next=firstUnreadInOrder(originalOrder);
  if(next>=CHAPTERS.length){showToast("You've completed the entire original reading plan!");return;}
- const today=todayISO(),scheduleIndex=state.planAnchor&&today>=state.planAnchor.date
-   ? state.planAnchor.scheduleIndex+Math.max(0,Math.round((parseDate(today)-parseDate(state.planAnchor.date))/86400000))
-   : scheduleIndexForDate(today);
+ const ok=await confirmDialog("Go back to the original 426-day schedule? Your completed chapters stay, but any reset and any book detour will be undone.");
+ if(!ok)return;
+ // Restore the original schedule: clear the detour, the reading order, and
+ // the anchor. Do NOT plant a new anchor at today — a new anchor is what
+ // silently wiped the backlog, because carry-over is computed from it.
  state.readingOrder=originalOrder;
  state.detourBook=null;state.detourBeforeBook=null;
- state.planAnchor={date:today,chapterIndex:next,scheduleIndex};
+ state.planAnchor=null;
  saveState();
  showToast(`Original plan restored. Continue with ${CHAPTERS[next]}.`);
  if(activeView!=="today")showView("today");
 }
+// Recent pace: chapters per day over the last 14 days, falling back to the
+// pace since the plan started, then to the daily target. The projection
+// reflects how the user is actually reading, not just the schedule targets.
+function recentPace(){
+  const today=parseDate(todayISO());
+  const start14=new Date(today);start14.setDate(today.getDate()-13);
+  const start14ISO=localISO(start14);
+  let count=0;
+  for(const [date,log] of Object.entries(state.logs||{})){
+    if(date>=start14ISO&&date<=todayISO())count+=(log.chapters||[]).length;
+  }
+  const pace14=count/14;
+  if(pace14>0)return pace14;
+  const days=Math.max(1,Math.round((today-parseDate(START_DATE))/86400000)+1);
+  const paceAll=state.completed.length/days;
+  if(paceAll>0)return paceAll;
+  return state.dailyTarget||3;
+}
 function projectedFinish(){
- let remaining=CHAPTERS.length-state.completed.length;
- if(!remaining)return todayISO();
- // Simulate the preserved original 2/3-chapter daily targets from today forward.
- // This keeps the original plan finish date exact when progress is on schedule.
- const d=parseDate(todayISO());
- for(let guard=0;guard<2000;guard++){
-   const date=localISO(d);
-   remaining-=getTarget(date);
-   if(remaining<=0)return date;
-   d.setDate(d.getDate()+1);
- }
- return localISO(d);
+  const remaining=CHAPTERS.length-state.completed.length;
+  if(!remaining)return todayISO();
+  const perDay=recentPace();
+  const daysNeeded=Math.max(1,Math.ceil(remaining/perDay));
+  const d=parseDate(todayISO());
+  d.setDate(d.getDate()+daysNeeded-1);
+  return localISO(d);
 }
 function fmtDelta(date){const diff=Math.round((parseDate(date)-parseDate(ORIGINAL_FINISH))/86400000);if(diff===0)return "On your original target";return diff>0?`${diff} day${diff===1?"":"s"} later than target`:`${Math.abs(diff)} day${diff===-1?"":"s"} earlier than target`}
 function currentBook(){const i=firstUnread();return i>=CHAPTERS.length?"Completed":bookAndChapter(CHAPTERS[i]).book}
@@ -443,7 +553,7 @@ function showView(v){
  document.querySelectorAll("[data-view]").forEach(x=>x.classList.toggle("active",x.dataset.view===v));
  const titles={dashboard:"Your journey, one chapter at a time.",today:"Make room for the Word.",calendar:"Your days in Scripture.",books:"Every book, one chapter at a time.",ireap:"A simple framework for intentional Bible study.",settings:"Make this journey your own."};
  document.getElementById("pageTitle").textContent=titles[v]||"Ronnie's Bible Challenge";
- if(v==="calendar")renderCalendar();if(v==="today")renderToday();if(v==="books")renderBooks();
+ if(v==="calendar")renderCalendar();if(v==="today")renderToday();if(v==="books")renderBooks();if(v==="settings")updateDailyTargetHint();
  window.scrollTo({top:0,behavior:"smooth"});
 }
 document.querySelectorAll("[data-view]").forEach(b=>b.addEventListener("click",()=>showView(b.dataset.view)));
@@ -473,7 +583,7 @@ function renderInsights(){
 }
 function renderAchievements(){
  const bookMap=getBookProgress(),completedBooks=[...bookMap.values()].filter(x=>x.done===x.total).length;
- const days=Object.values(state.logs||{}).filter(l=>(l.chapters||[]).length>0).length;
+ const days=Object.entries(state.logs||{}).filter(([date,l])=>date<=todayISO()&&(l.chapters||[]).length>0).length;
  const chapters=state.completed.length,ireaps=(state.ireapCompleted||[]).length;
  const milestones=[
   {name:"First steps",detail:"Complete your first chapter",icon:"🌱",earned:chapters>=1},
@@ -495,9 +605,41 @@ function updateReminderStatus(){
  const cfg=reminderConfig(),status=document.getElementById("reminderStatus");if(!status)return;
  status.textContent=!cfg.enabled?"Reminders are off.":!("Notification" in window)?"Notifications are not supported in this browser.":Notification.permission==="granted"?`Reminder set for ${cfg.time} while the app is open.`:Notification.permission==="denied"?"Notifications are blocked in browser settings.":"Allow notifications to activate your reminder.";
 }
-function updateReminderSettings(){
+// The checkbox must show the effective state (permission actually granted),
+// not just the stored preference.
+function effectiveReminderOn(){
+  const cfg=reminderConfig();
+  return !!cfg.enabled&&("Notification" in window)&&Notification.permission==="granted";
+}
+function syncReminderCheckbox(){
+  const box=document.getElementById("reminderEnabled");
+  if(box)box.checked=effectiveReminderOn();
+}
+async function updateReminderSettings(){
  const enabled=document.getElementById("reminderEnabled")?.checked||false,time=document.getElementById("reminderTime")?.value||"21:00";
- localStorage.setItem("rbc.reminder",JSON.stringify({enabled,time}));setupReminderTimer();updateReminderStatus();
+ localStorage.setItem("rbc.reminder",JSON.stringify({enabled,time}));
+ if(enabled&&("Notification" in window)&&Notification.permission!=="granted"){
+   await requestReminderPermission();
+ }
+ setupReminderTimer();updateReminderStatus();syncReminderCheckbox();
+}
+function updateDailyTarget(value){
+  const n=Math.max(1,Math.min(10,Math.round(Number(value)||3)));
+  state.dailyTarget=n;
+  saveState();
+  updateDailyTargetHint();
+  showToast(`Daily target set to ${n} chapter${n===1?"":"s"} per day.`);
+}
+function updateDailyTargetHint(){
+  const el=document.getElementById("dailyTargetHint");if(!el)return;
+  const input=document.getElementById("dailyTargetInput");
+  if(input&&document.activeElement!==input)input.value=state.dailyTarget||3;
+  const remaining=CHAPTERS.length-state.completed.length;
+  const end=parseDate(ORIGINAL_FINISH),today=parseDate(todayISO());
+  const daysLeft=Math.max(1,Math.round((end-today)/86400000)+1);
+  const needed=remaining/daysLeft;
+  const n=state.dailyTarget||3;
+  el.textContent=n>=needed?`At ${n} per day you are on pace to finish by December 31, 2027.`:`At ${n} per day you would need ${needed.toFixed(1)} per day to finish by December 31, 2027.`;
 }
 async function requestReminderPermission(){
  if(!("Notification" in window)){showToast("This browser does not support notifications.");return}
@@ -507,7 +649,7 @@ async function requestReminderPermission(){
 }
 function setupReminderTimer(){
  if(reminderTimer)clearInterval(reminderTimer);
- const cfg=reminderConfig();if(!cfg.enabled||!("Notification" in window)||Notification.permission!=="granted"){updateReminderStatus();return}
+ const cfg=reminderConfig();if(!cfg.enabled||!("Notification" in window)||Notification.permission!=="granted"){updateReminderStatus();syncReminderCheckbox();return}
  reminderTimer=setInterval(()=>{
   const now=new Date(),today=localISO(now),time=String(now.getHours()).padStart(2,"0")+":"+String(now.getMinutes()).padStart(2,"0");
   if(time===cfg.time&&lastReminderDate!==today){
@@ -515,20 +657,20 @@ function setupReminderTimer(){
    if(!state.completed.length||chaptersReadToday(today)===0)new Notification("Ronnie's Bible Challenge",{body:"A gentle reminder: make a little room for Scripture and your IREAP reflection."});
   }
  },30000);
- updateReminderStatus();
+ updateReminderStatus();syncReminderCheckbox();
 }
 
 function renderDashboard(){
- const n=state.completed.length,remain=CHAPTERS.length-n,pct=Math.round(n/CHAPTERS.length*100),finish=projectedFinish();
- document.getElementById("progressPct").textContent=pct+"%";
+ const n=state.completed.length,remain=CHAPTERS.length-n,pct=n/CHAPTERS.length*100,finish=projectedFinish();
+ document.getElementById("progressPct").textContent=pct.toFixed(1)+"%";
  document.getElementById("progressRing").style.setProperty("--progress",(pct*3.6)+"deg");
  document.getElementById("completedStat").textContent=n.toLocaleString()+" / "+CHAPTERS.length.toLocaleString();
  document.getElementById("remainingStat").textContent=remain.toLocaleString();
  document.getElementById("finishStat").textContent=prettyDate(finish,{month:"short",day:"numeric",year:"numeric"});
  document.getElementById("finishDelta").textContent=fmtDelta(finish);
  document.getElementById("finishLarge").textContent=prettyDate(finish);
- document.getElementById("finishMessage").textContent=remain===0?"You've completed the entire reading sequence. Praise God!":`At the original pace of ${ORIGINAL_PACE.toFixed(2)} chapters per day, you have ${remain.toLocaleString()} chapters left.`;
- const readDays=Object.values(state.logs).filter(l=>(l.chapters||[]).length>0).length;
+ document.getElementById("finishMessage").textContent=remain===0?"You've completed the entire reading sequence. Praise God!":`At your recent pace of ${recentPace().toFixed(1)} chapters per day, you have ${remain.toLocaleString()} chapters left.`;
+ const readDays=Object.entries(state.logs).filter(([date,l])=>date<=todayISO()&&(l.chapters||[]).length>0).length;
  const ireaps=(state.ireapCompleted||[]).length;
  document.getElementById("daysStat").textContent=readDays;
  document.getElementById("ireapStat").textContent=ireaps+" IREAP reflections";
@@ -553,7 +695,7 @@ function renderDashboard(){
  const idx=firstUnread(), box=document.getElementById("dashboardNext");box.innerHTML="";
  const next=[...carry,...planned].filter((v,i,a)=>a.indexOf(v)===i&&!doneSet().has(v));
  if(!next.length){box.innerHTML='<p class="subtle">No outstanding reading assignments. Well done!</p>';return}
- next.slice(0,3).forEach((i,k)=>{const div=document.createElement("div");div.className="next-reading";div.innerHTML=`<div><div class="chapter-name">${CHAPTERS[i]}</div><div class="chapter-tag">${carry.includes(i)?"Carry over": "Planned today"}</div></div><span class="pill">${i+1} / 1189</span>`;box.appendChild(div)});
+ next.slice(0,3).forEach((i,k)=>{const div=document.createElement("div");div.className="next-reading";div.innerHTML=`<div><div class="chapter-name">${CHAPTERS[i]}</div><div class="chapter-tag">${carry.includes(i)?"Carry over": "Planned today"}</div></div><span class="pill">${n} of 1189 completed</span>`;box.appendChild(div)});
 
 }
 function renderToday(){
@@ -568,21 +710,47 @@ function renderToday(){
  document.getElementById("carryProgressPill").textContent=`${carry.length} outstanding`;
  document.getElementById("plannedProgressPill").textContent=`${planned.length} assigned`;
  document.getElementById("completedTodayPill").textContent=`${completedToday.length} completed`;
- const renderRows=(containerId,indices,category)=>{
+ const renderRows=(containerId,indices,category,showUndo=false)=>{
    const box=document.getElementById(containerId);box.innerHTML="";
    if(!indices.length){box.innerHTML='<p class="subtle">None right now.</p>';return}
    indices.forEach(i=>{
      const isDone=doneSet().has(i),doneToday=completedToday.includes(i),locked=isIreapComplete(i);
      const row=document.createElement("label");row.className="chapter-row"+(isDone?" done":"");
-     row.innerHTML=`<input class="chapter-check" type="checkbox" ${isDone?"checked":""} ${(locked||(isDone&&!doneToday))?"disabled":""} aria-label="Mark ${CHAPTERS[i]} complete"><div><div class="chapter-name">${CHAPTERS[i]}</div><div class="chapter-tag">${doneToday?"Completed today":isDone?"Previously completed":category}${locked?" · IREAP completed · Locked":""}</div></div><span class="chapter-meta">${isDone?"✓ Done":i===firstUnread()?"Next up":"In sequence"}</span>`;
+     row.innerHTML=`<input class="chapter-check" type="checkbox" ${isDone?"checked":""} ${(isDone&&!doneToday)?"disabled":""} aria-label="Mark ${CHAPTERS[i]} complete"><div><div class="chapter-name">${CHAPTERS[i]}</div><div class="chapter-tag">${doneToday?"Completed today":isDone?"Previously completed":category}${locked?" · IREAP completed · Locked":""}</div></div><span class="chapter-meta">${isDone?"✓ Done":i===firstUnread()?"Next up":"In sequence"}</span>`;
      const input=row.querySelector("input");
      input.addEventListener("change",e=>{if(e.target.checked)completeChapter(i,date);else if(doneToday)undoChapter(i,date);});
+     if(showUndo&&doneToday){
+       const undoBtn=document.createElement("button");
+       undoBtn.className="btn ghost";undoBtn.type="button";
+       undoBtn.style.cssText="margin-left:auto;flex:none;padding:6px 10px;font-size:12px";
+       undoBtn.textContent="Undo";
+       undoBtn.addEventListener("click",e=>{e.preventDefault();e.stopPropagation();undoChapter(i,date);});
+       row.appendChild(undoBtn);
+     }
      box.appendChild(row);
    });
  };
  renderRows("carryOverList",carry,"Carry over from an earlier day");
  renderRows("plannedReadingList",planned,"Original daily assignment");
- renderRows("completedTodayList",completedToday,"Completed today");
+ renderRows("completedTodayList",completedToday,"Completed today",true);
+ // Chapters marked "unable to complete" are skipped for now: out of the
+ // daily plan until the user brings them back.
+ const skipped=skippedChapters();
+ const skippedSection=document.getElementById("skippedSection");
+ if(skippedSection){
+   if(skipped.length){
+     skippedSection.style.display="block";
+     document.getElementById("skippedPill").textContent=`${skipped.length} skipped`;
+     const sbox=document.getElementById("skippedList");sbox.innerHTML="";
+     skipped.forEach(({index, date:skipDate})=>{
+       const row=document.createElement("div");row.className="chapter-row";
+       row.innerHTML=`<div><div class="chapter-name">${CHAPTERS[index]}</div><div class="chapter-tag">Skipped ${prettyDate(skipDate,{month:"short",day:"numeric"})}</div></div>`;
+       const btn=document.createElement("button");btn.className="btn ghost";btn.type="button";btn.style.cssText="margin-left:auto;flex:none;padding:6px 10px;font-size:12px";btn.textContent="Bring back";
+       btn.addEventListener("click",()=>{markScheduledChapter(skipDate,index,"clear");});
+       row.appendChild(btn);sbox.appendChild(row);
+     });
+   }else skippedSection.style.display="none";
+ }
  const dailyAssignments=[...new Set([...carry,...planned])];
  const allDailyReadingDone=dailyAssignments.length>0&&dailyAssignments.every(i=>doneSet().has(i));
  const nextIndex=firstUnread();
@@ -605,7 +773,7 @@ function toggleChapterIreap(i,checked){
  if(checked)set.add(i);else set.delete(i);
  state.ireapCompleted=[...set].sort((a,b)=>a-b);
  state.ireapCompletedAt=state.ireapCompletedAt||{};
- if(checked)state.ireapCompletedAt[i]=new Date().toISOString();
+ if(checked)state.ireapCompletedAt[i]=todayISO();
  else delete state.ireapCompletedAt[i];
  saveState();
  showToast(checked?`${CHAPTERS[i]} IREAP marked complete.`:`${CHAPTERS[i]} IREAP will carry forward.`);
@@ -627,8 +795,26 @@ function renderOutstandingIreaps(){
    row.querySelectorAll('input[type="radio"]').forEach(input=>input.addEventListener('change',e=>toggleChapterIreap(i,e.target.value==='completed')));
    box.appendChild(row);
  });
+ updateIreapScratch();
+}
+// Scratch notes for IREAP: deliberately never saved. These textareas have no
+// handlers that write to state, localStorage, the cloud, or backups. They are
+// plain DOM fields, so they clear on reload, and they clear whenever the
+// chapter being reflected on changes.
+let scratchChapter=null;
+function clearIreapScratch(silent){
+  ["scratchInsight","scratchRecap","scratchExamine","scratchApply","scratchPray"].forEach(id=>{const el=document.getElementById(id);if(el)el.value="";});
+  if(!silent)showToast("Scratch notes cleared.");
+}
+function updateIreapScratch(){
+  const outstanding=(state.completed||[]).filter(i=>!isIreapComplete(i)).sort((a,b)=>a-b);
+  const next=outstanding.length?outstanding[0]:null;
+  const label=document.getElementById("ireapScratchChapter");
+  if(label)label.textContent=next===null?"your next chapter":CHAPTERS[next];
+  if(next!==scratchChapter){scratchChapter=next;clearIreapScratch(true);}
 }
 function completeChapter(i,date){
+ if(date>todayISO()){showToast("You can only mark reading for today or earlier.");return;}
  const idx=firstUnread();if(i!==idx){showToast("Read in sequence—start with the next unread chapter.");renderToday();return}
  state.completed.push(i);const log=logFor(date);log.chapters.push(i);saveState();showToast(`${CHAPTERS[i]} completed. Well done!`);
 }
@@ -638,13 +824,13 @@ function undoChapter(i,date){
    renderToday();
    return;
  }
- if(state.completed[state.completed.length-1]!==i){
-   showToast("To keep the sequence consistent, you can only undo your most recently completed chapter.");
+ const log=logFor(date);
+ if(!(log.chapters||[]).includes(i)){
+   showToast("That chapter was not completed on this day.");
    renderToday();
    return;
  }
- state.completed.pop();
- const log=logFor(date);
+ state.completed=state.completed.filter(x=>x!==i);
  log.chapters=log.chapters.filter(x=>x!==i);
  saveState();
  showToast("Chapter completion undone.");
@@ -664,6 +850,27 @@ function renderBooks(){
  const status=document.getElementById("readingOrderStatus");if(status)status.textContent=nextBook==="All books completed"?"You've completed all 66 books.":`Next in your current reading order: ${CHAPTERS[firstUnread()]}.`;
  for(const name of names){const x=map.get(name),pct=x.done/x.total*100,card=document.createElement("div");card.className="book-card";const isNext=name===nextBook;card.innerHTML=`<h3>${name}${isNext?' <span class="pill" style="vertical-align:middle">Up next</span>':''}</h3><div class="bar"><span style="width:${pct}%"></span></div><div class="book-foot"><span>${x.done} of ${x.total} chapters</span><strong>${Math.round(pct)}%</strong></div><button class="btn ghost" type="button" style="margin-top:12px;width:100%;padding:8px 10px;font-size:12px" ${x.done===x.total?'disabled':''}>Read this book next</button>`;card.querySelector("button").addEventListener("click",()=>switchToBook(name));grid.appendChild(card)}
 }
+// Remove one day's log entries (completed chapters and unable marks) without
+// touching any other day. Chapters also recorded on another day are kept,
+// along with their IREAP marks.
+async function clearDayLog(date){
+  const log=state.logs[date];
+  const recorded=[...(log?.chapters||[])];
+  const unable=[...(log?.unable||[])];
+  if(!recorded.length&&!unable.length){showToast("Nothing recorded for this day.");return;}
+  const names=[...new Set([...recorded,...unable])].map(i=>CHAPTERS[i]).join(", ");
+  const ok=await confirmDialog(`Clear the record for ${prettyDate(date,{month:"long",day:"numeric",year:"numeric"})}? This removes: ${names}. Chapters also recorded on another day are kept.`);
+  if(!ok)return;
+  delete state.logs[date];
+  const removed=new Set([...recorded,...unable]);
+  const stillRecorded=new Set(Object.values(state.logs).flatMap(l=>[...(l.chapters||[]),...(l.unable||[])]));
+  state.completed=state.completed.filter(i=>!(removed.has(i)&&!stillRecorded.has(i)));
+  state.ireapCompleted=(state.ireapCompleted||[]).filter(i=>!(removed.has(i)&&!stillRecorded.has(i)));
+  state.ireapCompletedAt=state.ireapCompletedAt||{};
+  for(const i of removed)if(!stillRecorded.has(i))delete state.ireapCompletedAt[i];
+  saveState();
+  showToast(`Cleared the record for ${prettyDate(date,{month:"short",day:"numeric"})}.`);
+}
 function renderCalendar(){
  const year=calendarMonth.getFullYear(),month=calendarMonth.getMonth(),first=new Date(year,month,1),days=new Date(year,month+1,0).getDate();
  document.getElementById("monthTitle").textContent=first.toLocaleDateString(undefined,{month:"long",year:"numeric"});
@@ -678,12 +885,10 @@ function renderCalendar(){
  }
  const log=state.logs[selectedCalendarDate]||{chapters:[],ireap:false};
  const box=document.getElementById("selectedDay");
- const assigned=getAssignedChapters(selectedCalendarDate);
  // Past calendar entries are historical records, not a projection of today's reading order.
- // Prefer the chapters actually recorded in that day's log so later book switches cannot
- // rewrite or hide completed chapters on earlier dates.
+ // Show only the chapters actually recorded in that day's log — never the
+ // cumulative catch-up list, which is not "recorded reading for this day".
  const recordedForDay=[...new Set([...(log.chapters||[]),...(log.unable||[])])];
- const historicalAssigned=recordedForDay.length?recordedForDay:assigned;
  const scheduleIndex=SCHEDULE.findIndex(x=>x.date===selectedCalendarDate);
  const isPastOrToday=selectedCalendarDate<=todayISO();
  const title=`<div class="subtle">${prettyDate(selectedCalendarDate,{weekday:"long",month:"long",day:"numeric",year:"numeric"})}</div>`;
@@ -704,8 +909,8 @@ function renderCalendar(){
        <strong class="chapter-name">${CHAPTERS[i]}</strong>
        <div class="subtle">Chapter ${i+1} of ${CHAPTERS.length}</div>
        <div style="display:flex;gap:18px;flex-wrap:wrap;margin-top:10px">
-        <label><input type="checkbox" class="chapter-check" data-future-status="completed" data-chapter="${i}" ${done?'checked':''} ${locked?'disabled':''}> Completed</label>
-        <label><input type="checkbox" class="chapter-check" data-future-status="unable" data-chapter="${i}" ${unable?'checked':''} ${locked?'disabled':''}> Unable to complete</label>
+        <label><input type="checkbox" class="chapter-check" data-future-status="completed" data-chapter="${i}" ${done?'checked':''} disabled> Completed</label>
+        <label><input type="checkbox" class="chapter-check" data-future-status="unable" data-chapter="${i}" ${unable?'checked':''} disabled> Unable to complete</label>
        </div>
       </div>
       <span class="chapter-meta">${done?'✓ Done':unable?'Carried forward':''}${done&&locked?' · 🔒 Locked':''}</span>
@@ -713,7 +918,7 @@ function renderCalendar(){
    }).join('');
   };
   box.innerHTML=title+`
-   <p style="margin:8px 0 12px">Here's your reading preview for this day. You can mark chapters completed or unable to complete here, too.</p>
+   <p style="margin:8px 0 12px">Here's a preview of your plan for this day. Come back on the day itself to mark chapters complete.</p>
    <h3 style="margin:16px 0 8px">Carry Over Chapters</h3>
    <p class="subtle">Outstanding chapters from earlier days.</p>
    <div>${renderFutureRows(carryOver)}</div>
@@ -731,12 +936,18 @@ function renderCalendar(){
   });
 
  // Past and current dates: retain the existing completion and IREAP tracker.
- }else if(historicalAssigned.length && isPastOrToday){
+ }else if(isPastOrToday){
+  // Show only what was actually recorded on this day. A day with no log
+  // must not show the cumulative catch-up list as if it were recorded reading.
+  if(!recordedForDay.length){
+    const planned=getPlannedChapterIndexes(selectedCalendarDate);
+    box.innerHTML=title+`<p>Nothing recorded for this day.</p>`+(planned.length?`<p class="subtle">Planned for this day: ${planned.map(i=>CHAPTERS[i]).join(" · ")}</p>`:"");
+  }else{
   box.innerHTML=title+`<p style="margin:8px 0 12px">Your recorded reading for this day. Completed chapters remain attached to the date you recorded them, even when you change your reading order.</p><div id="scheduledChapterList"></div>`;
 
   const list=box.querySelector('#scheduledChapterList');
 
-  historicalAssigned.forEach(i=>{
+  recordedForDay.forEach(i=>{
     const done=(log.chapters||[]).includes(i);
     const unable=(log.unable||[]).includes(i);
 
@@ -781,15 +992,33 @@ function renderCalendar(){
 
     list.appendChild(row);
   });
+  }
 
- // Keep the original history display for dates without a scheduled assignment.
+ // Keep the original history display for dates outside the plan (future dates with no schedule entry).
  }else{
   const names=(log.chapters||[]).map(i=>CHAPTERS[i]);
   box.innerHTML=title+`<p>${names.length?names.join(' · '):'No reading recorded for this day.'}</p>`;
  }
+ // A day with anything recorded can be cleared entirely — completed chapters
+ // and unable marks for that day only. Chapters also recorded on another day
+ // are kept. This is how a wrong entry (for example a future-dated test
+ // entry) is removed without touching any other day.
+ const dayLog=state.logs[selectedCalendarDate];
+ if(dayLog&&(((dayLog.chapters||[]).length)||((dayLog.unable||[]).length))){
+   const clearBtn=document.createElement("button");
+   clearBtn.className="btn outline";clearBtn.type="button";clearBtn.style.marginTop="16px";
+   clearBtn.textContent="Clear this day's record";
+   clearBtn.addEventListener("click",async ()=>{await clearDayLog(selectedCalendarDate);renderCalendar();});
+   box.appendChild(clearBtn);
+   const clearNote=document.createElement("p");
+   clearNote.className="subtle";
+   clearNote.textContent="Removes only this day's completed chapters and unable marks. Chapters also recorded on another day are kept.";
+   box.appendChild(clearNote);
+ }
 }
 function getAssignedChapters(date){return [...new Set([...getCarryOverChapterIndexes(date),...getPlannedChapterIndexes(date)])]}
 function markScheduledChapter(date,i,status){
+ if(date>todayISO()){showToast("You can only mark reading for today or earlier.");renderCalendar();return;}
  const log=logFor(date);
  log.unable=log.unable||[];
  log.chapters=log.chapters||[];
@@ -845,17 +1074,59 @@ function markScheduledChapter(date,i,status){
  );
 }
 function shiftMonth(n){calendarMonth.setMonth(calendarMonth.getMonth()+n);renderCalendar()}
-function renderAll(){document.getElementById("dateLabel").textContent=prettyDate(todayISO(),{weekday:"short",month:"short",day:"numeric"});renderDashboard();if(activeView==="today")renderToday();if(activeView==="calendar")renderCalendar();if(activeView==="books")renderBooks()}
+function renderAll(){document.getElementById("dateLabel").textContent=prettyDate(todayISO(),{weekday:"short",month:"short",day:"numeric"});renderDashboard();if(activeView==="today")renderToday();if(activeView==="calendar")renderCalendar();if(activeView==="books")renderBooks();updateDailyTargetHint()}
 function exportBackup(){const blob=new Blob([JSON.stringify({app:"Ronnie's Bible Challenge",version:1,exportedAt:new Date().toISOString(),state},null,2)],{type:"application/json"});const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download="ronnies-bible-challenge-backup.json";a.click();URL.revokeObjectURL(a.href);showToast("Backup downloaded.");}
-function importBackup(e){const file=e.target.files[0];if(!file)return;const reader=new FileReader();reader.onload=()=>{try{const data=JSON.parse(reader.result);const incoming=data.state||data;if(!Array.isArray(incoming.completed)||!incoming.logs)throw new Error("Invalid backup");if(!confirm("Restore this backup? It will replace the progress currently saved in this browser."))return;state={completed:incoming.completed,logs:incoming.logs,ireapCompleted:[...new Set([...(incoming.ireapCompleted||[]),...Object.values(incoming.logs||{}).flatMap(l=>l.ireap?(l.chapters||[]):[])])],ireapCompletedAt:incoming.ireapCompletedAt||{},createdAt:incoming.createdAt||new Date().toISOString()};saveState();showToast("Backup restored.");}catch(err){showToast("That backup file could not be read.");}};reader.readAsText(file);}
+async function importBackup(e){
+  const file=e.target.files&&e.target.files[0];
+  // Reset the input so choosing the same file again still fires a change event.
+  e.target.value="";
+  if(!file)return;
+  const reader=new FileReader();
+  reader.onload=async ()=>{
+    try{
+      const data=JSON.parse(reader.result);
+      const incoming=data.state||data;
+      if(!Array.isArray(incoming.completed)||!incoming.logs)throw new Error("Invalid backup file");
+      const ok=await confirmDialog("Restore this backup? It will replace the progress currently saved in this browser and synced to the cloud.");
+      if(!ok)return;
+      restoringBackup=true;
+      state={
+        completed:[...new Set(incoming.completed)].sort((a,b)=>a-b),
+        logs:incoming.logs||{},
+        ireapCompleted:[...new Set([...(incoming.ireapCompleted||[]),...Object.values(incoming.logs||{}).flatMap(l=>l.ireap?(l.chapters||[]):[])])].sort((a,b)=>a-b),
+        ireapCompletedAt:incoming.ireapCompletedAt||{},
+        planAnchor:incoming.planAnchor||null,
+        readingOrder:normalizeReadingOrder(incoming.readingOrder),
+        detourBook:incoming.detourBook||null,
+        detourBeforeBook:incoming.detourBeforeBook||null,
+        dailyTarget:Number(incoming.dailyTarget)||3,
+        createdAt:incoming.createdAt||new Date().toISOString()
+      };
+      saveState({sync:false});
+      // Push the restored state to the cloud right away. A later sync must
+      // not merge the old cloud copy back over the restore.
+      if(cloud&&cloudUser){
+        const {error}=await cloud.from("bible_progress").upsert({user_id:cloudUser.id,progress:state,updated_at:new Date().toISOString()},{onConflict:"user_id"});
+        if(error)throw error;
+      }
+      restoringBackup=false;
+      showToast("Backup restored.");
+    }catch(err){
+      restoringBackup=false;
+      showToast("Backup could not be restored: "+(err&&err.message?err.message:"unknown error"));
+    }
+  };
+  reader.onerror=()=>{restoringBackup=false;showToast("That backup file could not be read.");};
+  reader.readAsText(file);
+}
 const SUPABASE_URL = "https://vanuwjequjzvwdofcuyx.supabase.co";
 const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_SQmckVEfTJy0Qt5EG_HhKg_b96WV8Xp";
 
+// Sync status only: the account line (#authMessage) is set by setAuthUI,
+// so the same sentence is no longer written into two places.
 function cloudStatus(message, isError=false){
  const el=document.getElementById("syncStatus");
- if(el)el.textContent=message;
- const authMessage=document.getElementById("authMessage");
- if(authMessage){authMessage.textContent=message;authMessage.style.color=isError?"#9a3d37":"var(--green)";}
+ if(el){el.textContent=message;el.style.color=isError?"#9a3d37":"";}
 }
 function setAuthUI(user){
  cloudUser=user||null;
@@ -863,12 +1134,19 @@ function setAuthUI(user){
  const signedIn=document.getElementById("authSignedIn");
  if(signedOut)signedOut.hidden=!!cloudUser;
  if(signedIn)signedIn.hidden=!cloudUser;
+ const refreshBtn=document.getElementById("refreshButton");
+ if(refreshBtn)refreshBtn.disabled=!cloudUser;
+ const syncBtn=document.getElementById("syncNowButton");
+ if(syncBtn)syncBtn.disabled=!cloudUser;
+ const authMessage=document.getElementById("authMessage");
  if(cloudUser){
    const email=document.getElementById("signedInEmail");
    if(email)email.textContent=cloudUser.email||"your account";
-   cloudStatus(`Signed in as ${cloudUser.email||"your account"}. Preparing cloud sync…`);
+   if(authMessage){authMessage.textContent=`Signed in as ${cloudUser.email||"your account"}.`;authMessage.style.color="var(--green)";}
+   cloudStatus("Preparing cloud sync…");
  }else{
-   cloudStatus("Your progress is saved on this device. Sign in to sync it with your other devices.");
+   if(authMessage){authMessage.textContent="Your progress is saved on this device. Sign in to sync it with your other devices.";authMessage.style.color="var(--green)";}
+   cloudStatus("Not signed in.");
  }
 }
 function setAuthButtonsDisabled(disabled){
@@ -961,18 +1239,20 @@ function mergeStates(localState, cloudState) {
  }
  const ireapCompleted=[...new Set([...(localState?.ireapCompleted||[]),...(cloudState?.ireapCompleted||[]),...Object.values(logs).flatMap(log=>log.ireap?(log.chapters||[]):[])])].sort((a,b)=>a-b);
  const ireapCompletedAt={...(cloudState?.ireapCompletedAt||{}),...(localState?.ireapCompletedAt||{})};
- return {
+ const merged={
    ...cloudState,...localState,
    completed,logs,ireapCompleted,ireapCompletedAt,
    planAnchor:localState?.planAnchor||cloudState?.planAnchor||null,
    readingOrder:(Array.isArray(localState?.readingOrder)&&JSON.stringify(localState.readingOrder)!==JSON.stringify(defaultReadingOrder())?localState.readingOrder:(Array.isArray(cloudState?.readingOrder)?cloudState.readingOrder:(localState?.readingOrder||defaultReadingOrder()))),
    detourBook:localState?.detourBook||cloudState?.detourBook||null,
    detourBeforeBook:localState?.detourBeforeBook||cloudState?.detourBeforeBook||null,
+   dailyTarget:localState?.dailyTarget||cloudState?.dailyTarget||3,
    createdAt:localState?.createdAt||cloudState?.createdAt||new Date().toISOString()
  };
+ return reconcileState(merged);
 }
 async function pullAndMerge(){
- if(!cloud||!cloudUser||cloudSyncing)return false;
+ if(!cloud||!cloudUser||cloudSyncing||restoringBackup)return false;
  cloudSyncing=true;
  const syncingUser=cloudUser;
  try{
@@ -996,7 +1276,7 @@ async function pullAndMerge(){
 function scheduleCloudSave(){
  clearTimeout(cloudTimer);
  cloudTimer=setTimeout(async()=>{
-  if(!cloud||!cloudUser)return;
+  if(!cloud||!cloudUser||restoringBackup)return;
   const savingUser=cloudUser;
   try{
    const {error}=await cloud.from("bible_progress").upsert({user_id:savingUser.id,progress:state,updated_at:new Date().toISOString()},{onConflict:"user_id"});
@@ -1025,9 +1305,9 @@ window.addEventListener("beforeinstallprompt",e=>{e.preventDefault();installProm
 window.addEventListener("online",()=>{if(cloudUser)pullAndMerge()});
 if("serviceWorker" in navigator && location.protocol.startsWith("http"))window.addEventListener("load",()=>navigator.serviceWorker.register("sw.js").catch(()=>{}));
 const savedReminder=reminderConfig();
-document.getElementById("reminderEnabled").checked=!!savedReminder.enabled;
 document.getElementById("reminderTime").value=savedReminder.time||"21:00";
+syncReminderCheckbox();
 document.getElementById("paceText").textContent=ORIGINAL_PACE.toFixed(2)+" chapters/day";
-renderAll();initCloud();setupReminderTimer();
+renderAll();updateDailyTargetHint();initCloud();setupReminderTimer();
 </script>
-<input type='hidden' name='ntsp_block_page' value='https://block.canopy.us/?a=block/block1&level=-30&url=http%3A%2F%2Fchatgpt.com%2Fbackend-api%2Festuary%2Fcontent%3Fid%3Dfile_0000000069448212889a11d988b4b76c%26ts%3D498574%26p%3Dfs%26cid%3D1%26sig%3D1a58e08597393cf43df842f4ce23eded48d53fdd5610ee7450c450d5c5933809%26v%3D0&user_id=1446607&sigid=fb9d6f408e50f592e90110bb238e8f79f4b3b60829429d121c9881c2ff9b7ec6&startm=0&keyword=&referer=https%3A%2F%2Fchatgpt.com%2F&category=24&cause=Quiltingjs'/><input type='hidden' name='ntsp_is_etrog' value='0'/><input type='hidden' name='ntsp_url_category' value='24'/><input type='hidden' name='ntsp_quilting' value='3'/><input type='hidden' name='ntsp_media_level' value='-30'/><input type='hidden' name='ntsp_user_level' value='-30'/><input type='hidden' name='ntsp_url_level' value='20'/><input type='hidden' name='ntsp_block_wa_status' value='0'/><script src='/jsQuilting/server/jsDict_utf8.js?v=1&k=23898278c1850f536d688db3614128a0' type='text/javascript' defer></script><input type='hidden' name='ntsp_block_page' value='https://block.canopy.us/?a=block/block1&level=-30&url=http%3A%2F%2Fchatgpt.com%2Fbackend-api%2Festuary%2Fcontent%3Fid%3Dfile_000000007c348211a0453d9b17f39c08%26fn%3Dronnies-bible-challenge-with-refresh.html%26cd%3Dattachment%26ts%3D498595%26p%3Dfs%26cid%3D1%26sig%3Dc4d16b220ecac8f867a6ff936ffbf76097d12f5ecaeb4576d1dfffa9d3a7cad0%26v%3D0&user_id=1446607&sigid=fb9d6f408e50f592e90110bb238e8f79f4b3b60829429d121c9881c2ff9b7ec6&startm=0&keyword=&referer=https%3A%2F%2Fchatgpt.com%2F&category=24&cause=Quiltingjs'/><input type='hidden' name='ntsp_is_etrog' value='0'/><input type='hidden' name='ntsp_url_category' value='24'/><input type='hidden' name='ntsp_quilting' value='3'/><input type='hidden' name='ntsp_media_level' value='-30'/><input type='hidden' name='ntsp_user_level' value='-30'/><input type='hidden' name='ntsp_url_level' value='20'/><input type='hidden' name='ntsp_block_wa_status' value='0'/><script src='/jsQuilting/server/jsDict_utf8.js?v=1&k=23898278c1850f536d688db3614128a0' type='text/javascript' defer></script></body></html>
+</body></html>
