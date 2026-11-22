@@ -110,9 +110,15 @@ The tracker used to list every completed chapter (32 now, growing) in chapter or
 
 **Fix.**
 - New `ireapCompletionDate(i)` finds the log date a chapter was completed on (earliest date if it appears in more than one log, matching the reconcile rule in fix 4); a chapter with no log date counts as oldest. New `sortedIreapChapters()` sorts by that date, latest first, with ties on the same date broken by higher chapter index first.
-- The tracker shows only the first 5 entries initially. With more than 5, a "View more" button appears under the list; tapping it expands to 10 entries. With more than 10, Previous / Next buttons and a "Page X of Y" label page through the full list 10 at a time (Previous disabled on page 1, Next disabled on the last page). With 10 or fewer, View more shows them all and no pagination appears. With 5 or fewer, no View more button appears at all.
+- The tracker shows only the first 5 entries initially. With more than 5, a "View more" button appears under the list; tapping it expands to 10 entries. With more than 10, Previous / Next buttons and a "Page X of Y" label page through the full list 10 at a time (on page 1 the Previous button reads "Minimize List" and collapses the list back to 5 — see fix 18; Next disabled on the last page). With 10 or fewer, View more shows them all and no pagination appears. With 5 or fewer, no View more button appears at all.
 - The Completed / Not completed radios are unchanged (same markup, same `toggleChapterIreap` wiring, same status text). The paging state (`ireapTrackerExpanded`, `ireapTrackerPage`) is module-level memory only, so a radio change — which re-renders the Today view through `toggleChapterIreap()` — keeps the user's place (expanded state and page). The page is clamped if the list shrinks, and the expanded state resets if the list drops to 5 or fewer.
 - **No reflection text is stored.** The tracker still shows completion status only. The ephemeral IREAP scratch area (fix 6) is untouched: its textareas still have no handlers that write to state, localStorage, the cloud, or backups.
+
+## 18. Today subsections scroll past 5 items; IREAP pager "Minimize List" on page 1 — `renderRows()` in `renderToday()`, `renderOutstandingIreaps()`
+
+**Fix.**
+- The three Today subsections (Carry Over Chapters, Planned Daily Chapters, Completed Today) now scroll when they hold more than 5 items: `renderRows()` adds a `scroll-list` class to the subsection when it has more than 5 rows, capping its height at about 5 rows (340px) with vertical scrolling. With 5 or fewer items nothing changes — the full list shows with no scroll.
+- In the IREAP Tracker pager, the Previous button now reads "Minimize List" when the pager shows "Page 1 of X". Tapping it collapses the tracker back to the first 5 entries (and brings back the View more button). On later pages it still reads "Previous" and goes back one page. Next is still disabled on the last page.
 
 ## Also changed
 
