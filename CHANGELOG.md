@@ -8,6 +8,13 @@ Verified by: re-reading every changed function, `node --check` on the extracted 
 
 ---
 
+## Figma 1: mobile header with avatar menu (Nov 23, 2026)
+
+The account and refresh buttons took up the top-right corner on phones and squeezed the heading into narrow lines. On phones only:
+- The account and refresh buttons are now one small purple circle with your first initial. Tapping it opens a menu with your account, Refresh, and Sign in or Sign out. Sign out still needs two taps to confirm.
+- The heading now uses the full width and is 32px on phones.
+- On laptop and tablet nothing changes: the account and refresh buttons work exactly as before.
+
 ## Visual refresh: smoother lavender look with consistent line icons (Nov 23, 2026)
 
 Ronnie asked to apply the smoother look from the mockup to the real app. Styling only; no data, features, or wording changed.
