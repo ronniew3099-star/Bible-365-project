@@ -8,6 +8,15 @@ Verified by: re-reading every changed function, `node --check` on the extracted 
 
 ---
 
+## Account button is now sign in / sign out (Nov 23, 2026)
+
+Ronnie asked that the pinned account button (top right, shows his username or "Signed out") stop refreshing and become a sign-in / sign-out button.
+- Signed out: tapping it opens the Settings view and moves focus to the email field, so he lands on the sign-in form.
+- Signed in: tapping it once shows a toast "Tap again to sign out." Tapping again within 5 seconds signs him out and shows "Signed out." Nothing happens on the first tap, so an accidental tap cannot sign him out. After 5 seconds the confirmation expires and a later tap starts it over.
+- The button labels now say what it does: "Signed out. Tap to sign in." when signed out, "Signed in as [email]. Tap to sign out." when signed in. The button text is unchanged (username when signed in, "Signed out" when not).
+- The Refresh button is unchanged and still refreshes. The Sign out button in Settings is unchanged and still signs out directly with no confirmation.
+- The sign-out logic is now shared between the account button and the Settings button, so both call the same code.
+
 ## Home consolidation — Reading rhythm panel and target-date pace (Nov 23, 2026)
 
 Ronnie asked to consolidate the Home page: remove the yellow dots from the calendar, fold the heatmap into the monthly calendar, and make the finish line a section in one panel that shows his current pace and how many chapters a day he needs to finish by a future date he picks. Titles updated at his request: the panel is now just "Reading rhythm" and the section is "The finish line".

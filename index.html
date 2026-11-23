@@ -109,7 +109,7 @@ main{padding:34px clamp(18px,4vw,60px) 90px;min-width:0}.topbar{display:flex;jus
 </aside>
 <main>
   <header class="topbar"><div><div class="eyebrow">Scripture Deep Dive</div><h1 id="pageTitle" tabindex="-1" aria-live="polite">Your journey, one chapter at a time.</h1></div><div class="topbar-actions"><div class="today-label" id="dateLabel"></div></div></header>
-  <div id="pinnedActions"><button class="btn ghost" id="accountButton" type="button" onclick="syncNow()" aria-label="Signed out. Tap to refresh." title="Signed out">Signed out</button><button class="btn ghost" id="refreshButton" type="button" onclick="syncNow()" title="Refresh reading progress from your other devices" aria-label="Refresh reading progress">↻</button></div>
+  <div id="pinnedActions"><button class="btn ghost" id="accountButton" type="button" onclick="handleAccountButton()" aria-label="Signed out. Tap to sign in." title="Signed out">Signed out</button><button class="btn ghost" id="refreshButton" type="button" onclick="syncNow()" title="Refresh reading progress from your other devices" aria-label="Refresh reading progress">↻</button></div>
 
   <section class="view active" id="view-dashboard">
     <div class="hero">
@@ -1543,11 +1543,11 @@ function setAuthUI(user){
    const email=cloudUser.email||"";
    const name=email.split("@")[0]||"your account";
    accountBtn.textContent=name;
-   accountBtn.setAttribute("aria-label",`Signed in as ${email||"your account"}. Tap to refresh.`);
+   accountBtn.setAttribute("aria-label",`Signed in as ${email||"your account"}. Tap to sign out.`);
    accountBtn.title=`Signed in as ${email||"your account"}`;
   }else{
    accountBtn.textContent="Signed out";
-   accountBtn.setAttribute("aria-label","Signed out. Tap to refresh.");
+   accountBtn.setAttribute("aria-label","Signed out. Tap to sign in.");
    accountBtn.title="Signed out";
   }
  }
@@ -1566,6 +1566,32 @@ function setAuthUI(user){
 }
 function setAuthButtonsDisabled(disabled){
  ["signInButton","signUpButton"].forEach(id=>{const b=document.getElementById(id);if(b)b.disabled=disabled;});
+}
+// Shared sign-out: used by the Settings sign-out button and by the pinned
+// account button. Returns true when the sign-out succeeded.
+async function signOut(){
+ if(!cloud)return false;
+ const {error}=await cloud.auth.signOut();
+ if(error){cloudStatus(error.message,true);return false;}
+ setAuthUI(null);
+ return true;
+}
+// Pinned account button: signed out it goes to the sign-in fields in
+// Settings; signed in it asks for a second tap (toast confirmation) first.
+let accountSignOutArmedAt=0;
+async function handleAccountButton(){
+ if(!cloudUser){
+  showView("settings");
+  setTimeout(()=>{const e=document.getElementById("authEmail");if(e)e.focus();},100);
+  return;
+ }
+ if(Date.now()-accountSignOutArmedAt<5000){
+  accountSignOutArmedAt=0;
+  if(await signOut())showToast("Signed out.");
+  return;
+ }
+ accountSignOutArmedAt=Date.now();
+ showToast("Tap again to sign out.");
 }
 async function handleAuthSession(session){
  const nextUser=session?.user||null;
@@ -1633,10 +1659,7 @@ document.getElementById("signUpButton").addEventListener("click",async()=>{
  }finally{setAuthButtonsDisabled(false);}
 });
 document.getElementById("signOutButton").addEventListener("click",async()=>{
- if(!cloud)return;
- const {error}=await cloud.auth.signOut();
- if(error){cloudStatus(error.message,true);return;}
- setAuthUI(null);
+ await signOut();
 });
 function mergeStates(localState, cloudState) {
  const completed=[...new Set([...(localState?.completed||[]),...(cloudState?.completed||[])])].sort((a,b)=>a-b);
