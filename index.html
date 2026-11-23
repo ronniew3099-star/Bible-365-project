@@ -29,7 +29,7 @@ button,input{font:inherit}button{cursor:pointer}.app{min-height:100vh;display:gr
 .side-verse{margin-top:auto;padding:18px;border-radius:18px;background:var(--goldbg);color:#68532f;font:italic 15px/1.55 Georgia,serif}.side-verse small{display:block;font:600 10px/1.4 system-ui;letter-spacing:.12em;text-transform:uppercase;margin-top:10px;color:#6d5a33}
 main{padding:34px clamp(18px,4vw,60px) 90px;min-width:0}.topbar{display:flex;justify-content:space-between;align-items:center;gap:15px;margin-bottom:30px}.eyebrow{font-size:11px;text-transform:uppercase;letter-spacing:.15em;color:var(--muted);font-weight:700}.topbar h1{font:400 clamp(26px,3vw,36px)/1.2 Georgia,serif;margin:5px 0 0}.today-label{padding:9px 13px;border:1px solid var(--line);border-radius:999px;color:var(--muted);font-size:12px;background:var(--paper)}.topbar-actions{display:flex;align-items:center;gap:10px;flex:none}.topbar-actions .btn{white-space:nowrap}.topbar-actions .btn:disabled{opacity:.65;cursor:wait}#refreshButton{position:fixed;top:12px;right:15px;z-index:30;box-shadow:0 2px 10px rgba(37,48,39,.18)}.topbar-actions{padding-right:115px}
 .view{display:none}.view.active{display:block}.hero{background:linear-gradient(135deg,#4c1d95 0%,#6d28d9 55%,#7c3aed 100%);color:white;border-radius:28px;padding:30px;display:grid;grid-template-columns:1fr auto;gap:20px;align-items:center;box-shadow:var(--shadow);position:relative;overflow:hidden}.hero:after{content:"";position:absolute;width:280px;height:280px;border:1px solid rgba(255,255,255,.12);border-radius:50%;right:100px;top:-170px}.hero h2{font:400 clamp(25px,3vw,34px)/1.2 Georgia,serif;margin:7px 0 9px}.hero p{color:#e9e2f7;margin:0;max-width:540px}.hero .eyebrow{color:#d9c8f5}.hero-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:20px}
-.btn{border:0;border-radius:12px;padding:11px 16px;font-weight:700;transition:.15s}.btn.primary{background:var(--gold);color:#2d342d}.btn.light{background:white;color:var(--green)}.btn.ghost{background:#efe9f7;color:var(--green)}.btn.outline{background:transparent;border:1px solid var(--line);color:var(--ink)}.btn:disabled{opacity:.45;cursor:not-allowed}
+.btn{border:0;border-radius:12px;padding:11px 16px;font-weight:700;transition:.15s}.btn.primary{background:var(--gold);color:#2d342d}.btn.light{background:white;color:var(--green)}.btn.ghost{background:#efe9f7;color:var(--green)}.btn.outline{background:transparent;border:1px solid var(--line);color:var(--ink)}.btn:disabled{opacity:.45;cursor:not-allowed}.section-toggle{padding:6px 12px;font-size:18px;line-height:1;flex:none}
 .progress-ring{width:128px;height:128px;border-radius:50%;display:grid;place-items:center;background:conic-gradient(var(--gold) var(--progress,0%),rgba(255,255,255,.18) 0);position:relative;z-index:1}.progress-ring:before{content:"";position:absolute;inset:9px;background:var(--green);border-radius:50%}.progress-ring div{position:relative;text-align:center}.progress-ring strong{font:28px Georgia,serif;display:block}.progress-ring small{font-size:10px;color:#e9e2f7}
 .stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:13px;margin:18px 0 26px}.stat,.panel,.reading-card,.book-card{background:var(--paper);border:1px solid var(--line);border-radius:var(--radius);box-shadow:0 5px 18px rgba(37,48,39,.025)}.stat{padding:18px}.stat label{font-size:11px;color:var(--muted);font-weight:700;letter-spacing:.08em;text-transform:uppercase}.stat strong{display:block;font:25px Georgia,serif;margin-top:6px}.stat small{color:var(--muted);font-size:11px}
 .grid2{display:grid;grid-template-columns:1.15fr .85fr;gap:17px}.panel{padding:22px}.panel-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:16px}.panel h3{font:400 21px Georgia,serif;margin:0}.subtle{color:var(--muted);font-size:12px}
@@ -202,19 +202,19 @@ main{padding:34px clamp(18px,4vw,60px) 90px;min-width:0}.topbar{display:flex;jus
         <button class="btn ghost" id="extraBtn" style="margin-top:17px" onclick="addExtra()">＋ Read one more chapter</button>
       </div>
       <div class="reading-side">
-        <div class="panel ireap-card"><div class="eyebrow">Personal journal</div><h3 style="font:400 21px Georgia,serif;margin:5px 0">IREAP Tracker</h3><p class="subtle">Choose a status for each chapter. Completed reflections stay visible; unfinished reflections carry forward.</p><div id="outstandingIreapList"></div>
+        <div class="panel ireap-card"><div class="eyebrow">Personal journal</div><div style="display:flex;align-items:center;justify-content:space-between;gap:10px"><h3 style="font:400 21px Georgia,serif;margin:5px 0">IREAP Tracker</h3><button class="btn ghost section-toggle" type="button" onclick="toggleSideSection('ireapTracker')" aria-expanded="true" aria-label="Collapse IREAP Tracker" id="ireapTrackerToggle">⌃</button></div><div id="ireapTrackerBody"><p class="subtle">Choose a status for each chapter. Completed reflections stay visible; unfinished reflections carry forward.</p><div id="outstandingIreapList"></div></div>
         <!-- Scratch notes are never saved: no handlers write them to state, localStorage, the cloud, or backups. -->
         <div style="margin-top:18px;border-top:1px solid var(--line);padding-top:16px">
           <div class="eyebrow">Write it out — just for now</div>
-          <h3 style="font:400 19px Georgia,serif;margin:5px 0 4px">Reflect on <span id="ireapScratchChapter">your next chapter</span></h3>
-          <p class="subtle" style="margin:0 0 12px">Nothing written here is saved. It clears when you switch chapters, leave this page, or reload.</p>
+          <div style="display:flex;align-items:center;justify-content:space-between;gap:10px"><h3 style="font:400 19px Georgia,serif;margin:5px 0 4px">Reflect on <span id="ireapScratchChapter">your next chapter</span></h3><button class="btn ghost section-toggle" type="button" onclick="toggleSideSection('ireapScratch')" aria-expanded="true" aria-label="Collapse reflect on your next chapter" id="ireapScratchToggle">⌃</button></div>
+          <div id="ireapScratchBody"><p class="subtle" style="margin:0 0 12px">Nothing written here is saved. It clears when you switch chapters, leave this page, or reload.</p>
           <div class="form-row"><label for="scratchInsight">Insight — verse(s) that stood out</label><textarea id="scratchInsight" rows="2"></textarea></div>
           <div class="form-row"><label for="scratchRecap">Recap — what happened</label><textarea id="scratchRecap" rows="2"></textarea></div>
           <div class="form-row"><label for="scratchExamine">Examine — what it teaches about God, people, or faith</label><textarea id="scratchExamine" rows="2"></textarea></div>
           <div class="form-row"><label for="scratchApply">Apply — how to put it into practice</label><textarea id="scratchApply" rows="2"></textarea></div>
           <div class="form-row"><label for="scratchPray">Pray — your response to God</label><textarea id="scratchPray" rows="2"></textarea></div>
           <button class="btn ghost" type="button" onclick="clearIreapScratch()">Start fresh</button>
-        </div></div>
+        </div></div></div>
         <div class="side-note"><h3>Give yourself grace</h3><p>This plan is a guide, not a measure of your faith.</p></div>
       </div>
     </div>
@@ -1012,6 +1012,21 @@ function toggleChapterIreap(i,checked){
  renderDashboard();
  if(activeView==="today")renderToday();
  if(activeView==="calendar")renderCalendar();
+}
+// Expand/collapse for the two right-hand subsections in Today's reading.
+// The chevron points up when the section is expanded and down when collapsed.
+// Both sections start expanded, matching the previous always-visible behaviour.
+function toggleSideSection(which){
+ const isTracker=which==="ireapTracker";
+ const body=document.getElementById(isTracker?"ireapTrackerBody":"ireapScratchBody");
+ const btn=document.getElementById(isTracker?"ireapTrackerToggle":"ireapScratchToggle");
+ if(!body||!btn)return;
+ const isHidden=body.style.display==="none";
+ body.style.display=isHidden?"":"none";
+ btn.textContent=isHidden?"⌃":"⌄";
+ btn.setAttribute("aria-expanded",isHidden?"true":"false");
+ const label=isTracker?"IREAP Tracker":"reflect on your next chapter";
+ btn.setAttribute("aria-label",(isHidden?"Collapse ":"Expand ")+label);
 }
 // IREAP Tracker paging — kept in memory only, never saved. The tracker shows
 // the most recently completed chapters first: 5 at first, "View more" expands

@@ -54,6 +54,11 @@ Ronnie approved both mockups before this push.
 Ronnie approved the mockup before this push.
 - Awards: on phones (≤700px) the award cards are now single full-width cards (1 column), like the Bible books. The earlier 1-column rule was in the stylesheet before the base 2-column rule, so the base rule was overriding it and the page stayed 2-column with text breaking mid-word. The 1-column rule is now also in the later ≤700px media query (after the base rule), so it actually takes effect. The card layout (icon left, text middle, status right) is unchanged.
 
+## Phase 3 follow-up — Expand and collapse for IREAP Tracker and Reflect (Nov 23, 2026)
+
+Ronnie approved the mockup before this push.
+- Today's reading, right-hand panel: the IREAP Tracker and "Reflect on your next chapter" subsections now each have an expand/collapse chevron button in their header. The chevron points up when the section is expanded and down when it is collapsed. Both sections start expanded, matching the previous always-visible behaviour. The toggle is available at all screen sizes (phone, tablet, desktop). The button has an aria-expanded attribute and an aria-label ("Collapse IREAP Tracker" / "Expand IREAP Tracker") so a screen reader announces its state and action.
+
 ---
 
 ## Phase 3 — Bible Quota redesign (Nov 23, 2026)
