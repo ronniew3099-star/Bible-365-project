@@ -38,7 +38,7 @@ main{padding:34px clamp(18px,4vw,60px) 90px;min-width:0}.topbar{display:flex;jus
 .section-title{font:400 28px Georgia,serif;margin:0 0 6px}.section-intro{margin:0 0 22px;color:var(--muted)}
 .reading-layout{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:18px;align-items:start}.reading-card{padding:24px}.reading-head{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;margin-bottom:17px}.reading-head h2{font:400 27px Georgia,serif;margin:3px 0}.pill{display:inline-flex;padding:5px 10px;border-radius:999px;background:var(--green2);color:var(--green);font-size:11px;font-weight:700}.chapter-row{display:flex;align-items:center;gap:13px;padding:15px 0;border-bottom:1px solid var(--line)}.chapter-row:last-child{border-bottom:0}.chapter-check{appearance:none;width:23px;height:23px;border:1.5px solid #b8c3b9;border-radius:7px;display:grid;place-items:center;margin:0;flex:none;cursor:pointer}.chapter-check:checked{background:var(--green);border-color:var(--green)}.chapter-check:checked:after{content:"✓";color:white;font-weight:800;font-size:15px}.chapter-check:disabled{opacity:.55;cursor:not-allowed}.chapter-row.done .chapter-name{text-decoration:line-through;color:var(--muted)}.chapter-meta{margin-left:auto;color:var(--muted);font-size:11px}.scroll-list{max-height:340px;overflow-y:auto;padding-right:6px}.scroll-list.has-more{-webkit-mask-image:linear-gradient(to bottom,#000 88%,transparent 100%);mask-image:linear-gradient(to bottom,#000 88%,transparent 100%)}
 .reading-side{display:grid;gap:14px}.side-note{padding:19px;border-radius:18px;background:var(--goldbg);color:#675735}.side-note h3{font:400 19px Georgia,serif;margin:0 0 8px}.side-note p{font-size:12px;margin:0}.ireap-card{padding:19px}.ireap-toggle{display:flex;gap:10px;align-items:center;margin-top:12px;font-size:13px;font-weight:600}.ireap-toggle input{width:17px;height:17px;accent-color:var(--green)}.ireap-options{display:flex;gap:14px;flex-wrap:wrap;margin-top:7px}.ireap-options label{display:inline-flex;align-items:center;gap:5px;font-size:12px;font-weight:500;color:var(--muted)}.ireap-options input{width:15px;height:15px;accent-color:var(--green)}.chapter-row input[type="checkbox"]{accent-color:var(--green);width:17px;height:17px}
-.calendar-panel{padding:22px}.calendar-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px}.calendar-top h3{font:400 22px Georgia,serif;margin:0}.calendar-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:6px}.cal-head{text-align:center;font-size:10px;color:var(--muted);font-weight:700;padding:6px}.cal-day{min-height:72px;border:1px solid var(--line);border-radius:12px;background:#fffefa;padding:8px;text-align:left;color:var(--ink);display:flex;flex-direction:column;gap:5px}.cal-day.empty{background:transparent;border:0}.cal-day .num{font-size:12px}.cal-day .dot{width:7px;height:7px;border-radius:50%;background:#b9c4ba}.cal-day.read .dot{background:var(--green)}.cal-day.ireap .dot{background:var(--gold)}.cal-day.selected{outline:2px solid var(--green)}.cal-day small{font-size:9px;color:var(--muted)}
+.calendar-panel{padding:22px}.calendar-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px}.calendar-top h3{font:400 22px Georgia,serif;margin:0}.calendar-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:6px}.cal-head{text-align:center;font-size:10px;color:var(--muted);font-weight:700;padding:6px}.cal-day{min-height:72px;border:1px solid var(--line);border-radius:12px;background:#fffefa;padding:8px;text-align:left;color:var(--ink);display:flex;flex-direction:column;gap:5px}.cal-day.empty{background:transparent;border:0}.cal-day .num{font-size:12px}.cal-day.level1{background:#e9e2f7}.cal-day.level2{background:#c9b8ec}.cal-day.level3{background:#9d7fd6}.cal-day.level4{background:#4c1d95}.cal-day.level3,.cal-day.level3 .num,.cal-day.level3 small,.cal-day.level4,.cal-day.level4 .num,.cal-day.level4 small{color:#fff}.cal-day.selected{outline:2px solid var(--green)}.cal-day small{font-size:9px;color:var(--muted)}
 .book-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}.book-card{padding:16px}.book-card h3{font:400 17px Georgia,serif;margin:0 0 10px}.bar{height:6px;background:#edf0eb;border-radius:10px;overflow:hidden}.bar span{height:100%;display:block;background:var(--green);border-radius:10px}.book-foot{display:flex;justify-content:space-between;color:var(--muted);font-size:10px;margin-top:8px}
 .form-row{display:grid;gap:6px;margin:14px 0}.form-row label{font-size:12px;font-weight:700;color:#59665d}.form-row input{border:1px solid var(--line);border-radius:10px;padding:11px;background:white;color:var(--ink);width:100%}
 .form-row textarea{border:1px solid var(--line);border-radius:10px;padding:11px;background:white;color:var(--ink);width:100%;font:inherit;resize:vertical}.settings-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}.setting-box{border:1px solid var(--line);border-radius:17px;padding:18px}.setting-box h3{font:400 19px Georgia,serif;margin:0 0 6px}.setting-box p{font-size:12px;color:var(--muted);margin:0 0 12px}
@@ -138,34 +138,32 @@ main{padding:34px clamp(18px,4vw,60px) 90px;min-width:0}.topbar{display:flex;jus
       <div id="dashOutstandingIreaps" class="subtle" style="margin-top:12px"></div>
     </div>
     <div class="feature-section panel">
-      <div class="panel-head"><h3>Reading insights</h3><span class="subtle">Your recent rhythm</span></div>
+      <div class="panel-head"><h3>Reading rhythm</h3><span class="subtle">Your recent rhythm</span></div>
       <div class="feature-grid">
         <div class="feature-card"><label>This week</label><strong id="insightWeek">0</strong><small>chapters completed</small></div>
         <div class="feature-card"><label>This month</label><strong id="insightMonth">0</strong><small>chapters completed</small></div>
         <div class="feature-card"><label>Reading days</label><strong id="insightDays">0</strong><small>days with at least one chapter</small></div>
       </div>
-      <div class="panel-head" style="margin:18px 0 10px"><h3>Last 30 days</h3><span class="subtle">Daily reading activity</span></div>
-      <div class="heatmap" id="readingHeatmap" aria-label="Reading activity for the last 30 days"></div>
-    </div>
-    <div class="feature-section panel">
-      <div class="panel-head"><h3>Achievements</h3><span class="subtle" id="achievementCount">0 earned</span></div>
-      <div class="achievement-list" id="achievementList"></div>
-      <button class="btn ghost" style="margin-top:14px" onclick="showView('awards')">View all awards →</button>
-    </div>
-    <div class="feature-section panel">
-      <div class="panel-head"><h3>Reading calendar</h3><span class="subtle">Tap a day to view details</span></div>
+      <div class="panel-head" style="margin:18px 0 10px"><h3>Reading calendar</h3><span class="subtle">Tap a day to view details</span></div>
       <div class="cal-nav">
         <select id="dashMonthSelect" aria-label="Choose month"></select>
         <select id="dashYearSelect" aria-label="Choose year"></select>
         <button class="btn primary" type="button" onclick="goToTodayDash()">Today</button>
       </div>
       <div class="calendar-grid" id="dashCalendarGrid"></div>
-      <p class="subtle" style="margin:12px 0 0">Numbers show chapters read each day · Tap a day to view details</p>
+      <p class="subtle" style="margin:12px 0 0">Darker purple means more chapters read that day.</p>
+      <div class="panel-head" style="margin:18px 0 10px"><h3>The finish line</h3><span class="subtle">A living estimate</span></div>
+      <div class="finish-box"><div class="subtle">Projected Bible completion</div><strong id="finishLarge">—</strong><p id="finishMessage">Your estimate updates whenever you complete or miss reading days.</p></div>
+      <p class="subtle" style="margin:14px 0 0">Original target: <strong>December 31, 2027</strong>. Your estimate uses your recent reading pace and the chapters you have left.</p>
+      <div class="form-row" style="margin:14px 0 0"><label for="targetFinishDate">I want to finish by</label><input id="targetFinishDate" type="date" onchange="setTargetFinishDate(this.value)"></div>
+      <p class="subtle" id="targetPaceLine" style="margin:10px 0 0"></p>
     </div>
-    <div class="grid2">
-      <div class="panel"><div class="panel-head"><h3>Up next</h3><span class="pill" id="todayTargetPill">Today's goal</span></div><div id="dashboardNext"></div><button class="btn ghost" style="margin-top:14px" onclick="showView('today')">Go to today's reading</button></div>
-      <div class="panel"><div class="panel-head"><h3>Your finish line</h3><span class="subtle">A living estimate</span></div><div class="finish-box"><div class="subtle">Projected Bible completion</div><strong id="finishLarge">—</strong><p id="finishMessage">Your estimate updates whenever you complete or miss reading days.</p></div><p class="subtle" style="margin:14px 0 0">Original target: <strong>December 31, 2027</strong>. Your estimate uses your recent reading pace and the chapters you have left.</p></div>
+    <div class="feature-section panel">
+      <div class="panel-head"><h3>Achievements</h3><span class="subtle" id="achievementCount">0 earned</span></div>
+      <div class="achievement-list" id="achievementList"></div>
+      <button class="btn ghost" style="margin-top:14px" onclick="showView('awards')">View all awards →</button>
     </div>
+    <div class="panel"><div class="panel-head"><h3>Up next</h3><span class="pill" id="todayTargetPill">Today's goal</span></div><div id="dashboardNext"></div><button class="btn ghost" style="margin-top:14px" onclick="showView('today')">Go to today's reading</button></div>
   </section>
 
   <section class="view" id="view-today">
@@ -214,7 +212,7 @@ main{padding:34px clamp(18px,4vw,60px) 90px;min-width:0}.topbar{display:flex;jus
     <h2 class="section-title">Reading calendar</h2><p class="section-intro">A gentle record of the days you spent in Scripture.</p>
     <div class="calendar-panel panel"><div class="calendar-top"><button class="btn outline" onclick="shiftMonth(-1)" aria-label="Previous month">←</button><h3 id="monthTitle"></h3><button class="btn outline" onclick="shiftMonth(1)" aria-label="Next month">→</button></div>
     <div class="cal-nav"><select id="calMonthSelect" aria-label="Choose month"></select><select id="calYearSelect" aria-label="Choose year"></select><button class="btn primary" type="button" onclick="goToToday()">Today</button></div>
-    <div class="calendar-grid" id="calendarGrid"></div><div class="subtle" style="margin-top:13px">● Reading completed &nbsp;&nbsp;&nbsp; <span style="color:var(--gold)">●</span> At least one IREAP completed</div><div id="selectedDay" class="finish-box" style="margin-top:17px"><p>Select a day to see your reading history.</p></div></div>
+    <div class="calendar-grid" id="calendarGrid"></div><div class="subtle" style="margin-top:13px">Darker purple means more chapters read that day.</div><div id="selectedDay" class="finish-box" style="margin-top:17px"><p>Select a day to see your reading history.</p></div></div>
   </section>
 
   <section class="view" id="view-books">
@@ -375,10 +373,11 @@ function loadState(){
       loaded.dailyTarget=Number(loaded.dailyTarget)||3;
       loaded.excludedBooks=Array.isArray(loaded.excludedBooks)?loaded.excludedBooks.filter(b=>typeof b==="string"):[];
       loaded.scheduleName=typeof loaded.scheduleName==="string"&&loaded.scheduleName.trim()?loaded.scheduleName:"Ronnie's Reading Schedule";
+      loaded.targetFinishDate=typeof loaded.targetFinishDate==="string"?loaded.targetFinishDate:"";
       return reconcileState(loaded);
     }
   } catch(e){}
-  return {completed:[],logs:{},ireapCompleted:[],ireapCompletedAt:{},planAnchor:null,readingOrder:defaultReadingOrder(),detourBook:null,detourBeforeBook:null,dailyTarget:3,excludedBooks:[],scheduleName:"Ronnie's Reading Schedule",createdAt:new Date().toISOString()};
+  return {completed:[],logs:{},ireapCompleted:[],ireapCompletedAt:{},planAnchor:null,readingOrder:defaultReadingOrder(),detourBook:null,detourBeforeBook:null,dailyTarget:3,excludedBooks:[],scheduleName:"Ronnie's Reading Schedule",targetFinishDate:"",createdAt:new Date().toISOString()};
 }
 function saveState({sync=true}={}){
   reconcileState(state);
@@ -666,12 +665,6 @@ function renderInsights(){
  document.getElementById("insightWeek").textContent=chapterCountSince(startWeek);
  document.getElementById("insightMonth").textContent=chapterCountSince(monthStart);
  document.getElementById("insightDays").textContent=readingDays;
- const heat=document.getElementById("readingHeatmap");heat.innerHTML="";
- for(let offset=29;offset>=0;offset--){
-   const d=new Date(today);d.setDate(today.getDate()-offset);const key=localISO(d),count=(state.logs[key]?.chapters||[]).length;
-   const cell=document.createElement("div");cell.className="heat-cell"+(count>=4?" level4":count===3?" level3":count===2?" level2":count===1?" level1":"");
-   cell.title=`${prettyDate(key,{month:"short",day:"numeric"})}: ${count} chapter${count===1?"":"s"}`;heat.appendChild(cell);
- }
 }
 // Reading streaks, computed from the actual log dates (today or earlier).
 function readingDatesSet(){
@@ -883,6 +876,7 @@ function renderDashboard(){
  document.getElementById("streakDelta").textContent=streak===1?"day in a row":"days in a row";
  document.getElementById("finishLarge").textContent=prettyDate(finish);
  document.getElementById("finishMessage").textContent=remain===0?"You've completed the entire reading sequence. Praise God!":`At your recent pace of ${recentPace().toFixed(1)} chapters per day.`;
+ updateTargetPace();
  const readDays=Object.entries(state.logs).filter(([date,l])=>date<=todayISO()&&(l.chapters||[]).length>0).length;
  const ireaps=(state.ireapCompleted||[]).length;
  document.getElementById("daysStat").textContent=readDays;
@@ -911,6 +905,23 @@ function renderDashboard(){
  if(!next.length){box.innerHTML='<p class="subtle">No outstanding reading assignments. Well done!</p>';return}
  next.slice(0,3).forEach((i,k)=>{const div=document.createElement("div");div.className="next-reading";div.innerHTML=`<div><div class="chapter-name">${CHAPTERS[i]}</div><div class="chapter-tag">${carry.includes(i)?"Carry over": "Planned today"}</div></div>${k===0?`<span class="pill">${n} of ${total.toLocaleString()} completed</span>`:""}`;box.appendChild(div)});
 
+}
+function updateTargetPace(){
+ const line=document.getElementById("targetPaceLine");if(!line)return;
+ const input=document.getElementById("targetFinishDate");
+ if(input)input.value=state.targetFinishDate||"";
+ const target=state.targetFinishDate||"";
+ if(!target){line.textContent="Pick a date to see how many chapters a day you need.";return}
+ const remain=remainingChapters();
+ const days=Math.round((parseDate(target)-parseDate(todayISO()))/86400000);
+ if(days<=0){line.textContent="Choose a future date.";return}
+ if(remain===0){line.textContent="You've completed the entire reading sequence.";return}
+ line.textContent=`To finish by ${prettyDate(target)}, read ${(remain/days).toFixed(1)} chapters a day.`;
+}
+function setTargetFinishDate(value){
+ state.targetFinishDate=value||"";
+ saveState();
+ updateTargetPace();
 }
 const todayPages={};
 function buildPager(page,totalPages,onPage){
@@ -1211,9 +1222,10 @@ function calendarDayButton(year,month,d){
  const ireapCount=(log?.chapters||[]).filter(i=>isIreapComplete(i)).length;
  const monthName=new Date(year,month,1).toLocaleDateString(undefined,{month:"long"});
  const b=document.createElement("button");
- b.className="cal-day"+(read?" read":"")+(ireap?" ireap":"")+(selectedCalendarDate===date?" selected":"");
+ const level=chCount>=4?" level4":chCount===3?" level3":chCount===2?" level2":chCount===1?" level1":"";
+ b.className="cal-day"+(read?" read":"")+(ireap?" ireap":"")+level+(selectedCalendarDate===date?" selected":"");
  b.setAttribute("aria-label",chCount?`${monthName} ${d}, ${year}, ${chCount} chapter${chCount===1?"":"s"} read, IREAP done for ${ireapCount} of ${chCount}.`:`${monthName} ${d}, ${year}, no reading recorded.`);
- b.innerHTML=`<span class="num">${d}</span><span style="display:flex;gap:4px" aria-hidden="true">${read?'<i class="dot"></i>':""}${ireap?'<i class="dot" style="background:var(--gold)"></i>':""}</span>${read?`<small>${chCount} ch · IREAP ${ireapCount}/${chCount}</small>`:""}`;
+ b.innerHTML=`<span class="num">${d}</span>${read?`<small>${chCount} ch · IREAP ${ireapCount}/${chCount}</small>`:""}`;
  return b;
 }
 let dashCalendarMonth=new Date();
@@ -1488,6 +1500,7 @@ async function importBackup(e){
         dailyTarget:Number(incoming.dailyTarget)||3,
         excludedBooks:Array.isArray(incoming.excludedBooks)?incoming.excludedBooks.filter(b=>typeof b==="string"):[],
         scheduleName:typeof incoming.scheduleName==="string"&&incoming.scheduleName.trim()?incoming.scheduleName:"Ronnie's Reading Schedule",
+        targetFinishDate:typeof incoming.targetFinishDate==="string"?incoming.targetFinishDate:"",
         createdAt:incoming.createdAt||new Date().toISOString()
       };
       saveState({sync:false});
@@ -1651,6 +1664,7 @@ function mergeStates(localState, cloudState) {
    dailyTarget:localState?.dailyTarget||cloudState?.dailyTarget||3,
    excludedBooks:[...new Set([...(localState?.excludedBooks||[]),...(cloudState?.excludedBooks||[])])],
    scheduleName:localState?.scheduleName||cloudState?.scheduleName||"Ronnie's Reading Schedule",
+   targetFinishDate:localState?.targetFinishDate||cloudState?.targetFinishDate||"",
    createdAt:localState?.createdAt||cloudState?.createdAt||new Date().toISOString()
  };
  return reconcileState(merged);

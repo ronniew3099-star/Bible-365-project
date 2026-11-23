@@ -8,6 +8,14 @@ Verified by: re-reading every changed function, `node --check` on the extracted 
 
 ---
 
+## Home consolidation — Reading rhythm panel and target-date pace (Nov 23, 2026)
+
+Ronnie asked to consolidate the Home page: remove the yellow dots from the calendar, fold the heatmap into the monthly calendar, and make the finish line a section in one panel that shows his current pace and how many chapters a day he needs to finish by a future date he picks. Titles updated at his request: the panel is now just "Reading rhythm" and the section is "The finish line".
+- One panel, "Reading rhythm", now holds the three insight numbers (This week / This month / Reading days), the monthly calendar, and the finish line section. The old standalone "Reading calendar" panel is gone and "Up next" is now a full-width standalone panel.
+- Calendar dots removed: the gold/green dot markers are gone from day cells in both the Home calendar and the Reading calendar view. The date number and the "N ch · IREAP x/y" text line remain, and the screen-reader label still reads the full info. The dot legend in the Reading calendar view is replaced with the shading note.
+- Heatmap folded into the calendar: each day cell is now shaded purple by chapters read that day (1 = pale lavender, 2 = light purple, 3 = medium purple, 4+ = deep purple), reusing the heatmap shades. Darker cells (3 and 4+) use white text for contrast. The separate "Last 30 days" heatmap grid is removed. Both calendars show the note "Darker purple means more chapters read that day."
+- The finish line section keeps the projected completion date and current pace, plus the "Original target: December 31, 2027" line. Added a date picker ("I want to finish by") and a pace line: pick a future date and it shows "To finish by [date], read X chapters a day." The target date is saved in state (same pattern as the schedule name) so it survives reloads and syncs.
+
 ## Phase 3 follow-up — Awards phone layout (Nov 23, 2026)
 
 Ronnie checked the live app on his phone and reported the Awards page was cramped and a problem with the Refresh button. Fixes in this push:
