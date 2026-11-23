@@ -27,7 +27,7 @@ button,input{font:inherit}button{cursor:pointer}.app{min-height:100vh;display:gr
 .brand{display:flex;gap:12px;align-items:center;padding:14px 16px;background:var(--green);border-radius:18px;color:#fff}.brand-mark{width:42px;height:42px;border-radius:14px;background:rgba(255,255,255,.14);color:white;display:grid;place-items:center;font-size:21px;flex:none}.brand strong{display:block;font-family:Georgia,serif;font-size:18px;color:#fff}.brand small{color:#d9c8f5;font-size:11px;letter-spacing:.08em;text-transform:uppercase}
 .nav{display:grid;gap:7px}.nav button{border:0;background:transparent;color:#68736b;text-align:left;padding:12px;font-size:14px;white-space:nowrap;border-radius:13px;font-weight:600;display:flex;gap:12px;align-items:center}.nav button:hover{background:var(--green2);color:var(--green)}.nav button.active{background:#fde68a;color:var(--green)}.nav .ico{width:20px;height:20px;flex:none;display:inline-flex;align-items:center;justify-content:center}.nav .ico svg{width:18px;height:18px;display:block}
 .side-verse{margin-top:auto;padding:18px;border-radius:18px;background:var(--goldbg);color:#68532f;font:italic 15px/1.55 Georgia,serif}.side-verse small{display:block;font:600 10px/1.4 system-ui;letter-spacing:.12em;text-transform:uppercase;margin-top:10px;color:#6d5a33}
-main{padding:34px clamp(18px,4vw,60px) 90px;min-width:0}.topbar{display:flex;justify-content:space-between;align-items:center;gap:15px;margin-bottom:30px}.eyebrow{font-size:11px;text-transform:uppercase;letter-spacing:.15em;color:var(--muted);font-weight:700}.topbar h1{font:400 clamp(26px,3vw,36px)/1.2 Georgia,serif;margin:5px 0 0}.today-label{padding:9px 13px;border:1px solid var(--line);border-radius:999px;color:var(--muted);font-size:12px;background:var(--paper)}.topbar-actions{display:flex;align-items:center;gap:10px;flex:none}.topbar-actions .btn{white-space:nowrap}.topbar-actions .btn:disabled{opacity:.65;cursor:wait}#pinnedActions{position:fixed;top:12px;right:15px;z-index:30;display:flex;gap:8px;align-items:center}#pinnedActions .btn{box-shadow:0 2px 10px rgba(37,48,39,.18)}#accountButton{max-width:120px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}#avatarButton{display:none;width:40px;height:40px;border-radius:50%;background:var(--green);color:#fff;border:0;padding:0;align-items:center;justify-content:center;font-size:17px;font-weight:700;box-shadow:0 2px 10px rgba(37,48,39,.18)}#avatarButton svg{width:20px;height:20px;display:block}#accountMenu{display:none;position:absolute;top:calc(100% + 8px);right:0;z-index:40;background:#fff;border:1px solid var(--line);border-radius:14px;box-shadow:0 8px 24px rgba(58,32,110,.12);min-width:220px;padding:6px}#accountMenu .account-menu-email{padding:10px 12px;font-size:12px;color:var(--muted);border-bottom:1px solid var(--line);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}#accountMenu button{display:block;width:100%;text-align:left;background:transparent;border:0;padding:10px 12px;font-size:14px;color:var(--green);border-radius:8px;cursor:pointer}#accountMenu button:hover{background:var(--green2)}#accountMenu button:disabled{opacity:.5;cursor:default}.topbar-actions{padding-right:185px}
+main{padding:34px clamp(18px,4vw,60px) 90px;min-width:0}.topbar{display:flex;justify-content:space-between;align-items:center;gap:15px;margin-bottom:30px}.eyebrow{font-size:11px;text-transform:uppercase;letter-spacing:.15em;color:var(--muted);font-weight:700}.topbar h1{font:400 clamp(26px,3vw,36px)/1.2 Georgia,serif;margin:5px 0 0}.today-label{padding:9px 13px;border:1px solid var(--line);border-radius:999px;color:var(--muted);font-size:12px;background:var(--paper)}.topbar-actions{display:flex;align-items:center;gap:10px;flex:none}.topbar-actions .btn{white-space:nowrap}.topbar-actions .btn:disabled{opacity:.65;cursor:wait}#pinnedActions{position:fixed;top:12px;right:15px;z-index:30;display:flex;gap:8px;align-items:center}#pinnedActions .btn{box-shadow:0 2px 10px rgba(37,48,39,.18)}#accountButton{max-width:120px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}#avatarButton{display:none;width:40px;height:40px;border-radius:50%;background:var(--green);color:#fff;border:0;padding:0;align-items:center;justify-content:center;font-size:17px;font-weight:700;box-shadow:0 2px 10px rgba(37,48,39,.18)}#avatarButton svg{width:20px;height:20px;display:block}#avatarButton [hidden]{display:none}#accountMenu{display:none;position:absolute;top:calc(100% + 8px);right:0;z-index:40;background:#fff;border:1px solid var(--line);border-radius:14px;box-shadow:0 8px 24px rgba(58,32,110,.12);min-width:220px;padding:6px}#accountMenu .account-menu-email{padding:10px 12px;font-size:12px;color:var(--muted);border-bottom:1px solid var(--line);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}#accountMenu button{display:block;width:100%;text-align:left;background:transparent;border:0;padding:10px 12px;font-size:14px;color:var(--green);border-radius:8px;cursor:pointer}#accountMenu button:hover{background:var(--green2)}#accountMenu button:disabled{opacity:.5;cursor:default}#accountMenu button[hidden]{display:none}.topbar-actions{padding-right:185px}
 .view{display:none}.view.active{display:block}.hero{background:linear-gradient(135deg,#3d1478 0%,#5b21b6 55%,#6d28d9 100%);color:white;border-radius:28px;padding:30px;display:grid;grid-template-columns:1fr auto;grid-template-areas:"intro ring" "body ring";gap:0 20px;align-items:center;box-shadow:var(--shadow);position:relative;overflow:hidden}.hero-intro{grid-area:intro}.hero-body{grid-area:body}.hero-text-short{display:none}.hero:after{content:"";position:absolute;width:280px;height:280px;border:1px solid rgba(255,255,255,.12);border-radius:50%;right:100px;top:-170px}.hero h2{font:400 clamp(25px,3vw,34px)/1.2 Georgia,serif;margin:7px 0 9px}.hero p{color:#e9e2f7;margin:0;max-width:540px}.hero .eyebrow{color:#d9c8f5}.hero-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:20px}
 .btn{border:0;border-radius:12px;padding:11px 16px;font-weight:700;transition:.15s}.btn.primary{background:var(--gold);color:#2d342d}.btn.light{background:white;color:var(--green)}.btn.ghost{background:#efe9f7;color:var(--green)}.btn.outline{background:transparent;border:1px solid var(--line);color:var(--ink)}.btn:disabled{opacity:.45;cursor:not-allowed}.section-toggle{padding:6px 12px;font-size:18px;line-height:1;flex:none}
 .progress-ring{grid-area:ring;width:128px;height:128px;border-radius:50%;display:grid;place-items:center;background:conic-gradient(var(--gold) var(--progress,0%),rgba(255,255,255,.18) 0);position:relative;z-index:1}.progress-ring:before{content:"";position:absolute;inset:9px;background:var(--green);border-radius:50%}.progress-ring div{position:relative;text-align:center}.progress-ring strong{font:28px Georgia,serif;display:block}.progress-ring small{font-size:12px;color:#e9e2f7}
@@ -1691,8 +1691,9 @@ async function handleAccountButton(){
  showToast("Tap again to sign out.");
 }
 // Mobile account menu: the avatar button opens a small menu with Refresh,
-// Sign in, and Sign out. Sign out keeps the same two-tap confirmation as
-// the desktop account button.
+// Sign in, and Sign out. Sign out works on one tap here — opening the menu
+// is already the guard against an accidental tap. (The desktop account
+// button still asks twice.)
 function closeAccountMenu(){
  const menu=document.getElementById("accountMenu");
  if(menu)menu.classList.remove("open");
@@ -1704,8 +1705,6 @@ function toggleAccountMenu(){
  const btn=document.getElementById("avatarButton");
  if(!menu||!btn)return;
  if(menu.classList.contains("open")){closeAccountMenu();return;}
- const item=document.getElementById("accountMenuSignOut");
- if(item)item.textContent=Date.now()-accountSignOutArmedAt<5000?"Tap again to sign out":"Sign out";
  menu.classList.add("open");
  btn.setAttribute("aria-expanded","true");
 }
@@ -1716,16 +1715,8 @@ function accountMenuSignIn(){
  setTimeout(()=>{const e=document.getElementById("authEmail");if(e)e.focus();},100);
 }
 async function accountMenuSignOut(){
- const item=document.getElementById("accountMenuSignOut");
- if(Date.now()-accountSignOutArmedAt<5000){
-  accountSignOutArmedAt=0;
-  closeAccountMenu();
-  if(await signOut())showToast("Signed out.");
-  return;
- }
- accountSignOutArmedAt=Date.now();
- if(item)item.textContent="Tap again to sign out";
- showToast("Tap again to sign out.");
+ closeAccountMenu();
+ if(await signOut())showToast("Signed out.");
 }
 document.addEventListener("click",event=>{
  const menu=document.getElementById("accountMenu");

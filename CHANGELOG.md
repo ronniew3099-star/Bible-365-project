@@ -8,6 +8,13 @@ Verified by: re-reading every changed function, `node --check` on the extracted 
 
 ---
 
+## Header bug fix — account menu and avatar (Nov 23, 2026)
+
+Ronnie sent a screenshot showing the account menu with both "Sign in" and "Sign out" at once, and the avatar with both the "R" initial and the person icon at once. Root cause: the code was hiding the extra one, but the styling overruled the hiding, so both showed anyway.
+- The menu now shows only what applies: signed in, it shows Refresh and Sign out; signed out, it shows Refresh and Sign in.
+- The avatar now shows only the "R" initial when signed in and only the person icon when signed out.
+- Sign out in the menu is now one tap. Opening the menu is already the guard against an accidental tap, so the double-tap confirmation is gone there. The desktop account button still asks twice, because it sits out in the open.
+
 ## Figma 6: polish — bigger small text, darker muted text, one date (Nov 23, 2026)
 
 The last of the Figma feedback items. On all sizes:
