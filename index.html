@@ -130,11 +130,10 @@ main{padding:34px clamp(18px,4vw,60px) 90px;min-width:0}.topbar{display:flex;jus
       <div class="progress-ring" id="progressRing"><div><strong id="progressPct">0%</strong><small>completed</small></div></div>
       <div class="hero-body"><p><span class="hero-text-full">Your plan moves with you. Miss a day? Pick up where you left off. Read extra? Your finish date moves closer.</span><span class="hero-text-short">Miss a day? Pick up where you left off.</span></p><div class="hero-actions"><button class="btn primary" onclick="showView('today')">Open today's reading →</button><button class="btn light" onclick="showView('calendar')">View calendar</button></div></div>
     </div>
-    <div class="stats">
-      <div class="stat"><label>Chapters completed</label><strong id="completedStat">0 / 1,189</strong><small>One chapter at a time</small></div>
-      <div class="stat"><label>Chapters remaining</label><strong id="remainingStat">1,189</strong><small>Still ahead of you</small></div>
+    <div class="stats three">
+      <div class="stat"><label>Today's chapters</label><strong id="todayStat">0</strong><small>Read so far today</small></div>
       <div class="stat"><label>Current streak</label><strong id="streakStat">0</strong><small id="streakDelta">days in a row</small></div>
-      <div class="stat"><label>Days with reading</label><strong id="daysStat">0</strong><small id="ireapStat">0 IREAP reflections</small></div>
+      <div class="stat"><label>Overall progress</label><strong id="completedStat">0 / 1,189</strong><small>One chapter at a time</small></div>
     </div>
     <div class="panel" style="margin:0 0 18px">
       <div class="panel-head"><h3>Today's reading overview</h3><span class="subtle" id="dashboardDateLabel"></span></div>
@@ -247,6 +246,10 @@ main{padding:34px clamp(18px,4vw,60px) 90px;min-width:0}.topbar{display:flex;jus
         <span class="subtle" style="font-size:12px">Return to the next unread book in your original plan order.</span>
       </div>
       <div class="subtle" id="readingOrderStatus" style="margin-top:10px"></div>
+    </div>
+    <div class="panel" style="margin-bottom:18px">
+      <div class="panel-head"><h3>Progress details</h3></div>
+      <p style="margin:0">Chapters remaining: <strong id="progressRemaining">1,189</strong></p>
     </div>
     <div class="book-toolbar"><span class="subtle">Sort the books to explore your progress.</span><label for="bookSort">Sort by <select id="bookSort" onchange="setBookSort(this.value)"><option value="plan">Current reading order</option><option value="traditional">Traditional order</option><option value="alpha">Alphabetical order</option></select></label></div><div id="bookPager"></div><div class="book-grid" id="bookGrid"></div>
   </section>
@@ -937,18 +940,14 @@ function renderDashboard(){
  const n=activeCompletedCount(),total=planTotal(),remain=total-n,pct=total?n/total*100:0,finish=projectedFinish();
  document.getElementById("progressPct").textContent=pct.toFixed(1)+"%";
  document.getElementById("progressRing").style.setProperty("--progress",(pct*3.6)+"deg");
+ document.getElementById("todayStat").textContent=((state.logs[todayISO()]||{}).chapters||[]).length;
  document.getElementById("completedStat").textContent=n.toLocaleString()+" / "+total.toLocaleString();
- document.getElementById("remainingStat").textContent=remain.toLocaleString();
  const streak=currentStreak();
  document.getElementById("streakStat").textContent=streak;
  document.getElementById("streakDelta").textContent=streak===1?"day in a row":"days in a row";
  document.getElementById("finishLarge").textContent=prettyDate(finish);
  document.getElementById("finishMessage").textContent=remain===0?"You've completed the entire reading sequence. Praise God!":`At your recent pace of ${recentPace().toFixed(1)} chapters per day.`;
  updateTargetPace();
- const readDays=Object.entries(state.logs).filter(([date,l])=>date<=todayISO()&&(l.chapters||[]).length>0).length;
- const ireaps=(state.ireapCompleted||[]).length;
- document.getElementById("daysStat").textContent=readDays;
- document.getElementById("ireapStat").textContent=ireaps+" IREAP reflections";
  const date=todayISO(), planned=getPlannedChapterIndexes(date), carry=getCarryOverChapterIndexes(date);
  const todayLog=state.logs[date]||{chapters:[]}, completedToday=todayLog.chapters||[];
  document.getElementById("dashboardDateLabel").textContent=prettyDate(date,{month:"short",day:"numeric"});
@@ -1232,6 +1231,8 @@ function undoChapter(i,date){
 function addExtra(){const log=logFor(todayISO());log.extra=(log.extra||0)+1;saveState();showToast("One more chapter added to today's goal.");}
 function toggleIreap(v){logFor(todayISO()).ireap=v;saveState();showToast(v?"IREAP marked complete.":"IREAP mark removed.");}
 function renderBooks(){
+ const progressRemaining=document.getElementById("progressRemaining");
+ if(progressRemaining)progressRemaining.textContent=(planTotal()-activeCompletedCount()).toLocaleString();
  const map=getBookProgress(),grid=document.getElementById("bookGrid");grid.innerHTML="";
  const names=[...map.keys()],order=normalizeReadingOrder(state.readingOrder);
  if(bookSortPreference==="alpha")names.sort((a,b)=>a.localeCompare(b));

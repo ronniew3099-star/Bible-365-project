@@ -8,6 +8,14 @@ Verified by: re-reading every changed function, `node --check` on the extracted 
 
 ---
 
+## Figma 5: statistics simplified to three (Nov 23, 2026)
+
+The four stat cards below the hero overlapped. Now there are three:
+- Today's chapters (how many you read today), Current streak (days in a row), and Overall progress (chapters completed of the plan total).
+- Chapters remaining moved to the Books page under Progress details, so it is still easy to find.
+- Reading days and the IREAP total were already shown elsewhere on the dashboard, so they were removed from the stats and nothing is lost.
+- The estimated finish date stays only in the Reading rhythm finish line, as before.
+
 ## Figma 4: carry-over summary on the dashboard (Nov 23, 2026)
 
 The dashboard carry-over card listed every carried-over chapter as a dense wall of small text. Now it shows a short summary instead:
