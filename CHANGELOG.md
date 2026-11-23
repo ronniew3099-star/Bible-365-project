@@ -8,6 +8,13 @@ Verified by: re-reading every changed function, `node --check` on the extracted 
 
 ---
 
+## Figma 6: polish — bigger small text, darker muted text, one date (Nov 23, 2026)
+
+The last of the Figma feedback items. On all sizes:
+- Small text inside cards is now 12px (was 10–11px in places): stat labels, Reading rhythm labels, book footers, award cards, and the sign-in form labels, among others. Compact labels that have to stay small for layout reasons (calendar day cells, mobile nav labels, pager labels) are unchanged.
+- Muted text is now a darker purple-gray (#4a4457, was gray-green #5a665e), so it reads clearly on white cards and the lavender background.
+- The date now shows once, in the top bar. The repeated dates in the overview panel header and above "Your reading" are gone. Dates that carry distinct information (calendar month, selected day, projected finish date, target date) are unchanged.
+
 ## Figma 5: statistics simplified to three (Nov 23, 2026)
 
 The four stat cards below the hero overlapped. Now there are three:
