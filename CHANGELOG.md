@@ -49,6 +49,11 @@ Ronnie approved both mockups before this push.
 - Books buttons: on phones (≤700px) the three action buttons are now on one line, each a vertical stack with the icon on top and a small label underneath — "Move up", "Move down", "Delete". The book cards are now full-width (1 column) on phones, like the Awards page, because the two-column cards were too narrow for three labelled buttons to fit on one line. Desktop keeps 3 columns, tablet 2 columns. The screen-reader labels are unchanged.
 - Refresh button: the pinned Refresh button now applies at all responsive sizes, not just phones. The fixed positioning is a base rule, and the topbar actions have right padding (115px) so the date label on desktop and tablet does not slide under the pinned button. On phones the actions padding is overridden to 0 (the date label is hidden there).
 
+## Phase 3 follow-up — Awards as single cards (Nov 23, 2026)
+
+Ronnie approved the mockup before this push.
+- Awards: on phones (≤700px) the award cards are now single full-width cards (1 column), like the Bible books. The earlier 1-column rule was in the stylesheet before the base 2-column rule, so the base rule was overriding it and the page stayed 2-column with text breaking mid-word. The 1-column rule is now also in the later ≤700px media query (after the base rule), so it actually takes effect. The card layout (icon left, text middle, status right) is unchanged.
+
 ---
 
 ## Phase 3 — Bible Quota redesign (Nov 23, 2026)
