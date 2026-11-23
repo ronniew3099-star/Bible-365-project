@@ -12,31 +12,31 @@ The MyBibleLog project is provided "AS IS", without warranty of any kind.
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#f6f4ef">
+<meta name="theme-color" content="#4c1d95">
 <link rel="manifest" href="manifest.json">
 <link rel="apple-touch-icon" href="icon-192.png">
-<meta name="description" content="A flexible Bible reading companion that adjusts to your real progress.">
+<meta name="description" content="Bible Quota — a flexible Bible reading tracker by Njenga wa Wainaina.">
 
 
-<title>Ronnie's Bible Challenge</title>
+<title>Bible Quota</title>
 <style>
-:root{--bg:#f6f4ef;--paper:#fffefa;--ink:#202a25;--muted:#748078;--line:#e7e6dd;--green:#315c48;--green2:#dce9df;--gold:#d9ae62;--goldbg:#f7efdF;--shadow:0 14px 40px rgba(37,48,39,.07);--radius:22px}
-*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+:root{--bg:#f4f1fa;--paper:#fffefa;--ink:#251f2e;--muted:#5a665e;--line:#e3ddf0;--green:#4c1d95;--green2:#e9e2f7;--gold:#d9ae62;--goldbg:#efe9f7;--shadow:0 14px 40px rgba(58,32,110,.08);--radius:22px}
+*{box-sizing:border-box}body{margin:0;overflow-x:clip;background:var(--bg);color:var(--ink);font:15px/1.5 Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
 button,input{font:inherit}button{cursor:pointer}.app{min-height:100vh;display:grid;grid-template-columns:250px 1fr;max-width:1600px;margin:auto}
 .sidebar{padding:28px 18px;border-right:1px solid var(--line);background:rgba(255,254,250,.65);display:flex;flex-direction:column;gap:26px}
 .brand{display:flex;gap:12px;align-items:center;padding:0 10px}.brand-mark{width:42px;height:42px;border-radius:14px;background:var(--green);color:white;display:grid;place-items:center;font-size:21px}.brand strong{display:block;font-family:Georgia,serif;font-size:18px}.brand small{color:var(--muted);font-size:11px;letter-spacing:.08em;text-transform:uppercase}
 .nav{display:grid;gap:7px}.nav button{border:0;background:transparent;color:#68736b;text-align:left;padding:12px 14px;border-radius:13px;font-weight:600;display:flex;gap:12px;align-items:center}.nav button.active,.nav button:hover{background:var(--green2);color:var(--green)}.nav .ico{width:20px;text-align:center;font-size:17px;line-height:1}
-.side-verse{margin-top:auto;padding:18px;border-radius:18px;background:var(--goldbg);color:#68532f;font:italic 15px/1.55 Georgia,serif}.side-verse small{display:block;font:600 10px/1.4 system-ui;letter-spacing:.12em;text-transform:uppercase;margin-top:10px;color:#90774a}
+.side-verse{margin-top:auto;padding:18px;border-radius:18px;background:var(--goldbg);color:#68532f;font:italic 15px/1.55 Georgia,serif}.side-verse small{display:block;font:600 10px/1.4 system-ui;letter-spacing:.12em;text-transform:uppercase;margin-top:10px;color:#6d5a33}
 main{padding:34px clamp(18px,4vw,60px) 90px;min-width:0}.topbar{display:flex;justify-content:space-between;align-items:center;gap:15px;margin-bottom:30px}.eyebrow{font-size:11px;text-transform:uppercase;letter-spacing:.15em;color:var(--muted);font-weight:700}.topbar h1{font:400 clamp(26px,3vw,36px)/1.2 Georgia,serif;margin:5px 0 0}.today-label{padding:9px 13px;border:1px solid var(--line);border-radius:999px;color:var(--muted);font-size:12px;background:var(--paper)}.topbar-actions{display:flex;align-items:center;gap:10px;flex:none}.topbar-actions .btn{white-space:nowrap}.topbar-actions .btn:disabled{opacity:.65;cursor:wait}
-.view{display:none}.view.active{display:block}.hero{background:var(--green);color:white;border-radius:28px;padding:30px;display:grid;grid-template-columns:1fr auto;gap:20px;align-items:center;box-shadow:var(--shadow);position:relative;overflow:hidden}.hero:after{content:"";position:absolute;width:280px;height:280px;border:1px solid rgba(255,255,255,.12);border-radius:50%;right:100px;top:-170px}.hero h2{font:400 clamp(25px,3vw,34px)/1.2 Georgia,serif;margin:7px 0 9px}.hero p{color:#dce8df;margin:0;max-width:540px}.hero .eyebrow{color:#c4d7c9}.hero-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:20px}
-.btn{border:0;border-radius:12px;padding:11px 16px;font-weight:700;transition:.15s}.btn.primary{background:var(--gold);color:#2d342d}.btn.light{background:white;color:var(--green)}.btn.ghost{background:#eef2ed;color:var(--green)}.btn.outline{background:transparent;border:1px solid var(--line);color:var(--ink)}.btn:disabled{opacity:.45;cursor:not-allowed}
-.progress-ring{width:128px;height:128px;border-radius:50%;display:grid;place-items:center;background:conic-gradient(var(--gold) var(--progress,0%),rgba(255,255,255,.18) 0);position:relative;z-index:1}.progress-ring:before{content:"";position:absolute;inset:9px;background:var(--green);border-radius:50%}.progress-ring div{position:relative;text-align:center}.progress-ring strong{font:28px Georgia,serif;display:block}.progress-ring small{font-size:10px;color:#dce8df}
+.view{display:none}.view.active{display:block}.hero{background:linear-gradient(135deg,#4c1d95 0%,#6d28d9 55%,#7c3aed 100%);color:white;border-radius:28px;padding:30px;display:grid;grid-template-columns:1fr auto;gap:20px;align-items:center;box-shadow:var(--shadow);position:relative;overflow:hidden}.hero:after{content:"";position:absolute;width:280px;height:280px;border:1px solid rgba(255,255,255,.12);border-radius:50%;right:100px;top:-170px}.hero h2{font:400 clamp(25px,3vw,34px)/1.2 Georgia,serif;margin:7px 0 9px}.hero p{color:#e9e2f7;margin:0;max-width:540px}.hero .eyebrow{color:#d9c8f5}.hero-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:20px}
+.btn{border:0;border-radius:12px;padding:11px 16px;font-weight:700;transition:.15s}.btn.primary{background:var(--gold);color:#2d342d}.btn.light{background:white;color:var(--green)}.btn.ghost{background:#efe9f7;color:var(--green)}.btn.outline{background:transparent;border:1px solid var(--line);color:var(--ink)}.btn:disabled{opacity:.45;cursor:not-allowed}
+.progress-ring{width:128px;height:128px;border-radius:50%;display:grid;place-items:center;background:conic-gradient(var(--gold) var(--progress,0%),rgba(255,255,255,.18) 0);position:relative;z-index:1}.progress-ring:before{content:"";position:absolute;inset:9px;background:var(--green);border-radius:50%}.progress-ring div{position:relative;text-align:center}.progress-ring strong{font:28px Georgia,serif;display:block}.progress-ring small{font-size:10px;color:#e9e2f7}
 .stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:13px;margin:18px 0 26px}.stat,.panel,.reading-card,.book-card{background:var(--paper);border:1px solid var(--line);border-radius:var(--radius);box-shadow:0 5px 18px rgba(37,48,39,.025)}.stat{padding:18px}.stat label{font-size:11px;color:var(--muted);font-weight:700;letter-spacing:.08em;text-transform:uppercase}.stat strong{display:block;font:25px Georgia,serif;margin-top:6px}.stat small{color:var(--muted);font-size:11px}
 .grid2{display:grid;grid-template-columns:1.15fr .85fr;gap:17px}.panel{padding:22px}.panel-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:16px}.panel h3{font:400 21px Georgia,serif;margin:0}.subtle{color:var(--muted);font-size:12px}
 .next-reading{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:13px 0;border-bottom:1px solid var(--line)}.next-reading:last-child{border-bottom:0}.chapter-name{font-weight:650}.chapter-tag{font-size:11px;color:var(--muted)}
-.finish-box{background:#f5f1e7;border-radius:16px;padding:17px}.finish-box strong{display:block;font:25px Georgia,serif;color:var(--green);margin:4px 0}.finish-box p{margin:0;color:#71694f;font-size:12px}
+.finish-box{background:#efe9f7;border-radius:16px;padding:17px}.finish-box strong{display:block;font:25px Georgia,serif;color:var(--green);margin:4px 0}.finish-box p{margin:0;color:#71694f;font-size:12px}
 .section-title{font:400 28px Georgia,serif;margin:0 0 6px}.section-intro{margin:0 0 22px;color:var(--muted)}
-.reading-layout{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:18px;align-items:start}.reading-card{padding:24px}.reading-head{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;margin-bottom:17px}.reading-head h2{font:400 27px Georgia,serif;margin:3px 0}.pill{display:inline-flex;padding:5px 10px;border-radius:999px;background:var(--green2);color:var(--green);font-size:11px;font-weight:700}.chapter-row{display:flex;align-items:center;gap:13px;padding:15px 0;border-bottom:1px solid var(--line)}.chapter-row:last-child{border-bottom:0}.chapter-check{appearance:none;width:23px;height:23px;border:1.5px solid #b8c3b9;border-radius:7px;display:grid;place-items:center;margin:0;flex:none;cursor:pointer}.chapter-check:checked{background:var(--green);border-color:var(--green)}.chapter-check:checked:after{content:"✓";color:white;font-weight:800;font-size:15px}.chapter-check:disabled{opacity:.55;cursor:not-allowed}.chapter-row.done .chapter-name{text-decoration:line-through;color:#8b958d}.chapter-meta{margin-left:auto;color:var(--muted);font-size:11px}.scroll-list{max-height:340px;overflow-y:auto;padding-right:6px}
+.reading-layout{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:18px;align-items:start}.reading-card{padding:24px}.reading-head{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;margin-bottom:17px}.reading-head h2{font:400 27px Georgia,serif;margin:3px 0}.pill{display:inline-flex;padding:5px 10px;border-radius:999px;background:var(--green2);color:var(--green);font-size:11px;font-weight:700}.chapter-row{display:flex;align-items:center;gap:13px;padding:15px 0;border-bottom:1px solid var(--line)}.chapter-row:last-child{border-bottom:0}.chapter-check{appearance:none;width:23px;height:23px;border:1.5px solid #b8c3b9;border-radius:7px;display:grid;place-items:center;margin:0;flex:none;cursor:pointer}.chapter-check:checked{background:var(--green);border-color:var(--green)}.chapter-check:checked:after{content:"✓";color:white;font-weight:800;font-size:15px}.chapter-check:disabled{opacity:.55;cursor:not-allowed}.chapter-row.done .chapter-name{text-decoration:line-through;color:var(--muted)}.chapter-meta{margin-left:auto;color:var(--muted);font-size:11px}.scroll-list{max-height:340px;overflow-y:auto;padding-right:6px}
 .reading-side{display:grid;gap:14px}.side-note{padding:19px;border-radius:18px;background:var(--goldbg);color:#675735}.side-note h3{font:400 19px Georgia,serif;margin:0 0 8px}.side-note p{font-size:12px;margin:0}.ireap-card{padding:19px}.ireap-toggle{display:flex;gap:10px;align-items:center;margin-top:12px;font-size:13px;font-weight:600}.ireap-toggle input{width:17px;height:17px;accent-color:var(--green)}.ireap-options{display:flex;gap:14px;flex-wrap:wrap;margin-top:7px}.ireap-options label{display:inline-flex;align-items:center;gap:5px;font-size:12px;font-weight:500;color:var(--muted)}.ireap-options input{width:15px;height:15px;accent-color:var(--green)}.chapter-row input[type="checkbox"]{accent-color:var(--green);width:17px;height:17px}
 .calendar-panel{padding:22px}.calendar-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px}.calendar-top h3{font:400 22px Georgia,serif;margin:0}.calendar-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:6px}.cal-head{text-align:center;font-size:10px;color:var(--muted);font-weight:700;padding:6px}.cal-day{min-height:72px;border:1px solid var(--line);border-radius:12px;background:#fffefa;padding:8px;text-align:left;color:var(--ink);display:flex;flex-direction:column;gap:5px}.cal-day.empty{background:transparent;border:0}.cal-day .num{font-size:12px}.cal-day .dot{width:7px;height:7px;border-radius:50%;background:#b9c4ba}.cal-day.read .dot{background:var(--green)}.cal-day.ireap .dot{background:var(--gold)}.cal-day.selected{outline:2px solid var(--green)}.cal-day small{font-size:9px;color:var(--muted)}
 .book-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}.book-card{padding:16px}.book-card h3{font:400 17px Georgia,serif;margin:0 0 10px}.bar{height:6px;background:#edf0eb;border-radius:10px;overflow:hidden}.bar span{height:100%;display:block;background:var(--green);border-radius:10px}.book-foot{display:flex;justify-content:space-between;color:var(--muted);font-size:10px;margin-top:8px}
@@ -49,10 +49,10 @@ main{padding:34px clamp(18px,4vw,60px) 90px;min-width:0}.topbar{display:flex;jus
 .confirm-box p{margin:0 0 16px}
 .confirm-actions{display:flex;gap:10px;justify-content:flex-end}
 .mobile-nav{display:none}
-@media(max-width:980px){.app{grid-template-columns:210px 1fr}.stats{grid-template-columns:repeat(2,1fr)}.reading-layout{grid-template-columns:1fr}.reading-side{grid-template-columns:1fr 1fr}.book-grid{grid-template-columns:repeat(2,1fr)}}
-@media(max-width:700px){.app{display:block}.sidebar{display:none}main{padding:22px 15px 100px}.topbar{margin-bottom:20px}.today-label{display:none}.topbar-actions{gap:0}.topbar-actions .btn{padding:9px 12px}.hero{padding:23px;grid-template-columns:1fr auto}.progress-ring{width:88px;height:88px}.progress-ring strong{font-size:21px}.stats{gap:9px;margin:13px 0 18px}.stat{padding:14px}.stat strong{font-size:21px}.grid2{grid-template-columns:1fr}.reading-side{grid-template-columns:1fr}.book-grid{grid-template-columns:1fr 1fr}.settings-grid{grid-template-columns:1fr}.panel{padding:17px}.cal-day{min-height:57px;padding:6px}.calendar-grid{gap:3px}.mobile-nav{position:fixed;display:grid;grid-template-columns:repeat(6,1fr);bottom:0;left:0;right:0;background:rgba(255,254,250,.96);backdrop-filter:blur(14px);border-top:1px solid var(--line);padding:8px 5px calc(8px + env(safe-area-inset-bottom));z-index:10}.mobile-nav button{border:0;background:transparent;color:var(--muted);font-size:10px;display:grid;gap:3px;justify-items:center;padding:4px}.mobile-nav button span{font-size:18px}.mobile-nav button.active{color:var(--green);font-weight:800}.hero-actions .btn{padding:10px 12px;font-size:12px}}
+@media(max-width:980px){.app{grid-template-columns:210px 1fr}.stats{grid-template-columns:repeat(2,1fr)}.stats.three{grid-template-columns:repeat(2,1fr)}.reading-layout{grid-template-columns:1fr}.reading-side{grid-template-columns:1fr 1fr}.book-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:700px){.app{display:block}.sidebar{display:none}main{padding:22px 15px 100px}.topbar{margin-bottom:20px}.today-label{display:none}.topbar-actions{gap:0}.topbar-actions .btn{padding:9px 12px}.hero{padding:23px;grid-template-columns:1fr}.progress-ring{width:88px;height:88px}.progress-ring strong{font-size:21px}.stats{gap:9px;margin:13px 0 18px}.stat{padding:14px}.stat strong{font-size:21px}.grid2{grid-template-columns:1fr}.reading-side{grid-template-columns:1fr}.book-grid{grid-template-columns:1fr 1fr}.settings-grid{grid-template-columns:1fr}.panel{padding:17px}.cal-day{min-height:57px;padding:6px}.calendar-grid{gap:3px}.mobile-nav{position:fixed;display:grid;grid-template-columns:repeat(7,1fr);bottom:0;left:0;right:0;background:rgba(255,254,250,.96);backdrop-filter:blur(14px);border-top:1px solid var(--line);padding:8px 5px calc(8px + env(safe-area-inset-bottom));z-index:10}.mobile-nav button{border:0;background:transparent;color:var(--muted);font-size:10px;display:grid;gap:3px;justify-items:center;padding:4px}.mobile-nav button span{font-size:18px}.mobile-nav button.active{color:var(--green);font-weight:800}.hero-actions .btn{padding:10px 12px;font-size:12px}.toast{bottom:70px}}
 
-.feature-section{margin-top:18px}.feature-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}.feature-card{background:var(--paper);border:1px solid var(--line);border-radius:18px;padding:17px}.feature-card label{font-size:10px;color:var(--muted);font-weight:800;letter-spacing:.08em;text-transform:uppercase}.feature-card strong{display:block;font:25px Georgia,serif;margin:5px 0}.feature-card small{color:var(--muted);font-size:11px}.book-toolbar{display:flex;justify-content:space-between;align-items:center;gap:12px;margin:0 0 16px;flex-wrap:wrap}.book-toolbar select,.setting-box select,.setting-box input[type=time]{border:1px solid var(--line);border-radius:10px;padding:10px 12px;background:white;color:var(--ink);font:inherit}.book-card .bar{margin-top:8px}.achievement-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.achievement{border:1px solid var(--line);border-radius:14px;padding:13px;display:flex;gap:10px;align-items:center;background:#fffefa}.achievement.locked{opacity:.55}.achievement .medal{font-size:23px}.achievement strong{display:block;font-size:13px}.achievement small{display:block;color:var(--muted);font-size:11px}.heatmap{display:grid;grid-template-columns:repeat(15,minmax(0,1fr));gap:5px}.heat-cell{aspect-ratio:1;border-radius:5px;background:#edf0eb;border:1px solid rgba(0,0,0,.03)}.heat-cell.level1{background:#dce9df}.heat-cell.level2{background:#a9c7b1}.heat-cell.level3{background:#6e9b7d}.heat-cell.level4{background:#315c48}.reminder-row{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin:10px 0}.reminder-row label{font-size:12px;font-weight:700;color:#59665d}.reminder-status{font-size:12px;color:var(--muted);margin-top:8px}
+.feature-section{margin-top:18px}.feature-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}.feature-card{background:var(--paper);border:1px solid var(--line);border-radius:18px;padding:17px}.feature-card label{font-size:10px;color:var(--muted);font-weight:800;letter-spacing:.08em;text-transform:uppercase}.feature-card strong{display:block;font:25px Georgia,serif;margin:5px 0}.feature-card small{color:var(--muted);font-size:11px}.book-toolbar{display:flex;justify-content:space-between;align-items:center;gap:12px;margin:0 0 16px;flex-wrap:wrap}.book-toolbar select,.setting-box select,.setting-box input[type=time]{border:1px solid var(--line);border-radius:10px;padding:10px 12px;background:white;color:var(--ink);font:inherit}.book-card .bar{margin-top:8px}.achievement-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.achievement{border:1px solid var(--line);border-radius:14px;padding:13px;display:flex;gap:10px;align-items:center;background:#fffefa}.achievement.locked{opacity:.55}.achievement .medal{font-size:23px}.achievement strong{display:block;font-size:13px}.achievement small{display:block;color:var(--muted);font-size:11px}.heatmap{display:grid;grid-template-columns:repeat(15,minmax(0,1fr));gap:5px}.heat-cell{aspect-ratio:1;border-radius:5px;background:#edf0eb;border:1px solid rgba(0,0,0,.03)}.heat-cell.level1{background:#e9e2f7}.heat-cell.level2{background:#c9b8ec}.heat-cell.level3{background:#9d7fd6}.heat-cell.level4{background:#4c1d95}.reminder-row{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin:10px 0}.reminder-row label{font-size:12px;font-weight:700;color:#59665d}.reminder-status{font-size:12px;color:var(--muted);margin-top:8px}
 @media(max-width:700px){.feature-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.achievement-list{grid-template-columns:1fr}.heatmap{grid-template-columns:repeat(10,minmax(0,1fr))}}
 
 
@@ -66,47 +66,71 @@ main{padding:34px clamp(18px,4vw,60px) 90px;min-width:0}.topbar{display:flex;jus
 .auth-account{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;font-size:13px}
 .auth-account strong{color:var(--green)}
 
+/* Bible Quota: focus ring, pagination, awards, calendar navigation */
+:focus-visible{outline:3px solid #8b5cf6;outline-offset:2px}
+.hero :focus-visible,.sidebar :focus-visible,.mobile-nav :focus-visible{outline-color:#ffd97a}
+.hero-art{margin-bottom:4px}
+.hero-art svg{display:block}
+.stats.three{grid-template-columns:repeat(3,minmax(0,1fr))}
+.pager{display:flex;gap:8px;align-items:center;margin-top:14px;flex-wrap:wrap}
+.pager .page-label{font-size:12px;color:var(--muted);flex:1;text-align:center}
+.cal-nav{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:14px}
+.cal-nav select{border:1px solid var(--line);border-radius:10px;padding:9px 10px;background:white;color:var(--ink);font:inherit}
+.award-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.award-card{border:1px solid var(--line);border-radius:14px;padding:13px;display:flex;gap:10px;align-items:center;background:linear-gradient(180deg,#fdf6e3,#f7efdf)}
+.award-card.locked{opacity:.6;background:var(--paper)}
+.award-card .medal{font-size:24px;flex:none}
+.award-card strong{display:block;font-size:13px}
+.award-card small{display:block;color:var(--muted);font-size:11px}
+.award-card .award-state{margin-left:auto;flex:none;font-size:11px;font-weight:800;color:#7a5b16}
+.award-card.locked .award-state{color:var(--muted)}
+.book-card.removed{opacity:.65}
+.book-actions{display:flex;gap:6px;flex-wrap:wrap;margin-top:12px}
+.book-actions .btn{padding:7px 9px;font-size:12px}
+@media(max-width:380px){.book-grid{grid-template-columns:1fr}.award-grid{grid-template-columns:1fr}}
+
 </style>
 </head>
 <body>
 <div class="app">
 <aside class="sidebar">
-  <div class="brand"><div class="brand-mark">✦</div><div><strong>Ronnie's Bible Challenge</strong><small>Progress, not perfection</small></div></div>
+  <div class="brand"><div class="brand-mark" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24"><path d="M13.5 1.5s.8 3.5-2.2 6.5C8.6 10.7 7 13 7 15.5A5.5 5.5 0 0 0 18 15.5c0-2.5-1.4-4.2-2.2-5.5-.5 1-1.2 1.7-2 2 .6-2.7-.2-7.6-2.3-10.5z" fill="#ffd97a"/></svg></div><div><strong>Bible Quota</strong><small>by Njenga wa Wainaina</small></div></div>
   <nav class="nav" id="sideNav">
     <button class="active" data-view="dashboard"><span class="ico">⌂</span>Dashboard</button>
     <button data-view="today"><span class="ico">▤</span>Today's reading</button>
     <button data-view="calendar"><span class="ico">▦</span>Reading calendar</button>
     <button data-view="books"><span class="ico">▥</span>Books of the Bible</button>
     <button data-view="ireap"><span class="ico" aria-hidden="true">💡</span>About IREAP</button>
+    <button data-view="awards"><span class="ico" aria-hidden="true">🏆</span>Awards</button>
     <button data-view="settings"><span class="ico">⚙</span>Settings & backup</button>
   </nav>
   <div class="side-verse">“Your word is a lamp to my feet and a light to my path.”<small>Psalm 119:105</small></div>
 </aside>
 <main>
-  <header class="topbar"><div><div class="eyebrow">Scripture Deep Dive</div><h1 id="pageTitle">Your journey, one chapter at a time.</h1></div><div class="topbar-actions"><button class="btn ghost" id="refreshButton" type="button" onclick="syncNow()" title="Refresh reading progress from your other devices" aria-label="Refresh reading progress">↻ <span id="refreshButtonText">Refresh</span></button><div class="today-label" id="dateLabel"></div></div></header>
+  <header class="topbar"><div><div class="eyebrow">Scripture Deep Dive</div><h1 id="pageTitle" tabindex="-1" aria-live="polite">Your journey, one chapter at a time.</h1></div><div class="topbar-actions"><button class="btn ghost" id="refreshButton" type="button" onclick="syncNow()" title="Refresh reading progress from your other devices" aria-label="Refresh reading progress">↻ <span id="refreshButtonText">Refresh</span></button><div class="today-label" id="dateLabel"></div></div></header>
 
   <section class="view active" id="view-dashboard">
     <div class="hero">
-      <div><div class="eyebrow">Keep showing up</div><h2>Small steps. Lasting growth.</h2><p>Your plan moves with you. Miss a day? Pick up where you left off. Read extra? Your finish date moves closer.</p><div class="hero-actions"><button class="btn primary" onclick="showView('today')">Open today's reading →</button><button class="btn light" onclick="showView('calendar')">View calendar</button></div></div>
+      <div><div class="hero-art" aria-hidden="true"><svg width="104" height="78" viewBox="0 0 104 78"><path d="M52 74V58" stroke="#8a5a1d" stroke-width="5" stroke-linecap="round"/><path d="M52 58C36 58 26 48 26 36c0-4 2-7 5-9 1-5 5-8 10-8 2-3 5-5 11-5s9 2 11 5c5 0 9 3 10 8 3 2 5 5 5 9 0 12-10 22-26 22z" fill="#d9ae62"/><path d="M52 44c-4-2-6-6-5-10 1 1 2 2 4 2 0-4 2-7 5-9-1 3 0 5 1 6 1-2 3-4 6-4-1 2 0 4 1 5 2 2 3 5 1 8-2 4-9 5-13 2z" fill="#fff7e0"/></svg></div><div class="eyebrow">Keep showing up</div><h2>Small steps. Lasting growth.</h2><p>Your plan moves with you. Miss a day? Pick up where you left off. Read extra? Your finish date moves closer.</p><div class="hero-actions"><button class="btn primary" onclick="showView('today')">Open today's reading →</button><button class="btn light" onclick="showView('calendar')">View calendar</button></div></div>
       <div class="progress-ring" id="progressRing"><div><strong id="progressPct">0%</strong><small>completed</small></div></div>
     </div>
     <div class="stats">
       <div class="stat"><label>Chapters completed</label><strong id="completedStat">0 / 1,189</strong><small>One chapter at a time</small></div>
       <div class="stat"><label>Chapters remaining</label><strong id="remainingStat">1,189</strong><small>Still ahead of you</small></div>
-      <div class="stat"><label>Projected finish</label><strong id="finishStat">—</strong><small id="finishDelta">Based on your plan's pace</small></div>
+      <div class="stat"><label>Current streak</label><strong id="streakStat">0</strong><small id="streakDelta">days in a row</small></div>
       <div class="stat"><label>Days with reading</label><strong id="daysStat">0</strong><small id="ireapStat">0 IREAP reflections</small></div>
     </div>
     <div class="panel" style="margin:0 0 18px">
       <div class="panel-head"><h3>Today's reading overview</h3><span class="subtle" id="dashboardDateLabel"></span></div>
-      <div class="stats" style="grid-template-columns:repeat(3,minmax(0,1fr));margin:0 0 14px">
+      <div class="stats three" style="margin:0 0 14px">
         <div class="stat"><label>Planned chapters</label><strong id="dashPlannedCount">0</strong><small id="dashPlannedNames">Today's assignment</small></div>
         <div class="stat"><label>Carry-over chapters</label><strong id="dashCarryCount">0</strong><small id="dashCarryNames">Outstanding from earlier days</small></div>
         <div class="stat"><label>Completed today</label><strong id="dashReadToday">0</strong><small>Chapters completed today</small></div>
       </div>
       <div class="panel-head" style="margin:8px 0 10px"><h3>IREAP reflections</h3><span class="subtle">Tracked separately from reading</span></div>
-      <div class="stats" style="grid-template-columns:repeat(3,minmax(0,1fr));margin:0">
+      <div class="stats three" style="margin:0">
         <div class="stat"><label>Outstanding</label><strong id="dashIreapOutstanding">0</strong><small>Need reflection</small></div>
-        <div class="stat"><label>Completed today</label><strong id="dashIreapToday">0</strong><small>Reflections finished today</small></div>
+        <div class="stat"><label>IREAP done today</label><strong id="dashIreapToday">0</strong><small>Reflections finished today</small></div>
         <div class="stat"><label>Total completed</label><strong id="dashIreapTotal">0</strong><small>All-time reflections</small></div>
       </div>
       <div id="dashOutstandingIreaps" class="subtle" style="margin-top:12px"></div>
@@ -124,6 +148,17 @@ main{padding:34px clamp(18px,4vw,60px) 90px;min-width:0}.topbar{display:flex;jus
     <div class="feature-section panel">
       <div class="panel-head"><h3>Achievements</h3><span class="subtle" id="achievementCount">0 earned</span></div>
       <div class="achievement-list" id="achievementList"></div>
+      <button class="btn ghost" style="margin-top:14px" onclick="showView('awards')">View all awards →</button>
+    </div>
+    <div class="feature-section panel">
+      <div class="panel-head"><h3>Reading calendar</h3><span class="subtle">Tap a day to view details</span></div>
+      <div class="cal-nav">
+        <select id="dashMonthSelect" aria-label="Choose month"></select>
+        <select id="dashYearSelect" aria-label="Choose year"></select>
+        <button class="btn primary" type="button" onclick="goToTodayDash()">Today</button>
+      </div>
+      <div class="calendar-grid" id="dashCalendarGrid"></div>
+      <p class="subtle" style="margin:12px 0 0">Numbers show chapters read each day · Tap a day to view details</p>
     </div>
     <div class="grid2">
       <div class="panel"><div class="panel-head"><h3>Up next</h3><span class="pill" id="todayTargetPill">Today's goal</span></div><div id="dashboardNext"></div><button class="btn ghost" style="margin-top:14px" onclick="showView('today')">Go to today's reading</button></div>
@@ -144,7 +179,7 @@ main{padding:34px clamp(18px,4vw,60px) 90px;min-width:0}.topbar{display:flex;jus
         </section>
         <section style="margin-bottom:20px">
           <div class="panel-head"><h3>Planned Daily Chapters</h3><span class="pill" id="plannedProgressPill">0 assigned</span></div>
-          <p class="subtle">Your original assignment for today. This plan does not shift when you miss a day.</p>
+          <p class="subtle">Your original assignment for today.</p>
           <div id="plannedReadingList"></div>
         </section>
         <section>
@@ -179,18 +214,21 @@ main{padding:34px clamp(18px,4vw,60px) 90px;min-width:0}.topbar{display:flex;jus
           <div class="form-row"><label for="scratchPray">Pray — your response to God</label><textarea id="scratchPray" rows="2"></textarea></div>
           <button class="btn ghost" type="button" onclick="clearIreapScratch()">Start fresh</button>
         </div></div>
-        <div class="side-note"><h3>Give yourself grace</h3><p>This plan is a guide, not a measure of your faith. If you miss a day, simply return to the next unread chapter. No doubling up is required.</p></div>
+        <div class="side-note"><h3>Give yourself grace</h3><p>This plan is a guide, not a measure of your faith.</p></div>
       </div>
     </div>
   </section>
 
   <section class="view" id="view-calendar">
     <h2 class="section-title">Reading calendar</h2><p class="section-intro">A gentle record of the days you spent in Scripture.</p>
-    <div class="calendar-panel panel"><div class="calendar-top"><button class="btn outline" onclick="shiftMonth(-1)">←</button><h3 id="monthTitle"></h3><button class="btn outline" onclick="shiftMonth(1)">→</button></div><div class="calendar-grid" id="calendarGrid"></div><div class="subtle" style="margin-top:13px">● Reading completed &nbsp; <span style="color:var(--gold)">●</span> At least one IREAP completed</div><div id="selectedDay" class="finish-box" style="margin-top:17px"><p>Select a day to see your reading history.</p></div></div>
+    <div class="calendar-panel panel"><div class="calendar-top"><button class="btn outline" onclick="shiftMonth(-1)" aria-label="Previous month">←</button><h3 id="monthTitle"></h3><button class="btn outline" onclick="shiftMonth(1)" aria-label="Next month">→</button></div>
+    <div class="cal-nav"><select id="calMonthSelect" aria-label="Choose month"></select><select id="calYearSelect" aria-label="Choose year"></select><button class="btn primary" type="button" onclick="goToToday()">Today</button></div>
+    <div class="calendar-grid" id="calendarGrid"></div><div class="subtle" style="margin-top:13px">● Reading completed &nbsp; <span style="color:var(--gold)">●</span> At least one IREAP completed</div><div id="selectedDay" class="finish-box" style="margin-top:17px"><p>Select a day to see your reading history.</p></div></div>
   </section>
 
   <section class="view" id="view-books">
     <h2 class="section-title">Books of the Bible</h2><p class="section-intro">Watch your progress unfold across all 66 books, and choose what you want to read next.</p>
+    <p class="subtle" style="margin:-12px 0 18px"><strong id="scheduleNameLabel">Ronnie's Reading Schedule</strong> — your unique reading order. Move books up or down, or remove a book from the plan. Removed books can be added back.</p>
     <div class="panel" style="margin-bottom:18px">
       <div class="eyebrow">Flexible reading</div><h3 style="font:400 21px Georgia,serif;margin:5px 0 7px">Choose your next book</h3>
       <p class="subtle" style="margin:0 0 13px">Choose another book to insert at the next book’s original scheduled position. For example, 2 John takes Mark’s slot; after 2 John, the plan continues with Mark. Your original schedule dates are preserved.</p>
@@ -204,7 +242,15 @@ main{padding:34px clamp(18px,4vw,60px) 90px;min-width:0}.topbar{display:flex;jus
       </div>
       <div class="subtle" id="readingOrderStatus" style="margin-top:10px"></div>
     </div>
-    <div class="book-toolbar"><span class="subtle">Sort the books to explore your progress.</span><label for="bookSort">Sort by <select id="bookSort" onchange="setBookSort(this.value)"><option value="plan">Current reading order</option><option value="traditional">Traditional order</option><option value="alpha">Alphabetical order</option></select></label></div><div class="book-grid" id="bookGrid"></div>
+    <div class="book-toolbar"><span class="subtle">Sort the books to explore your progress.</span><label for="bookSort">Sort by <select id="bookSort" onchange="setBookSort(this.value)"><option value="plan">Current reading order</option><option value="traditional">Traditional order</option><option value="alpha">Alphabetical order</option></select></label></div><div class="book-grid" id="bookGrid"></div><div id="bookPager"></div>
+  </section>
+
+  <section class="view" id="view-awards">
+    <h2 class="section-title">Awards</h2><p class="section-intro">Badges for the milestones you reach. Gold means earned. Greyed out means locked — for now.</p>
+    <div class="panel">
+      <div class="panel-head"><h3>Your awards</h3><span class="subtle" id="awardCount">0 of 23 earned</span></div>
+      <div class="award-grid" id="awardList"></div>
+    </div>
   </section>
 
   <section class="view" id="view-ireap">
@@ -212,9 +258,9 @@ main{padding:34px clamp(18px,4vw,60px) 90px;min-width:0}.topbar{display:flex;jus
     <p class="section-intro">For wisdom and understanding of Scripture</p>
 
     <div class="panel" style="margin-bottom:18px;background:var(--green);color:white">
-      <div class="eyebrow" style="color:#dce8df">Bible Study Tool</div>
+      <div class="eyebrow" style="color:#e9e2f7">Bible Study Tool</div>
       <h3 style="font:400 24px Georgia,serif;margin:7px 0 8px;color:white">What is IREAP?</h3>
-      <p style="margin:0;color:#e5eee7;max-width:760px">IREAP is a self-made five step reflection method that's a acrostic</p>
+      <p style="margin:0;color:#e9e2f7;max-width:760px">IREAP is a self-made five step reflection method that's a acrostic</p>
     </div>
 
     <div class="panel" style="margin-bottom:18px">
@@ -246,7 +292,7 @@ main{padding:34px clamp(18px,4vw,60px) 90px;min-width:0}.topbar{display:flex;jus
   </section>
 
   <section class="view" id="view-settings">
-    <h2 class="section-title">Settings & backup</h2><p class="section-intro">Your progress is saved on this device and, when signed in, securely synced across your devices.</p>
+    <h2 class="section-title">Settings & backup</h2><p class="section-intro">Manage your plan, reminders, and backups.</p>
     <div class="settings-grid">
       <div class="setting-box"><h3>Backup your progress</h3><p>Download a backup file or restore a backup you saved earlier.</p><button class="btn ghost" onclick="exportBackup()">Download backup</button><div class="form-row"><label for="importFile">Restore from backup</label><input id="importFile" type="file" accept="application/json" onchange="importBackup(event)"></div></div>
       <div class="setting-box"><h3>Daily reading reminders</h3><p>Choose a reminder time. Browser notifications work while this app is open; your browser must allow notifications.</p><div class="reminder-row"><label><input type="checkbox" id="reminderEnabled" onchange="updateReminderSettings()"> Enable reminders</label><input type="time" id="reminderTime" value="21:00" onchange="updateReminderSettings()" aria-label="Reminder time"></div><button class="btn ghost" onclick="requestReminderPermission()">Allow notifications</button><p class="reminder-status" id="reminderStatus">Reminders are off.</p></div>
@@ -262,20 +308,20 @@ main{padding:34px clamp(18px,4vw,60px) 90px;min-width:0}.topbar{display:flex;jus
           </form>
         </div>
         <div id="authSignedIn" hidden><div class="auth-account"><span>Cloud sync enabled · Signed in as <strong id="signedInEmail"></strong></span><button class="btn outline" type="button" id="signOutButton">Sign out</button></div></div>
-        <div class="auth-message" id="authMessage" role="status" aria-live="polite">Your progress is saved on this device. Sign in to sync it with your other devices.</div>
+        <div class="auth-message" id="authMessage" role="status" aria-live="polite"></div>
       </section>
       <p id="syncStatus" class="subtle" style="margin-top:12px">Not signed in.</p><button class="btn ghost" type="button" id="syncNowButton" onclick="syncNow()">Sync now</button></div>
-      <div class="setting-box"><h3>Reading plan</h3><p>Your original 426-day reading sequence is preserved: November 1, 2026 through December 31, 2027.</p><p><strong>1,189 chapters</strong> · Average target: <strong id="paceText">2.79 chapters/day</strong></p><div class="form-row"><label for="dailyTargetInput">Daily target (chapters per day)</label><input id="dailyTargetInput" type="number" min="1" max="10" step="1" value="3" onchange="updateDailyTarget(this.value)"></div><p class="subtle" id="dailyTargetHint"></p><p>Daily assignments always begin with your next unread chapter. Extra reading advances the sequence immediately.</p></div>
-      <div class="setting-box"><h3>Install on your devices</h3><p>This site is already secure, so you can install it on your devices. Cloud sync lets both devices share the same progress.</p><button class="btn ghost" id="installBtn" style="display:none" onclick="installApp()">Install app</button><p class="subtle">For iPhone: Safari → Share → Add to Home Screen.</p></div>
+      <div class="setting-box"><h3>Reading plan</h3><p>Your original 426-day reading sequence is preserved: November 1, 2026 through December 31, 2027.</p><p><strong id="planTotalText">1,189 chapters</strong> · Average target: <strong id="paceText">2.79 chapters/day</strong></p><div class="form-row"><label for="dailyTargetInput">Daily target (chapters per day)</label><input id="dailyTargetInput" type="number" min="1" max="10" step="1" value="3" onchange="updateDailyTarget(this.value)"></div><p class="subtle" id="dailyTargetHint"></p><p>Daily assignments always begin with your next unread chapter. Extra reading advances the sequence immediately.</p></div>
+      <div class="setting-box"><h3>Install on your devices</h3><p>Install this app on your phone or computer for quick access.</p><button class="btn ghost" id="installBtn" style="display:none" onclick="installApp()">Install app</button><p class="subtle">For iPhone: Safari → Share → Add to Home Screen.</p></div>
     </div>
   </section>
 </main>
 </div>
 <nav class="mobile-nav" id="mobileNav">
-<button class="active" data-view="dashboard"><span>⌂</span>Home</button><button data-view="today"><span>▤</span>Read</button><button data-view="calendar"><span>▦</span>Calendar</button><button data-view="books"><span>▥</span>Books</button><button data-view="ireap"><span>💡</span>IREAP</button><button data-view="settings"><span>⚙</span>Settings</button>
+<button class="active" data-view="dashboard"><span>⌂</span>Home</button><button data-view="today"><span>▤</span>Read</button><button data-view="calendar"><span>▦</span>Calendar</button><button data-view="books"><span>▥</span>Books</button><button data-view="ireap"><span>💡</span>IREAP</button><button data-view="awards"><span>🏆</span>Awards</button><button data-view="settings"><span>⚙</span>Settings</button>
 </nav>
 <div class="confirm-overlay" id="confirmOverlay" hidden><div class="confirm-box"><p id="confirmMessage"></p><div class="confirm-actions"><button class="btn primary" id="confirmYes" type="button">Yes</button><button class="btn ghost" id="confirmNo" type="button">Cancel</button></div></div></div>
-<div class="toast" id="toast"></div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>const CHAPTERS = ["Ruth 1", "Ruth 2", "Ruth 3", "Ruth 4", "Philippians 1", "Philippians 2", "Philippians 3", "Philippians 4", "James 1", "James 2", "James 3", "James 4", "James 5", "1 John 1", "1 John 2", "1 John 3", "1 John 4", "1 John 5", "Mark 1", "Mark 2", "Mark 3", "Mark 4", "Mark 5", "Mark 6", "Mark 7", "Mark 8", "Mark 9", "Mark 10", "Mark 11", "Mark 12", "Mark 13", "Mark 14", "Mark 15", "Mark 16", "Jonah 1", "Jonah 2", "Jonah 3", "Jonah 4", "Ephesians 1", "Ephesians 2", "Ephesians 3", "Ephesians 4", "Ephesians 5", "Ephesians 6", "Colossians 1", "Colossians 2", "Colossians 3", "Colossians 4", "Psalms 1", "Psalms 2", "Psalms 3", "Psalms 4", "Psalms 5", "Psalms 6", "Psalms 7", "Psalms 8", "Psalms 9", "Psalms 10", "Psalms 11", "Psalms 12", "Psalms 13", "Psalms 14", "Psalms 15", "Psalms 16", "Psalms 17", "Psalms 18", "Psalms 19", "Psalms 20", "Psalms 21", "Psalms 22", "Psalms 23", "Psalms 24", "Psalms 25", "Psalms 26", "Psalms 27", "Psalms 28", "Psalms 29", "Psalms 30", "Psalms 31", "Psalms 32", "Psalms 33", "Psalms 34", "Psalms 35", "Psalms 36", "Psalms 37", "Psalms 38", "Psalms 39", "Psalms 40", "Psalms 41", "Psalms 42", "Psalms 43", "Psalms 44", "Psalms 45", "Psalms 46", "Psalms 47", "Psalms 48", "Psalms 49", "Psalms 50", "Psalms 51", "Psalms 52", "Psalms 53", "Psalms 54", "Psalms 55", "Psalms 56", "Psalms 57", "Psalms 58", "Psalms 59", "Psalms 60", "Psalms 61", "Psalms 62", "Psalms 63", "Psalms 64", "Psalms 65", "Psalms 66", "Psalms 67", "Psalms 68", "Psalms 69", "Psalms 70", "Psalms 71", "Psalms 72", "Psalms 73", "Psalms 74", "Psalms 75", "Psalms 76", "Psalms 77", "Psalms 78", "Psalms 79", "Psalms 80", "Psalms 81", "Psalms 82", "Psalms 83", "Psalms 84", "Psalms 85", "Psalms 86", "Psalms 87", "Psalms 88", "Psalms 89", "Psalms 90", "Psalms 91", "Psalms 92", "Psalms 93", "Psalms 94", "Psalms 95", "Psalms 96", "Psalms 97", "Psalms 98", "Psalms 99", "Psalms 100", "Psalms 101", "Psalms 102", "Psalms 103", "Psalms 104", "Psalms 105", "Psalms 106", "Psalms 107", "Psalms 108", "Psalms 109", "Psalms 110", "Psalms 111", "Psalms 112", "Psalms 113", "Psalms 114", "Psalms 115", "Psalms 116", "Psalms 117", "Psalms 118", "Psalms 119", "Psalms 120", "Psalms 121", "Psalms 122", "Psalms 123", "Psalms 124", "Psalms 125", "Psalms 126", "Psalms 127", "Psalms 128", "Psalms 129", "Psalms 130", "Psalms 131", "Psalms 132", "Psalms 133", "Psalms 134", "Psalms 135", "Psalms 136", "Psalms 137", "Psalms 138", "Psalms 139", "Psalms 140", "Psalms 141", "Psalms 142", "Psalms 143", "Psalms 144", "Psalms 145", "Psalms 146", "Psalms 147", "Psalms 148", "Psalms 149", "Psalms 150", "Proverbs 1", "Proverbs 2", "Proverbs 3", "Proverbs 4", "Proverbs 5", "Proverbs 6", "Proverbs 7", "Proverbs 8", "Proverbs 9", "Proverbs 10", "Proverbs 11", "Proverbs 12", "Proverbs 13", "Proverbs 14", "Proverbs 15", "Proverbs 16", "Proverbs 17", "Proverbs 18", "Proverbs 19", "Proverbs 20", "Proverbs 21", "Proverbs 22", "Proverbs 23", "Proverbs 24", "Proverbs 25", "Proverbs 26", "Proverbs 27", "Proverbs 28", "Proverbs 29", "Proverbs 30", "Proverbs 31", "Genesis 1", "Genesis 2", "Genesis 3", "Genesis 4", "Genesis 5", "Genesis 6", "Genesis 7", "Genesis 8", "Genesis 9", "Genesis 10", "Genesis 11", "Genesis 12", "Genesis 13", "Genesis 14", "Genesis 15", "Genesis 16", "Genesis 17", "Genesis 18", "Genesis 19", "Genesis 20", "Genesis 21", "Genesis 22", "Genesis 23", "Genesis 24", "Genesis 25", "Genesis 26", "Genesis 27", "Genesis 28", "Genesis 29", "Genesis 30", "Genesis 31", "Genesis 32", "Genesis 33", "Genesis 34", "Genesis 35", "Genesis 36", "Genesis 37", "Genesis 38", "Genesis 39", "Genesis 40", "Genesis 41", "Genesis 42", "Genesis 43", "Genesis 44", "Genesis 45", "Genesis 46", "Genesis 47", "Genesis 48", "Genesis 49", "Genesis 50", "Exodus 1", "Exodus 2", "Exodus 3", "Exodus 4", "Exodus 5", "Exodus 6", "Exodus 7", "Exodus 8", "Exodus 9", "Exodus 10", "Exodus 11", "Exodus 12", "Exodus 13", "Exodus 14", "Exodus 15", "Exodus 16", "Exodus 17", "Exodus 18", "Exodus 19", "Exodus 20", "Exodus 21", "Exodus 22", "Exodus 23", "Exodus 24", "Exodus 25", "Exodus 26", "Exodus 27", "Exodus 28", "Exodus 29", "Exodus 30", "Exodus 31", "Exodus 32", "Exodus 33", "Exodus 34", "Exodus 35", "Exodus 36", "Exodus 37", "Exodus 38", "Exodus 39", "Exodus 40", "Leviticus 1", "Leviticus 2", "Leviticus 3", "Leviticus 4", "Leviticus 5", "Leviticus 6", "Leviticus 7", "Leviticus 8", "Leviticus 9", "Leviticus 10", "Leviticus 11", "Leviticus 12", "Leviticus 13", "Leviticus 14", "Leviticus 15", "Leviticus 16", "Leviticus 17", "Leviticus 18", "Leviticus 19", "Leviticus 20", "Leviticus 21", "Leviticus 22", "Leviticus 23", "Leviticus 24", "Leviticus 25", "Leviticus 26", "Leviticus 27", "Numbers 1", "Numbers 2", "Numbers 3", "Numbers 4", "Numbers 5", "Numbers 6", "Numbers 7", "Numbers 8", "Numbers 9", "Numbers 10", "Numbers 11", "Numbers 12", "Numbers 13", "Numbers 14", "Numbers 15", "Numbers 16", "Numbers 17", "Numbers 18", "Numbers 19", "Numbers 20", "Numbers 21", "Numbers 22", "Numbers 23", "Numbers 24", "Numbers 25", "Numbers 26", "Numbers 27", "Numbers 28", "Numbers 29", "Numbers 30", "Numbers 31", "Numbers 32", "Numbers 33", "Numbers 34", "Numbers 35", "Numbers 36", "Deuteronomy 1", "Deuteronomy 2", "Deuteronomy 3", "Deuteronomy 4", "Deuteronomy 5", "Deuteronomy 6", "Deuteronomy 7", "Deuteronomy 8", "Deuteronomy 9", "Deuteronomy 10", "Deuteronomy 11", "Deuteronomy 12", "Deuteronomy 13", "Deuteronomy 14", "Deuteronomy 15", "Deuteronomy 16", "Deuteronomy 17", "Deuteronomy 18", "Deuteronomy 19", "Deuteronomy 20", "Deuteronomy 21", "Deuteronomy 22", "Deuteronomy 23", "Deuteronomy 24", "Deuteronomy 25", "Deuteronomy 26", "Deuteronomy 27", "Deuteronomy 28", "Deuteronomy 29", "Deuteronomy 30", "Deuteronomy 31", "Deuteronomy 32", "Deuteronomy 33", "Deuteronomy 34", "Joshua 1", "Joshua 2", "Joshua 3", "Joshua 4", "Joshua 5", "Joshua 6", "Joshua 7", "Joshua 8", "Joshua 9", "Joshua 10", "Joshua 11", "Joshua 12", "Joshua 13", "Joshua 14", "Joshua 15", "Joshua 16", "Joshua 17", "Joshua 18", "Joshua 19", "Joshua 20", "Joshua 21", "Joshua 22", "Joshua 23", "Joshua 24", "Judges 1", "Judges 2", "Judges 3", "Judges 4", "Judges 5", "Judges 6", "Judges 7", "Judges 8", "Judges 9", "Judges 10", "Judges 11", "Judges 12", "Judges 13", "Judges 14", "Judges 15", "Judges 16", "Judges 17", "Judges 18", "Judges 19", "Judges 20", "Judges 21", "1 Samuel 1", "1 Samuel 2", "1 Samuel 3", "1 Samuel 4", "1 Samuel 5", "1 Samuel 6", "1 Samuel 7", "1 Samuel 8", "1 Samuel 9", "1 Samuel 10", "1 Samuel 11", "1 Samuel 12", "1 Samuel 13", "1 Samuel 14", "1 Samuel 15", "1 Samuel 16", "1 Samuel 17", "1 Samuel 18", "1 Samuel 19", "1 Samuel 20", "1 Samuel 21", "1 Samuel 22", "1 Samuel 23", "1 Samuel 24", "1 Samuel 25", "1 Samuel 26", "1 Samuel 27", "1 Samuel 28", "1 Samuel 29", "1 Samuel 30", "1 Samuel 31", "2 Samuel 1", "2 Samuel 2", "2 Samuel 3", "2 Samuel 4", "2 Samuel 5", "2 Samuel 6", "2 Samuel 7", "2 Samuel 8", "2 Samuel 9", "2 Samuel 10", "2 Samuel 11", "2 Samuel 12", "2 Samuel 13", "2 Samuel 14", "2 Samuel 15", "2 Samuel 16", "2 Samuel 17", "2 Samuel 18", "2 Samuel 19", "2 Samuel 20", "2 Samuel 21", "2 Samuel 22", "2 Samuel 23", "2 Samuel 24", "1 Kings 1", "1 Kings 2", "1 Kings 3", "1 Kings 4", "1 Kings 5", "1 Kings 6", "1 Kings 7", "1 Kings 8", "1 Kings 9", "1 Kings 10", "1 Kings 11", "1 Kings 12", "1 Kings 13", "1 Kings 14", "1 Kings 15", "1 Kings 16", "1 Kings 17", "1 Kings 18", "1 Kings 19", "1 Kings 20", "1 Kings 21", "1 Kings 22", "2 Kings 1", "2 Kings 2", "2 Kings 3", "2 Kings 4", "2 Kings 5", "2 Kings 6", "2 Kings 7", "2 Kings 8", "2 Kings 9", "2 Kings 10", "2 Kings 11", "2 Kings 12", "2 Kings 13", "2 Kings 14", "2 Kings 15", "2 Kings 16", "2 Kings 17", "2 Kings 18", "2 Kings 19", "2 Kings 20", "2 Kings 21", "2 Kings 22", "2 Kings 23", "2 Kings 24", "2 Kings 25", "1 Chronicles 1", "1 Chronicles 2", "1 Chronicles 3", "1 Chronicles 4", "1 Chronicles 5", "1 Chronicles 6", "1 Chronicles 7", "1 Chronicles 8", "1 Chronicles 9", "1 Chronicles 10", "1 Chronicles 11", "1 Chronicles 12", "1 Chronicles 13", "1 Chronicles 14", "1 Chronicles 15", "1 Chronicles 16", "1 Chronicles 17", "1 Chronicles 18", "1 Chronicles 19", "1 Chronicles 20", "1 Chronicles 21", "1 Chronicles 22", "1 Chronicles 23", "1 Chronicles 24", "1 Chronicles 25", "1 Chronicles 26", "1 Chronicles 27", "1 Chronicles 28", "1 Chronicles 29", "2 Chronicles 1", "2 Chronicles 2", "2 Chronicles 3", "2 Chronicles 4", "2 Chronicles 5", "2 Chronicles 6", "2 Chronicles 7", "2 Chronicles 8", "2 Chronicles 9", "2 Chronicles 10", "2 Chronicles 11", "2 Chronicles 12", "2 Chronicles 13", "2 Chronicles 14", "2 Chronicles 15", "2 Chronicles 16", "2 Chronicles 17", "2 Chronicles 18", "2 Chronicles 19", "2 Chronicles 20", "2 Chronicles 21", "2 Chronicles 22", "2 Chronicles 23", "2 Chronicles 24", "2 Chronicles 25", "2 Chronicles 26", "2 Chronicles 27", "2 Chronicles 28", "2 Chronicles 29", "2 Chronicles 30", "2 Chronicles 31", "2 Chronicles 32", "2 Chronicles 33", "2 Chronicles 34", "2 Chronicles 35", "2 Chronicles 36", "Ezra 1", "Ezra 2", "Ezra 3", "Ezra 4", "Ezra 5", "Ezra 6", "Ezra 7", "Ezra 8", "Ezra 9", "Ezra 10", "Nehemiah 1", "Nehemiah 2", "Nehemiah 3", "Nehemiah 4", "Nehemiah 5", "Nehemiah 6", "Nehemiah 7", "Nehemiah 8", "Nehemiah 9", "Nehemiah 10", "Nehemiah 11", "Nehemiah 12", "Nehemiah 13", "Esther 1", "Esther 2", "Esther 3", "Esther 4", "Esther 5", "Esther 6", "Esther 7", "Esther 8", "Esther 9", "Esther 10", "Job 1", "Job 2", "Job 3", "Job 4", "Job 5", "Job 6", "Job 7", "Job 8", "Job 9", "Job 10", "Job 11", "Job 12", "Job 13", "Job 14", "Job 15", "Job 16", "Job 17", "Job 18", "Job 19", "Job 20", "Job 21", "Job 22", "Job 23", "Job 24", "Job 25", "Job 26", "Job 27", "Job 28", "Job 29", "Job 30", "Job 31", "Job 32", "Job 33", "Job 34", "Job 35", "Job 36", "Job 37", "Job 38", "Job 39", "Job 40", "Job 41", "Job 42", "Ecclesiastes 1", "Ecclesiastes 2", "Ecclesiastes 3", "Ecclesiastes 4", "Ecclesiastes 5", "Ecclesiastes 6", "Ecclesiastes 7", "Ecclesiastes 8", "Ecclesiastes 9", "Ecclesiastes 10", "Ecclesiastes 11", "Ecclesiastes 12", "Song of Solomon 1", "Song of Solomon 2", "Song of Solomon 3", "Song of Solomon 4", "Song of Solomon 5", "Song of Solomon 6", "Song of Solomon 7", "Song of Solomon 8", "Isaiah 1", "Isaiah 2", "Isaiah 3", "Isaiah 4", "Isaiah 5", "Isaiah 6", "Isaiah 7", "Isaiah 8", "Isaiah 9", "Isaiah 10", "Isaiah 11", "Isaiah 12", "Isaiah 13", "Isaiah 14", "Isaiah 15", "Isaiah 16", "Isaiah 17", "Isaiah 18", "Isaiah 19", "Isaiah 20", "Isaiah 21", "Isaiah 22", "Isaiah 23", "Isaiah 24", "Isaiah 25", "Isaiah 26", "Isaiah 27", "Isaiah 28", "Isaiah 29", "Isaiah 30", "Isaiah 31", "Isaiah 32", "Isaiah 33", "Isaiah 34", "Isaiah 35", "Isaiah 36", "Isaiah 37", "Isaiah 38", "Isaiah 39", "Isaiah 40", "Isaiah 41", "Isaiah 42", "Isaiah 43", "Isaiah 44", "Isaiah 45", "Isaiah 46", "Isaiah 47", "Isaiah 48", "Isaiah 49", "Isaiah 50", "Isaiah 51", "Isaiah 52", "Isaiah 53", "Isaiah 54", "Isaiah 55", "Isaiah 56", "Isaiah 57", "Isaiah 58", "Isaiah 59", "Isaiah 60", "Isaiah 61", "Isaiah 62", "Isaiah 63", "Isaiah 64", "Isaiah 65", "Isaiah 66", "Jeremiah 1", "Jeremiah 2", "Jeremiah 3", "Jeremiah 4", "Jeremiah 5", "Jeremiah 6", "Jeremiah 7", "Jeremiah 8", "Jeremiah 9", "Jeremiah 10", "Jeremiah 11", "Jeremiah 12", "Jeremiah 13", "Jeremiah 14", "Jeremiah 15", "Jeremiah 16", "Jeremiah 17", "Jeremiah 18", "Jeremiah 19", "Jeremiah 20", "Jeremiah 21", "Jeremiah 22", "Jeremiah 23", "Jeremiah 24", "Jeremiah 25", "Jeremiah 26", "Jeremiah 27", "Jeremiah 28", "Jeremiah 29", "Jeremiah 30", "Jeremiah 31", "Jeremiah 32", "Jeremiah 33", "Jeremiah 34", "Jeremiah 35", "Jeremiah 36", "Jeremiah 37", "Jeremiah 38", "Jeremiah 39", "Jeremiah 40", "Jeremiah 41", "Jeremiah 42", "Jeremiah 43", "Jeremiah 44", "Jeremiah 45", "Jeremiah 46", "Jeremiah 47", "Jeremiah 48", "Jeremiah 49", "Jeremiah 50", "Jeremiah 51", "Jeremiah 52", "Lamentations 1", "Lamentations 2", "Lamentations 3", "Lamentations 4", "Lamentations 5", "Ezekiel 1", "Ezekiel 2", "Ezekiel 3", "Ezekiel 4", "Ezekiel 5", "Ezekiel 6", "Ezekiel 7", "Ezekiel 8", "Ezekiel 9", "Ezekiel 10", "Ezekiel 11", "Ezekiel 12", "Ezekiel 13", "Ezekiel 14", "Ezekiel 15", "Ezekiel 16", "Ezekiel 17", "Ezekiel 18", "Ezekiel 19", "Ezekiel 20", "Ezekiel 21", "Ezekiel 22", "Ezekiel 23", "Ezekiel 24", "Ezekiel 25", "Ezekiel 26", "Ezekiel 27", "Ezekiel 28", "Ezekiel 29", "Ezekiel 30", "Ezekiel 31", "Ezekiel 32", "Ezekiel 33", "Ezekiel 34", "Ezekiel 35", "Ezekiel 36", "Ezekiel 37", "Ezekiel 38", "Ezekiel 39", "Ezekiel 40", "Ezekiel 41", "Ezekiel 42", "Ezekiel 43", "Ezekiel 44", "Ezekiel 45", "Ezekiel 46", "Ezekiel 47", "Ezekiel 48", "Daniel 1", "Daniel 2", "Daniel 3", "Daniel 4", "Daniel 5", "Daniel 6", "Daniel 7", "Daniel 8", "Daniel 9", "Daniel 10", "Daniel 11", "Daniel 12", "Hosea 1", "Hosea 2", "Hosea 3", "Hosea 4", "Hosea 5", "Hosea 6", "Hosea 7", "Hosea 8", "Hosea 9", "Hosea 10", "Hosea 11", "Hosea 12", "Hosea 13", "Hosea 14", "Joel 1", "Joel 2", "Joel 3", "Amos 1", "Amos 2", "Amos 3", "Amos 4", "Amos 5", "Amos 6", "Amos 7", "Amos 8", "Amos 9", "Obadiah 1", "Micah 1", "Micah 2", "Micah 3", "Micah 4", "Micah 5", "Micah 6", "Micah 7", "Nahum 1", "Nahum 2", "Nahum 3", "Habakkuk 1", "Habakkuk 2", "Habakkuk 3", "Zephaniah 1", "Zephaniah 2", "Zephaniah 3", "Haggai 1", "Haggai 2", "Zechariah 1", "Zechariah 2", "Zechariah 3", "Zechariah 4", "Zechariah 5", "Zechariah 6", "Zechariah 7", "Zechariah 8", "Zechariah 9", "Zechariah 10", "Zechariah 11", "Zechariah 12", "Zechariah 13", "Zechariah 14", "Malachi 1", "Malachi 2", "Malachi 3", "Malachi 4", "Matthew 1", "Matthew 2", "Matthew 3", "Matthew 4", "Matthew 5", "Matthew 6", "Matthew 7", "Matthew 8", "Matthew 9", "Matthew 10", "Matthew 11", "Matthew 12", "Matthew 13", "Matthew 14", "Matthew 15", "Matthew 16", "Matthew 17", "Matthew 18", "Matthew 19", "Matthew 20", "Matthew 21", "Matthew 22", "Matthew 23", "Matthew 24", "Matthew 25", "Matthew 26", "Matthew 27", "Matthew 28", "Luke 1", "Luke 2", "Luke 3", "Luke 4", "Luke 5", "Luke 6", "Luke 7", "Luke 8", "Luke 9", "Luke 10", "Luke 11", "Luke 12", "Luke 13", "Luke 14", "Luke 15", "Luke 16", "Luke 17", "Luke 18", "Luke 19", "Luke 20", "Luke 21", "Luke 22", "Luke 23", "Luke 24", "John 1", "John 2", "John 3", "John 4", "John 5", "John 6", "John 7", "John 8", "John 9", "John 10", "John 11", "John 12", "John 13", "John 14", "John 15", "John 16", "John 17", "John 18", "John 19", "John 20", "John 21", "Acts 1", "Acts 2", "Acts 3", "Acts 4", "Acts 5", "Acts 6", "Acts 7", "Acts 8", "Acts 9", "Acts 10", "Acts 11", "Acts 12", "Acts 13", "Acts 14", "Acts 15", "Acts 16", "Acts 17", "Acts 18", "Acts 19", "Acts 20", "Acts 21", "Acts 22", "Acts 23", "Acts 24", "Acts 25", "Acts 26", "Acts 27", "Acts 28", "Romans 1", "Romans 2", "Romans 3", "Romans 4", "Romans 5", "Romans 6", "Romans 7", "Romans 8", "Romans 9", "Romans 10", "Romans 11", "Romans 12", "Romans 13", "Romans 14", "Romans 15", "Romans 16", "1 Corinthians 1", "1 Corinthians 2", "1 Corinthians 3", "1 Corinthians 4", "1 Corinthians 5", "1 Corinthians 6", "1 Corinthians 7", "1 Corinthians 8", "1 Corinthians 9", "1 Corinthians 10", "1 Corinthians 11", "1 Corinthians 12", "1 Corinthians 13", "1 Corinthians 14", "1 Corinthians 15", "1 Corinthians 16", "2 Corinthians 1", "2 Corinthians 2", "2 Corinthians 3", "2 Corinthians 4", "2 Corinthians 5", "2 Corinthians 6", "2 Corinthians 7", "2 Corinthians 8", "2 Corinthians 9", "2 Corinthians 10", "2 Corinthians 11", "2 Corinthians 12", "2 Corinthians 13", "Galatians 1", "Galatians 2", "Galatians 3", "Galatians 4", "Galatians 5", "Galatians 6", "1 Thessalonians 1", "1 Thessalonians 2", "1 Thessalonians 3", "1 Thessalonians 4", "1 Thessalonians 5", "2 Thessalonians 1", "2 Thessalonians 2", "2 Thessalonians 3", "1 Timothy 1", "1 Timothy 2", "1 Timothy 3", "1 Timothy 4", "1 Timothy 5", "1 Timothy 6", "2 Timothy 1", "2 Timothy 2", "2 Timothy 3", "2 Timothy 4", "Titus 1", "Titus 2", "Titus 3", "Philemon 1", "Hebrews 1", "Hebrews 2", "Hebrews 3", "Hebrews 4", "Hebrews 5", "Hebrews 6", "Hebrews 7", "Hebrews 8", "Hebrews 9", "Hebrews 10", "Hebrews 11", "Hebrews 12", "Hebrews 13", "1 Peter 1", "1 Peter 2", "1 Peter 3", "1 Peter 4", "1 Peter 5", "2 Peter 1", "2 Peter 2", "2 Peter 3", "2 John 1", "3 John 1", "Jude 1", "Revelation 1", "Revelation 2", "Revelation 3", "Revelation 4", "Revelation 5", "Revelation 6", "Revelation 7", "Revelation 8", "Revelation 9", "Revelation 10", "Revelation 11", "Revelation 12", "Revelation 13", "Revelation 14", "Revelation 15", "Revelation 16", "Revelation 17", "Revelation 18", "Revelation 19", "Revelation 20", "Revelation 21", "Revelation 22"];
 const SCHEDULE = [{"date": "2026-11-01", "target": 2}, {"date": "2026-11-02", "target": 2}, {"date": "2026-11-03", "target": 2}, {"date": "2026-11-04", "target": 2}, {"date": "2026-11-05", "target": 2}, {"date": "2026-11-06", "target": 2}, {"date": "2026-11-07", "target": 2}, {"date": "2026-11-08", "target": 2}, {"date": "2026-11-09", "target": 2}, {"date": "2026-11-10", "target": 2}, {"date": "2026-11-11", "target": 2}, {"date": "2026-11-12", "target": 2}, {"date": "2026-11-13", "target": 2}, {"date": "2026-11-14", "target": 2}, {"date": "2026-11-15", "target": 2}, {"date": "2026-11-16", "target": 2}, {"date": "2026-11-17", "target": 2}, {"date": "2026-11-18", "target": 2}, {"date": "2026-11-19", "target": 2}, {"date": "2026-11-20", "target": 2}, {"date": "2026-11-21", "target": 2}, {"date": "2026-11-22", "target": 2}, {"date": "2026-11-23", "target": 2}, {"date": "2026-11-24", "target": 2}, {"date": "2026-11-25", "target": 2}, {"date": "2026-11-26", "target": 2}, {"date": "2026-11-27", "target": 2}, {"date": "2026-11-28", "target": 2}, {"date": "2026-11-29", "target": 2}, {"date": "2026-11-30", "target": 2}, {"date": "2026-12-01", "target": 2}, {"date": "2026-12-02", "target": 2}, {"date": "2026-12-03", "target": 2}, {"date": "2026-12-04", "target": 2}, {"date": "2026-12-05", "target": 2}, {"date": "2026-12-06", "target": 2}, {"date": "2026-12-07", "target": 2}, {"date": "2026-12-08", "target": 2}, {"date": "2026-12-09", "target": 2}, {"date": "2026-12-10", "target": 2}, {"date": "2026-12-11", "target": 2}, {"date": "2026-12-12", "target": 2}, {"date": "2026-12-13", "target": 2}, {"date": "2026-12-14", "target": 2}, {"date": "2026-12-15", "target": 2}, {"date": "2026-12-16", "target": 2}, {"date": "2026-12-17", "target": 2}, {"date": "2026-12-18", "target": 2}, {"date": "2026-12-19", "target": 2}, {"date": "2026-12-20", "target": 2}, {"date": "2026-12-21", "target": 2}, {"date": "2026-12-22", "target": 2}, {"date": "2026-12-23", "target": 2}, {"date": "2026-12-24", "target": 2}, {"date": "2026-12-25", "target": 2}, {"date": "2026-12-26", "target": 2}, {"date": "2026-12-27", "target": 2}, {"date": "2026-12-28", "target": 2}, {"date": "2026-12-29", "target": 2}, {"date": "2026-12-30", "target": 2}, {"date": "2026-12-31", "target": 2}, {"date": "2027-01-01", "target": 2}, {"date": "2027-01-02", "target": 3}, {"date": "2027-01-03", "target": 3}, {"date": "2027-01-04", "target": 3}, {"date": "2027-01-05", "target": 3}, {"date": "2027-01-06", "target": 3}, {"date": "2027-01-07", "target": 3}, {"date": "2027-01-08", "target": 3}, {"date": "2027-01-09", "target": 3}, {"date": "2027-01-10", "target": 3}, {"date": "2027-01-11", "target": 3}, {"date": "2027-01-12", "target": 3}, {"date": "2027-01-13", "target": 3}, {"date": "2027-01-14", "target": 2}, {"date": "2027-01-15", "target": 3}, {"date": "2027-01-16", "target": 3}, {"date": "2027-01-17", "target": 3}, {"date": "2027-01-18", "target": 3}, {"date": "2027-01-19", "target": 3}, {"date": "2027-01-20", "target": 3}, {"date": "2027-01-21", "target": 3}, {"date": "2027-01-22", "target": 3}, {"date": "2027-01-23", "target": 3}, {"date": "2027-01-24", "target": 3}, {"date": "2027-01-25", "target": 3}, {"date": "2027-01-26", "target": 3}, {"date": "2027-01-27", "target": 2}, {"date": "2027-01-28", "target": 3}, {"date": "2027-01-29", "target": 3}, {"date": "2027-01-30", "target": 3}, {"date": "2027-01-31", "target": 3}, {"date": "2027-02-01", "target": 3}, {"date": "2027-02-02", "target": 3}, {"date": "2027-02-03", "target": 3}, {"date": "2027-02-04", "target": 3}, {"date": "2027-02-05", "target": 3}, {"date": "2027-02-06", "target": 3}, {"date": "2027-02-07", "target": 3}, {"date": "2027-02-08", "target": 3}, {"date": "2027-02-09", "target": 2}, {"date": "2027-02-10", "target": 3}, {"date": "2027-02-11", "target": 3}, {"date": "2027-02-12", "target": 3}, {"date": "2027-02-13", "target": 3}, {"date": "2027-02-14", "target": 3}, {"date": "2027-02-15", "target": 3}, {"date": "2027-02-16", "target": 3}, {"date": "2027-02-17", "target": 3}, {"date": "2027-02-18", "target": 3}, {"date": "2027-02-19", "target": 3}, {"date": "2027-02-20", "target": 3}, {"date": "2027-02-21", "target": 3}, {"date": "2027-02-22", "target": 2}, {"date": "2027-02-23", "target": 3}, {"date": "2027-02-24", "target": 3}, {"date": "2027-02-25", "target": 3}, {"date": "2027-02-26", "target": 3}, {"date": "2027-02-27", "target": 3}, {"date": "2027-02-28", "target": 3}, {"date": "2027-03-01", "target": 3}, {"date": "2027-03-02", "target": 3}, {"date": "2027-03-03", "target": 3}, {"date": "2027-03-04", "target": 3}, {"date": "2027-03-05", "target": 3}, {"date": "2027-03-06", "target": 3}, {"date": "2027-03-07", "target": 2}, {"date": "2027-03-08", "target": 3}, {"date": "2027-03-09", "target": 3}, {"date": "2027-03-10", "target": 3}, {"date": "2027-03-11", "target": 3}, {"date": "2027-03-12", "target": 3}, {"date": "2027-03-13", "target": 3}, {"date": "2027-03-14", "target": 3}, {"date": "2027-03-15", "target": 3}, {"date": "2027-03-16", "target": 3}, {"date": "2027-03-17", "target": 3}, {"date": "2027-03-18", "target": 3}, {"date": "2027-03-19", "target": 3}, {"date": "2027-03-20", "target": 2}, {"date": "2027-03-21", "target": 3}, {"date": "2027-03-22", "target": 3}, {"date": "2027-03-23", "target": 3}, {"date": "2027-03-24", "target": 3}, {"date": "2027-03-25", "target": 3}, {"date": "2027-03-26", "target": 3}, {"date": "2027-03-27", "target": 3}, {"date": "2027-03-28", "target": 3}, {"date": "2027-03-29", "target": 3}, {"date": "2027-03-30", "target": 3}, {"date": "2027-03-31", "target": 3}, {"date": "2027-04-01", "target": 3}, {"date": "2027-04-02", "target": 2}, {"date": "2027-04-03", "target": 3}, {"date": "2027-04-04", "target": 3}, {"date": "2027-04-05", "target": 3}, {"date": "2027-04-06", "target": 3}, {"date": "2027-04-07", "target": 3}, {"date": "2027-04-08", "target": 3}, {"date": "2027-04-09", "target": 3}, {"date": "2027-04-10", "target": 3}, {"date": "2027-04-11", "target": 3}, {"date": "2027-04-12", "target": 3}, {"date": "2027-04-13", "target": 3}, {"date": "2027-04-14", "target": 3}, {"date": "2027-04-15", "target": 2}, {"date": "2027-04-16", "target": 3}, {"date": "2027-04-17", "target": 3}, {"date": "2027-04-18", "target": 3}, {"date": "2027-04-19", "target": 3}, {"date": "2027-04-20", "target": 3}, {"date": "2027-04-21", "target": 3}, {"date": "2027-04-22", "target": 3}, {"date": "2027-04-23", "target": 3}, {"date": "2027-04-24", "target": 3}, {"date": "2027-04-25", "target": 3}, {"date": "2027-04-26", "target": 3}, {"date": "2027-04-27", "target": 3}, {"date": "2027-04-28", "target": 2}, {"date": "2027-04-29", "target": 3}, {"date": "2027-04-30", "target": 3}, {"date": "2027-05-01", "target": 3}, {"date": "2027-05-02", "target": 3}, {"date": "2027-05-03", "target": 3}, {"date": "2027-05-04", "target": 3}, {"date": "2027-05-05", "target": 3}, {"date": "2027-05-06", "target": 3}, {"date": "2027-05-07", "target": 3}, {"date": "2027-05-08", "target": 3}, {"date": "2027-05-09", "target": 3}, {"date": "2027-05-10", "target": 3}, {"date": "2027-05-11", "target": 2}, {"date": "2027-05-12", "target": 3}, {"date": "2027-05-13", "target": 3}, {"date": "2027-05-14", "target": 3}, {"date": "2027-05-15", "target": 3}, {"date": "2027-05-16", "target": 3}, {"date": "2027-05-17", "target": 3}, {"date": "2027-05-18", "target": 3}, {"date": "2027-05-19", "target": 3}, {"date": "2027-05-20", "target": 3}, {"date": "2027-05-21", "target": 3}, {"date": "2027-05-22", "target": 3}, {"date": "2027-05-23", "target": 3}, {"date": "2027-05-24", "target": 2}, {"date": "2027-05-25", "target": 3}, {"date": "2027-05-26", "target": 3}, {"date": "2027-05-27", "target": 3}, {"date": "2027-05-28", "target": 3}, {"date": "2027-05-29", "target": 3}, {"date": "2027-05-30", "target": 3}, {"date": "2027-05-31", "target": 3}, {"date": "2027-06-01", "target": 3}, {"date": "2027-06-02", "target": 3}, {"date": "2027-06-03", "target": 3}, {"date": "2027-06-04", "target": 3}, {"date": "2027-06-05", "target": 3}, {"date": "2027-06-06", "target": 2}, {"date": "2027-06-07", "target": 3}, {"date": "2027-06-08", "target": 3}, {"date": "2027-06-09", "target": 3}, {"date": "2027-06-10", "target": 3}, {"date": "2027-06-11", "target": 3}, {"date": "2027-06-12", "target": 3}, {"date": "2027-06-13", "target": 3}, {"date": "2027-06-14", "target": 3}, {"date": "2027-06-15", "target": 3}, {"date": "2027-06-16", "target": 3}, {"date": "2027-06-17", "target": 3}, {"date": "2027-06-18", "target": 3}, {"date": "2027-06-19", "target": 2}, {"date": "2027-06-20", "target": 3}, {"date": "2027-06-21", "target": 3}, {"date": "2027-06-22", "target": 3}, {"date": "2027-06-23", "target": 3}, {"date": "2027-06-24", "target": 3}, {"date": "2027-06-25", "target": 3}, {"date": "2027-06-26", "target": 3}, {"date": "2027-06-27", "target": 3}, {"date": "2027-06-28", "target": 3}, {"date": "2027-06-29", "target": 3}, {"date": "2027-06-30", "target": 3}, {"date": "2027-07-01", "target": 3}, {"date": "2027-07-02", "target": 2}, {"date": "2027-07-03", "target": 3}, {"date": "2027-07-04", "target": 3}, {"date": "2027-07-05", "target": 3}, {"date": "2027-07-06", "target": 3}, {"date": "2027-07-07", "target": 3}, {"date": "2027-07-08", "target": 3}, {"date": "2027-07-09", "target": 3}, {"date": "2027-07-10", "target": 3}, {"date": "2027-07-11", "target": 3}, {"date": "2027-07-12", "target": 3}, {"date": "2027-07-13", "target": 3}, {"date": "2027-07-14", "target": 3}, {"date": "2027-07-15", "target": 2}, {"date": "2027-07-16", "target": 3}, {"date": "2027-07-17", "target": 3}, {"date": "2027-07-18", "target": 3}, {"date": "2027-07-19", "target": 3}, {"date": "2027-07-20", "target": 3}, {"date": "2027-07-21", "target": 3}, {"date": "2027-07-22", "target": 3}, {"date": "2027-07-23", "target": 3}, {"date": "2027-07-24", "target": 3}, {"date": "2027-07-25", "target": 3}, {"date": "2027-07-26", "target": 3}, {"date": "2027-07-27", "target": 3}, {"date": "2027-07-28", "target": 2}, {"date": "2027-07-29", "target": 3}, {"date": "2027-07-30", "target": 3}, {"date": "2027-07-31", "target": 3}, {"date": "2027-08-01", "target": 3}, {"date": "2027-08-02", "target": 3}, {"date": "2027-08-03", "target": 3}, {"date": "2027-08-04", "target": 3}, {"date": "2027-08-05", "target": 3}, {"date": "2027-08-06", "target": 3}, {"date": "2027-08-07", "target": 3}, {"date": "2027-08-08", "target": 3}, {"date": "2027-08-09", "target": 3}, {"date": "2027-08-10", "target": 2}, {"date": "2027-08-11", "target": 3}, {"date": "2027-08-12", "target": 3}, {"date": "2027-08-13", "target": 3}, {"date": "2027-08-14", "target": 3}, {"date": "2027-08-15", "target": 3}, {"date": "2027-08-16", "target": 3}, {"date": "2027-08-17", "target": 3}, {"date": "2027-08-18", "target": 3}, {"date": "2027-08-19", "target": 3}, {"date": "2027-08-20", "target": 3}, {"date": "2027-08-21", "target": 3}, {"date": "2027-08-22", "target": 3}, {"date": "2027-08-23", "target": 2}, {"date": "2027-08-24", "target": 3}, {"date": "2027-08-25", "target": 3}, {"date": "2027-08-26", "target": 3}, {"date": "2027-08-27", "target": 3}, {"date": "2027-08-28", "target": 3}, {"date": "2027-08-29", "target": 3}, {"date": "2027-08-30", "target": 3}, {"date": "2027-08-31", "target": 3}, {"date": "2027-09-01", "target": 3}, {"date": "2027-09-02", "target": 3}, {"date": "2027-09-03", "target": 3}, {"date": "2027-09-04", "target": 3}, {"date": "2027-09-05", "target": 2}, {"date": "2027-09-06", "target": 3}, {"date": "2027-09-07", "target": 3}, {"date": "2027-09-08", "target": 3}, {"date": "2027-09-09", "target": 3}, {"date": "2027-09-10", "target": 3}, {"date": "2027-09-11", "target": 3}, {"date": "2027-09-12", "target": 3}, {"date": "2027-09-13", "target": 3}, {"date": "2027-09-14", "target": 3}, {"date": "2027-09-15", "target": 3}, {"date": "2027-09-16", "target": 3}, {"date": "2027-09-17", "target": 3}, {"date": "2027-09-18", "target": 2}, {"date": "2027-09-19", "target": 3}, {"date": "2027-09-20", "target": 3}, {"date": "2027-09-21", "target": 3}, {"date": "2027-09-22", "target": 3}, {"date": "2027-09-23", "target": 3}, {"date": "2027-09-24", "target": 3}, {"date": "2027-09-25", "target": 3}, {"date": "2027-09-26", "target": 3}, {"date": "2027-09-27", "target": 3}, {"date": "2027-09-28", "target": 3}, {"date": "2027-09-29", "target": 3}, {"date": "2027-09-30", "target": 3}, {"date": "2027-10-01", "target": 2}, {"date": "2027-10-02", "target": 3}, {"date": "2027-10-03", "target": 3}, {"date": "2027-10-04", "target": 3}, {"date": "2027-10-05", "target": 3}, {"date": "2027-10-06", "target": 3}, {"date": "2027-10-07", "target": 3}, {"date": "2027-10-08", "target": 3}, {"date": "2027-10-09", "target": 3}, {"date": "2027-10-10", "target": 3}, {"date": "2027-10-11", "target": 3}, {"date": "2027-10-12", "target": 3}, {"date": "2027-10-13", "target": 3}, {"date": "2027-10-14", "target": 2}, {"date": "2027-10-15", "target": 3}, {"date": "2027-10-16", "target": 3}, {"date": "2027-10-17", "target": 3}, {"date": "2027-10-18", "target": 3}, {"date": "2027-10-19", "target": 3}, {"date": "2027-10-20", "target": 3}, {"date": "2027-10-21", "target": 3}, {"date": "2027-10-22", "target": 3}, {"date": "2027-10-23", "target": 3}, {"date": "2027-10-24", "target": 3}, {"date": "2027-10-25", "target": 3}, {"date": "2027-10-26", "target": 3}, {"date": "2027-10-27", "target": 2}, {"date": "2027-10-28", "target": 3}, {"date": "2027-10-29", "target": 3}, {"date": "2027-10-30", "target": 3}, {"date": "2027-10-31", "target": 3}, {"date": "2027-11-01", "target": 3}, {"date": "2027-11-02", "target": 3}, {"date": "2027-11-03", "target": 3}, {"date": "2027-11-04", "target": 3}, {"date": "2027-11-05", "target": 3}, {"date": "2027-11-06", "target": 3}, {"date": "2027-11-07", "target": 3}, {"date": "2027-11-08", "target": 3}, {"date": "2027-11-09", "target": 2}, {"date": "2027-11-10", "target": 3}, {"date": "2027-11-11", "target": 3}, {"date": "2027-11-12", "target": 3}, {"date": "2027-11-13", "target": 3}, {"date": "2027-11-14", "target": 3}, {"date": "2027-11-15", "target": 3}, {"date": "2027-11-16", "target": 3}, {"date": "2027-11-17", "target": 3}, {"date": "2027-11-18", "target": 3}, {"date": "2027-11-19", "target": 3}, {"date": "2027-11-20", "target": 3}, {"date": "2027-11-21", "target": 3}, {"date": "2027-11-22", "target": 2}, {"date": "2027-11-23", "target": 3}, {"date": "2027-11-24", "target": 3}, {"date": "2027-11-25", "target": 3}, {"date": "2027-11-26", "target": 3}, {"date": "2027-11-27", "target": 3}, {"date": "2027-11-28", "target": 3}, {"date": "2027-11-29", "target": 3}, {"date": "2027-11-30", "target": 3}, {"date": "2027-12-01", "target": 3}, {"date": "2027-12-02", "target": 3}, {"date": "2027-12-03", "target": 3}, {"date": "2027-12-04", "target": 3}, {"date": "2027-12-05", "target": 2}, {"date": "2027-12-06", "target": 3}, {"date": "2027-12-07", "target": 3}, {"date": "2027-12-08", "target": 3}, {"date": "2027-12-09", "target": 3}, {"date": "2027-12-10", "target": 3}, {"date": "2027-12-11", "target": 3}, {"date": "2027-12-12", "target": 3}, {"date": "2027-12-13", "target": 3}, {"date": "2027-12-14", "target": 3}, {"date": "2027-12-15", "target": 3}, {"date": "2027-12-16", "target": 3}, {"date": "2027-12-17", "target": 3}, {"date": "2027-12-18", "target": 2}, {"date": "2027-12-19", "target": 3}, {"date": "2027-12-20", "target": 3}, {"date": "2027-12-21", "target": 3}, {"date": "2027-12-22", "target": 3}, {"date": "2027-12-23", "target": 3}, {"date": "2027-12-24", "target": 3}, {"date": "2027-12-25", "target": 3}, {"date": "2027-12-26", "target": 3}, {"date": "2027-12-27", "target": 3}, {"date": "2027-12-28", "target": 3}, {"date": "2027-12-29", "target": 3}, {"date": "2027-12-30", "target": 3}, {"date": "2027-12-31", "target": 3}];
@@ -322,10 +368,12 @@ function loadState(){
       loaded.detourBook=loaded.detourBook||null;
       loaded.detourBeforeBook=loaded.detourBeforeBook||null;
       loaded.dailyTarget=Number(loaded.dailyTarget)||3;
+      loaded.excludedBooks=Array.isArray(loaded.excludedBooks)?loaded.excludedBooks.filter(b=>typeof b==="string"):[];
+      loaded.scheduleName=typeof loaded.scheduleName==="string"&&loaded.scheduleName.trim()?loaded.scheduleName:"Ronnie's Reading Schedule";
       return reconcileState(loaded);
     }
   } catch(e){}
-  return {completed:[],logs:{},ireapCompleted:[],ireapCompletedAt:{},planAnchor:null,readingOrder:defaultReadingOrder(),detourBook:null,detourBeforeBook:null,dailyTarget:3,createdAt:new Date().toISOString()};
+  return {completed:[],logs:{},ireapCompleted:[],ireapCompletedAt:{},planAnchor:null,readingOrder:defaultReadingOrder(),detourBook:null,detourBeforeBook:null,dailyTarget:3,excludedBooks:[],scheduleName:"Ronnie's Reading Schedule",createdAt:new Date().toISOString()};
 }
 function saveState({sync=true}={}){
   reconcileState(state);
@@ -385,6 +433,14 @@ function confirmDialog(message){
 }
 function logFor(date){if(!state.logs[date])state.logs[date]={chapters:[],ireap:false,extra:0};return state.logs[date]}
 function doneSet(){return new Set(state.completed)}
+// Books removed from the plan (soft-remove): their chapters leave the plan
+// logic (Up next, carry-over, projected finish) but completed chapters stay
+// in completed/logs and can be added back at any time.
+function isExcluded(book){return (state.excludedBooks||[]).includes(book)}
+function activeChapterIndexes(){const out=[];CHAPTERS.forEach((c,i)=>{if(!isExcluded(bookAndChapter(c).book))out.push(i)});return out}
+function planTotal(){return activeChapterIndexes().length}
+function activeCompletedCount(){const done=doneSet();return activeChapterIndexes().filter(i=>done.has(i)).length}
+function remainingChapters(){return planTotal()-activeCompletedCount()}
 function defaultReadingOrder(){
  const names=[];for(const chapter of CHAPTERS){const book=bookAndChapter(chapter).book;if(!names.includes(book))names.push(book)}return names;
 }
@@ -394,13 +450,13 @@ function normalizeReadingOrder(order){
  return clean;
 }
 function getReadingSequence(){
- const order=normalizeReadingOrder(state.readingOrder),byBook=new Map();
+ const order=normalizeReadingOrder(state.readingOrder).filter(b=>!isExcluded(b)),byBook=new Map();
  CHAPTERS.forEach((chapter,index)=>{const book=bookAndChapter(chapter).book;if(!byBook.has(book))byBook.set(book,[]);byBook.get(book).push(index)});
  const sequence=order.flatMap(book=>byBook.get(book)||[]);
  // A temporary book choice is inserted at the next original-plan book's slot.
  // Keep the book in its normal position too; completed chapters are skipped there,
  // while the inserted copy lets the original plan resume immediately afterward.
- if(state.detourBook&&state.detourBeforeBook&&state.detourBook!==state.detourBeforeBook){
+ if(state.detourBook&&state.detourBeforeBook&&state.detourBook!==state.detourBeforeBook&&!isExcluded(state.detourBook)){
    const insertBefore=(byBook.get(state.detourBeforeBook)||[])[0];
    const at=insertBefore===undefined?-1:sequence.indexOf(insertBefore);
    if(at>=0)sequence.splice(at,0,...(byBook.get(state.detourBook)||[]));
@@ -410,7 +466,7 @@ function getReadingSequence(){
 function firstUnreadInOrder(order){
  const done=doneSet(),skipped=skippedSet(),byBook=new Map();
  CHAPTERS.forEach((chapter,index)=>{const book=bookAndChapter(chapter).book;if(!byBook.has(book))byBook.set(book,[]);byBook.get(book).push(index)});
- for(const book of normalizeReadingOrder(order))for(const index of (byBook.get(book)||[]))if(!done.has(index)&&!skipped.has(index))return index;
+ for(const book of normalizeReadingOrder(order).filter(b=>!isExcluded(b)))for(const index of (byBook.get(book)||[]))if(!done.has(index)&&!skipped.has(index))return index;
  return CHAPTERS.length;
 }
 // The active sequence includes a temporary book detour at the original plan's
@@ -480,17 +536,18 @@ async function catchMeUp(){
  saveState();showToast(`Plan reset. Start fresh with ${CHAPTERS[next]}.`);
 }
 function switchToBook(book){
- const originalOrder=defaultReadingOrder();
- const nextOriginalIndex=firstUnreadInOrder(originalOrder);
+ if(isExcluded(book)){showToast(`${book} is removed from your plan. Restore it first to read it next.`);return;}
+ const currentOrder=normalizeReadingOrder(state.readingOrder);
+ const nextOriginalIndex=firstUnreadInOrder(currentOrder);
  if(nextOriginalIndex>=CHAPTERS.length){showToast("You've completed the original reading plan!");return;}
  const nextOriginalBook=bookAndChapter(CHAPTERS[nextOriginalIndex]).book;
  const bookIndexes=CHAPTERS.map((chapter,index)=>({chapter,index})).filter(x=>bookAndChapter(x.chapter).book===book);
  if(!bookIndexes.length){showToast("Please choose a Bible book.");return;}
  const done=doneSet(),nextInBook=bookIndexes.find(x=>!done.has(x.index));
  if(!nextInBook){showToast(`${book} is already complete. Choose another book.`);return;}
- // Keep the original plan intact and insert the chosen book at the exact slot
- // where the next original-plan book (for example Mark) was due to begin.
- state.readingOrder=originalOrder;
+ // Keep the current reading order (including any rearrangement) and insert
+ // the chosen book at the exact slot where the next book was due to begin.
+ state.readingOrder=currentOrder;
  if(book===nextOriginalBook){state.detourBook=null;state.detourBeforeBook=null;}
  else {state.detourBook=book;state.detourBeforeBook=nextOriginalBook;}
  // If Catch Me Up created a schedule anchor, retain its date and target but
@@ -498,8 +555,35 @@ function switchToBook(book){
  // by inserting the selected chapters at the original book's sequence position.
  if(state.planAnchor){state.planAnchor={...state.planAnchor,chapterIndex:nextInBook.index};}
  saveState();
- showToast(`${book} will start when ${nextOriginalBook} was scheduled. Afterward, your original plan continues with ${nextOriginalBook}.`);
+ showToast(`${book} will start when ${nextOriginalBook} was scheduled. Afterward, your plan continues with ${nextOriginalBook}.`);
  if(activeView!=="today")showView("today");
+}
+// Move a book one step up or down in Ronnie's Reading Schedule.
+function moveBook(book,dir){
+ const order=normalizeReadingOrder(state.readingOrder);
+ const i=order.indexOf(book),j=i+dir;
+ if(i<0||j<0||j>=order.length)return;
+ [order[i],order[j]]=[order[j],order[i]];
+ state.readingOrder=order;
+ bookSortPreference="plan";localStorage.setItem("rbc.bookSort","plan");
+ saveState();
+ showToast(`${book} moved ${dir<0?"up":"down"} in your reading order.`);
+}
+// Soft-remove a book from the plan: its chapters leave the plan, but chapters
+// already finished stay finished, and the book can be added back any time.
+async function removeBook(book){
+ const active=normalizeReadingOrder(state.readingOrder).filter(b=>!isExcluded(b));
+ if(active.length<=1){showToast("Keep at least one book in your plan.");return;}
+ const ok=await confirmDialog(`Remove ${book} from your reading plan? Its chapters leave the plan, but chapters you already finished stay finished. You can add it back any time.`);
+ if(!ok)return;
+ state.excludedBooks=[...(state.excludedBooks||[]),book];
+ saveState();
+ showToast(`${book} removed from your plan.`);
+}
+function restoreBook(book){
+ state.excludedBooks=(state.excludedBooks||[]).filter(b=>b!==book);
+ saveState();
+ showToast(`${book} is back in your plan.`);
 }
 async function resumeOriginalPlan(){
  const originalOrder=defaultReadingOrder();
@@ -536,7 +620,7 @@ function recentPace(){
   return state.dailyTarget||3;
 }
 function projectedFinish(){
-  const remaining=CHAPTERS.length-state.completed.length;
+  const remaining=remainingChapters();
   if(!remaining)return todayISO();
   const perDay=recentPace();
   const daysNeeded=Math.max(1,Math.ceil(remaining/perDay));
@@ -544,16 +628,17 @@ function projectedFinish(){
   d.setDate(d.getDate()+daysNeeded-1);
   return localISO(d);
 }
-function fmtDelta(date){const diff=Math.round((parseDate(date)-parseDate(ORIGINAL_FINISH))/86400000);if(diff===0)return "On your original target";return diff>0?`${diff} day${diff===1?"":"s"} later than target`:`${Math.abs(diff)} day${diff===-1?"":"s"} earlier than target`}
 function currentBook(){const i=firstUnread();return i>=CHAPTERS.length?"Completed":bookAndChapter(CHAPTERS[i]).book}
 function bookAndChapter(ch){const m=ch.match(/^(.*)\s(\d+)$/);return m?{book:m[1],chapter:+m[2]}:{book:ch,chapter:1}}
 function showView(v){
  activeView=v;
  document.querySelectorAll(".view").forEach(x=>x.classList.toggle("active",x.id==="view-"+v));
  document.querySelectorAll("[data-view]").forEach(x=>x.classList.toggle("active",x.dataset.view===v));
- const titles={dashboard:"Your journey, one chapter at a time.",today:"Make room for the Word.",calendar:"Your days in Scripture.",books:"Every book, one chapter at a time.",ireap:"Bible Devotional Guide",settings:"Make this journey your own."};
- document.getElementById("pageTitle").textContent=titles[v]||"Ronnie's Bible Challenge";
- if(v==="calendar")renderCalendar();if(v==="today")renderToday();if(v==="books")renderBooks();if(v==="settings")updateDailyTargetHint();
+ const titles={dashboard:"Your journey, one chapter at a time.",today:"Make room for the Word.",calendar:"Your days in Scripture.",books:"Every book, one chapter at a time.",ireap:"Bible Devotional Guide",awards:"Your awards.",settings:"Make this journey your own."};
+ const pageTitle=document.getElementById("pageTitle");
+ pageTitle.textContent=titles[v]||"Bible Quota";
+ pageTitle.focus({preventScroll:true});
+ if(v==="calendar")renderCalendar();if(v==="today")renderToday();if(v==="books")renderBooks();if(v==="awards")renderAwards();if(v==="settings")updateDailyTargetHint();
  window.scrollTo({top:0,behavior:"smooth"});
 }
 document.querySelectorAll("[data-view]").forEach(b=>b.addEventListener("click",()=>showView(b.dataset.view)));
@@ -564,7 +649,8 @@ function getBookProgress(){
  return map;
 }
 const TRADITIONAL_BOOK_ORDER=["Genesis","Exodus","Leviticus","Numbers","Deuteronomy","Joshua","Judges","Ruth","1 Samuel","2 Samuel","1 Kings","2 Kings","1 Chronicles","2 Chronicles","Ezra","Nehemiah","Esther","Job","Psalms","Proverbs","Ecclesiastes","Song of Solomon","Isaiah","Jeremiah","Lamentations","Ezekiel","Daniel","Hosea","Joel","Amos","Obadiah","Jonah","Micah","Nahum","Habakkuk","Zephaniah","Haggai","Zechariah","Malachi","Matthew","Mark","Luke","John","Acts","Romans","1 Corinthians","2 Corinthians","Galatians","Ephesians","Philippians","Colossians","1 Thessalonians","2 Thessalonians","1 Timothy","2 Timothy","Titus","Philemon","Hebrews","James","1 Peter","2 Peter","1 John","2 John","3 John","Jude","Revelation"];
-function setBookSort(value){bookSortPreference=value;localStorage.setItem("rbc.bookSort",value);renderBooks()}
+function setBookSort(value){bookSortPreference=value;localStorage.setItem("rbc.bookSort",value);bookPage=0;renderBooks()}
+let bookPage=0;const BOOKS_PER_PAGE=10;
 function renderInsights(){
  const today=parseDate(todayISO()),startWeek=new Date(today);startWeek.setDate(today.getDate()-((today.getDay()+6)%7));
  const monthStart=new Date(today.getFullYear(),today.getMonth(),1);
@@ -581,24 +667,131 @@ function renderInsights(){
    cell.title=`${prettyDate(key,{month:"short",day:"numeric"})}: ${count} chapter${count===1?"":"s"}`;heat.appendChild(cell);
  }
 }
-function renderAchievements(){
- const bookMap=getBookProgress(),completedBooks=[...bookMap.values()].filter(x=>x.done===x.total).length;
- const days=Object.entries(state.logs||{}).filter(([date,l])=>date<=todayISO()&&(l.chapters||[]).length>0).length;
- const chapters=state.completed.length,ireaps=(state.ireapCompleted||[]).length;
- const milestones=[
-  {name:"First steps",detail:"Complete your first chapter",icon:"🌱",earned:chapters>=1},
-  {name:"Finding a rhythm",detail:"Complete 7 reading days",icon:"📖",earned:days>=7},
-  {name:"A month of faithfulness",detail:"Complete 30 reading days",icon:"🌿",earned:days>=30},
-  {name:"100 chapters",detail:"Complete 100 chapters",icon:"💯",earned:chapters>=100},
-  {name:"A whole book",detail:"Finish any one Bible book",icon:"🏆",earned:completedBooks>=1},
+// Reading streaks, computed from the actual log dates (today or earlier).
+function readingDatesSet(){
+ const set=new Set();
+ for(const [date,log] of Object.entries(state.logs||{})){
+   if(date<=todayISO()&&(log.chapters||[]).length>0)set.add(date);
+ }
+ return set;
+}
+function currentStreak(){
+ const set=readingDatesSet();
+ let d=parseDate(todayISO());
+ if(!set.has(localISO(d)))d.setDate(d.getDate()-1);
+ let streak=0;
+ while(set.has(localISO(d))){streak++;d.setDate(d.getDate()-1);}
+ return streak;
+}
+function longestStreak(){
+ const dates=[...readingDatesSet()].sort();
+ let best=0,run=0,prev=null;
+ for(const ds of dates){
+   const d=parseDate(ds);
+   if(prev&&Math.round((d-prev)/86400000)===1)run++;else run=1;
+   if(run>best)best=run;
+   prev=d;
+ }
+ return best;
+}
+// A full Monday-to-Sunday week with reading every day.
+function calendarWeekComplete(){
+ const set=readingDatesSet();
+ const mondays=new Set();
+ for(const ds of set){
+   const d=parseDate(ds);
+   const monday=new Date(d);monday.setDate(d.getDate()-((d.getDay()+6)%7));
+   mondays.add(localISO(monday));
+ }
+ for(const m of mondays){
+   const start=parseDate(m);let ok=true;
+   for(let k=0;k<7;k++){const day=new Date(start);day.setDate(start.getDate()+k);if(!set.has(localISO(day))){ok=false;break;}}
+   if(ok)return true;
+ }
+ return false;
+}
+// A full calendar month with reading every day.
+function calendarMonthComplete(){
+ const set=readingDatesSet();
+ const months=new Set([...set].map(ds=>ds.slice(0,7)));
+ for(const ym of months){
+   const [y,m]=ym.split("-").map(Number);
+   const daysInMonth=new Date(y,m,0).getDate();
+   let ok=true;
+   for(let d=1;d<=daysInMonth;d++){
+     const ds=`${y}-${String(m).padStart(2,"0")}-${String(d).padStart(2,"0")}`;
+     if(!set.has(ds)){ok=false;break;}
+   }
+   if(ok)return true;
+ }
+ return false;
+}
+const OT_BOOKS=TRADITIONAL_BOOK_ORDER.slice(0,39);
+const NT_BOOKS=TRADITIONAL_BOOK_ORDER.slice(39);
+const TORAH_BOOKS=["Genesis","Exodus","Leviticus","Numbers","Deuteronomy"];
+const NEVIIM_BOOKS=["Joshua","Judges","1 Samuel","2 Samuel","1 Kings","2 Kings","Isaiah","Jeremiah","Ezekiel","Hosea","Joel","Amos","Obadiah","Jonah","Micah","Nahum","Habakkuk","Zephaniah","Haggai","Zechariah","Malachi"];
+const KETUVIM_BOOKS=["Psalms","Proverbs","Job","Song of Solomon","Ruth","Lamentations","Ecclesiastes","Esther","Daniel","Ezra","Nehemiah","1 Chronicles","2 Chronicles"];
+const SOLOMON_BOOKS=["Proverbs","Ecclesiastes","Song of Solomon"];
+const GOSPEL_BOOKS=["Matthew","Mark","Luke","John"];
+function bookFinished(name){
+ const map=getBookProgress();const x=map.get(name);return !!x&&x.done===x.total;
+}
+function groupFinished(names){
+ const relevant=names.filter(b=>!isExcluded(b));
+ const check=relevant.length?relevant:names;
+ return check.every(bookFinished)&&names.some(bookFinished);
+}
+const TABLETS_ICON='<svg viewBox="0 0 32 28" width="24" height="24" aria-hidden="true"><path d="M4 3a5 5 0 0 1 10 0v20a3 3 0 0 1-3 3H7a3 3 0 0 1-3-3z" fill="#6d28d9"/><path d="M18 3a5 5 0 0 1 10 0v20a3 3 0 0 1-3 3h-4a3 3 0 0 1-3-3z" fill="#4c1d95"/><path d="M7.5 9h3M7.5 13h3M7.5 17h3M21.5 9h3M21.5 13h3M21.5 17h3" stroke="#fff" stroke-width="1.8" stroke-linecap="round"/></svg>';
+// All 23 awards, computed from state only — no new cloud field.
+function computeAwards(){
+ const bookMap=getBookProgress();
+ const completedBooks=[...bookMap.values()].filter(x=>x.done===x.total).length;
+ const chapters=activeCompletedCount();
+ const total=planTotal();
+ const ireaps=(state.ireapCompleted||[]).length;
+ const best=longestStreak();
+ return [
+  {name:"3-day streak",detail:"Read 3 days in a row",icon:"🔥",earned:best>=3},
+  {name:"7-day streak",detail:"Read 7 days in a row",icon:"📅",earned:best>=7},
+  {name:"30-day streak",detail:"Read 30 days in a row",icon:"👑",earned:best>=30},
+  {name:"10 chapters",detail:"Complete 10 chapters",icon:"🌱",earned:chapters>=10},
+  {name:"50 chapters",detail:"Complete 50 chapters",icon:"📖",earned:chapters>=50},
+  {name:"100 chapters",detail:"Complete 100 chapters",icon:"🔖",earned:chapters>=100},
+  {name:"500 chapters",detail:"Complete 500 chapters",icon:"🏆",earned:chapters>=500},
+  {name:"Whole Bible",detail:`Complete all ${total.toLocaleString()} chapters`,icon:"✝️",earned:total>0&&chapters>=total},
+  {name:"First book finished",detail:"Finish any one Bible book",icon:"✅",earned:completedBooks>=1},
   {name:"Five books",detail:"Finish five Bible books",icon:"📚",earned:completedBooks>=5},
-  {name:"IREAP in action",detail:"Complete 10 IREAP reflections",icon:"✨",earned:ireaps>=10},
-  {name:"Halfway there",detail:"Complete 50% of the Bible",icon:"🕊️",earned:chapters>=Math.ceil(CHAPTERS.length/2)},
-  {name:"The whole journey",detail:"Complete all 1,189 chapters",icon:"👑",earned:chapters>=CHAPTERS.length}
+  {name:"Ten books",detail:"Finish ten Bible books",icon:"🏛️",earned:completedBooks>=10},
+  {name:"First reflection",detail:"Complete your first IREAP reflection",icon:"💡",earned:ireaps>=1},
+  {name:"10 reflections",detail:"Complete 10 IREAP reflections",icon:"🔍",earned:ireaps>=10},
+  {name:"50 reflections",detail:"Complete 50 IREAP reflections",icon:"🙏",earned:ireaps>=50},
+  {name:"A week of reading",detail:"Read every day for a full week",icon:"☀️",earned:calendarWeekComplete()},
+  {name:"A month of reading",detail:"Read every day for a full month",icon:"🌙",earned:calendarMonthComplete()},
+  {name:"Covenant Keeper",detail:"Finish the whole Old Testament, all 39 books",icon:"📜",earned:groupFinished(OT_BOOKS)},
+  {name:"New Covenant",detail:"Finish the whole New Testament, all 27 books",icon:"🕊️",earned:groupFinished(NT_BOOKS)},
+  {name:"The Law",detail:"Finish the five Books of Moses",icon:TABLETS_ICON,earned:groupFinished(TORAH_BOOKS)},
+  {name:"Voice of the Prophets",detail:"Finish the Prophets",icon:"🎺",earned:groupFinished(NEVIIM_BOOKS)},
+  {name:"Wisdom and Worship",detail:"Finish the Writings",icon:"🎵",earned:groupFinished(KETUVIM_BOOKS)},
+  {name:"Wisdom of Solomon",detail:"Finish Proverbs, Ecclesiastes, and Song of Solomon",icon:"🦉",earned:groupFinished(SOLOMON_BOOKS)},
+  {name:"The Fourfold Gospel",detail:"Finish Matthew, Mark, Luke, and John",icon:"⭐",earned:groupFinished(GOSPEL_BOOKS)}
  ];
- const earned=milestones.filter(m=>m.earned).length;document.getElementById("achievementCount").textContent=`${earned} of ${milestones.length} earned`;
+}
+function awardCardHTML(m){
+ return `<span class="medal" aria-hidden="true">${m.icon}</span><div><strong>${m.name}</strong><small>${m.detail}</small></div><span class="award-state">${m.earned?"✓ Earned":"Locked"}</span>`;
+}
+function renderAchievements(){
+ const awards=computeAwards();
+ const earned=awards.filter(m=>m.earned).length;
+ document.getElementById("achievementCount").textContent=`${earned} of ${awards.length} earned`;
  const list=document.getElementById("achievementList");list.innerHTML="";
- milestones.forEach(m=>{const el=document.createElement("div");el.className="achievement"+(m.earned?"":" locked");el.innerHTML=`<span class="medal">${m.icon}</span><div><strong>${m.name} ${m.earned?"✓":""}</strong><small>${m.detail}</small></div>`;list.appendChild(el)});
+ awards.slice(0,6).forEach(m=>{const el=document.createElement("div");el.className="achievement"+(m.earned?"":" locked");el.innerHTML=awardCardHTML(m);list.appendChild(el)});
+}
+function renderAwards(){
+ const awards=computeAwards();
+ const earned=awards.filter(m=>m.earned).length;
+ const countEl=document.getElementById("awardCount");if(countEl)countEl.textContent=`${earned} of ${awards.length} earned`;
+ const list=document.getElementById("awardList");if(!list)return;list.innerHTML="";
+ awards.forEach(m=>{const el=document.createElement("div");el.className="award-card"+(m.earned?"":" locked");el.innerHTML=awardCardHTML(m);list.appendChild(el)});
 }
 function reminderConfig(){return JSON.parse(localStorage.getItem("rbc.reminder")||'{"enabled":false,"time":"21:00"}')}
 function updateReminderStatus(){
@@ -634,7 +827,11 @@ function updateDailyTargetHint(){
   const el=document.getElementById("dailyTargetHint");if(!el)return;
   const input=document.getElementById("dailyTargetInput");
   if(input&&document.activeElement!==input)input.value=state.dailyTarget||3;
-  const remaining=CHAPTERS.length-state.completed.length;
+  const planTotalEl=document.getElementById("planTotalText");
+  if(planTotalEl)planTotalEl.textContent=`${planTotal().toLocaleString()} chapters`;
+  const paceEl=document.getElementById("paceText");
+  if(paceEl)paceEl.textContent=(planTotal()/SCHEDULE.length).toFixed(2)+" chapters/day";
+  const remaining=remainingChapters();
   const end=parseDate(ORIGINAL_FINISH),today=parseDate(todayISO());
   const daysLeft=Math.max(1,Math.round((end-today)/86400000)+1);
   const needed=remaining/daysLeft;
@@ -654,22 +851,23 @@ function setupReminderTimer(){
   const now=new Date(),today=localISO(now),time=String(now.getHours()).padStart(2,"0")+":"+String(now.getMinutes()).padStart(2,"0");
   if(time===cfg.time&&lastReminderDate!==today){
    lastReminderDate=today;localStorage.setItem("rbc.lastReminderDate",today);
-   if(!state.completed.length||chaptersReadToday(today)===0)new Notification("Ronnie's Bible Challenge",{body:"A gentle reminder: make a little room for Scripture and your IREAP reflection."});
+   if(!state.completed.length||chaptersReadToday(today)===0)new Notification("Bible Quota",{body:"A gentle reminder: make a little room for Scripture and your IREAP reflection."});
   }
  },30000);
  updateReminderStatus();syncReminderCheckbox();
 }
 
 function renderDashboard(){
- const n=state.completed.length,remain=CHAPTERS.length-n,pct=n/CHAPTERS.length*100,finish=projectedFinish();
+ const n=activeCompletedCount(),total=planTotal(),remain=total-n,pct=total?n/total*100:0,finish=projectedFinish();
  document.getElementById("progressPct").textContent=pct.toFixed(1)+"%";
  document.getElementById("progressRing").style.setProperty("--progress",(pct*3.6)+"deg");
- document.getElementById("completedStat").textContent=n.toLocaleString()+" / "+CHAPTERS.length.toLocaleString();
+ document.getElementById("completedStat").textContent=n.toLocaleString()+" / "+total.toLocaleString();
  document.getElementById("remainingStat").textContent=remain.toLocaleString();
- document.getElementById("finishStat").textContent=prettyDate(finish,{month:"short",day:"numeric",year:"numeric"});
- document.getElementById("finishDelta").textContent=fmtDelta(finish);
+ const streak=currentStreak();
+ document.getElementById("streakStat").textContent=streak;
+ document.getElementById("streakDelta").textContent=streak===1?"day in a row":"days in a row";
  document.getElementById("finishLarge").textContent=prettyDate(finish);
- document.getElementById("finishMessage").textContent=remain===0?"You've completed the entire reading sequence. Praise God!":`At your recent pace of ${recentPace().toFixed(1)} chapters per day, you have ${remain.toLocaleString()} chapters left.`;
+ document.getElementById("finishMessage").textContent=remain===0?"You've completed the entire reading sequence. Praise God!":`At your recent pace of ${recentPace().toFixed(1)} chapters per day.`;
  const readDays=Object.entries(state.logs).filter(([date,l])=>date<=todayISO()&&(l.chapters||[]).length>0).length;
  const ireaps=(state.ireapCompleted||[]).length;
  document.getElementById("daysStat").textContent=readDays;
@@ -691,12 +889,24 @@ function renderDashboard(){
  document.getElementById("dashOutstandingIreaps").textContent=outstanding.length?"Outstanding: "+outstanding.map(i=>CHAPTERS[i]).join(" · "):"No outstanding IREAP reflections.";
  renderInsights();
  renderAchievements();
+ renderDashCalendar();
  const target=totalTarget();document.getElementById("todayTargetPill").textContent=`Today's plan · ${planned.length} chapters`;
  const idx=firstUnread(), box=document.getElementById("dashboardNext");box.innerHTML="";
  const next=[...carry,...planned].filter((v,i,a)=>a.indexOf(v)===i&&!doneSet().has(v));
  if(!next.length){box.innerHTML='<p class="subtle">No outstanding reading assignments. Well done!</p>';return}
- next.slice(0,3).forEach((i,k)=>{const div=document.createElement("div");div.className="next-reading";div.innerHTML=`<div><div class="chapter-name">${CHAPTERS[i]}</div><div class="chapter-tag">${carry.includes(i)?"Carry over": "Planned today"}</div></div><span class="pill">${n} of 1189 completed</span>`;box.appendChild(div)});
+ next.slice(0,3).forEach((i,k)=>{const div=document.createElement("div");div.className="next-reading";div.innerHTML=`<div><div class="chapter-name">${CHAPTERS[i]}</div><div class="chapter-tag">${carry.includes(i)?"Carry over": "Planned today"}</div></div>${k===0?`<span class="pill">${n} of ${total.toLocaleString()} completed</span>`:""}`;box.appendChild(div)});
 
+}
+const todayPages={};
+function buildPager(page,totalPages,onPage){
+ const pager=document.createElement("div");pager.className="pager";
+ const prev=document.createElement("button");prev.className="btn ghost";prev.type="button";prev.textContent="Previous";prev.disabled=page===0;
+ prev.addEventListener("click",()=>onPage(page-1));
+ const label=document.createElement("span");label.className="page-label";label.textContent=`Page ${page+1} of ${totalPages}`;
+ const next=document.createElement("button");next.className="btn ghost";next.type="button";next.textContent="Next";next.disabled=page>=totalPages-1;
+ next.addEventListener("click",()=>onPage(page+1));
+ pager.appendChild(prev);pager.appendChild(label);pager.appendChild(next);
+ return pager;
 }
 function renderToday(){
  const date=todayISO(),log=logFor(date),planned=getPlannedChapterIndexes(date),carry=getCarryOverChapterIndexes(date);
@@ -712,10 +922,15 @@ function renderToday(){
  document.getElementById("completedTodayPill").textContent=`${completedToday.length} completed`;
  const renderRows=(containerId,indices,category,showUndo=false)=>{
    const box=document.getElementById(containerId);box.innerHTML="";
-   // More than 5 items: cap the height and scroll instead of growing the page.
-   box.classList.toggle("scroll-list",indices.length>5);
    if(!indices.length){box.innerHTML='<p class="subtle">None right now.</p>';return}
-   indices.forEach(i=>{
+   const PAGE_SIZE=5;
+   const totalPages=Math.max(1,Math.ceil(indices.length/PAGE_SIZE));
+   let page=todayPages[containerId]||0;
+   if(page>totalPages-1)page=totalPages-1;
+   if(page<0)page=0;
+   todayPages[containerId]=page;
+   const visible=indices.length>PAGE_SIZE?indices.slice(page*PAGE_SIZE,page*PAGE_SIZE+PAGE_SIZE):indices;
+   visible.forEach(i=>{
      const isDone=doneSet().has(i),doneToday=completedToday.includes(i),locked=isIreapComplete(i);
      const row=document.createElement("label");row.className="chapter-row"+(isDone?" done":"");
      row.innerHTML=`<input class="chapter-check" type="checkbox" ${isDone?"checked":""} ${(isDone&&!doneToday)?"disabled":""} aria-label="Mark ${CHAPTERS[i]} complete"><div><div class="chapter-name">${CHAPTERS[i]}</div><div class="chapter-tag">${doneToday?"Completed today":isDone?"Previously completed":category}${locked?" · IREAP completed · Locked":""}</div></div><span class="chapter-meta">${isDone?"✓ Done":i===firstUnread()?"Next up":"In sequence"}</span>`;
@@ -731,6 +946,9 @@ function renderToday(){
      }
      box.appendChild(row);
    });
+   if(indices.length>PAGE_SIZE){
+     box.appendChild(buildPager(page,totalPages,p=>{todayPages[containerId]=p;renderToday();}));
+   }
  };
  renderRows("carryOverList",carry,"Carry over from an earlier day");
  renderRows("plannedReadingList",planned,"Original daily assignment");
@@ -902,11 +1120,34 @@ function renderBooks(){
  else if(bookSortPreference==="traditional")names.sort((a,b)=>TRADITIONAL_BOOK_ORDER.indexOf(a)-TRADITIONAL_BOOK_ORDER.indexOf(b));
  else names.sort((a,b)=>order.indexOf(a)-order.indexOf(b));
  const selector=document.getElementById("bookSort");if(selector)selector.value=bookSortPreference;
+ const scheduleLabel=document.getElementById("scheduleNameLabel");
+ if(scheduleLabel)scheduleLabel.textContent=state.scheduleName||"Ronnie's Reading Schedule";
  const nextBook=firstUnread()<CHAPTERS.length?bookAndChapter(CHAPTERS[firstUnread()]).book:"All books completed";
  const bookSelect=document.getElementById("nextBookSelect");
- if(bookSelect){const current=bookSelect.value;bookSelect.innerHTML=order.map(name=>`<option value="${name.replace(/&/g,"&amp;").replace(/</g,"&lt;")}">${name}</option>`).join("");if(current&&order.includes(current))bookSelect.value=current;else if(nextBook!=="All books completed")bookSelect.value=nextBook;}
+ if(bookSelect){const current=bookSelect.value;const activeOrder=order.filter(name=>!isExcluded(name));bookSelect.innerHTML=activeOrder.map(name=>`<option value="${name.replace(/&/g,"&amp;").replace(/</g,"&lt;")}">${name}</option>`).join("");if(current&&activeOrder.includes(current))bookSelect.value=current;else if(nextBook!=="All books completed")bookSelect.value=nextBook;}
  const status=document.getElementById("readingOrderStatus");if(status)status.textContent=nextBook==="All books completed"?"You've completed all 66 books.":`Next in your current reading order: ${CHAPTERS[firstUnread()]}.`;
- for(const name of names){const x=map.get(name),pct=x.done/x.total*100,card=document.createElement("div");card.className="book-card";const isNext=name===nextBook;card.innerHTML=`<h3>${name}${isNext?' <span class="pill" style="vertical-align:middle">Up next</span>':''}</h3><div class="bar"><span style="width:${pct}%"></span></div><div class="book-foot"><span>${x.done} of ${x.total} chapters</span><strong>${Math.round(pct)}%</strong></div><button class="btn ghost" type="button" style="margin-top:12px;width:100%;padding:8px 10px;font-size:12px" ${x.done===x.total?'disabled':''}>Read this book next</button>`;card.querySelector("button").addEventListener("click",()=>switchToBook(name));grid.appendChild(card)}
+ const totalPages=Math.max(1,Math.ceil(names.length/BOOKS_PER_PAGE));
+ if(bookPage>totalPages-1)bookPage=totalPages-1;
+ if(bookPage<0)bookPage=0;
+ const pageNames=names.slice(bookPage*BOOKS_PER_PAGE,bookPage*BOOKS_PER_PAGE+BOOKS_PER_PAGE);
+ for(const name of pageNames){
+   const x=map.get(name),pct=x.done/x.total*100,card=document.createElement("div");
+   const excluded=isExcluded(name),pos=order.indexOf(name);
+   card.className="book-card"+(excluded?" removed":"");
+   const isNext=name===nextBook;
+   card.innerHTML=`<h3>${name}${isNext?' <span class="pill" style="vertical-align:middle">Up next</span>':''}${excluded?' <span class="pill" style="vertical-align:middle">Removed</span>':''}</h3><div class="bar"><span style="width:${pct}%"></span></div><div class="book-foot"><span>${x.done} of ${x.total} chapters</span><strong>${Math.round(pct)}%</strong></div>${excluded?`<button class="btn ghost" type="button" style="margin-top:12px;width:100%;padding:8px 10px;font-size:12px">Add this book back</button>`:`<button class="btn ghost" type="button" style="margin-top:12px;width:100%;padding:8px 10px;font-size:12px" ${x.done===x.total?'disabled':''}>Read this book next</button>`}<div class="book-actions"><button class="btn outline" type="button" data-act="up" aria-label="Move ${name} up in your reading order" ${excluded||pos<=0?'disabled':''}>↑ Up</button><button class="btn outline" type="button" data-act="down" aria-label="Move ${name} down in your reading order" ${excluded||pos>=order.length-1?'disabled':''}>↓ Down</button>${excluded?'':`<button class="btn outline" type="button" data-act="remove" aria-label="Remove ${name} from your reading plan">Remove</button>`}</div>`;
+   card.querySelector(".book-actions [data-act='up']").addEventListener("click",()=>moveBook(name,-1));
+   card.querySelector(".book-actions [data-act='down']").addEventListener("click",()=>moveBook(name,1));
+   const removeBtn=card.querySelector(".book-actions [data-act='remove']");
+   if(removeBtn)removeBtn.addEventListener("click",()=>removeBook(name));
+   card.querySelector(".btn.ghost").addEventListener("click",()=>{if(excluded)restoreBook(name);else switchToBook(name);});
+   grid.appendChild(card);
+ }
+ const pagerBox=document.getElementById("bookPager");
+ if(pagerBox){
+   pagerBox.innerHTML="";
+   if(totalPages>1)pagerBox.appendChild(buildPager(bookPage,totalPages,p=>{bookPage=p;renderBooks();}));
+ }
 }
 // Remove one day's log entries (completed chapters and unable marks) without
 // touching any other day. Chapters also recorded on another day are kept,
@@ -929,6 +1170,65 @@ async function clearDayLog(date){
   saveState();
   showToast(`Cleared the record for ${prettyDate(date,{month:"short",day:"numeric"})}.`);
 }
+// One calendar day cell: date number, chapters actually read that day (from
+// the log only — never from the plan), and the IREAP count as text. The
+// button's accessible name reads the full info for screen readers.
+function calendarDayButton(year,month,d){
+ const date=localISO(new Date(year,month,d)),log=state.logs[date],read=!!(log?.chapters?.length),ireap=(log?.chapters||[]).some(i=>isIreapComplete(i));
+ const chCount=(log?.chapters||[]).length;
+ const ireapCount=(log?.chapters||[]).filter(i=>isIreapComplete(i)).length;
+ const monthName=new Date(year,month,1).toLocaleDateString(undefined,{month:"long"});
+ const b=document.createElement("button");
+ b.className="cal-day"+(read?" read":"")+(ireap?" ireap":"")+(selectedCalendarDate===date?" selected":"");
+ b.setAttribute("aria-label",chCount?`${monthName} ${d}, ${year}, ${chCount} chapter${chCount===1?"":"s"} read, IREAP done for ${ireapCount} of ${chCount}.`:`${monthName} ${d}, ${year}, no reading recorded.`);
+ b.innerHTML=`<span class="num">${d}</span><span style="display:flex;gap:4px" aria-hidden="true">${read?'<i class="dot"></i>':""}${ireap?'<i class="dot" style="background:var(--gold)"></i>':""}</span>${read?`<small>${chCount} ch · IREAP ${ireapCount}/${chCount}</small>`:""}`;
+ return b;
+}
+let dashCalendarMonth=new Date();
+function fillMonthYearSelects(monthSel,yearSel){
+ if(monthSel&&!monthSel.options.length){
+   const months=["January","February","March","April","May","June","July","August","September","October","November","December"];
+   months.forEach((m,i)=>{const o=document.createElement("option");o.value=i;o.textContent=m;monthSel.appendChild(o);});
+ }
+ if(yearSel&&!yearSel.options.length){
+   for(let y=2025;y<=2029;y++){const o=document.createElement("option");o.value=y;o.textContent=y;yearSel.appendChild(o);}
+ }
+}
+function syncCalendarNav(){
+ fillMonthYearSelects(document.getElementById("calMonthSelect"),document.getElementById("calYearSelect"));
+ fillMonthYearSelects(document.getElementById("dashMonthSelect"),document.getElementById("dashYearSelect"));
+ const cm=document.getElementById("calMonthSelect"),cy=document.getElementById("calYearSelect");
+ if(cm)cm.value=calendarMonth.getMonth();
+ if(cy)cy.value=calendarMonth.getFullYear();
+ const dm=document.getElementById("dashMonthSelect"),dy=document.getElementById("dashYearSelect");
+ if(dm)dm.value=dashCalendarMonth.getMonth();
+ if(dy)dy.value=dashCalendarMonth.getFullYear();
+}
+function goToToday(){calendarMonth=new Date();selectedCalendarDate=todayISO();syncCalendarNav();renderCalendar();}
+function goToTodayDash(){dashCalendarMonth=new Date();syncCalendarNav();renderDashCalendar();}
+function initCalendarControls(){
+ const cm=document.getElementById("calMonthSelect"),cy=document.getElementById("calYearSelect");
+ if(cm)cm.addEventListener("change",()=>{calendarMonth=new Date(Number(cy.value)||calendarMonth.getFullYear(),Number(cm.value),1);renderCalendar();});
+ if(cy)cy.addEventListener("change",()=>{calendarMonth=new Date(Number(cy.value),Number(cm.value),1);renderCalendar();});
+ const dm=document.getElementById("dashMonthSelect"),dy=document.getElementById("dashYearSelect");
+ if(dm)dm.addEventListener("change",()=>{dashCalendarMonth=new Date(Number(dy.value)||dashCalendarMonth.getFullYear(),Number(dm.value),1);renderDashCalendar();});
+ if(dy)dy.addEventListener("change",()=>{dashCalendarMonth=new Date(Number(dy.value),Number(dm.value),1);renderDashCalendar();});
+ syncCalendarNav();
+}
+function renderDashCalendar(){
+ const grid=document.getElementById("dashCalendarGrid");if(!grid)return;
+ const year=dashCalendarMonth.getFullYear(),month=dashCalendarMonth.getMonth(),first=new Date(year,month,1),days=new Date(year,month+1,0).getDate();
+ grid.innerHTML="";
+ ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"].forEach(x=>{const e=document.createElement("div");e.className="cal-head";e.textContent=x;grid.appendChild(e)});
+ for(let i=0;i<first.getDay();i++){const e=document.createElement("div");e.className="cal-day empty";grid.appendChild(e)}
+ for(let d=1;d<=days;d++){
+   const date=localISO(new Date(year,month,d));
+   const b=calendarDayButton(year,month,d);
+   b.addEventListener("click",()=>{selectedCalendarDate=date;calendarMonth=new Date(year,month,1);syncCalendarNav();showView("calendar");});
+   grid.appendChild(b);
+ }
+ syncCalendarNav();
+}
 function renderCalendar(){
  const year=calendarMonth.getFullYear(),month=calendarMonth.getMonth(),first=new Date(year,month,1),days=new Date(year,month+1,0).getDate();
  document.getElementById("monthTitle").textContent=first.toLocaleDateString(undefined,{month:"long",year:"numeric"});
@@ -936,11 +1236,11 @@ function renderCalendar(){
  ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"].forEach(x=>{const e=document.createElement("div");e.className="cal-head";e.textContent=x;grid.appendChild(e)});
  for(let i=0;i<first.getDay();i++){const e=document.createElement("div");e.className="cal-day empty";grid.appendChild(e)}
  for(let d=1;d<=days;d++){
-  const date=localISO(new Date(year,month,d)),log=state.logs[date],read=!!(log?.chapters?.length),ireap=(log?.chapters||[]).some(i=>isIreapComplete(i));
-  const b=document.createElement("button");b.className="cal-day"+(read?" read":"")+(ireap?" ireap":"")+(selectedCalendarDate===date?" selected":"");
-  b.innerHTML=`<span class="num">${d}</span><span style="display:flex;gap:4px">${read?'<i class="dot"></i>':""}${ireap?'<i class="dot" style="background:var(--gold)"></i>':""}</span>${read?`<small>${log.chapters.length} ch.</small>`:""}`;
+  const date=localISO(new Date(year,month,d));
+  const b=calendarDayButton(year,month,d);
   b.addEventListener("click",()=>{selectedCalendarDate=date;renderCalendar()});grid.appendChild(b);
  }
+ syncCalendarNav();
  const log=state.logs[selectedCalendarDate]||{chapters:[],ireap:false};
  const box=document.getElementById("selectedDay");
  // Past calendar entries are historical records, not a projection of today's reading order.
@@ -1035,7 +1335,7 @@ function renderCalendar(){
       reflection.className='ireap-toggle';
       reflection.style.margin='8px 0 0 36px';
       reflection.style.display='block';
-      reflection.innerHTML=`<div class="subtle">IREAP status</div><div class="ireap-options"><label><input type="radio" name="calendar-ireap-${i}" value="completed" ${complete?'checked':''}> Completed</label><label><input type="radio" name="calendar-ireap-${i}" value="pending" ${!complete?'checked':''}> Not completed</label></div><div class="subtle" style="margin-top:4px">${complete?'Completed IREAP':'Not completed · Carries forward'}</div>`;
+      reflection.innerHTML=`<div class="subtle">IREAP status</div><div class="ireap-options"><label><input type="radio" name="calendar-ireap-${i}" value="completed" ${complete?'checked':''}> Completed</label><label><input type="radio" name="calendar-ireap-${i}" value="pending" ${!complete?'checked':''}> Not completed</label></div><div class="subtle" style="margin-top:4px">${complete?'IREAP done':'IREAP not done · Carries forward'}</div>`;
       reflection.querySelectorAll('input[type="radio"]').forEach(input=>input.addEventListener('change',e=>toggleChapterIreap(i,e.target.value==='completed')));
       row.appendChild(reflection);
     }
@@ -1068,10 +1368,6 @@ function renderCalendar(){
    clearBtn.textContent="Clear this day's record";
    clearBtn.addEventListener("click",async ()=>{await clearDayLog(selectedCalendarDate);renderCalendar();});
    box.appendChild(clearBtn);
-   const clearNote=document.createElement("p");
-   clearNote.className="subtle";
-   clearNote.textContent="Removes only this day's completed chapters and unable marks. Chapters also recorded on another day are kept.";
-   box.appendChild(clearNote);
  }
 }
 function getAssignedChapters(date){return [...new Set([...getCarryOverChapterIndexes(date),...getPlannedChapterIndexes(date)])]}
@@ -1132,8 +1428,8 @@ function markScheduledChapter(date,i,status){
  );
 }
 function shiftMonth(n){calendarMonth.setMonth(calendarMonth.getMonth()+n);renderCalendar()}
-function renderAll(){document.getElementById("dateLabel").textContent=prettyDate(todayISO(),{weekday:"short",month:"short",day:"numeric"});renderDashboard();if(activeView==="today")renderToday();if(activeView==="calendar")renderCalendar();if(activeView==="books")renderBooks();updateDailyTargetHint()}
-function exportBackup(){const blob=new Blob([JSON.stringify({app:"Ronnie's Bible Challenge",version:1,exportedAt:new Date().toISOString(),state},null,2)],{type:"application/json"});const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download="ronnies-bible-challenge-backup.json";a.click();URL.revokeObjectURL(a.href);showToast("Backup downloaded.");}
+function renderAll(){document.getElementById("dateLabel").textContent=prettyDate(todayISO(),{weekday:"short",month:"short",day:"numeric"});renderDashboard();if(activeView==="today")renderToday();if(activeView==="calendar")renderCalendar();if(activeView==="books")renderBooks();if(activeView==="awards")renderAwards();updateDailyTargetHint()}
+function exportBackup(){const blob=new Blob([JSON.stringify({app:"Bible Quota",version:1,exportedAt:new Date().toISOString(),state},null,2)],{type:"application/json"});const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download="bible-quota-backup.json";a.click();URL.revokeObjectURL(a.href);showToast("Backup downloaded.");}
 async function importBackup(e){
   const file=e.target.files&&e.target.files[0];
   // Reset the input so choosing the same file again still fires a change event.
@@ -1158,6 +1454,8 @@ async function importBackup(e){
         detourBook:incoming.detourBook||null,
         detourBeforeBook:incoming.detourBeforeBook||null,
         dailyTarget:Number(incoming.dailyTarget)||3,
+        excludedBooks:Array.isArray(incoming.excludedBooks)?incoming.excludedBooks.filter(b=>typeof b==="string"):[],
+        scheduleName:typeof incoming.scheduleName==="string"&&incoming.scheduleName.trim()?incoming.scheduleName:"Ronnie's Reading Schedule",
         createdAt:incoming.createdAt||new Date().toISOString()
       };
       saveState({sync:false});
@@ -1203,7 +1501,7 @@ function setAuthUI(user){
    if(authMessage){authMessage.textContent=`Signed in as ${cloudUser.email||"your account"}.`;authMessage.style.color="var(--green)";}
    cloudStatus("Preparing cloud sync…");
  }else{
-   if(authMessage){authMessage.textContent="Your progress is saved on this device. Sign in to sync it with your other devices.";authMessage.style.color="var(--green)";}
+   if(authMessage){authMessage.textContent="";authMessage.style.color="var(--green)";}
    cloudStatus("Not signed in.");
  }
 }
@@ -1305,6 +1603,8 @@ function mergeStates(localState, cloudState) {
    detourBook:localState?.detourBook||cloudState?.detourBook||null,
    detourBeforeBook:localState?.detourBeforeBook||cloudState?.detourBeforeBook||null,
    dailyTarget:localState?.dailyTarget||cloudState?.dailyTarget||3,
+   excludedBooks:[...new Set([...(localState?.excludedBooks||[]),...(cloudState?.excludedBooks||[])])],
+   scheduleName:localState?.scheduleName||cloudState?.scheduleName||"Ronnie's Reading Schedule",
    createdAt:localState?.createdAt||cloudState?.createdAt||new Date().toISOString()
  };
  return reconcileState(merged);
@@ -1366,6 +1666,6 @@ const savedReminder=reminderConfig();
 document.getElementById("reminderTime").value=savedReminder.time||"21:00";
 syncReminderCheckbox();
 document.getElementById("paceText").textContent=ORIGINAL_PACE.toFixed(2)+" chapters/day";
-renderAll();updateDailyTargetHint();initCloud();setupReminderTimer();
+renderAll();updateDailyTargetHint();initCalendarControls();initCloud();setupReminderTimer();
 </script>
 </body></html>

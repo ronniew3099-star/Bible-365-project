@@ -8,6 +8,69 @@ Verified by: re-reading every changed function, `node --check` on the extracted 
 
 ---
 
+## Phase 3 — Bible Quota redesign (Nov 23, 2026)
+
+Working copy: `~/workspace/code-fixes/bible-365-project-audit/index.html`, base repo HEAD `6c9721af` (135,052 bytes, 1,371 lines, including Ronnie's own Nov 22 evening wording edits). After this pass: 1,671 lines, 153,953 bytes. The stale `~/workspace/code-fixes/bible-365-project/index.html` (135,262 bytes) was NOT touched. NOT pushed to GitHub, NOT deployed.
+
+### Re-theme: purple + gold (distinct from The Reading Shelf)
+- `:root`: `--green` #315c48 → #4c1d95 (deep purple), `--green2` → #e9e2f7 (pale lavender), `--gold` stays #d9ae62, `--goldbg` → #efe9f7, `--bg` → #f4f1fa, `--ink` → #251f2e, `--line` → #e3ddf0.
+- `.hero`: purple gradient (#4c1d95 → #6d28d9 → #7c3aed) + inline SVG burning-bush motif (gold bush, pale flame). `.brand-mark`: purple with a gold flame SVG.
+- Heatmap greens → purples (#e9e2f7 / #c9b8ec / #9d7fd6 / #4c1d95). Ghost buttons now lavender. Finish box lavender.
+- `manifest.json` (new in this folder): name "Bible Quota", short_name "Bible Quota", theme_color #4c1d95, background_color #f4f1fa. This folder has no `sw.js` or icons; the repo's `sw.js` (cache `ronnies-bible-challenge-v1`) and gold-tree icons are reused unchanged.
+
+### Rename
+- Brand: "Bible Quota" large, "by Njenga wa Wainaina" smaller. `<title>`, meta description, backup filename (`bible-quota-backup.json`), backup `app` field, reminder notification title, and `showView` fallback all say "Bible Quota". Repo name and Worker URL unchanged.
+
+### Responsive fixes (audit H1/H2/H3, M1/M2/M3/M5, lows)
+- H1: `.hero` is single-column at ≤700px (button and ring stack instead of colliding).
+- H2: month + year `<select>`s and a "Today" button on the Reading calendar and on the new Home calendar; prev/next arrows have aria-labels ("Previous month"/"Next month"). Wired to `shiftMonth`/render logic via `initCalendarControls()`; year range 2025–2029.
+- H3: inline `grid-template-columns:repeat(3,minmax(0,1fr))` removed from the "Today's reading overview" sub-grids; they now use `.stats.three` (3 cols desktop, 2 cols ≤980px), so the media query applies.
+- M1: `--muted` #748078 → #5a665e (4.5:1+ on both backgrounds); verse citation #90774a → #6d5a33; done-chapter #8b958d → `var(--muted)`.
+- M2: `showView()` moves focus to the view `h1` (`tabindex="-1"` + `.focus({preventScroll:true})`); `#pageTitle` has `aria-live="polite"`.
+- M3: toast div has `role="status"` and `aria-live="polite"`.
+- M5: calendar IREAP dot is no longer colour-only — see "Accurate calendar" below.
+- Lows: `body{overflow-x:clip}`; `.book-grid` 1 column below 380px; toast moved above the mobile nav (`bottom:70px` at ≤700px); `:focus-visible` outline rule (gold on purple surfaces); mobile nav now 7 buttons (Awards added).
+
+### Accurate calendar
+- New `calendarDayButton()`: each day cell shows the date number, chapters actually read that day from `state.logs[date].chapters` (never from the plan/schedule), and the IREAP count as text ("2 ch · IREAP 2/2"). The day button's `aria-label` reads the full info ("November 23, 2026, 2 chapters read, IREAP done for 2 of 2."). Dots kept as decoration (`aria-hidden`).
+- Day detail panel: each logged chapter now shows "IREAP done" or "IREAP not done · Carries forward" in words.
+- New Home/Dashboard calendar panel (`renderDashCalendar()`): same month/year dropdowns + Today button; tapping a day opens the Reading calendar on that date.
+
+### Pagination
+- Books: 66 books paginated, 10 per page, Previous / "Page X of 7" / Next (`buildPager()` shared helper). Sort change resets to page 1.
+- Today: each subsection (carry over / planned / completed) paginates at 5 items with the same pager.
+- IREAP Tracker: unchanged.
+
+### Awards (new section, 23 awards)
+- New "Awards" view + sidebar/mobile nav entries; dashboard Achievements panel now previews the first 6 awards with a "View all awards →" button. Count shown as "X of 23 earned" in both places.
+- Computed from state only (`computeAwards()`), no new cloud field. A book is finished when all its chapters are in `completed`.
+- Streaks: 3-day 🔥, 7-day 📅, 30-day 👑 (longest streak — once earned, stays earned). Chapters: 10 🌱, 50 📖, 100 🔖, 500 🏆, Whole Bible 1,189 ✝️. Books: first ✅, 5 📚, 10 🏛️. IREAP: first 💡, 10 🔍, 50 🙏. Consistency: a full Mon–Sun week ☀️, a full calendar month 🌙. Covenant Keeper 📜 (OT, 39 books), New Covenant 🕊️ (NT, 27), The Law (tablets SVG, Torah), Voice of the Prophets 🎺 (Nevi'im), Wisdom and Worship 🎵 (Ketuvim), Wisdom of Solomon 🦉 (Proverbs, Ecclesiastes, Song of Solomon), The Fourfold Gospel ⭐ (Matthew, Mark, Luke, John).
+- Streak helpers: `currentStreak()` (dashboard stat), `longestStreak()`, `calendarWeekComplete()`, `calendarMonthComplete()`. Group awards respect excluded books (a group is finished when its non-excluded books are finished).
+
+### Reading order editing ("Ronnie's Reading Schedule")
+- Books section labelled "Ronnie's Reading Schedule" (`state.scheduleName`, default "Ronnie's Reading Schedule", saved in state/cloud/backup/merge).
+- Per book: "↑ Up" / "↓ Down" (`moveBook()`; reordering switches sort to plan), "Remove" (`removeBook()`; in-app confirm; soft-remove into `state.excludedBooks`), and "Add this book back" (`restoreBook()`) for removed books. The "Read this book next" dropdown lists only non-excluded books.
+- Excluded books' chapters are skipped by plan logic (`getReadingSequence()`, `firstUnreadInOrder()`, `projectedFinish()` via `remainingChapters()`, dashboard counts via `activeCompletedCount()`/`planTotal()`), but completed chapters stay in `completed`/`logs` and the books still show their progress. `switchToBook()` now preserves the current reading order (including rearrangements) instead of resetting to the default order, and refuses an excluded book with a toast. `resumeOriginalPlan()` still restores the default order; it does not clear exclusions. Multiple plans NOT implemented (one plan only, as agreed).
+
+### Text trimmed (Ronnie's wording kept)
+- "Progress, not perfection" now appears once (IREAP finish-box); the brand tagline is now "by Njenga wa Wainaina".
+- "Miss a day? Pick up where you left off" now appears once (hero); the Today explainer and the "Give yourself grace" note are shortened.
+- Projected finish shown once ("Your finish line" panel); the dashboard stat is now "Current streak" (days in a row); `finishMessage` no longer repeats the date or chapter count; `fmtDelta()` removed as dead code.
+- Settings sync sentence appears once (the sync status line); the signed-out account line is now empty, signed-in still shows "Signed in as …".
+- "Completed today" renamed to "IREAP done today" for the reflections stat.
+- "Up next" pill "N of 1,189 completed" shown only on the first row, and now uses the active plan total.
+- "Clear this day's record" note removed (the confirm dialog already explains it).
+- Ronnie's wording verified intact: "Scripture Deep Dive", "For wisdom and understanding of Scripture", "IREAP is a self-made five step reflection method that's a acrostic", "keep it simple", "Minimize".
+
+### Kept, not broken
+- Sign-in, cloud sync, backup/restore (restore still preserves planAnchor/readingOrder/detour/dailyTarget, now also excludedBooks/scheduleName), reconcile, future-date guard, daily target setting, IREAP scratch area (never saved — no handlers write it anywhere; only the yes/no checkbox is saved), IREAP yes/no checkbox, Today scroll + Minimize (now paging), IREAP Tracker pagination, PWA manifest/sw.js references. No native `confirm()`/`prompt()`/`alert()` calls (the only `confirm(` match is a code comment; `installPrompt.prompt()` is the PWA install API). No database schema change.
+
+### Verification (this pass)
+- `node --check` on the extracted inline script: syntax OK. `node --check` on the repo `sw.js`: syntax OK. `manifest.json` parses.
+- Static checks: all 17 HTML handler functions defined; all 91 `getElementById` targets exist in the HTML; no duplicate function declarations; all new symbols present.
+- Node harness (`/tmp/bible-quota-harness.js`, DOM stubs): 53/53 assertions pass — awards compute correctly for a 30-chapter/4-book/6-IREAP test state (6 of 23 earned), all 23 earned when the whole Bible is complete, exclusions drop the plan total 1,189 → 1,008 and are skipped by plan logic, calendar aria-labels and cell text are correct, and all render paths (`renderDashboard`, `showView` for awards/books/calendar/today, `goToToday`, `goToTodayDash`, `moveBook`, `restoreBook`, `switchToBook`, `renderAwards`, `renderDashCalendar`) run without throwing.
+- NOT verified (needs a live browser after deploy): actual rendering at 320/375/430/768/1024/1280/1440, H1 at 320px, H3 at 320/375px, horizontal-scroll check, month/year dropdown interaction, Today pagination with >5 items, Awards page live, book move/remove/restore clicks, and the Home calendar tap-to-open.
+
 ## 1. Restore from backup actually applies — `importBackup()`, lines 1079–1126
 
 **Root cause of the silent failure.** The restore used a native `confirm()`. Native dialogs are auto-dismissed (returning false) in some browsers, so the restore aborted with no toast and no state change — exactly what happened on Nov 22 when the edited backup was selected three times. A second hazard: the file input was never reset, so choosing the same file again fired no `change` event. A third: after a restore, the next cloud sync merged the old cloud copy back over the restored state.
