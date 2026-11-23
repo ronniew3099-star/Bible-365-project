@@ -27,7 +27,7 @@ button,input{font:inherit}button{cursor:pointer}.app{min-height:100vh;display:gr
 .brand{display:flex;gap:12px;align-items:center;padding:0 10px}.brand-mark{width:42px;height:42px;border-radius:14px;background:var(--green);color:white;display:grid;place-items:center;font-size:21px}.brand strong{display:block;font-family:Georgia,serif;font-size:18px}.brand small{color:var(--muted);font-size:11px;letter-spacing:.08em;text-transform:uppercase}
 .nav{display:grid;gap:7px}.nav button{border:0;background:transparent;color:#68736b;text-align:left;padding:12px 14px;border-radius:13px;font-weight:600;display:flex;gap:12px;align-items:center}.nav button.active,.nav button:hover{background:var(--green2);color:var(--green)}.nav .ico{width:20px;text-align:center;font-size:17px;line-height:1}
 .side-verse{margin-top:auto;padding:18px;border-radius:18px;background:var(--goldbg);color:#68532f;font:italic 15px/1.55 Georgia,serif}.side-verse small{display:block;font:600 10px/1.4 system-ui;letter-spacing:.12em;text-transform:uppercase;margin-top:10px;color:#6d5a33}
-main{padding:34px clamp(18px,4vw,60px) 90px;min-width:0}.topbar{display:flex;justify-content:space-between;align-items:center;gap:15px;margin-bottom:30px}.eyebrow{font-size:11px;text-transform:uppercase;letter-spacing:.15em;color:var(--muted);font-weight:700}.topbar h1{font:400 clamp(26px,3vw,36px)/1.2 Georgia,serif;margin:5px 0 0}.today-label{padding:9px 13px;border:1px solid var(--line);border-radius:999px;color:var(--muted);font-size:12px;background:var(--paper)}.topbar-actions{display:flex;align-items:center;gap:10px;flex:none}.topbar-actions .btn{white-space:nowrap}.topbar-actions .btn:disabled{opacity:.65;cursor:wait}#refreshButton{position:fixed;top:12px;right:15px;z-index:30;box-shadow:0 2px 10px rgba(37,48,39,.18)}.topbar-actions{padding-right:115px}
+main{padding:34px clamp(18px,4vw,60px) 90px;min-width:0}.topbar{display:flex;justify-content:space-between;align-items:center;gap:15px;margin-bottom:30px}.eyebrow{font-size:11px;text-transform:uppercase;letter-spacing:.15em;color:var(--muted);font-weight:700}.topbar h1{font:400 clamp(26px,3vw,36px)/1.2 Georgia,serif;margin:5px 0 0}.today-label{padding:9px 13px;border:1px solid var(--line);border-radius:999px;color:var(--muted);font-size:12px;background:var(--paper)}.topbar-actions{display:flex;align-items:center;gap:10px;flex:none}.topbar-actions .btn{white-space:nowrap}.topbar-actions .btn:disabled{opacity:.65;cursor:wait}#pinnedActions{position:fixed;top:12px;right:15px;z-index:30;display:flex;gap:8px;align-items:center}#pinnedActions .btn{box-shadow:0 2px 10px rgba(37,48,39,.18)}#accountButton{max-width:120px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.topbar-actions{padding-right:185px}
 .view{display:none}.view.active{display:block}.hero{background:linear-gradient(135deg,#4c1d95 0%,#6d28d9 55%,#7c3aed 100%);color:white;border-radius:28px;padding:30px;display:grid;grid-template-columns:1fr auto;gap:20px;align-items:center;box-shadow:var(--shadow);position:relative;overflow:hidden}.hero:after{content:"";position:absolute;width:280px;height:280px;border:1px solid rgba(255,255,255,.12);border-radius:50%;right:100px;top:-170px}.hero h2{font:400 clamp(25px,3vw,34px)/1.2 Georgia,serif;margin:7px 0 9px}.hero p{color:#e9e2f7;margin:0;max-width:540px}.hero .eyebrow{color:#d9c8f5}.hero-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:20px}
 .btn{border:0;border-radius:12px;padding:11px 16px;font-weight:700;transition:.15s}.btn.primary{background:var(--gold);color:#2d342d}.btn.light{background:white;color:var(--green)}.btn.ghost{background:#efe9f7;color:var(--green)}.btn.outline{background:transparent;border:1px solid var(--line);color:var(--ink)}.btn:disabled{opacity:.45;cursor:not-allowed}.section-toggle{padding:6px 12px;font-size:18px;line-height:1;flex:none}
 .progress-ring{width:128px;height:128px;border-radius:50%;display:grid;place-items:center;background:conic-gradient(var(--gold) var(--progress,0%),rgba(255,255,255,.18) 0);position:relative;z-index:1}.progress-ring:before{content:"";position:absolute;inset:9px;background:var(--green);border-radius:50%}.progress-ring div{position:relative;text-align:center}.progress-ring strong{font:28px Georgia,serif;display:block}.progress-ring small{font-size:10px;color:#e9e2f7}
@@ -88,7 +88,7 @@ main{padding:34px clamp(18px,4vw,60px) 90px;min-width:0}.topbar{display:flex;jus
 .book-actions{display:flex;gap:6px;flex-wrap:wrap;margin-top:12px}
 .book-actions .btn{padding:7px 9px;font-size:12px}
 @media(max-width:380px){.book-grid{grid-template-columns:1fr}}
-@media(max-width:700px){.stats.three{grid-template-columns:1fr}#dashPlannedNames,#dashCarryNames{display:block;max-height:132px;overflow-y:auto}.progress-ring{justify-self:center;margin-top:18px}.hero-art{display:flex;justify-content:center}.topbar>div:first-child{padding-right:115px}.award-grid{grid-template-columns:1fr}.book-actions{flex-wrap:nowrap}.book-actions .btn{flex:1;flex-direction:column;gap:2px;min-width:0;min-height:0;padding:8px 4px}.book-actions .btn-label{display:block;font-size:10px;line-height:1.2}.book-actions .btn-icon{font-size:16px;line-height:1}#bookPager,#awardPager{position:sticky;top:0;z-index:20;background:var(--bg);padding:8px 120px 8px 0}#bookPager .pager,#awardPager .pager{margin-top:0}.pager .pager-word{display:none}}
+@media(max-width:700px){.stats.three{grid-template-columns:1fr}#dashPlannedNames,#dashCarryNames{display:block;max-height:132px;overflow-y:auto}.progress-ring{justify-self:center;margin-top:18px}.hero-art{display:flex;justify-content:center}.topbar>div:first-child{padding-right:185px}.award-grid{grid-template-columns:1fr}.book-actions{flex-wrap:nowrap}.book-actions .btn{flex:1;flex-direction:column;gap:2px;min-width:0;min-height:0;padding:8px 4px}.book-actions .btn-label{display:block;font-size:10px;line-height:1.2}.book-actions .btn-icon{font-size:16px;line-height:1}#bookPager,#awardPager{position:sticky;top:0;z-index:20;background:var(--bg);padding:8px 120px 8px 0}#bookPager .pager,#awardPager .pager{margin-top:0}.pager .pager-word{display:none}}
 
 </style>
 </head>
@@ -108,7 +108,8 @@ main{padding:34px clamp(18px,4vw,60px) 90px;min-width:0}.topbar{display:flex;jus
   <div class="side-verse">“Your word is a lamp to my feet and a light to my path.”<small>Psalm 119:105</small></div>
 </aside>
 <main>
-  <header class="topbar"><div><div class="eyebrow">Scripture Deep Dive</div><h1 id="pageTitle" tabindex="-1" aria-live="polite">Your journey, one chapter at a time.</h1></div><div class="topbar-actions"><button class="btn ghost" id="refreshButton" type="button" onclick="syncNow()" title="Refresh reading progress from your other devices" aria-label="Refresh reading progress">↻ <span id="refreshButtonText">Refresh</span></button><div class="today-label" id="dateLabel"></div></div></header>
+  <header class="topbar"><div><div class="eyebrow">Scripture Deep Dive</div><h1 id="pageTitle" tabindex="-1" aria-live="polite">Your journey, one chapter at a time.</h1></div><div class="topbar-actions"><div class="today-label" id="dateLabel"></div></div></header>
+  <div id="pinnedActions"><button class="btn ghost" id="accountButton" type="button" onclick="syncNow()" aria-label="Signed out. Tap to refresh." title="Signed out">Signed out</button><button class="btn ghost" id="refreshButton" type="button" onclick="syncNow()" title="Refresh reading progress from your other devices" aria-label="Refresh reading progress">↻</button></div>
 
   <section class="view active" id="view-dashboard">
     <div class="hero">
@@ -1519,6 +1520,20 @@ function setAuthUI(user){
  if(signedIn)signedIn.hidden=!cloudUser;
  const refreshBtn=document.getElementById("refreshButton");
  if(refreshBtn)refreshBtn.disabled=!cloudUser;
+ const accountBtn=document.getElementById("accountButton");
+ if(accountBtn){
+  if(cloudUser){
+   const email=cloudUser.email||"";
+   const name=email.split("@")[0]||"your account";
+   accountBtn.textContent=name;
+   accountBtn.setAttribute("aria-label",`Signed in as ${email||"your account"}. Tap to refresh.`);
+   accountBtn.title=`Signed in as ${email||"your account"}`;
+  }else{
+   accountBtn.textContent="Signed out";
+   accountBtn.setAttribute("aria-label","Signed out. Tap to refresh.");
+   accountBtn.title="Signed out";
+  }
+ }
  const syncBtn=document.getElementById("syncNowButton");
  if(syncBtn)syncBtn.disabled=!cloudUser;
  const authMessage=document.getElementById("authMessage");
@@ -1672,17 +1687,17 @@ function scheduleCloudSave(){
 }
 async function syncNow(){
  const button=document.getElementById("refreshButton");
- const buttonText=document.getElementById("refreshButtonText");
+ const accountBtn=document.getElementById("accountButton");
  if(!cloudUser){showToast("Sign in first to refresh from your other devices.");return;}
  if(cloudSyncing){showToast("A sync is already in progress.");return;}
  if(button){button.disabled=true;button.setAttribute("aria-busy","true");}
- if(buttonText)buttonText.textContent="Refreshing…";
+ if(accountBtn){accountBtn.disabled=true;accountBtn.setAttribute("aria-busy","true");}
  try{
   const succeeded=await pullAndMerge();
   showToast(succeeded?"Reading progress refreshed.":"Refresh failed. Check your account sync status.");
  }finally{
   if(button){button.disabled=false;button.removeAttribute("aria-busy");}
-  if(buttonText)buttonText.textContent="Refresh";
+  if(accountBtn){accountBtn.disabled=false;accountBtn.removeAttribute("aria-busy");}
  }
 }
 function installApp(){if(installPrompt){installPrompt.prompt();installPrompt=null}}

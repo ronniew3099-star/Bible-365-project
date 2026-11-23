@@ -69,6 +69,11 @@ Ronnie approved the mockup before this push.
 Ronnie approved the mockup before this push.
 - Pagination (Books and Awards): on phones (≤700px) the Previous and Next buttons now show only arrow icons (left and right arrows) with no words, so the "Page 1 of 3" label fits on one line instead of wrapping to three lines. On larger screens the words still show next to the arrows. The buttons have aria-labels ("Previous page" / "Next page") so a screen reader still announces them by name. The IREAP Tracker's own pager was not changed.
 
+## Phase 3 follow-up — Account button beside Refresh (Nov 23, 2026)
+
+Ronnie approved the mockup before this push.
+- Pinned account button: a new button sits beside the Refresh button at the top-right, pinned so it stays visible while scrolling. It shows the signed-in account name (the part before @, e.g. "ronniew3099") and "Signed out" when no one is signed in. Tapping it refreshes your reading progress, the same as Refresh. The button has an aria-label with the full email ("Signed in as ronniew3099@gmail.com. Tap to refresh.") so a screen reader announces the full account. The Refresh button is now just the arrow icon, with no word, to make space. The title and date label have extra right padding so they do not run under the wider pinned buttons.
+
 ---
 
 ## Phase 3 — Bible Quota redesign (Nov 23, 2026)
