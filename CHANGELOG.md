@@ -8,6 +8,14 @@ Verified by: re-reading every changed function, `node --check` on the extracted 
 
 ---
 
+## Figma 3: bottom navigation with More menu (Nov 23, 2026)
+
+The bottom bar on phones had seven destinations and was crowded, with small labels. On phones only:
+- The bottom bar now has five items: Home, Read, Calendar, Books, and More. The labels and icons are slightly bigger (11px labels, 22px icons) so they are easier to read.
+- IREAP, Awards, and Settings moved into the More menu. Tapping More opens a small menu above the bottom bar with those three destinations. Tapping one opens that page and closes the menu. Tapping outside the menu or pressing Escape closes it.
+- When you are on IREAP, Awards, or Settings, the More button shows as the active one in the bottom bar.
+- On laptop and tablet nothing changes: the sidebar still shows all seven destinations.
+
 ## Figma 2: compact mobile hero (Nov 23, 2026)
 
 The hero took up most of the first screen on phones and the progress ring sat detached below the buttons. On phones only:
