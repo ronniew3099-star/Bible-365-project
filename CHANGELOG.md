@@ -43,6 +43,12 @@ Ronnie asked that changes be shown as a mockup before pushing the code live. All
 - Books page, less wordy on phones (≤700px): the Up / Down / Remove buttons are now icon-only — up arrow, down arrow, and trash can — with the words hidden. The buttons are 44px square touch targets. The book card button now reads "Read next" instead of "Read this book next". The screen-reader labels (aria-labels) are kept, so the buttons are still announced by name.
 - Pagination, sticky at the top on phones (≤700px): on the Books page the pagination now sits right underneath the "Sort by" select field instead of at the bottom of the list, and it sticks at the top while scrolling (top: 60px, so it clears the pinned Refresh button). The same method is used on the Awards page: the pagination sits right under the "Your awards" header and sticks while scrolling. The Today subsections and IREAP Tracker pagers were not changed (they are sub-list pagers, not page-level pagination).
 
+## Phase 3 follow-up — Books buttons on one line, Refresh pinned at all sizes (Nov 23, 2026)
+
+Ronnie approved both mockups before this push.
+- Books buttons: on phones (≤700px) the three action buttons are now on one line, each a vertical stack with the icon on top and a small label underneath — "Move up", "Move down", "Delete". The book cards are now full-width (1 column) on phones, like the Awards page, because the two-column cards were too narrow for three labelled buttons to fit on one line. Desktop keeps 3 columns, tablet 2 columns. The screen-reader labels are unchanged.
+- Refresh button: the pinned Refresh button now applies at all responsive sizes, not just phones. The fixed positioning is a base rule, and the topbar actions have right padding (115px) so the date label on desktop and tablet does not slide under the pinned button. On phones the actions padding is overridden to 0 (the date label is hidden there).
+
 ---
 
 ## Phase 3 — Bible Quota redesign (Nov 23, 2026)
