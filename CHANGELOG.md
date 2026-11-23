@@ -8,6 +8,14 @@ Verified by: re-reading every changed function, `node --check` on the extracted 
 
 ---
 
+## Figma 4: carry-over summary on the dashboard (Nov 23, 2026)
+
+The dashboard carry-over card listed every carried-over chapter as a dense wall of small text. Now it shows a short summary instead:
+- The card keeps its label and big count number, and under it shows the first few books as chapter ranges, for example "Ruth 1–4, Philippians 1–4, James 1–5, and 53 more".
+- "Show all" expands the full list right there on the dashboard; tapping again collapses it back to the summary. The button says whether the list is expanded, so a screen reader announces it.
+- "Review carry-over plan" jumps to the Read page, where the full carry-over list already lives.
+- The Read page carry-over list is unchanged, and the carry-over count itself is unchanged. Only the dashboard presentation changed.
+
 ## Figma 3: bottom navigation with More menu (Nov 23, 2026)
 
 The bottom bar on phones had seven destinations and was crowded, with small labels. On phones only:

@@ -31,7 +31,7 @@ main{padding:34px clamp(18px,4vw,60px) 90px;min-width:0}.topbar{display:flex;jus
 .view{display:none}.view.active{display:block}.hero{background:linear-gradient(135deg,#3d1478 0%,#5b21b6 55%,#6d28d9 100%);color:white;border-radius:28px;padding:30px;display:grid;grid-template-columns:1fr auto;grid-template-areas:"intro ring" "body ring";gap:0 20px;align-items:center;box-shadow:var(--shadow);position:relative;overflow:hidden}.hero-intro{grid-area:intro}.hero-body{grid-area:body}.hero-text-short{display:none}.hero:after{content:"";position:absolute;width:280px;height:280px;border:1px solid rgba(255,255,255,.12);border-radius:50%;right:100px;top:-170px}.hero h2{font:400 clamp(25px,3vw,34px)/1.2 Georgia,serif;margin:7px 0 9px}.hero p{color:#e9e2f7;margin:0;max-width:540px}.hero .eyebrow{color:#d9c8f5}.hero-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:20px}
 .btn{border:0;border-radius:12px;padding:11px 16px;font-weight:700;transition:.15s}.btn.primary{background:var(--gold);color:#2d342d}.btn.light{background:white;color:var(--green)}.btn.ghost{background:#efe9f7;color:var(--green)}.btn.outline{background:transparent;border:1px solid var(--line);color:var(--ink)}.btn:disabled{opacity:.45;cursor:not-allowed}.section-toggle{padding:6px 12px;font-size:18px;line-height:1;flex:none}
 .progress-ring{grid-area:ring;width:128px;height:128px;border-radius:50%;display:grid;place-items:center;background:conic-gradient(var(--gold) var(--progress,0%),rgba(255,255,255,.18) 0);position:relative;z-index:1}.progress-ring:before{content:"";position:absolute;inset:9px;background:var(--green);border-radius:50%}.progress-ring div{position:relative;text-align:center}.progress-ring strong{font:28px Georgia,serif;display:block}.progress-ring small{font-size:10px;color:#e9e2f7}
-.stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:13px;margin:18px 0 26px}.stat,.panel,.reading-card,.book-card{background:var(--paper);border:1px solid var(--line);border-radius:var(--radius);box-shadow:0 8px 24px rgba(58,32,110,.06)}.stat{padding:18px}.stat label{font-size:11px;color:var(--muted);font-weight:700;letter-spacing:.08em;text-transform:uppercase}.stat strong{display:block;font:25px Georgia,serif;margin-top:6px}.stat small{color:var(--muted);font-size:11px}
+.stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:13px;margin:18px 0 26px}.stat,.panel,.reading-card,.book-card{background:var(--paper);border:1px solid var(--line);border-radius:var(--radius);box-shadow:0 8px 24px rgba(58,32,110,.06)}.stat{padding:18px}.stat label{font-size:11px;color:var(--muted);font-weight:700;letter-spacing:.08em;text-transform:uppercase}.stat strong{display:block;font:25px Georgia,serif;margin-top:6px}.stat small{color:var(--muted);font-size:11px}.dash-carry-actions{margin-top:8px;display:flex;flex-wrap:wrap;gap:4px 16px}.dash-carry-actions button{border:0;background:transparent;padding:0;font-size:12px;font-weight:700;color:var(--green);cursor:pointer;text-decoration:underline;text-underline-offset:2px}
 .grid2{display:grid;grid-template-columns:1.15fr .85fr;gap:17px}.panel{padding:22px}.panel-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:16px}.panel h3{font:400 21px Georgia,serif;margin:0}.subtle{color:var(--muted);font-size:12px}
 .next-reading{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:13px 0;border-bottom:1px solid var(--line)}.next-reading:last-child{border-bottom:0}.chapter-name{font-weight:650}.chapter-tag{font-size:11px;color:var(--muted)}
 .finish-box{background:#efe9f7;border-radius:16px;padding:17px}.finish-box strong{display:block;font:25px Georgia,serif;color:var(--green);margin:4px 0}.finish-box p{margin:0;color:#71694f;font-size:12px}
@@ -140,7 +140,7 @@ main{padding:34px clamp(18px,4vw,60px) 90px;min-width:0}.topbar{display:flex;jus
       <div class="panel-head"><h3>Today's reading overview</h3><span class="subtle" id="dashboardDateLabel"></span></div>
       <div class="stats three" style="margin:0 0 14px">
         <div class="stat"><label>Planned chapters</label><strong id="dashPlannedCount">0</strong><small id="dashPlannedNames">Today's assignment</small></div>
-        <div class="stat"><label>Carry-over chapters</label><strong id="dashCarryCount">0</strong><small id="dashCarryNames">Outstanding from earlier days</small></div>
+        <div class="stat"><label>Carry-over chapters</label><strong id="dashCarryCount">0</strong><small id="dashCarryNames">Outstanding from earlier days</small><div class="dash-carry-actions"><button type="button" id="dashCarryToggle" aria-expanded="false" onclick="toggleDashCarry()" hidden>Show all</button><button type="button" id="dashCarryReview" onclick="showView('today')" hidden>Review carry-over plan</button></div></div>
         <div class="stat"><label>Completed today</label><strong id="dashReadToday">0</strong><small>Chapters completed today</small></div>
       </div>
       <div class="panel-head" style="margin:8px 0 10px"><h3>IREAP reflections</h3><span class="subtle">Tracked separately from reading</span></div>
@@ -910,6 +910,29 @@ function setupReminderTimer(){
  updateReminderStatus();syncReminderCheckbox();
 }
 
+let dashCarryExpanded=false;
+function carryOverSummary(indexes){
+ const groups=[];
+ for(const i of indexes){
+  const {book,chapter}=bookAndChapter(CHAPTERS[i]);
+  const last=groups[groups.length-1];
+  if(last&&last.book===book&&chapter===last.end+1){last.end=chapter;last.count++}
+  else groups.push({book,start:chapter,end:chapter,count:1});
+ }
+ return groups;
+}
+function formatCarryGroup(g){return g.start===g.end?g.book+" "+g.start:g.book+" "+g.start+"–"+g.end}
+function renderDashCarry(carry){
+ const names=document.getElementById("dashCarryNames"),toggle=document.getElementById("dashCarryToggle"),review=document.getElementById("dashCarryReview");
+ if(!carry.length){names.textContent="No outstanding carry-over";toggle.hidden=true;review.hidden=true;return}
+ review.hidden=false;
+ const groups=carryOverSummary(carry),shown=groups.slice(0,3),shownCount=shown.reduce((n,g)=>n+g.count,0),remaining=carry.length-shownCount;
+ if(remaining<=0){toggle.hidden=true;names.textContent=groups.map(formatCarryGroup).join(", ");return}
+ toggle.hidden=false;
+ if(dashCarryExpanded){names.textContent=carry.map(i=>CHAPTERS[i]).join(" · ");toggle.textContent="Show less";toggle.setAttribute("aria-expanded","true")}
+ else{names.textContent=shown.map(formatCarryGroup).join(", ")+", and "+remaining+" more";toggle.textContent="Show all";toggle.setAttribute("aria-expanded","false")}
+}
+function toggleDashCarry(){dashCarryExpanded=!dashCarryExpanded;renderDashCarry(getCarryOverChapterIndexes())}
 function renderDashboard(){
  const n=activeCompletedCount(),total=planTotal(),remain=total-n,pct=total?n/total*100:0,finish=projectedFinish();
  document.getElementById("progressPct").textContent=pct.toFixed(1)+"%";
@@ -932,7 +955,7 @@ function renderDashboard(){
  document.getElementById("dashPlannedCount").textContent=planned.length;
  document.getElementById("dashPlannedNames").textContent=planned.length?planned.map(i=>CHAPTERS[i]).join(" · "):"No scheduled chapters";
  document.getElementById("dashCarryCount").textContent=carry.length;
- document.getElementById("dashCarryNames").textContent=carry.length?carry.map(i=>CHAPTERS[i]).join(" · "):"No outstanding carry-over";
+ renderDashCarry(carry);
  document.getElementById("dashReadToday").textContent=completedToday.length;
  const completedIreaps=state.ireapCompleted||[];
  const outstanding=state.completed.filter(i=>!completedIreaps.includes(i));
