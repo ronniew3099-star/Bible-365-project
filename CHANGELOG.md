@@ -8,6 +8,15 @@ Verified by: re-reading every changed function, `node --check` on the extracted 
 
 ---
 
+## Visual refresh: smoother lavender look with consistent line icons (Nov 23, 2026)
+
+Ronnie asked to apply the smoother look from the mockup to the real app. Styling only; no data, features, or wording changed.
+- Page background is now a soft lavender (#e9e5f2) and cards are white with a softer purple-tinted shadow.
+- Sidebar is white with a deep purple logo block at the top (white name text, light lavender "by Njenga wa Wainaina") and the active page highlighted in soft gold. The nav labels "Books of the Bible" and "Settings & backup" now fit on one line.
+- Hero gradient is slightly darker and less saturated, so it feels calmer.
+- Icons are now one consistent set of inline SVG line icons: sidebar and bottom navigation, Move up / Move down / Delete, the refresh button, the IREAP lightbulb, the award icons, and the lock status. No emoji is used as an icon any more. Checkmarks, the plus in button labels, the scroll-hint arrow, and the arrows in hero buttons are plain text and were left as they are.
+- Serif headings stay.
+
 ## Shorter page titles and book card buttons on one line (Nov 23, 2026)
 
 Ronnie asked for shorter headings and for the book card buttons to fit on one line on laptop and tablet.
