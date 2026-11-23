@@ -177,16 +177,16 @@ main{padding:34px clamp(18px,4vw,60px) 90px;min-width:0}.topbar{display:flex;jus
         <section style="margin-bottom:20px">
           <div class="panel-head"><h3>Carry Over Chapters</h3><span class="pill" id="carryProgressPill">0 outstanding</span></div>
           <p class="subtle">Unfinished chapters from previous days.</p>
-          <div id="carryOverList"></div>
+          <div id="carryOverList" class="scroll-list"></div>
         </section>
         <section style="margin-bottom:20px">
           <div class="panel-head"><h3>Planned Daily Chapters</h3><span class="pill" id="plannedProgressPill">0 assigned</span></div>
           <p class="subtle">Your original assignment for today.</p>
-          <div id="plannedReadingList"></div>
+          <div id="plannedReadingList" class="scroll-list"></div>
         </section>
         <section>
           <div class="panel-head"><h3>Completed Today</h3><span class="pill" id="completedTodayPill">0 completed</span></div>
-          <div id="completedTodayList"></div>
+          <div id="completedTodayList" class="scroll-list"></div>
         </section>
         <section id="skippedSection" style="display:none">
           <div class="panel-head"><h3>Skipped for now</h3><span class="pill" id="skippedPill">0 skipped</span></div>
@@ -915,7 +915,7 @@ function buildPager(page,totalPages,onPage){
  const pager=document.createElement("div");pager.className="pager";
  const prev=document.createElement("button");prev.className="btn ghost";prev.type="button";prev.innerHTML="←<span class=\"pager-word\"> Previous</span>";prev.setAttribute("aria-label","Previous page");prev.disabled=page===0;
  prev.addEventListener("click",()=>onPage(page-1));
- const label=document.createElement("span");label.className="page-label";label.textContent=`Page ${page+1} of ${totalPages}`;
+ const label=document.createElement("span");label.className="page-label";label.textContent=`Pg. ${page+1} of ${totalPages}`;
  const next=document.createElement("button");next.className="btn ghost";next.type="button";next.innerHTML="<span class=\"pager-word\">Next </span>→";next.setAttribute("aria-label","Next page");next.disabled=page>=totalPages-1;
  next.addEventListener("click",()=>onPage(page+1));
  pager.appendChild(prev);pager.appendChild(label);pager.appendChild(next);
@@ -1082,7 +1082,7 @@ function renderOutstandingIreaps(){
    prev.textContent=ireapTrackerPage===0?"Minimize":"Previous";
    prev.addEventListener("click",()=>{if(ireapTrackerPage===0){ireapTrackerExpanded=false;ireapTrackerPage=0;}else{ireapTrackerPage--;}renderOutstandingIreaps();});
    const label=document.createElement("span");
-   label.className="subtle";label.textContent=`Page ${ireapTrackerPage+1} of ${totalPages}`;
+   label.className="subtle";label.textContent=`Pg. ${ireapTrackerPage+1} of ${totalPages}`;
    const next=document.createElement("button");
    next.className="btn ghost";next.type="button";next.textContent="Next";next.disabled=ireapTrackerPage>=totalPages-1;
    next.addEventListener("click",()=>{if(ireapTrackerPage<totalPages-1){ireapTrackerPage++;renderOutstandingIreaps();}});

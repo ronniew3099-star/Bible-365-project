@@ -80,6 +80,12 @@ Ronnie approved these changes before this push.
 - Today's reading lists (Carry Over Chapters, Planned reading, Completed today): the pagination arrows are gone. All chapters now show stacked vertically in a single list, in the same row format as before, with no pages to tap through. The list scrolls with the page.
 - Sticky pagination (Books and Awards, phones): the pagination bar's right padding is now 175px instead of 120px, so the Next arrow sits clear of the pinned account button and Refresh icon at the top-right, with a gap between them. Previously the wider account button covered the Next arrow.
 
+## Phase 3 follow-up — Carry Over Chapters scroll to 5 at a time, pagination label Pg. (Nov 23, 2026)
+
+Ronnie approved these changes before this push.
+- Today's reading lists (Carry Over Chapters, Planned reading, Completed today): each list is now in a fixed-height box that shows 5 chapters at a time and scrolls vertically inside the box to reveal the rest. The 14 Carry Over chapters divide into groups of 5, 5, and 4 as you scroll. No arrow buttons and no page numbers on these lists.
+- Pagination labels (Books, Awards, and IREAP Tracker): the label now reads "Pg. 1 of 3" instead of "Page 1 of 3", to save space.
+
 ---
 
 ## Phase 3 — Bible Quota redesign (Nov 23, 2026)
