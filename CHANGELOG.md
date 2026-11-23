@@ -29,6 +29,13 @@ Ronnie reported the circle completion graphic (progress ring) sits awkwardly at 
 - Progress ring: on phones (≤700px) the ring is now centered below the buttons (`justify-self:center`) with top margin, instead of hugging the left edge with empty space to its right.
 - Refresh button: the topbar (which holds the page title and the Refresh button) is now sticky (`position:sticky; top:0`) with the page background, so the Refresh button stays visible at the top while scrolling instead of scrolling away.
 
+## Phase 3 follow-up — Awards pagination and centered burning bush (Nov 23, 2026)
+
+Ronnie said the Awards page had not changed on his phone (the 1-column fix was live on the site but his phone was showing a cached copy) and asked for pagination plus text that fits. He also asked for the burning bush to be centered on the home page on phones.
+- Awards pagination: the Awards page now shows 10 awards per page (23 awards = 3 pages) with Previous / "Page X of 3" / Next, using the same `buildPager` as Books. This keeps the page from being one very long scroll on phones and pairs with the 1-column cards so the text fits.
+- Burning bush: on phones (≤700px) the hero art (burning bush SVG) is now centered (`.hero-art` flex, `justify-content:center`), matching the centered progress ring.
+- Note: the Awards 1-column fix from the earlier push is live on the site (verified 154,207 bytes); if Ronnie still sees the old 2-column layout, his phone is showing a cached copy and he should close the app/tab fully and reopen it.
+
 ---
 
 ## Phase 3 — Bible Quota redesign (Nov 23, 2026)

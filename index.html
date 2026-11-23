@@ -88,7 +88,7 @@ main{padding:34px clamp(18px,4vw,60px) 90px;min-width:0}.topbar{display:flex;jus
 .book-actions{display:flex;gap:6px;flex-wrap:wrap;margin-top:12px}
 .book-actions .btn{padding:7px 9px;font-size:12px}
 @media(max-width:380px){.book-grid{grid-template-columns:1fr}}
-@media(max-width:700px){.stats.three{grid-template-columns:1fr}#dashPlannedNames,#dashCarryNames{display:block;max-height:132px;overflow-y:auto}.progress-ring{justify-self:center;margin-top:18px}}
+@media(max-width:700px){.stats.three{grid-template-columns:1fr}#dashPlannedNames,#dashCarryNames{display:block;max-height:132px;overflow-y:auto}.progress-ring{justify-self:center;margin-top:18px}.hero-art{display:flex;justify-content:center}}
 .topbar{position:sticky;top:0;z-index:20;background:var(--bg)}
 
 </style>
@@ -252,6 +252,7 @@ main{padding:34px clamp(18px,4vw,60px) 90px;min-width:0}.topbar{display:flex;jus
     <div class="panel">
       <div class="panel-head"><h3>Your awards</h3><span class="subtle" id="awardCount">0 of 23 earned</span></div>
       <div class="award-grid" id="awardList"></div>
+      <div id="awardPager"></div>
     </div>
   </section>
 
@@ -653,6 +654,7 @@ function getBookProgress(){
 const TRADITIONAL_BOOK_ORDER=["Genesis","Exodus","Leviticus","Numbers","Deuteronomy","Joshua","Judges","Ruth","1 Samuel","2 Samuel","1 Kings","2 Kings","1 Chronicles","2 Chronicles","Ezra","Nehemiah","Esther","Job","Psalms","Proverbs","Ecclesiastes","Song of Solomon","Isaiah","Jeremiah","Lamentations","Ezekiel","Daniel","Hosea","Joel","Amos","Obadiah","Jonah","Micah","Nahum","Habakkuk","Zephaniah","Haggai","Zechariah","Malachi","Matthew","Mark","Luke","John","Acts","Romans","1 Corinthians","2 Corinthians","Galatians","Ephesians","Philippians","Colossians","1 Thessalonians","2 Thessalonians","1 Timothy","2 Timothy","Titus","Philemon","Hebrews","James","1 Peter","2 Peter","1 John","2 John","3 John","Jude","Revelation"];
 function setBookSort(value){bookSortPreference=value;localStorage.setItem("rbc.bookSort",value);bookPage=0;renderBooks()}
 let bookPage=0;const BOOKS_PER_PAGE=10;
+let awardPage=0;const AWARDS_PER_PAGE=10;
 function renderInsights(){
  const today=parseDate(todayISO()),startWeek=new Date(today);startWeek.setDate(today.getDate()-((today.getDay()+6)%7));
  const monthStart=new Date(today.getFullYear(),today.getMonth(),1);
@@ -793,7 +795,16 @@ function renderAwards(){
  const earned=awards.filter(m=>m.earned).length;
  const countEl=document.getElementById("awardCount");if(countEl)countEl.textContent=`${earned} of ${awards.length} earned`;
  const list=document.getElementById("awardList");if(!list)return;list.innerHTML="";
- awards.forEach(m=>{const el=document.createElement("div");el.className="award-card"+(m.earned?"":" locked");el.innerHTML=awardCardHTML(m);list.appendChild(el)});
+ const totalPages=Math.max(1,Math.ceil(awards.length/AWARDS_PER_PAGE));
+ if(awardPage>totalPages-1)awardPage=totalPages-1;
+ if(awardPage<0)awardPage=0;
+ const visible=awards.slice(awardPage*AWARDS_PER_PAGE,awardPage*AWARDS_PER_PAGE+AWARDS_PER_PAGE);
+ visible.forEach(m=>{const el=document.createElement("div");el.className="award-card"+(m.earned?"":" locked");el.innerHTML=awardCardHTML(m);list.appendChild(el)});
+ const pagerBox=document.getElementById("awardPager");
+ if(pagerBox){
+   pagerBox.innerHTML="";
+   if(totalPages>1)pagerBox.appendChild(buildPager(awardPage,totalPages,p=>{awardPage=p;renderAwards();}));
+ }
 }
 function reminderConfig(){return JSON.parse(localStorage.getItem("rbc.reminder")||'{"enabled":false,"time":"21:00"}')}
 function updateReminderStatus(){
