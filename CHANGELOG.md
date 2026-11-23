@@ -8,6 +8,12 @@ Verified by: re-reading every changed function, `node --check` on the extracted 
 
 ---
 
+## Shorter page titles and book card buttons on one line (Nov 23, 2026)
+
+Ronnie asked for shorter headings and for the book card buttons to fit on one line on laptop and tablet.
+- Titles: the Dashboard heading is now "Your Journey" (was "Your journey, one chapter at a time.") and the Books of the Bible heading is now "Progress Report" (was "Every book, one chapter at a time."). Both are changed in the page header and in the titles shown when switching views, so they stay changed when navigating.
+- Book card buttons: Move up, Move down and Delete now stay on one line. The buttons share the row equally and no longer wrap. The book grid is now two columns up to 1280px wide, so the cards are wide enough on laptop and tablet. On narrow tablets (below 900px) the icon sits above the label inside each button, like on phones, so they still fit. On very narrow screens (below 768px) the grid is a single column. On phones nothing changes.
+
 ## Sticky pagination on all screen sizes and pinned sidebar (Nov 23, 2026)
 
 Ronnie asked that the Books and Awards page controls stay visible while scrolling on bigger screens too, and that the left-hand menu stay pinned while the page scrolls.
