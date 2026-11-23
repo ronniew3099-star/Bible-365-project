@@ -23,6 +23,12 @@ Ronnie reported the Home "Today's reading overview" and "IREAP reflections" sect
 - Added a `@media(max-width:700px)` rule AFTER the base `.stats.three` rule so it wins the cascade: `.stats.three` is now 1-column (vertical stack) on phones. Each of the three overview cards and each of the three IREAP cards is full width, so labels and chapter lists read naturally.
 - The chapter lists in the overview (`#dashPlannedNames`, `#dashCarryNames`) are now capped at 132px tall with vertical scrolling on phones, so a long carry-over list does not make the card enormously tall.
 
+## Phase 3 follow-up — Progress ring centering and sticky header (Nov 23, 2026)
+
+Ronnie reported the circle completion graphic (progress ring) sits awkwardly at the bottom-left of the hero on phones, and asked for the Refresh button to stay visible while scrolling.
+- Progress ring: on phones (≤700px) the ring is now centered below the buttons (`justify-self:center`) with top margin, instead of hugging the left edge with empty space to its right.
+- Refresh button: the topbar (which holds the page title and the Refresh button) is now sticky (`position:sticky; top:0`) with the page background, so the Refresh button stays visible at the top while scrolling instead of scrolling away.
+
 ---
 
 ## Phase 3 — Bible Quota redesign (Nov 23, 2026)
