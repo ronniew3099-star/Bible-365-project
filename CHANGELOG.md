@@ -59,6 +59,11 @@ Ronnie approved the mockup before this push.
 Ronnie approved the mockup before this push.
 - Today's reading, right-hand panel: the IREAP Tracker and "Reflect on your next chapter" subsections now each have an expand/collapse chevron button in their header. The chevron points up when the section is expanded and down when it is collapsed. Both sections start expanded, matching the previous always-visible behaviour. The toggle is available at all screen sizes (phone, tablet, desktop). The button has an aria-expanded attribute and an aria-label ("Collapse IREAP Tracker" / "Expand IREAP Tracker") so a screen reader announces its state and action.
 
+## Phase 3 follow-up — Sticky pagination flush at the top (Nov 23, 2026)
+
+Ronnie approved the mockup before this push.
+- Sticky pagination (Books and Awards, phones ≤700px): the pagination now sticks flush at the very top of the screen (top: 0) instead of 60px below it. The 60px gap had let book cards scroll up and show through above the pagination, making a card look split in two. The container has right padding (120px) so the Next button clears the pinned Refresh button, which sits at the top-right on the same bar. The solid background covers the content scrolling beneath it.
+
 ---
 
 ## Phase 3 — Bible Quota redesign (Nov 23, 2026)
