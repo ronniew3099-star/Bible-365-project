@@ -8,6 +8,18 @@ Verified by: re-reading every changed function, `node --check` on the extracted 
 
 ---
 
+## Scrollable chapter lists with visible scrollbar and "Scroll for more" hint (Nov 23, 2026)
+
+Ronnie asked that the three chapter lists on the Read page (Carry Over Chapters, Planned Daily Chapters, Completed Today) scroll when they have more than 5 items on phones, with a visible scrollbar and a flashing "Scroll for more" hint so it is obvious the lists scroll.
+- Responsive list height: on phones the lists show 5 chapters and scroll after that; on tablets they show 8; on desktops they show 10. Each height includes a small peek of the next row so the cut is unmistakable. A list with 5 or fewer items on phones (8 tablet, 10 desktop) fits fully and does not scroll.
+- Visible scrollbar: a solid deep purple thumb with a pale lavender track, 8px wide, on all sizes, in the app's purple theme (Firefox uses the same colors). It only appears when a list actually overflows. Note: on iOS Safari scrollbars are overlay-style and may fade out when not actively scrolling, so the purple thumb is clearly visible while scrolling and stays visible on desktop, but CSS alone cannot force iOS to keep it on screen permanently.
+- "Scroll for more" hint: a small deep purple line under each list that reads "Scroll for more" with a down arrow on the same line. It gently flashes (soft opacity pulse) and the arrow bobs down. It shows only when the list scrolls and there is more below. When the list is scrolled all the way down, the hint stays and the arrow flips to point up; scroll back up and it flips back down. When a list fits fully it does not show. The hint is a visual cue only (hidden from screen readers) and respects reduced-motion settings.
+- The old bottom fade that used to signal more content is removed, since the scrollbar and the hint now do that job.
+
+## Reading rhythm subsections in one row on phones (Nov 23, 2026)
+
+Ronnie asked that the three Reading rhythm subsections (This week, This month, Reading days) fit in one line in mobile view. The grid now stays 3 columns on phones instead of dropping to 2, so all three sit side by side in one row like on desktop. The cards have a little less padding and slightly smaller small text on phones so the narrower cards read well. The wording is unchanged.
+
 ## Account button is now sign in / sign out (Nov 23, 2026)
 
 Ronnie asked that the pinned account button (top right, shows his username or "Signed out") stop refreshing and become a sign-in / sign-out button.
