@@ -8,6 +8,17 @@ Verified by: re-reading every changed function, `node --check` on the extracted 
 
 ---
 
+## Phase 3 follow-up — Awards phone layout (Nov 23, 2026)
+
+Ronnie checked the live app on his phone and reported the Awards page was cramped and a problem with the Refresh button. Fixes in this push:
+- Removed the duplicate "Awards" `<h2>` in the Awards view (the topbar already says "Your awards." and the panel says "Your awards").
+- Award cards are now 1-column at ≤700px (was 2-column until 380px, so a ~390px phone kept the narrow 2-column cards and titles like "30-day streak" broke across three lines). Now each card is full width on phones.
+- `.award-state` ("Earned"/"Locked") now has `white-space:nowrap` so it does not wrap or squeeze.
+- Calendar legend spacing: added space between the two legend items ("Reading completed" and "At least one IREAP completed") which ran together.
+- The Refresh button issue is still to be clarified with Ronnie (what exactly he saw); the button itself was not changed in this push.
+
+---
+
 ## Phase 3 — Bible Quota redesign (Nov 23, 2026)
 
 Working copy: `~/workspace/code-fixes/bible-365-project-audit/index.html`, base repo HEAD `6c9721af` (135,052 bytes, 1,371 lines, including Ronnie's own Nov 22 evening wording edits). After this pass: 1,671 lines, 153,953 bytes. The stale `~/workspace/code-fixes/bible-365-project/index.html` (135,262 bytes) was NOT touched. NOT pushed to GitHub, NOT deployed.

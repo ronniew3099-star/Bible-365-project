@@ -53,7 +53,7 @@ main{padding:34px clamp(18px,4vw,60px) 90px;min-width:0}.topbar{display:flex;jus
 @media(max-width:700px){.app{display:block}.sidebar{display:none}main{padding:22px 15px 100px}.topbar{margin-bottom:20px}.today-label{display:none}.topbar-actions{gap:0}.topbar-actions .btn{padding:9px 12px}.hero{padding:23px;grid-template-columns:1fr}.progress-ring{width:88px;height:88px}.progress-ring strong{font-size:21px}.stats{gap:9px;margin:13px 0 18px}.stat{padding:14px}.stat strong{font-size:21px}.grid2{grid-template-columns:1fr}.reading-side{grid-template-columns:1fr}.book-grid{grid-template-columns:1fr 1fr}.settings-grid{grid-template-columns:1fr}.panel{padding:17px}.cal-day{min-height:57px;padding:6px}.calendar-grid{gap:3px}.mobile-nav{position:fixed;display:grid;grid-template-columns:repeat(7,1fr);bottom:0;left:0;right:0;background:rgba(255,254,250,.96);backdrop-filter:blur(14px);border-top:1px solid var(--line);padding:8px 5px calc(8px + env(safe-area-inset-bottom));z-index:10}.mobile-nav button{border:0;background:transparent;color:var(--muted);font-size:10px;display:grid;gap:3px;justify-items:center;padding:4px}.mobile-nav button span{font-size:18px}.mobile-nav button.active{color:var(--green);font-weight:800}.hero-actions .btn{padding:10px 12px;font-size:12px}.toast{bottom:70px}}
 
 .feature-section{margin-top:18px}.feature-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}.feature-card{background:var(--paper);border:1px solid var(--line);border-radius:18px;padding:17px}.feature-card label{font-size:10px;color:var(--muted);font-weight:800;letter-spacing:.08em;text-transform:uppercase}.feature-card strong{display:block;font:25px Georgia,serif;margin:5px 0}.feature-card small{color:var(--muted);font-size:11px}.book-toolbar{display:flex;justify-content:space-between;align-items:center;gap:12px;margin:0 0 16px;flex-wrap:wrap}.book-toolbar select,.setting-box select,.setting-box input[type=time]{border:1px solid var(--line);border-radius:10px;padding:10px 12px;background:white;color:var(--ink);font:inherit}.book-card .bar{margin-top:8px}.achievement-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.achievement{border:1px solid var(--line);border-radius:14px;padding:13px;display:flex;gap:10px;align-items:center;background:#fffefa}.achievement.locked{opacity:.55}.achievement .medal{font-size:23px}.achievement strong{display:block;font-size:13px}.achievement small{display:block;color:var(--muted);font-size:11px}.heatmap{display:grid;grid-template-columns:repeat(15,minmax(0,1fr));gap:5px}.heat-cell{aspect-ratio:1;border-radius:5px;background:#edf0eb;border:1px solid rgba(0,0,0,.03)}.heat-cell.level1{background:#e9e2f7}.heat-cell.level2{background:#c9b8ec}.heat-cell.level3{background:#9d7fd6}.heat-cell.level4{background:#4c1d95}.reminder-row{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin:10px 0}.reminder-row label{font-size:12px;font-weight:700;color:#59665d}.reminder-status{font-size:12px;color:var(--muted);margin-top:8px}
-@media(max-width:700px){.feature-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.achievement-list{grid-template-columns:1fr}.heatmap{grid-template-columns:repeat(10,minmax(0,1fr))}}
+@media(max-width:700px){.feature-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.achievement-list{grid-template-columns:1fr}.award-grid{grid-template-columns:1fr}.heatmap{grid-template-columns:repeat(10,minmax(0,1fr))}}
 
 
 .auth-panel{background:var(--paper);border:1px solid var(--line);border-radius:18px;padding:16px 18px;margin:-12px 0 22px;box-shadow:0 5px 18px rgba(37,48,39,.025)}
@@ -82,12 +82,12 @@ main{padding:34px clamp(18px,4vw,60px) 90px;min-width:0}.topbar{display:flex;jus
 .award-card .medal{font-size:24px;flex:none}
 .award-card strong{display:block;font-size:13px}
 .award-card small{display:block;color:var(--muted);font-size:11px}
-.award-card .award-state{margin-left:auto;flex:none;font-size:11px;font-weight:800;color:#7a5b16}
+.award-card .award-state{margin-left:auto;flex:none;font-size:11px;font-weight:800;color:#7a5b16;white-space:nowrap}
 .award-card.locked .award-state{color:var(--muted)}
 .book-card.removed{opacity:.65}
 .book-actions{display:flex;gap:6px;flex-wrap:wrap;margin-top:12px}
 .book-actions .btn{padding:7px 9px;font-size:12px}
-@media(max-width:380px){.book-grid{grid-template-columns:1fr}.award-grid{grid-template-columns:1fr}}
+@media(max-width:380px){.book-grid{grid-template-columns:1fr}}
 
 </style>
 </head>
@@ -223,7 +223,7 @@ main{padding:34px clamp(18px,4vw,60px) 90px;min-width:0}.topbar{display:flex;jus
     <h2 class="section-title">Reading calendar</h2><p class="section-intro">A gentle record of the days you spent in Scripture.</p>
     <div class="calendar-panel panel"><div class="calendar-top"><button class="btn outline" onclick="shiftMonth(-1)" aria-label="Previous month">←</button><h3 id="monthTitle"></h3><button class="btn outline" onclick="shiftMonth(1)" aria-label="Next month">→</button></div>
     <div class="cal-nav"><select id="calMonthSelect" aria-label="Choose month"></select><select id="calYearSelect" aria-label="Choose year"></select><button class="btn primary" type="button" onclick="goToToday()">Today</button></div>
-    <div class="calendar-grid" id="calendarGrid"></div><div class="subtle" style="margin-top:13px">● Reading completed &nbsp; <span style="color:var(--gold)">●</span> At least one IREAP completed</div><div id="selectedDay" class="finish-box" style="margin-top:17px"><p>Select a day to see your reading history.</p></div></div>
+    <div class="calendar-grid" id="calendarGrid"></div><div class="subtle" style="margin-top:13px">● Reading completed &nbsp;&nbsp;&nbsp; <span style="color:var(--gold)">●</span> At least one IREAP completed</div><div id="selectedDay" class="finish-box" style="margin-top:17px"><p>Select a day to see your reading history.</p></div></div>
   </section>
 
   <section class="view" id="view-books">
@@ -246,7 +246,7 @@ main{padding:34px clamp(18px,4vw,60px) 90px;min-width:0}.topbar{display:flex;jus
   </section>
 
   <section class="view" id="view-awards">
-    <h2 class="section-title">Awards</h2><p class="section-intro">Badges for the milestones you reach. Gold means earned. Greyed out means locked — for now.</p>
+    <p class="section-intro">Badges for the milestones you reach. Gold means earned. Greyed out means locked — for now.</p>
     <div class="panel">
       <div class="panel-head"><h3>Your awards</h3><span class="subtle" id="awardCount">0 of 23 earned</span></div>
       <div class="award-grid" id="awardList"></div>
