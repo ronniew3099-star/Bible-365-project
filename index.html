@@ -88,7 +88,7 @@ main{padding:34px clamp(18px,4vw,60px) 90px;min-width:0}.topbar{display:flex;jus
 .book-actions{display:flex;gap:6px;flex-wrap:wrap;margin-top:12px}
 .book-actions .btn{padding:7px 9px;font-size:12px}
 @media(max-width:380px){.book-grid{grid-template-columns:1fr}}
-@media(max-width:700px){.stats.three{grid-template-columns:1fr}#dashPlannedNames,#dashCarryNames{display:block;max-height:132px;overflow-y:auto}.progress-ring{justify-self:center;margin-top:18px}.hero-art{display:flex;justify-content:center}.topbar>div:first-child{padding-right:185px}.award-grid{grid-template-columns:1fr}.book-actions{flex-wrap:nowrap}.book-actions .btn{flex:1;flex-direction:column;gap:2px;min-width:0;min-height:0;padding:8px 4px}.book-actions .btn-label{display:block;font-size:10px;line-height:1.2}.book-actions .btn-icon{font-size:16px;line-height:1}#bookPager,#awardPager{position:sticky;top:0;z-index:20;background:var(--bg);padding:8px 120px 8px 0}#bookPager .pager,#awardPager .pager{margin-top:0}.pager .pager-word{display:none}}
+@media(max-width:700px){.stats.three{grid-template-columns:1fr}#dashPlannedNames,#dashCarryNames{display:block;max-height:132px;overflow-y:auto}.progress-ring{justify-self:center;margin-top:18px}.hero-art{display:flex;justify-content:center}.topbar>div:first-child{padding-right:185px}.award-grid{grid-template-columns:1fr}.book-actions{flex-wrap:nowrap}.book-actions .btn{flex:1;flex-direction:column;gap:2px;min-width:0;min-height:0;padding:8px 4px}.book-actions .btn-label{display:block;font-size:10px;line-height:1.2}.book-actions .btn-icon{font-size:16px;line-height:1}#bookPager,#awardPager{position:sticky;top:0;z-index:20;background:var(--bg);padding:8px 175px 8px 0}#bookPager .pager,#awardPager .pager{margin-top:0}.pager .pager-word{display:none}}
 
 </style>
 </head>
@@ -936,14 +936,7 @@ function renderToday(){
  const renderRows=(containerId,indices,category,showUndo=false)=>{
    const box=document.getElementById(containerId);box.innerHTML="";
    if(!indices.length){box.innerHTML='<p class="subtle">None right now.</p>';return}
-   const PAGE_SIZE=5;
-   const totalPages=Math.max(1,Math.ceil(indices.length/PAGE_SIZE));
-   let page=todayPages[containerId]||0;
-   if(page>totalPages-1)page=totalPages-1;
-   if(page<0)page=0;
-   todayPages[containerId]=page;
-   const visible=indices.length>PAGE_SIZE?indices.slice(page*PAGE_SIZE,page*PAGE_SIZE+PAGE_SIZE):indices;
-   visible.forEach(i=>{
+   indices.forEach(i=>{
      const isDone=doneSet().has(i),doneToday=completedToday.includes(i),locked=isIreapComplete(i);
      const row=document.createElement("label");row.className="chapter-row"+(isDone?" done":"");
      row.innerHTML=`<input class="chapter-check" type="checkbox" ${isDone?"checked":""} ${(isDone&&!doneToday)?"disabled":""} aria-label="Mark ${CHAPTERS[i]} complete"><div><div class="chapter-name">${CHAPTERS[i]}</div><div class="chapter-tag">${doneToday?"Completed today":isDone?"Previously completed":category}${locked?" · IREAP completed · Locked":""}</div></div><span class="chapter-meta">${isDone?"✓ Done":i===firstUnread()?"Next up":"In sequence"}</span>`;
@@ -959,9 +952,6 @@ function renderToday(){
      }
      box.appendChild(row);
    });
-   if(indices.length>PAGE_SIZE){
-     box.appendChild(buildPager(page,totalPages,p=>{todayPages[containerId]=p;renderToday();}));
-   }
  };
  renderRows("carryOverList",carry,"Carry over from an earlier day");
  renderRows("plannedReadingList",planned,"Original daily assignment");

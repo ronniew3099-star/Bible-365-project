@@ -74,6 +74,12 @@ Ronnie approved the mockup before this push.
 Ronnie approved the mockup before this push.
 - Pinned account button: a new button sits beside the Refresh button at the top-right, pinned so it stays visible while scrolling. It shows the signed-in account name (the part before @, e.g. "ronniew3099") and "Signed out" when no one is signed in. Tapping it refreshes your reading progress, the same as Refresh. The button has an aria-label with the full email ("Signed in as ronniew3099@gmail.com. Tap to refresh.") so a screen reader announces the full account. The Refresh button is now just the arrow icon, with no word, to make space. The title and date label have extra right padding so they do not run under the wider pinned buttons.
 
+## Phase 3 follow-up — Carry Over Chapters stacked vertically, pagination arrows moved in (Nov 23, 2026)
+
+Ronnie approved these changes before this push.
+- Today's reading lists (Carry Over Chapters, Planned reading, Completed today): the pagination arrows are gone. All chapters now show stacked vertically in a single list, in the same row format as before, with no pages to tap through. The list scrolls with the page.
+- Sticky pagination (Books and Awards, phones): the pagination bar's right padding is now 175px instead of 120px, so the Next arrow sits clear of the pinned account button and Refresh icon at the top-right, with a gap between them. Previously the wider account button covered the Next arrow.
+
 ---
 
 ## Phase 3 — Bible Quota redesign (Nov 23, 2026)
