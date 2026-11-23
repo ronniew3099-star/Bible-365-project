@@ -8,6 +8,12 @@ Verified by: re-reading every changed function, `node --check` on the extracted 
 
 ---
 
+## Sticky pagination on all screen sizes and pinned sidebar (Nov 23, 2026)
+
+Ronnie asked that the Books and Awards page controls stay visible while scrolling on bigger screens too, and that the left-hand menu stay pinned while the page scrolls.
+- Pagination: the Books and Awards page controls are now sticky at the top on every screen size, not just phones. They keep a solid background so content scrolling underneath does not show through, and leave room on the right so they do not slide under the pinned account and refresh buttons. On phones only the arrow icons show (saving space); on tablet and desktop the full Previous and Next words show, since there is room for them.
+- Sidebar: the left-hand menu now stays pinned in place while the main content scrolls on desktop and tablet. It scrolls independently within its own area if its content is ever taller than the screen, so no menu item becomes unreachable. On phones nothing changes, since the menu there is the bottom bar and the sidebar is hidden.
+
 ## Scrollable chapter lists with visible scrollbar and "Scroll for more" hint (Nov 23, 2026)
 
 Ronnie asked that the three chapter lists on the Read page (Carry Over Chapters, Planned Daily Chapters, Completed Today) scroll when they have more than 5 items on phones, with a visible scrollbar and a flashing "Scroll for more" hint so it is obvious the lists scroll.
