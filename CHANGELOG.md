@@ -17,6 +17,12 @@ Ronnie checked the live app on his phone and reported the Awards page was crampe
 - Calendar legend spacing: added space between the two legend items ("Reading completed" and "At least one IREAP completed") which ran together.
 - The Refresh button issue is still to be clarified with Ronnie (what exactly he saw); the button itself was not changed in this push.
 
+## Phase 3 follow-up — Dashboard overview and IREAP on phones (Nov 23, 2026)
+
+Ronnie reported the Home "Today's reading overview" and "IREAP reflections" sections break on phones when there are many chapters to catch up (14 carry-over chapters). Root cause: the base `.stats.three` rule (3 columns) sits after the ≤980px media query (2 columns) in the stylesheet, so with equal specificity the later 3-column rule wins at every width — the overview stayed 3-column on phones and the narrow cards made labels wrap ("CARRY-" / "OVER" / "CHAPTERS", "OUTSTANDING" cut off) and chapter names fragment ("Colossians" / "3").
+- Added a `@media(max-width:700px)` rule AFTER the base `.stats.three` rule so it wins the cascade: `.stats.three` is now 1-column (vertical stack) on phones. Each of the three overview cards and each of the three IREAP cards is full width, so labels and chapter lists read naturally.
+- The chapter lists in the overview (`#dashPlannedNames`, `#dashCarryNames`) are now capped at 132px tall with vertical scrolling on phones, so a long carry-over list does not make the card enormously tall.
+
 ---
 
 ## Phase 3 — Bible Quota redesign (Nov 23, 2026)
