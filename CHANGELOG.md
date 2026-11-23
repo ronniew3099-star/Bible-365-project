@@ -8,6 +8,15 @@ Verified by: re-reading every changed function, `node --check` on the extracted 
 
 ---
 
+## Figma 2: compact mobile hero (Nov 23, 2026)
+
+The hero took up most of the first screen on phones and the progress ring sat detached below the buttons. On phones only:
+- The progress ring now sits beside the heading instead of below the buttons.
+- The supporting text is shorter on phones ("Miss a day? Pick up where you left off."). The full text still shows on laptop and tablet.
+- The hero padding is smaller and the flame is smaller, so the hero is about half as tall as before and today's reading shows on the same screen.
+- Below 360px wide the two hero buttons stack vertically.
+- On laptop and tablet nothing changes.
+
 ## Figma 1: mobile header with avatar menu (Nov 23, 2026)
 
 The account and refresh buttons took up the top-right corner on phones and squeezed the heading into narrow lines. On phones only:
