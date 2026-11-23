@@ -88,7 +88,7 @@ main{padding:34px clamp(18px,4vw,60px) 90px;min-width:0}.topbar{display:flex;jus
 .book-actions{display:flex;gap:6px;flex-wrap:wrap;margin-top:12px}
 .book-actions .btn{padding:7px 9px;font-size:12px}
 @media(max-width:380px){.book-grid{grid-template-columns:1fr}}
-@media(max-width:700px){.stats.three{grid-template-columns:1fr}#dashPlannedNames,#dashCarryNames{display:block;max-height:132px;overflow-y:auto}.progress-ring{justify-self:center;margin-top:18px}.hero-art{display:flex;justify-content:center}.topbar>div:first-child{padding-right:115px}.award-grid{grid-template-columns:1fr}.book-actions{flex-wrap:nowrap}.book-actions .btn{flex:1;flex-direction:column;gap:2px;min-width:0;min-height:0;padding:8px 4px}.book-actions .btn-label{display:block;font-size:10px;line-height:1.2}.book-actions .btn-icon{font-size:16px;line-height:1}#bookPager,#awardPager{position:sticky;top:0;z-index:20;background:var(--bg);padding:8px 120px 8px 0}#bookPager .pager,#awardPager .pager{margin-top:0}}
+@media(max-width:700px){.stats.three{grid-template-columns:1fr}#dashPlannedNames,#dashCarryNames{display:block;max-height:132px;overflow-y:auto}.progress-ring{justify-self:center;margin-top:18px}.hero-art{display:flex;justify-content:center}.topbar>div:first-child{padding-right:115px}.award-grid{grid-template-columns:1fr}.book-actions{flex-wrap:nowrap}.book-actions .btn{flex:1;flex-direction:column;gap:2px;min-width:0;min-height:0;padding:8px 4px}.book-actions .btn-label{display:block;font-size:10px;line-height:1.2}.book-actions .btn-icon{font-size:16px;line-height:1}#bookPager,#awardPager{position:sticky;top:0;z-index:20;background:var(--bg);padding:8px 120px 8px 0}#bookPager .pager,#awardPager .pager{margin-top:0}.pager .pager-word{display:none}}
 
 </style>
 </head>
@@ -912,10 +912,10 @@ function renderDashboard(){
 const todayPages={};
 function buildPager(page,totalPages,onPage){
  const pager=document.createElement("div");pager.className="pager";
- const prev=document.createElement("button");prev.className="btn ghost";prev.type="button";prev.textContent="Previous";prev.disabled=page===0;
+ const prev=document.createElement("button");prev.className="btn ghost";prev.type="button";prev.innerHTML="←<span class=\"pager-word\"> Previous</span>";prev.setAttribute("aria-label","Previous page");prev.disabled=page===0;
  prev.addEventListener("click",()=>onPage(page-1));
  const label=document.createElement("span");label.className="page-label";label.textContent=`Page ${page+1} of ${totalPages}`;
- const next=document.createElement("button");next.className="btn ghost";next.type="button";next.textContent="Next";next.disabled=page>=totalPages-1;
+ const next=document.createElement("button");next.className="btn ghost";next.type="button";next.innerHTML="<span class=\"pager-word\">Next </span>→";next.setAttribute("aria-label","Next page");next.disabled=page>=totalPages-1;
  next.addEventListener("click",()=>onPage(page+1));
  pager.appendChild(prev);pager.appendChild(label);pager.appendChild(next);
  return pager;

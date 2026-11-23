@@ -64,6 +64,11 @@ Ronnie approved the mockup before this push.
 Ronnie approved the mockup before this push.
 - Sticky pagination (Books and Awards, phones ≤700px): the pagination now sticks flush at the very top of the screen (top: 0) instead of 60px below it. The 60px gap had let book cards scroll up and show through above the pagination, making a card look split in two. The container has right padding (120px) so the Next button clears the pinned Refresh button, which sits at the top-right on the same bar. The solid background covers the content scrolling beneath it.
 
+## Phase 3 follow-up — Pagination as arrow icons on phones (Nov 23, 2026)
+
+Ronnie approved the mockup before this push.
+- Pagination (Books and Awards): on phones (≤700px) the Previous and Next buttons now show only arrow icons (left and right arrows) with no words, so the "Page 1 of 3" label fits on one line instead of wrapping to three lines. On larger screens the words still show next to the arrows. The buttons have aria-labels ("Previous page" / "Next page") so a screen reader still announces them by name. The IREAP Tracker's own pager was not changed.
+
 ---
 
 ## Phase 3 — Bible Quota redesign (Nov 23, 2026)
