@@ -36,6 +36,13 @@ Ronnie said the Awards page had not changed on his phone (the 1-column fix was l
 - Burning bush: on phones (≤700px) the hero art (burning bush SVG) is now centered (`.hero-art` flex, `justify-content:center`), matching the centered progress ring.
 - Note: the Awards 1-column fix from the earlier push is live on the site (verified 154,207 bytes); if Ronnie still sees the old 2-column layout, his phone is showing a cached copy and he should close the app/tab fully and reopen it.
 
+## Phase 3 follow-up — Mockup-first workflow: pinned Refresh, Books icons, sticky pagination (Nov 23, 2026)
+
+Ronnie asked that changes be shown as a mockup before pushing the code live. All three changes below were made, shown as mockups, and approved by Ronnie before this push.
+- Refresh button: only the Refresh button is now pinned on phones (≤700px) — `position:fixed` at the top right with a shadow, so it stays visible while scrolling. The whole topbar is no longer sticky; the page title scrolls away as normal. The title has right padding (115px) so it does not run under the pinned button.
+- Books page, less wordy on phones (≤700px): the Up / Down / Remove buttons are now icon-only — up arrow, down arrow, and trash can — with the words hidden. The buttons are 44px square touch targets. The book card button now reads "Read next" instead of "Read this book next". The screen-reader labels (aria-labels) are kept, so the buttons are still announced by name.
+- Pagination, sticky at the top on phones (≤700px): on the Books page the pagination now sits right underneath the "Sort by" select field instead of at the bottom of the list, and it sticks at the top while scrolling (top: 60px, so it clears the pinned Refresh button). The same method is used on the Awards page: the pagination sits right under the "Your awards" header and sticks while scrolling. The Today subsections and IREAP Tracker pagers were not changed (they are sub-list pagers, not page-level pagination).
+
 ---
 
 ## Phase 3 — Bible Quota redesign (Nov 23, 2026)
