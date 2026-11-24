@@ -58,7 +58,7 @@ main{padding:34px clamp(18px,4vw,60px) 90px;min-width:0}.topbar{display:flex;jus
 #moreMenu button span svg{width:20px;height:20px;display:block}
 #moreMenu button.active{background:var(--green2);font-weight:800}
 @media(max-width:980px){.app{grid-template-columns:210px 1fr}.stats{grid-template-columns:repeat(2,1fr)}.stats.three{grid-template-columns:repeat(2,1fr)}.reading-layout{grid-template-columns:1fr}.reading-side{grid-template-columns:1fr 1fr}.book-grid{grid-template-columns:repeat(2,1fr)}.scroll-list{max-height:575px}}
-@media(max-width:700px){.app{display:block}.sidebar{display:none}main{padding:22px 15px 100px}.topbar{margin-bottom:20px}.today-label{display:none}.hero{padding:18px 23px;grid-template-columns:1fr auto;grid-template-areas:"intro ring" "body body";gap:0 12px}.progress-ring{width:88px;height:88px}.progress-ring strong{font-size:21px}.stats{gap:9px;margin:13px 0 18px}.stat{padding:14px}.stat strong{font-size:21px}.grid2{grid-template-columns:1fr}.reading-side{grid-template-columns:1fr}.book-grid{grid-template-columns:1fr}.settings-grid{grid-template-columns:1fr}.panel{padding:17px}.cal-day{min-height:57px;padding:6px}.calendar-grid{gap:3px}.mobile-nav{position:fixed;display:grid;grid-template-columns:repeat(5,1fr);bottom:0;left:0;right:0;background:rgba(255,255,255,.96);backdrop-filter:blur(14px);border-top:1px solid var(--line);padding:8px 5px calc(8px + env(safe-area-inset-bottom));z-index:10}.mobile-nav button{border:0;background:transparent;color:var(--muted);font-size:11px;display:grid;gap:3px;justify-items:center;padding:4px}.mobile-nav button span{width:22px;height:22px;display:grid;place-items:center}.mobile-nav button span svg{width:22px;height:22px;display:block}.mobile-nav button.active{color:var(--green);font-weight:800}.hero-actions .btn{padding:10px 12px;font-size:12px}.toast{bottom:70px}}
+@media(max-width:700px){.app{display:block}.sidebar{display:none}main{padding:calc(22px + env(safe-area-inset-top,0px)) 15px 100px}.topbar{margin-bottom:20px}.today-label{display:none}.hero{padding:18px 23px;grid-template-columns:1fr auto;grid-template-areas:"intro ring" "body body";gap:0 12px}.progress-ring{width:88px;height:88px}.progress-ring strong{font-size:21px}.stats{gap:9px;margin:13px 0 18px}.stat{padding:14px}.stat strong{font-size:21px}.grid2{grid-template-columns:1fr}.reading-side{grid-template-columns:1fr}.book-grid{grid-template-columns:1fr}.settings-grid{grid-template-columns:1fr}.panel{padding:17px}.cal-day{min-height:57px;padding:6px}.calendar-grid{gap:3px}.mobile-nav{position:fixed;display:grid;grid-template-columns:repeat(5,1fr);bottom:0;left:0;right:0;background:rgba(255,255,255,.96);backdrop-filter:blur(14px);border-top:1px solid var(--line);padding:8px 5px calc(8px + env(safe-area-inset-bottom));z-index:10}.mobile-nav button{border:0;background:transparent;color:var(--muted);font-size:11px;display:grid;gap:3px;justify-items:center;padding:4px}.mobile-nav button span{width:22px;height:22px;display:grid;place-items:center}.mobile-nav button span svg{width:22px;height:22px;display:block}.mobile-nav button.active{color:var(--green);font-weight:800}.hero-actions .btn{padding:10px 12px;font-size:12px}.toast{bottom:70px}}
 
 .feature-section{margin-top:18px}.feature-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}.feature-card{background:var(--paper);border:1px solid var(--line);border-radius:18px;padding:17px}.feature-card label{font-size:12px;color:var(--muted);font-weight:800;letter-spacing:.08em;text-transform:uppercase}.feature-card strong{display:block;font:25px Georgia,serif;margin:5px 0}.feature-card small{color:var(--muted);font-size:12px}.book-toolbar{display:flex;justify-content:space-between;align-items:center;gap:12px;margin:0 0 16px;flex-wrap:wrap}.book-toolbar select,.setting-box select,.setting-box input[type=time]{border:1px solid var(--line);border-radius:10px;padding:10px 12px;background:white;color:var(--ink);font:inherit}.book-card .bar{margin-top:8px}.achievement-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.achievement{border:1px solid var(--line);border-radius:14px;padding:13px;display:flex;gap:10px;align-items:center;background:#fff}.achievement.locked{opacity:.55}.achievement .medal{font-size:23px}.achievement strong{display:block;font-size:13px}.achievement small{display:block;color:var(--muted);font-size:12px}.heatmap{display:grid;grid-template-columns:repeat(15,minmax(0,1fr));gap:5px}.heat-cell{aspect-ratio:1;border-radius:5px;background:#edf0eb;border:1px solid rgba(0,0,0,.03)}.heat-cell.level1{background:#e9e2f7}.heat-cell.level2{background:#c9b8ec}.heat-cell.level3{background:#9d7fd6}.heat-cell.level4{background:#4c1d95}.reminder-row{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin:10px 0}.reminder-row label{font-size:12px;font-weight:700;color:var(--muted)}.reminder-status{font-size:12px;color:var(--muted);margin-top:8px}
 @media(max-width:700px){.feature-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.feature-card{padding:10px}.feature-card small{font-size:12px}.achievement-list{grid-template-columns:1fr}.award-grid{grid-template-columns:1fr}.heatmap{grid-template-columns:repeat(10,minmax(0,1fr))}}
@@ -86,7 +86,7 @@ main{padding:34px clamp(18px,4vw,60px) 90px;min-width:0}.topbar{display:flex;jus
 .today-chapter.done{color:var(--muted);text-decoration:line-through;font-weight:400}
 .pager{display:flex;gap:8px;align-items:center;margin-top:14px;flex-wrap:wrap}
 .pager .page-label{font-size:12px;color:var(--muted);flex:1;text-align:center}
-#bookPager,#awardPager{position:sticky;top:0;z-index:20;background:var(--bg);padding:8px 175px 8px 0}
+#bookPager,#awardPager{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--bg);padding:8px 60px 8px 0}
 #bookPager .pager,#awardPager .pager{margin-top:0}
 .cal-nav{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:14px}
 .cal-nav select{border:1px solid var(--line);border-radius:10px;padding:9px 10px;background:white;color:var(--ink);font:inherit}
@@ -160,6 +160,13 @@ main{padding:34px clamp(18px,4vw,60px) 90px;min-width:0}.topbar{display:flex;jus
         <div class="stat"><label>Total completed</label><strong id="dashIreapTotal">0</strong><small>All-time reflections</small></div>
       </div>
       <div id="dashOutstandingIreaps" class="subtle" style="margin-top:12px"></div>
+    </div>
+    <div class="panel" id="carryRecoveryPanel" style="margin:0 0 18px" hidden>
+      <div class="panel-head"><h3>Catching up, gently</h3></div>
+      <p class="subtle" id="carryRecoveryIntro" style="margin:0 0 12px"></p>
+      <div id="carryRecoveryActive" style="margin:0 0 12px" hidden></div>
+      <div id="carryRecoveryChoices"></div>
+      <div style="margin-top:4px"><button class="btn ghost" type="button" id="carryRecoveryStop" onclick="stopCarryPlan()" hidden>Stop this plan</button></div>
     </div>
     <div class="feature-section panel">
       <div class="panel-head"><h3>Reading rhythm</h3><span class="subtle">Your recent rhythm</span></div>
@@ -244,7 +251,7 @@ main{padding:34px clamp(18px,4vw,60px) 90px;min-width:0}.topbar{display:flex;jus
 
   <section class="view" id="view-books">
     <h2 class="section-title">Books of the Bible</h2><p class="section-intro">Watch your progress unfold across all 66 books, and choose what you want to read next.</p>
-    <p class="subtle" style="margin:-12px 0 18px"><strong id="scheduleNameLabel">Ronnie's Reading Schedule</strong> — your unique reading order. Move books up or down, or remove a book from the plan. Removed books can be added back.</p>
+    <p class="subtle" style="margin:-12px 0 18px;padding-right:60px"><strong id="scheduleNameLabel">Ronnie's Reading Schedule</strong> — your unique reading order. Move books up or down, or remove a book from the plan. Removed books can be added back.</p>
     <div class="panel" style="margin-bottom:18px">
       <div class="eyebrow">Flexible reading</div><h3 style="font:400 21px Georgia,serif;margin:5px 0 7px">Choose your next book</h3>
       <p class="subtle" style="margin:0 0 13px">Choose another book to insert at the next book’s original scheduled position. For example, 2 John takes Mark’s slot; after 2 John, the plan continues with Mark. Your original schedule dates are preserved.</p>
@@ -406,10 +413,22 @@ function loadState(){
       loaded.excludedBooks=Array.isArray(loaded.excludedBooks)?loaded.excludedBooks.filter(b=>typeof b==="string"):[];
       loaded.scheduleName=typeof loaded.scheduleName==="string"&&loaded.scheduleName.trim()?loaded.scheduleName:"Ronnie's Reading Schedule";
       loaded.targetFinishDate=typeof loaded.targetFinishDate==="string"?loaded.targetFinishDate:"";
+      loaded.carryOverPlan=normalizeCarryOverPlan(loaded.carryOverPlan);
       return reconcileState(loaded);
     }
   } catch(e){}
-  return {completed:[],logs:{},ireapCompleted:[],ireapCompletedAt:{},planAnchor:null,readingOrder:defaultReadingOrder(),detourBook:null,detourBeforeBook:null,dailyTarget:3,excludedBooks:[],scheduleName:"Ronnie's Reading Schedule",targetFinishDate:"",createdAt:new Date().toISOString()};
+  return {completed:[],logs:{},ireapCompleted:[],ireapCompletedAt:{},planAnchor:null,readingOrder:defaultReadingOrder(),detourBook:null,detourBeforeBook:null,dailyTarget:3,excludedBooks:[],scheduleName:"Ronnie's Reading Schedule",targetFinishDate:"",carryOverPlan:null,createdAt:new Date().toISOString()};
+}
+// Validate a catch-up plan from storage, a backup, or the cloud. Anything
+// malformed becomes no plan rather than breaking the daily schedule.
+function normalizeCarryOverPlan(plan){
+ if(!plan||typeof plan!=="object")return null;
+ if(!["extra","spread","reschedule","ignore"].includes(plan.mode))return null;
+ const chapters=Array.isArray(plan.chapters)?plan.chapters.filter(i=>Number.isInteger(i)&&i>=0&&i<CHAPTERS.length):[];
+ const startDate=typeof plan.startDate==="string"&&/^\d{4}-\d{2}-\d{2}$/.test(plan.startDate)?plan.startDate:todayISO();
+ let prevAnchor=null;
+ if(plan.prevAnchor&&typeof plan.prevAnchor==="object"&&typeof plan.prevAnchor.date==="string"&&Number.isInteger(plan.prevAnchor.chapterIndex)&&Number.isInteger(plan.prevAnchor.scheduleIndex))prevAnchor={date:plan.prevAnchor.date,chapterIndex:plan.prevAnchor.chapterIndex,scheduleIndex:plan.prevAnchor.scheduleIndex};
+ return {mode:plan.mode,startDate,chapters,prevAnchor};
 }
 function saveState({sync=true}={}){
   reconcileState(state);
@@ -542,7 +561,11 @@ function totalTarget(date=todayISO()){return getTarget(date)+(state.logs[date]?.
 function getPlannedChapterIndexes(date=todayISO()){
  const sequence=getReadingSequence(),done=doneSet(),skipped=skippedSet(),start=plannedStartPosition(date),target=getTarget(date),out=[];
  for(let pos=start;pos<sequence.length&&out.length<target;pos++){const index=sequence[pos];if(!done.has(index)&&!skipped.has(index))out.push(index)}
- return out;
+ // A catch-up plan adds its chapters on top of the normal daily target.
+ // Recovery chapters come first: they are earlier in the sequence, so they
+ // are read first.
+ const recovery=getRecoveryChapterIndexes(date).filter(i=>!done.has(i)&&!skipped.has(i)&&!out.includes(i));
+ return [...recovery,...out];
 }
 // Today's fixed assignment: the same schedule position and target as
 // getPlannedChapterIndexes, but chapters stay listed after they are read, so
@@ -551,7 +574,49 @@ function getPlannedChapterIndexes(date=todayISO()){
 function getTodaysPlannedChapterIndexes(date=todayISO()){
  const sequence=getReadingSequence(),skipped=skippedSet(),start=plannedStartPosition(date),target=getTarget(date),out=[];
  for(let pos=start;pos<sequence.length&&out.length<target;pos++){const index=sequence[pos];if(!skipped.has(index))out.push(index)}
- return out;
+ const recovery=getRecoveryChapterIndexes(date,true).filter(i=>!skipped.has(i)&&!out.includes(i));
+ return [...recovery,...out];
+}
+// Chapters the active catch-up plan adds to a given day's assignment.
+// "extra" adds the oldest missed chapter each day, so the backlog shrinks by
+// one whenever the day's full assignment is read. "spread" adds that day's
+// share of the snapshot taken when the plan started. "reschedule" and
+// "ignore" change the schedule itself, so they add nothing here.
+function getRecoveryChapterIndexes(date=todayISO(),includeDone=false){
+ const plan=state.carryOverPlan;
+ if(!plan||!plan.mode)return [];
+ const done=doneSet(),skipped=skippedSet();
+ const keep=i=>includeDone?!skipped.has(i):(!done.has(i)&&!skipped.has(i));
+ if(plan.mode==="extra"){
+   const carry=getCarryOverChapterIndexes(date);
+   if(!carry.length)return [];
+   // One snapshot chapter per day, oldest first, so the day's assignment
+   // stays fixed even after it is read. If that chapter is already done or
+   // skipped, or the snapshot is used up, fall back to the oldest missed
+   // chapter still outstanding.
+   const offset=Math.floor((parseDate(date)-parseDate(plan.startDate))/86400000);
+   let pick=null;
+   if(offset>=0&&offset<plan.chapters.length)pick=plan.chapters[offset];
+   if(pick===null||!keep(pick))pick=carry[0];
+   return keep(pick)?[pick]:[];
+ }
+ if(plan.mode==="spread"){
+   if(!plan.chapters.length)return [];
+   const offset=Math.floor((parseDate(date)-parseDate(plan.startDate))/86400000);
+   if(offset<0||offset>6)return [];
+   const chunk=Math.max(1,Math.ceil(plan.chapters.length/7));
+   const group=plan.chapters.slice(offset*chunk,(offset+1)*chunk).filter(keep);
+   // Top the day's share back up to the full chunk size from the live
+   // backlog. Without this, reading ahead would consume the next days'
+   // shares and the daily goal would sag back to the normal target, so the
+   // backlog would not actually clear in 7 days.
+   if(group.length<chunk){
+     const carry=getCarryOverChapterIndexes(date);
+     for(const i of carry){if(group.length>=chunk)break;if(keep(i)&&!group.includes(i))group.push(i);}
+   }
+   return group;
+ }
+ return [];
 }
 function getCarryOverChapterIndexes(date=todayISO()){
  const sequence=getReadingSequence(),done=doneSet(),skipped=skippedSet(),start=plannedStartPosition(date);
@@ -569,16 +634,86 @@ function skippedChapters(){
   return out;
 }
 function skippedSet(){return new Set(skippedChapters().map(x=>x.index))}
+// Point the plan anchor at the next unread chapter, starting today.
+// Returns the previous anchor (or null) so the change can be undone.
+// This is what Catch Me Up does, and what the "start fresh" recovery
+// choice uses.
+function resetPlanToFirstUnread(){
+ const prevAnchor=state.planAnchor?{...state.planAnchor}:null;
+ const next=firstUnread();
+ const today=todayISO();
+ const scheduleIndex=state.planAnchor&&today>=state.planAnchor.date
+   ? state.planAnchor.scheduleIndex+Math.max(0,Math.round((parseDate(today)-parseDate(state.planAnchor.date))/86400000))
+   : scheduleIndexForDate(today);
+ state.planAnchor={date:today,chapterIndex:next,scheduleIndex};
+ return prevAnchor;
+}
 async function catchMeUp(){
  const next=firstUnread();
  if(next>=CHAPTERS.length){showToast("You've completed the entire Bible reading sequence!");return;}
- const today=todayISO(),scheduleIndex=state.planAnchor&&today>=state.planAnchor.date
-   ? state.planAnchor.scheduleIndex+Math.max(0,Math.round((parseDate(today)-parseDate(state.planAnchor.date))/86400000))
-   : scheduleIndexForDate(today);
  const ok=await confirmDialog(`Catch Me Up will reset today's plan to ${CHAPTERS[next]} and remove the accumulated daily backlog from your schedule. Your missed chapters will remain unread, not completed. Continue?`);
  if(!ok)return;
- state.planAnchor={date:today,chapterIndex:next,scheduleIndex};
+ resetPlanToFirstUnread();
+ // A reset supersedes any catch-up plan that was running.
+ state.carryOverPlan=null;
  saveState();showToast(`Plan reset. Start fresh with ${CHAPTERS[next]}.`);
+}
+// Undo what the active catch-up plan changed, without clearing the plan
+// record itself. The caller clears the record, or replaces it with a new
+// plan. "extra" and "spread" only add chapters to the daily assignment,
+// so there is nothing to undo for them.
+function clearCarryPlanEffects(){
+ const plan=state.carryOverPlan;
+ if(!plan)return;
+ if(plan.mode==="reschedule"&&plan.prevAnchor!==undefined){
+   state.planAnchor=plan.prevAnchor?{...plan.prevAnchor}:null;
+ }
+ if(plan.mode==="ignore"&&plan.chapters.length){
+   const ignored=new Set(plan.chapters);
+   for(const log of Object.values(state.logs||{})){
+     if(log.unable)log.unable=log.unable.filter(i=>!ignored.has(i));
+   }
+ }
+}
+async function applyCarryPlan(mode){
+ const carry=getCarryOverChapterIndexes();
+ if(mode!=="reschedule"&&!carry.length){showToast("No missed chapters to catch up on right now.");return;}
+ // Switching plans first undoes the old one, so the new plan starts from
+ // the true backlog instead of stacking on top of it.
+ clearCarryPlanEffects();
+ if(mode==="extra"){
+   state.carryOverPlan={mode:"extra",startDate:todayISO(),chapters:carry,prevAnchor:null};
+   saveState();
+   showToast("One extra a day is on. Your daily reading now includes the oldest missed chapter.");
+ }else if(mode==="spread"){
+   state.carryOverPlan={mode:"spread",startDate:todayISO(),chapters:carry,prevAnchor:null};
+   saveState();
+   showToast("Spread over the next 7 days. A few missed chapters join each day's reading.");
+ }else if(mode==="reschedule"){
+   const next=firstUnread();
+   if(next>=CHAPTERS.length){showToast("You've completed the entire Bible reading sequence!");return;}
+   const ok=await confirmDialog(`Start fresh from today? Your plan will continue from ${CHAPTERS[next]} at your normal pace, and your finish date will move later. Your completed chapters stay finished.`);
+   if(!ok)return;
+   const prevAnchor=resetPlanToFirstUnread();
+   state.carryOverPlan={mode:"reschedule",startDate:todayISO(),chapters:[],prevAnchor};
+   saveState();
+   showToast(`Fresh start. Your plan continues from ${CHAPTERS[next]}.`);
+ }else if(mode==="ignore"){
+   const ok=await confirmDialog(`Let go of these ${carry.length} missed chapters? They will move to your Skipped list and leave your plan. You can bring them back any time.`);
+   if(!ok)return;
+   const log=logFor(todayISO());
+   log.unable=[...new Set([...(log.unable||[]),...carry])].sort((a,b)=>a-b);
+   state.carryOverPlan={mode:"ignore",startDate:todayISO(),chapters:carry,prevAnchor:null};
+   saveState();
+   showToast("Those chapters are set aside. You can bring them back from the Skipped list any time.");
+ }
+ renderDashboard();
+}
+function stopCarryPlan(){
+ clearCarryPlanEffects();
+ state.carryOverPlan=null;
+ saveState();
+ showToast("Catch-up plan stopped. Everything is back the way it was before the plan.");
 }
 function switchToBook(book){
  if(isExcluded(book)){showToast(`${book} is removed from your plan. Restore it first to read it next.`);return;}
@@ -642,6 +777,8 @@ async function resumeOriginalPlan(){
  state.readingOrder=originalOrder;
  state.detourBook=null;state.detourBeforeBook=null;
  state.planAnchor=null;
+ // Resuming the original schedule supersedes any catch-up plan.
+ state.carryOverPlan=null;
  saveState();
  showToast(`Original plan restored. Continue with ${CHAPTERS[next]}.`);
  if(activeView!=="today")showView("today");
@@ -956,6 +1093,72 @@ function renderDashCarry(carry){
  else{names.textContent=shown.map(formatCarryGroup).join(", ")+", and "+remaining+" more";toggle.textContent="Show all";toggle.setAttribute("aria-expanded","false")}
 }
 function toggleDashCarry(){dashCarryExpanded=!dashCarryExpanded;renderDashCarry(getCarryOverChapterIndexes())}
+// Catch-up section on the dashboard. It shows whenever there are missed
+// chapters, or whenever a catch-up plan is running, so the plan can always
+// be changed or stopped. The four choices are always offered while a
+// backlog exists; the active one is disabled because it is already on.
+function renderCarryRecovery(carry){
+ const panel=document.getElementById("carryRecoveryPanel");
+ if(!panel)return;
+ const plan=state.carryOverPlan;
+ if(!carry.length&&!plan){panel.hidden=true;return;}
+ panel.hidden=false;
+ const intro=document.getElementById("carryRecoveryIntro");
+ const active=document.getElementById("carryRecoveryActive");
+ const choices=document.getElementById("carryRecoveryChoices");
+ const stop=document.getElementById("carryRecoveryStop");
+ const done=doneSet();
+ if(plan){
+   active.hidden=false;
+   stop.hidden=false;
+   if(plan.mode==="extra"){
+     const total=plan.chapters.length,caught=plan.chapters.filter(i=>done.has(i)).length;
+     if(carry.length===0&&total>0&&caught>=total){
+       active.innerHTML=`<p style="margin:0"><strong>All caught up.</strong> You worked through all ${total} missed chapters, one extra a day. Well done.</p>`;
+     }else{
+       active.innerHTML=`<p style="margin:0"><strong>One extra a day is on.</strong> ${caught} of ${total} missed chapters caught up. Your daily reading includes the oldest missed chapter until they are done.</p>`;
+     }
+   }else if(plan.mode==="spread"){
+     const total=plan.chapters.length,caught=plan.chapters.filter(i=>done.has(i)).length;
+     const offset=Math.floor((parseDate(todayISO())-parseDate(plan.startDate))/86400000);
+     if(carry.length===0&&total>0&&caught>=total){
+       active.innerHTML=`<p style="margin:0"><strong>All caught up.</strong> You worked through all ${total} missed chapters. Well done.</p>`;
+     }else if(offset>6){
+       active.innerHTML=`<p style="margin:0"><strong>The 7 days are over.</strong> ${caught} of ${total} missed chapters caught up. The rest are back in your carry-over, and you can pick a new plan below.</p>`;
+     }else{
+       active.innerHTML=`<p style="margin:0"><strong>Spread over 7 days is on.</strong> Day ${Math.min(7,offset+1)} of 7 · ${caught} of ${total} missed chapters caught up.</p>`;
+     }
+   }else if(plan.mode==="reschedule"){
+     const next=firstUnread();
+     active.innerHTML=`<p style="margin:0"><strong>A fresh start is on.</strong> Your plan now continues from ${next<CHAPTERS.length?CHAPTERS[next]:"the end of the sequence"} at your normal pace. Your finish date moves later, and nothing you finished is lost.</p>`;
+   }else if(plan.mode==="ignore"){
+     active.innerHTML=`<p style="margin:0"><strong>${plan.chapters.length} missed chapter${plan.chapters.length===1?" is":"s are"} set aside.</strong> They are in your Skipped list on the Read page, and you can bring them back any time.</p>`;
+   }
+ }else{active.hidden=true;stop.hidden=true;}
+ if(carry.length){
+   intro.textContent=`You have ${carry.length} chapter${carry.length===1?"":"s"} from earlier days still to read. Here are some gentle ways to work through them — or let them go. No rush, no guilt.`;
+   choices.innerHTML="";
+   const defs=[
+     {mode:"extra",title:"One extra a day",desc:"Add the oldest missed chapter to each day's reading until you're caught up."},
+     {mode:"spread",title:"Spread over 7 days",desc:`Share the ${carry.length} missed chapters across the next 7 days, a few each day.`},
+     {mode:"reschedule",title:"Start fresh from today",desc:"Put the missed chapters back in order from today, at your normal pace. Your finish date moves later."},
+     {mode:"ignore",title:"Let them go",desc:"Skip the missed chapters and continue from today. You can bring them back any time."}
+   ];
+   for(const c of defs){
+     const b=document.createElement("button");
+     b.className="btn outline";b.type="button";
+     b.style.cssText="display:block;width:100%;text-align:left;margin:0 0 8px;padding:10px 12px";
+     b.innerHTML=`<strong>${c.title}</strong><span class="subtle" style="display:block;margin-top:2px">${c.desc}</span>`;
+     b.setAttribute("aria-label",`${c.title}. ${c.desc}`);
+     if(plan&&plan.mode===c.mode){b.disabled=true;b.style.opacity=".6";}
+     b.addEventListener("click",()=>applyCarryPlan(c.mode));
+     choices.appendChild(b);
+   }
+ }else{
+   intro.textContent="No missed chapters right now. Your plan below is still on, and you can stop it any time.";
+   choices.innerHTML="";
+ }
+}
 function renderDashboard(){
  const n=activeCompletedCount(),total=planTotal(),remain=total-n,pct=total?n/total*100:0,finish=projectedFinish();
  document.getElementById("progressPct").textContent=pct.toFixed(1)+"%";
@@ -998,8 +1201,9 @@ function renderDashboard(){
  }
  document.getElementById("dashCarryCount").textContent=carry.length;
  renderDashCarry(carry);
+ renderCarryRecovery(carry);
  document.getElementById("dashReadToday").textContent=completedToday.length;
- const todayDone=completedToday.length, todayGoal=planned.length;
+ const todayDone=completedToday.length, todayGoal=todaysPlanned.length;
  const todaySummary=document.getElementById("todaySummary");
  if(todaySummary)todaySummary.textContent=todayDone+" of "+todayGoal;
  const todayBar=document.getElementById("todayBar");
@@ -1053,6 +1257,10 @@ function buildPager(page,totalPages,onPage){
 }
 function renderToday(){
  const date=todayISO(),log=logFor(date),planned=getPlannedChapterIndexes(date),carry=getCarryOverChapterIndexes(date);
+ const recoveryToday=getRecoveryChapterIndexes(date);
+ // Recovery chapters are already in today's planned list; keep them out of
+ // the carry-over list so no chapter appears twice on this page.
+ const carryShown=carry.filter(i=>!recoveryToday.includes(i));
  const completedToday=(log.chapters||[]),target=planned.length+(log.extra||0);
  document.getElementById("todayIntro").textContent=state.planAnchor&&date>=state.planAnchor.date?"Your plan has been reset to your next unread chapter. No backlog is added to today's goal.":"Your original plan stays consistent. Earlier unfinished chapters are tracked separately as carry-over.";
  document.getElementById("catchUpAction").style.display=carry.length?"block":"none";
@@ -1096,8 +1304,8 @@ function updateScrollHint(box){
    if(!box._hintBound){box.addEventListener("scroll",()=>updateScrollHint(box));box._hintBound=true;}
    updateScrollHint(box);
  };
- renderRows("carryOverList",carry,"Carry over from an earlier day");
- renderRows("plannedReadingList",planned,"Original daily assignment");
+ renderRows("carryOverList",carryShown,"Carry over from an earlier day");
+ renderRows("plannedReadingList",planned,"Today's assignment");
  renderRows("completedTodayList",completedToday,"Completed today",true);
  // Chapters marked "unable to complete" are skipped for now: out of the
  // daily plan until the user brings them back.
@@ -1626,6 +1834,7 @@ async function importBackup(e){
         excludedBooks:Array.isArray(incoming.excludedBooks)?incoming.excludedBooks.filter(b=>typeof b==="string"):[],
         scheduleName:typeof incoming.scheduleName==="string"&&incoming.scheduleName.trim()?incoming.scheduleName:"Ronnie's Reading Schedule",
         targetFinishDate:typeof incoming.targetFinishDate==="string"?incoming.targetFinishDate:"",
+        carryOverPlan:normalizeCarryOverPlan(incoming.carryOverPlan),
         createdAt:incoming.createdAt||new Date().toISOString()
       };
       saveState({sync:false});
@@ -1666,6 +1875,18 @@ function cloudStatus(message, isError=false){
  const el=document.getElementById("syncStatus");
  if(el){el.textContent=message;el.style.color=isError?"#9a3d37":"";}
 }
+// Show or hide one of the avatar's two icons. The person icon is an SVG,
+// and SVG elements do not implement the `hidden` IDL property:
+// `svg.hidden = true` only sets a plain JS property and never sets the
+// `hidden` content attribute, so the `#avatarButton [hidden]` CSS rule could
+// never match it and the icon stayed visible next to the initial. Setting
+// the attribute AND the inline display makes the hiding work regardless of
+// element type or CSS order.
+function setAvatarIcon(el,show){
+ if(!el)return;
+ if(show){el.removeAttribute("hidden");el.style.display="";}
+ else{el.setAttribute("hidden","");el.style.display="none";}
+}
 function setAuthUI(user){
  cloudUser=user||null;
  const signedOut=document.getElementById("authSignedOut");
@@ -1678,12 +1899,12 @@ function setAuthUI(user){
   const avatarPerson=document.getElementById("avatarPersonIcon");
   if(cloudUser){
    const email=cloudUser.email||"";
-   if(avatarInitial){avatarInitial.textContent=(email.charAt(0)||"").toUpperCase();avatarInitial.hidden=false;}
-   if(avatarPerson)avatarPerson.hidden=true;
+   if(avatarInitial){avatarInitial.textContent=(email.charAt(0)||"").toUpperCase();setAvatarIcon(avatarInitial,true);}
+   setAvatarIcon(avatarPerson,false);
    avatarBtn.setAttribute("aria-label",`Account menu. Signed in as ${email||"your account"}.`);
   }else{
-   if(avatarInitial){avatarInitial.textContent="";avatarInitial.hidden=true;}
-   if(avatarPerson)avatarPerson.hidden=false;
+   if(avatarInitial){avatarInitial.textContent="";setAvatarIcon(avatarInitial,false);}
+   setAvatarIcon(avatarPerson,true);
    avatarBtn.setAttribute("aria-label","Account menu. Signed out.");
   }
  }
@@ -1874,6 +2095,7 @@ function mergeStates(localState, cloudState) {
    excludedBooks:[...new Set([...(localState?.excludedBooks||[]),...(cloudState?.excludedBooks||[])])],
    scheduleName:localState?.scheduleName||cloudState?.scheduleName||"Ronnie's Reading Schedule",
    targetFinishDate:localState?.targetFinishDate||cloudState?.targetFinishDate||"",
+   carryOverPlan:normalizeCarryOverPlan(localState?.carryOverPlan||cloudState?.carryOverPlan||null),
    createdAt:localState?.createdAt||cloudState?.createdAt||new Date().toISOString()
  };
  return reconcileState(merged);

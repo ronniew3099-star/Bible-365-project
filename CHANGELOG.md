@@ -8,6 +8,20 @@ Verified by: re-reading every changed function, `node --check` on the extracted 
 
 ---
 
+## Catching up, gently — carry-over recovery choices, Figma audit item 5 (Nov 23, 2026)
+
+The Figma audit said a big carry-over number feels discouraging. A new "Catching up, gently" panel now sits on the dashboard below the Today's reading overview, and only shows when there is carry-over to deal with or a plan is running.
+- Four choices, each a real plan change: "One extra a day" (adds the oldest missed chapter to each day's reading until caught up); "Spread over 7 days" (shares the missed chapters across the next 7 days); "Start fresh from today" (puts the missed chapters back in order from today at the normal pace, finish date moves later); "Let them go" (skips the missed chapters and continues from today).
+- Skipped chapters are not completed or deleted. They appear in the Read view's Skipped section with individual "Bring back" buttons.
+- The active plan shows its progress (e.g. "3 of 14 missed chapters caught up.") with a "Stop this plan" button. Picking a different choice undoes the old plan's effects first. The daily target setting itself never changes.
+- "Start fresh from today" and "Let them go" ask for confirmation first, using the app's own confirm dialog.
+
+## Avatar icon fix and sticky pager fix (Nov 23, 2026)
+
+Two bugs Ronnie reported with screenshots on Nov 23, 8:09pm.
+- Avatar: the person icon showed next to the R even after the earlier header fix. Root cause: the person icon is an SVG, and setting .hidden on an SVG does nothing, so the icon never hid. It was not a cached copy. Fixed with a helper that sets the hidden attribute and the display directly. Signed in shows only the R; signed out shows only the person icon.
+- Sticky pager on the Books view: the pager rule had 175px of right padding sized for the old desktop buttons, squeezing "1 of 7" into a narrow strip on phones. It now uses 60px, matching the avatar. The pager also respects the phone's top safe area instead of jamming under the status bar, and the reading-schedule paragraph has right clearance so its text never runs under the avatar.
+
 ## Desktop account menu — Figma audit item 3 (Nov 23, 2026)
 
 The Figma audit said the desktop top-right controls (date, account button, refresh button) felt like three separate floating elements. The desktop now uses the same avatar and account menu pattern as phones.
