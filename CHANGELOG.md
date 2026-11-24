@@ -8,6 +8,13 @@ Verified by: re-reading every changed function, `node --check` on the extracted 
 
 ---
 
+## Next milestone replaces Overall Progress — Figma audit item 3 (Nov 23, 2026)
+
+The Figma audit said the hero ring and the Overall Progress card showed the same measurement. The ring stays; the card is now "Next milestone" instead.
+- It shows the closest unearned award and how far away it is (for Ronnie right now: "7-day streak — 1 more day"). It uses the current streak, not the longest ever, so after a missed day a new run starts from zero.
+- The exact count ("32 / 1,189") still shows in the Up next panel. The hero ring still shows the percentage.
+- The replacement shows in both layouts: the desktop third stat card and the phone compact summary.
+
 ## Catching up, gently — carry-over recovery choices, Figma audit item 5 (Nov 23, 2026)
 
 The Figma audit said a big carry-over number feels discouraging. A new "Catching up, gently" panel now sits on the dashboard below the Today's reading overview, and only shows when there is carry-over to deal with or a plan is running.

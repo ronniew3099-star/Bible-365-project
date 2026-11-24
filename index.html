@@ -144,7 +144,7 @@ main{padding:34px clamp(18px,4vw,60px) 90px;min-width:0}.topbar{display:flex;jus
     <div class="stats three" id="dashStats">
       <div class="stat"><label>Today's chapters</label><strong id="todayStat">0</strong><small>Read so far today</small><div class="today-summary"><label>Today:</label> <strong id="todaySummary">0 of 3</strong><div class="bar" id="todayBar" role="progressbar" aria-label="Today's reading progress" aria-valuemin="0" aria-valuemax="3" aria-valuenow="0"><span id="todayBarFill" style="width:0%"></span></div></div></div>
       <div class="stat"><label>Current streak</label><strong id="streakStat">0</strong><small id="streakDelta">days in a row</small></div>
-      <div class="stat"><label>Overall progress</label><strong id="completedStat">0 / 1,189</strong><small>One chapter at a time</small></div>
+      <div class="stat"><label>Next milestone</label><strong id="milestoneStat">—</strong><small id="milestoneDelta"></small></div>
     </div>
     <div class="panel" style="margin:0 0 18px">
       <div class="panel-head"><h3>Today's reading overview</h3></div>
@@ -980,6 +980,61 @@ function computeAwards(){
   {name:"The Fourfold Gospel",detail:"Finish Matthew, Mark, Luke, and John",icon:ICON_STAR,earned:groupFinished(GOSPEL_BOOKS)}
  ];
 }
+// The closest unearned award, so the dashboard can name the next goal.
+// Streak progress uses the current streak, not the longest ever: after a
+// missed day a new run starts from zero, so "1 more day" is only shown
+// when the current run is really one day away. Returns null when every
+// award is earned.
+function nextMilestone(){
+ const chapters=activeCompletedCount();
+ const total=planTotal();
+ const streak=currentStreak();
+ const bookMap=getBookProgress();
+ const completedBooks=[...bookMap.values()].filter(x=>x.done===x.total).length;
+ const ireaps=(state.ireapCompleted||[]).length;
+ const set=readingDatesSet();
+ const today=parseDate(todayISO());
+ const monday=new Date(today);monday.setDate(today.getDate()-((today.getDay()+6)%7));
+ const weekRead=[...set].filter(ds=>parseDate(ds)>=monday&&parseDate(ds)<=today).length;
+ const ym=todayISO().slice(0,7);
+ const monthRead=[...set].filter(ds=>ds.slice(0,7)===ym).length;
+ const daysInMonth=new Date(today.getFullYear(),today.getMonth()+1,0).getDate();
+ const groupDone=list=>list.filter(bookFinished).length;
+ const days=r=>r===1?"1 more day":r+" more days";
+ const books=r=>r===1?"1 more book":r+" more books";
+ const chaps=r=>r+" chapters to go";
+ const c=[
+  {name:"3-day streak",progress:streak/3,remaining:3-streak,text:days},
+  {name:"First book finished",progress:completedBooks/1,remaining:1-completedBooks,text:books},
+  {name:"First reflection",progress:ireaps/1,remaining:1-ireaps,text:r=>r+" reflection to go"},
+  {name:"10 chapters",progress:chapters/10,remaining:10-chapters,text:chaps},
+  {name:"7-day streak",progress:streak/7,remaining:7-streak,text:days},
+  {name:"50 chapters",progress:chapters/50,remaining:50-chapters,text:chaps},
+  {name:"Five books",progress:completedBooks/5,remaining:5-completedBooks,text:books},
+  {name:"10 reflections",progress:ireaps/10,remaining:10-ireaps,text:r=>r+" reflections to go"},
+  {name:"100 chapters",progress:chapters/100,remaining:100-chapters,text:chaps},
+  {name:"A week of reading",progress:weekRead/7,remaining:7-weekRead,text:r=>r===1?"1 more day this week":r+" more days this week"},
+  {name:"Wisdom of Solomon",progress:groupDone(SOLOMON_BOOKS)/SOLOMON_BOOKS.length,remaining:SOLOMON_BOOKS.length-groupDone(SOLOMON_BOOKS),text:books},
+  {name:"The Fourfold Gospel",progress:groupDone(GOSPEL_BOOKS)/GOSPEL_BOOKS.length,remaining:GOSPEL_BOOKS.length-groupDone(GOSPEL_BOOKS),text:books},
+  {name:"The Law",progress:groupDone(TORAH_BOOKS)/TORAH_BOOKS.length,remaining:TORAH_BOOKS.length-groupDone(TORAH_BOOKS),text:books},
+  {name:"30-day streak",progress:streak/30,remaining:30-streak,text:days},
+  {name:"500 chapters",progress:chapters/500,remaining:500-chapters,text:chaps},
+  {name:"Ten books",progress:completedBooks/10,remaining:10-completedBooks,text:books},
+  {name:"50 reflections",progress:ireaps/50,remaining:50-ireaps,text:r=>r+" reflections to go"},
+  {name:"A month of reading",progress:monthRead/daysInMonth,remaining:daysInMonth-monthRead,text:r=>r===1?"1 more day this month":r+" more days this month"},
+  {name:"Voice of the Prophets",progress:groupDone(NEVIIM_BOOKS)/NEVIIM_BOOKS.length,remaining:NEVIIM_BOOKS.length-groupDone(NEVIIM_BOOKS),text:books},
+  {name:"Wisdom and Worship",progress:groupDone(KETUVIM_BOOKS)/KETUVIM_BOOKS.length,remaining:KETUVIM_BOOKS.length-groupDone(KETUVIM_BOOKS),text:books},
+  {name:"Covenant Keeper",progress:groupDone(OT_BOOKS)/OT_BOOKS.length,remaining:OT_BOOKS.length-groupDone(OT_BOOKS),text:books},
+  {name:"New Covenant",progress:groupDone(NT_BOOKS)/NT_BOOKS.length,remaining:NT_BOOKS.length-groupDone(NT_BOOKS),text:books},
+  {name:"Whole Bible",progress:total?chapters/total:0,remaining:total-chapters,text:chaps}
+ ];
+ let best=null;
+ for(const m of c){
+  if(m.progress>=1)continue;
+  if(!best||m.progress>best.progress)best=m;
+ }
+ return best;
+}
 function awardCardHTML(m){
  return `<span class="medal" aria-hidden="true">${m.icon}</span><div><strong>${m.name}</strong><small>${m.detail}</small></div><span class="award-state">${m.earned?"✓ Earned":"Locked"}</span>`;
 }
@@ -1164,7 +1219,9 @@ function renderDashboard(){
  document.getElementById("progressPct").textContent=pct.toFixed(1)+"%";
  document.getElementById("progressRing").style.setProperty("--progress",(pct*3.6)+"deg");
  document.getElementById("todayStat").textContent=((state.logs[todayISO()]||{}).chapters||[]).length;
- document.getElementById("completedStat").textContent=n.toLocaleString()+" / "+total.toLocaleString();
+ const milestone=nextMilestone();
+ document.getElementById("milestoneStat").textContent=milestone?milestone.name:"All done";
+ document.getElementById("milestoneDelta").textContent=milestone?milestone.text(milestone.remaining):"Every milestone earned";
  const streak=currentStreak();
  document.getElementById("streakStat").textContent=streak;
  document.getElementById("streakDelta").textContent=streak===1?"day in a row":"days in a row";
