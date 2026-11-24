@@ -8,6 +8,10 @@ Verified by: re-reading every changed function, `node --check` on the extracted 
 
 ---
 
+## Read lists scroll after 5 chapters on all sizes — Nov 23, 2026
+
+The three Read-view lists (carry-over, planned, completed today) used to scroll after 5 chapters on phones only, 8 on tablet, and 10 on desktop. They now scroll after 5 chapters on every size, matching mobile: the `.scroll-list` max-height is 365px everywhere (5 rows plus a peek of the 6th). The tablet 575px and desktop 715px heights are gone, and so is the now-redundant phone override. The scrollbar styling and the "Scroll for more" hints are unchanged, and the hints now trigger on larger screens too when a list is scrollable.
+
 ## Catch-up options as a dropdown on the Read page — Nov 23, 2026
 
 The "Catching up, gently" panel is gone, and the catch-up choices do not live on the dashboard at all. The four recovery choices now live on the Read page (the Today view), above the carry-over list, under a "Catch me up" button that opens a dropdown. Tapping it opens the four choices; it closes on a second tap, on outside tap, or on Escape. The choices and what they do are unchanged. When a plan is running, a short status line shows it on the Read page without opening the dropdown. The button only appears when there is carry-over to deal with or a plan running. (Correction: the dropdown was first built inside the dashboard's Today's reading panel; Ronnie said it belongs on the Read page entirely, so it was moved there before any deploy.) The old "Catch Me Up" reset-pace box was removed from the Read page — the dropdown replaces it (its "Start fresh from today" choice does the same thing).
