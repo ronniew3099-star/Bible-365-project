@@ -8,6 +8,15 @@ Verified by: re-reading every changed function, `node --check` on the extracted 
 
 ---
 
+## Today's reading and Start reading — Figma audit item 2 (Nov 23, 2026)
+
+The Figma audit said the dashboard reports progress well but the user's main task is reading. A new "Today's reading" panel now sits right after the hero on the dashboard, on all screen sizes.
+- It shows today's planned chapters by name (e.g. Colossians 1 · Colossians 2 · Colossians 3) with the count, and a gold "Start reading" button that opens the Read page.
+- Start reading only navigates to the Read page. It does not mark anything complete; Ronnie still marks each chapter complete himself after reading it, same as before.
+- Chapters already read today show with a checkmark and struck-through text. When all of today's chapters are done, the panel says "Today's reading is complete." and the button becomes a quieter link to the Read page. When no chapters are planned, it says "No scheduled chapters".
+- The chapter list is a fixed set for the day (a new helper that mirrors the planned-chapters function without filtering out completed chapters), so a chapter does not roll off the list as soon as it is marked done. The rolling planned list used by the overview panel, the compact summary, and the Read view is unchanged.
+- The hero buttons, the compact summary, the overview panel, and everything else are unchanged.
+
 ## Compact progress summary on mobile — Figma audit item 1 (Nov 23, 2026)
 
 The Figma audit said the three full-width statistic cards take about a whole phone screen. On phones (max-width 700px) they are now one compact summary card instead of three stacked cards.
