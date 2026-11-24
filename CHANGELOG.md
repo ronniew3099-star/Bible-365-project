@@ -8,6 +8,17 @@ Verified by: re-reading every changed function, `node --check` on the extracted 
 
 ---
 
+## Motivational copy by state — Figma audit item 21 (Nov 23, 2026)
+
+The Figma audit said the hero copy should say the right thing for where the user actually is. The hero text now changes with state, on both the desktop and the short phone version.
+- New user: "Your journey begins today."
+- On pace: "You're right on pace."
+- Behind or missed days: "Your plan moves with you. Miss a day? Pick up where you left off — no rush, no guilt."
+- Finished today: "Today's reading is complete."
+- Just reached a milestone (within the past 7 days): "You've completed your first 50 chapters." (number is dynamic)
+- All done: "You've completed the entire reading sequence. Praise God!"
+- For Ronnie right now the hero reads the behind-days line. The finish-line message was reviewed and left unchanged; it already matched.
+
 ## Next milestone replaces Overall Progress — Figma audit item 3 (Nov 23, 2026)
 
 The Figma audit said the hero ring and the Overall Progress card showed the same measurement. The ring stays; the card is now "Next milestone" instead.

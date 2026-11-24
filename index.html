@@ -133,7 +133,7 @@ main{padding:34px clamp(18px,4vw,60px) 90px;min-width:0}.topbar{display:flex;jus
     <div class="hero">
       <div class="hero-intro"><div class="hero-art" aria-hidden="true"><svg width="104" height="78" viewBox="0 0 104 78"><path d="M52 74V58" stroke="#8a5a1d" stroke-width="5" stroke-linecap="round"/><path d="M52 58C36 58 26 48 26 36c0-4 2-7 5-9 1-5 5-8 10-8 2-3 5-5 11-5s9 2 11 5c5 0 9 3 10 8 3 2 5 5 5 9 0 12-10 22-26 22z" fill="#d9ae62"/><path d="M52 44c-4-2-6-6-5-10 1 1 2 2 4 2 0-4 2-7 5-9-1 3 0 5 1 6 1-2 3-4 6-4-1 2 0 4 1 5 2 2 3 5 1 8-2 4-9 5-13 2z" fill="#fff7e0"/></svg></div><div class="eyebrow">Keep showing up</div><h2>Small steps. Lasting growth.</h2></div>
       <div class="progress-ring" id="progressRing"><div><strong id="progressPct">0%</strong><small>completed</small></div></div>
-      <div class="hero-body"><p><span class="hero-text-full">Your plan moves with you. Miss a day? Pick up where you left off. Read extra? Your finish date moves closer.</span><span class="hero-text-short">Miss a day? Pick up where you left off.</span></p><div class="hero-actions"><button class="btn primary" onclick="showView('today')">Open today's reading →</button><button class="btn light" onclick="showView('calendar')">View calendar</button></div></div>
+      <div class="hero-body"><p><span class="hero-text-full" id="heroTextFull">Your plan moves with you. Miss a day? Pick up where you left off. Read extra? Your finish date moves closer.</span><span class="hero-text-short" id="heroTextShort">Miss a day? Pick up where you left off.</span></p><div class="hero-actions"><button class="btn primary" onclick="showView('today')">Open today's reading →</button><button class="btn light" onclick="showView('calendar')">View calendar</button></div></div>
     </div>
     <div class="panel" id="todayStartPanel" style="margin:0 0 18px">
       <div class="panel-head"><h3>Today's reading</h3><span class="subtle" id="todayStartCount"></span></div>
@@ -1035,6 +1035,30 @@ function nextMilestone(){
  }
  return best;
 }
+// The chapter milestone crossed on the most recent reading day on which a
+// crossing happened, or null. Honest detection: walk the logged reading days
+// in order, tracking the running total, and note each threshold crossed.
+// Only counts if that crossing day was within the past week, so the
+// celebration stays fresh and never masks a longer gap.
+const MILESTONE_THRESHOLDS=[10,50,100,500,1000];
+function lastMilestoneCrossed(){
+ const entries=Object.entries(state.logs||{}).filter(([d,l])=>d<=todayISO()&&(l.chapters||[]).length>0);
+ if(!entries.length)return null;
+ const sorted=entries.map(([d,l])=>({date:d,count:l.chapters.length})).sort((a,b)=>a.date<b.date?-1:1);
+ const now=activeCompletedCount();
+ let running=now;
+ for(const e of sorted)running-=e.count;
+ running=Math.max(0,running);
+ let crossed=null,crossedDate=null;
+ for(const e of sorted){
+  const after=running+e.count;
+  for(const t of MILESTONE_THRESHOLDS){if(running<t&&t<=after){crossed=t;crossedDate=e.date;}}
+  running=after;
+ }
+ if(crossed===null)return null;
+ const daysAgo=Math.round((parseDate(todayISO())-parseDate(crossedDate))/86400000);
+ return daysAgo>7?null:crossed;
+}
 function awardCardHTML(m){
  return `<span class="medal" aria-hidden="true">${m.icon}</span><div><strong>${m.name}</strong><small>${m.detail}</small></div><span class="award-state">${m.earned?"✓ Earned":"Locked"}</span>`;
 }
@@ -1255,6 +1279,27 @@ function renderDashboard(){
    todayStartNote.hidden=false;
    todayStartBtn.hidden=true;
    todayStartLink.hidden=false;
+ }
+ // State-aware hero copy. The hero is the main motivational surface, so it
+ // says the right thing for where the user actually is. Priority: all done,
+ // then new user, then a milestone just reached, then today's reading done,
+ // then behind, then on track. Both the full and short texts carry the same
+ // message (the toggle uses display:none, so screen readers hear only the
+ // visible one). Wording stays gentle — no guilt for missed days.
+ const heroFull=document.getElementById("heroTextFull"),heroShort=document.getElementById("heroTextShort");
+ if(heroFull&&heroShort){
+  const target=state.targetFinishDate||ORIGINAL_FINISH;
+  const behind=carry.length>0||finish>target;
+  const todayAllDone=todaysPlanned.length>0&&todaysPlanned.every(i=>doneAll.has(i));
+  const crossed=lastMilestoneCrossed();
+  let full,short;
+  if(remain===0){full="You've completed the entire reading sequence. Praise God!";short="You've completed the entire reading sequence.";}
+  else if(n===0){full="Your journey begins today. Your first chapters are waiting — one at a time, at your own pace.";short="Your journey begins today.";}
+  else if(crossed){full=`You've completed your first ${crossed.toLocaleString()} chapters. That's real progress — take a moment to celebrate it.`;short=`You've completed your first ${crossed.toLocaleString()} chapters.`;}
+  else if(todayAllDone){full="Today's reading is complete. Well done — rest in that, and tomorrow brings fresh chapters.";short="Today's reading is complete.";}
+  else if(behind){full="Your plan moves with you. Miss a day? Pick up where you left off — no rush, no guilt.";short="Continue where you left off.";}
+  else{full="You're right on pace. Keep showing up, one chapter at a time.";short="You're right on pace.";}
+  heroFull.textContent=full;heroShort.textContent=short;
  }
  document.getElementById("dashCarryCount").textContent=carry.length;
  renderDashCarry(carry);
