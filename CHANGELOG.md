@@ -8,6 +8,14 @@ Verified by: re-reading every changed function, `node --check` on the extracted 
 
 ---
 
+## Compact progress summary on mobile — Figma audit item 1 (Nov 23, 2026)
+
+The Figma audit said the three full-width statistic cards take about a whole phone screen. On phones (max-width 700px) they are now one compact summary card instead of three stacked cards.
+- Top row: "Today: X of Y" with a small progress bar underneath (X = chapters read today, Y = chapters planned today, from the same planned-chapters source the overview panel uses). The bar has a progressbar role with aria values for screen readers.
+- Below it, two compact values side by side inside the same card: Current streak and Overall progress.
+- All three numbers are still visible on phones; nothing was removed, only compacted. The three inner values have no separate card containers on mobile.
+- Laptop and tablet are unchanged: the three stat cards stay exactly as they are.
+
 ## Header bug fix — account menu and avatar (Nov 23, 2026)
 
 Ronnie sent a screenshot showing the account menu with both "Sign in" and "Sign out" at once, and the avatar with both the "R" initial and the person icon at once. Root cause: the code was hiding the extra one, but the styling overruled the hiding, so both showed anyway.
