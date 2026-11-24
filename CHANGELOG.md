@@ -8,6 +8,16 @@ Verified by: re-reading every changed function, `node --check` on the extracted 
 
 ---
 
+## Desktop account menu — Figma audit item 3 (Nov 23, 2026)
+
+The Figma audit said the desktop top-right controls (date, account button, refresh button) felt like three separate floating elements. The desktop now uses the same avatar and account menu pattern as phones.
+- One circular purple avatar sits in the top-right on all screen sizes (initial when signed in, person icon when signed out). It opens the account menu with the email line, a sync status line, Refresh, and Sign in / Sign out.
+- The separate desktop account button and refresh button are deleted. Refresh still works, it now lives in the menu.
+- The date now sits directly under the "Your Journey" heading instead of floating top-right. On phones the date stays hidden, same as before.
+- Sync status shows subtly in the menu: "Not synced yet" when signed out or no sync has run, "Synced just now" within 60 seconds of a sync, otherwise "Synced at h:mm AM/PM". It updates on every successful sync and each time the menu opens.
+- Sign out in the menu is one tap on all sizes now. The desktop two-tap guard is gone with the exposed button it guarded; opening the menu is the guard.
+- Phone behaviour is unchanged: same avatar, same menu, same one-tap sign-out.
+
 ## Today's reading and Start reading — Figma audit item 2 (Nov 23, 2026)
 
 The Figma audit said the dashboard reports progress well but the user's main task is reading. A new "Today's reading" panel now sits right after the hero on the dashboard, on all screen sizes.
