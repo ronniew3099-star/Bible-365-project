@@ -8,6 +8,17 @@ Verified by: re-reading every changed function, `node --check` on the extracted 
 
 ---
 
+## Consistent naming — Figma audit item 19 (Nov 23, 2026)
+
+One term for each concept, everywhere. Text changes only.
+- Today's work is always "Today's reading". The Read view heading was "Your reading"; it now says "Today's reading".
+- Done today is always "Completed today". The top stat was "Today's chapters / Read so far today"; it now says "Completed today / Chapters completed today".
+- The backlog is always "carry-over" (hyphenated), not "missed chapters" or "backlog".
+- The daily goal is always "Daily target".
+- The dashboard panel is now "Your awards", matching the Awards page.
+- "Assignment" now means the full daily assignment (carry-over + planned). The planned-only portion now says "Planned today" / "Your planned chapters for today."
+- Ronnie's own wording was not touched ("Scripture Deep Dive", his IREAP copy, "Minimize", and the rest).
+
 ## Motivational copy by state — Figma audit item 21 (Nov 23, 2026)
 
 The Figma audit said the hero copy should say the right thing for where the user actually is. The hero text now changes with state, on both the desktop and the short phone version.
