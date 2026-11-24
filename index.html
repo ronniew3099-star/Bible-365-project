@@ -84,6 +84,8 @@ main{padding:34px clamp(18px,4vw,60px) 90px;min-width:0}.topbar{display:flex;jus
 .today-chapters{font-size:15px;line-height:1.7}
 .today-chapter{font-weight:650}
 .today-chapter.done{color:var(--muted);text-decoration:line-through;font-weight:400}
+#catchUpMenu{display:none;position:absolute;top:calc(100% + 8px);left:0;z-index:20;background:#fff;border:1px solid var(--line);border-radius:14px;box-shadow:0 8px 24px rgba(58,32,110,.12);min-width:280px;max-width:100%;padding:14px}
+#catchUpMenu.open{display:block}
 .pager{display:flex;gap:8px;align-items:center;margin-top:14px;flex-wrap:wrap}
 .pager .page-label{font-size:12px;color:var(--muted);flex:1;text-align:center}
 #bookPager,#awardPager{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--bg);padding:8px 60px 8px 0}
@@ -161,13 +163,6 @@ main{padding:34px clamp(18px,4vw,60px) 90px;min-width:0}.topbar{display:flex;jus
       </div>
       <div id="dashOutstandingIreaps" class="subtle" style="margin-top:12px"></div>
     </div>
-    <div class="panel" id="carryRecoveryPanel" style="margin:0 0 18px" hidden>
-      <div class="panel-head"><h3>Catching up, gently</h3></div>
-      <p class="subtle" id="carryRecoveryIntro" style="margin:0 0 12px"></p>
-      <div id="carryRecoveryActive" style="margin:0 0 12px" hidden></div>
-      <div id="carryRecoveryChoices"></div>
-      <div style="margin-top:4px"><button class="btn ghost" type="button" id="carryRecoveryStop" onclick="stopCarryPlan()" hidden>Stop this plan</button></div>
-    </div>
     <div class="feature-section panel">
       <div class="panel-head"><h3>Reading rhythm</h3><span class="subtle">Your recent rhythm</span></div>
       <div class="feature-grid">
@@ -199,10 +194,19 @@ main{padding:34px clamp(18px,4vw,60px) 90px;min-width:0}.topbar{display:flex;jus
 
   <section class="view" id="view-today">
     <h2 class="section-title">Today's reading</h2><p class="section-intro" id="todayIntro">Your next chapters are ready when you are.</p>
-    <div id="catchUpAction" style="display:none;margin:-8px 0 18px;padding:15px 17px;border:1px solid var(--line);border-radius:16px;background:var(--paper)"><strong>Fallen behind? You can reset your pace.</strong><p class="subtle" style="margin:4px 0 11px">Catch Me Up moves your plan to your next unread chapter. It will not mark carry-over chapters as completed.</p><button class="btn ghost" type="button" onclick="catchMeUp()">↻ Catch Me Up</button></div>
     <div class="reading-layout">
       <div class="reading-card">
         <div class="reading-head"><div><h2 id="todayReadingTitle">Today's reading</h2><span class="pill" id="dailyProgressPill">0 completed today</span></div><div class="subtle" id="targetLabel">Daily target: 3</div></div>
+        <p class="subtle" id="todayCatchupStatus" style="margin:0 0 10px" hidden></p>
+        <div id="catchUpWrap" style="position:relative;margin-bottom:16px" hidden>
+          <button class="btn ghost" type="button" id="catchUpToggle" onclick="toggleCatchUpMenu()" aria-haspopup="true" aria-expanded="false">Catch me up ▾</button>
+          <div id="catchUpMenu" role="menu" aria-label="Catch-up choices">
+            <p class="subtle" id="catchUpIntro" style="margin:0 0 12px"></p>
+            <div id="catchUpActive" style="margin:0 0 12px" hidden></div>
+            <div id="catchUpChoices"></div>
+            <div style="margin-top:4px"><button class="btn ghost" type="button" id="catchUpStop" onclick="stopCarryPlan()" hidden>Stop this plan</button></div>
+          </div>
+        </div>
         <section style="margin-bottom:20px">
           <div class="panel-head"><h3>Carry-over Chapters</h3><span class="pill" id="carryProgressPill">0 outstanding</span></div>
           <p class="subtle">Unfinished chapters from earlier days.</p>
@@ -636,8 +640,7 @@ function skippedChapters(){
 function skippedSet(){return new Set(skippedChapters().map(x=>x.index))}
 // Point the plan anchor at the next unread chapter, starting today.
 // Returns the previous anchor (or null) so the change can be undone.
-// This is what Catch Me Up does, and what the "start fresh" recovery
-// choice uses.
+// This is what the "start fresh" recovery choice uses.
 function resetPlanToFirstUnread(){
  const prevAnchor=state.planAnchor?{...state.planAnchor}:null;
  const next=firstUnread();
@@ -647,16 +650,6 @@ function resetPlanToFirstUnread(){
    : scheduleIndexForDate(today);
  state.planAnchor={date:today,chapterIndex:next,scheduleIndex};
  return prevAnchor;
-}
-async function catchMeUp(){
- const next=firstUnread();
- if(next>=CHAPTERS.length){showToast("You've completed the entire Bible reading sequence!");return;}
- const ok=await confirmDialog(`Catch Me Up will reset today's plan to ${CHAPTERS[next]} and remove the carry-over from your schedule. Your carry-over chapters will remain unread, not completed. Continue?`);
- if(!ok)return;
- resetPlanToFirstUnread();
- // A reset supersedes any catch-up plan that was running.
- state.carryOverPlan=null;
- saveState();showToast(`Plan reset. Start fresh with ${CHAPTERS[next]}.`);
 }
 // Undo what the active catch-up plan changed, without clearing the plan
 // record itself. The caller clears the record, or replaces it with a new
@@ -1172,21 +1165,28 @@ function renderDashCarry(carry){
  else{names.textContent=shown.map(formatCarryGroup).join(", ")+", and "+remaining+" more";toggle.textContent="Show all";toggle.setAttribute("aria-expanded","false")}
 }
 function toggleDashCarry(){dashCarryExpanded=!dashCarryExpanded;renderDashCarry(getCarryOverChapterIndexes())}
-// Catch-up section on the dashboard. It shows whenever there are missed
-// chapters, or whenever a catch-up plan is running, so the plan can always
-// be changed or stopped. The four choices are always offered while a
-// backlog exists; the active one is disabled because it is already on.
+// Catch-up choices live on the Read page as a dropdown, above the
+// carry-over list. They show whenever there are carry-over chapters,
+// or whenever a catch-up plan is running, so the plan can always be
+// changed or stopped. The four choices are always offered while
+// carry-over exists; the active one is disabled because it is already
+// on. The short status line stays visible on the Read page without
+// opening the dropdown; the full detail and the Stop button live in
+// the menu.
 function renderCarryRecovery(carry){
- const panel=document.getElementById("carryRecoveryPanel");
- if(!panel)return;
+ const wrap=document.getElementById("catchUpWrap");
+ const toggle=document.getElementById("catchUpToggle");
+ const status=document.getElementById("todayCatchupStatus");
+ if(!wrap||!toggle||!status)return;
  const plan=state.carryOverPlan;
- if(!carry.length&&!plan){panel.hidden=true;return;}
- panel.hidden=false;
- const intro=document.getElementById("carryRecoveryIntro");
- const active=document.getElementById("carryRecoveryActive");
- const choices=document.getElementById("carryRecoveryChoices");
- const stop=document.getElementById("carryRecoveryStop");
+ if(!carry.length&&!plan){wrap.hidden=true;status.hidden=true;closeCatchUpMenu();return;}
+ wrap.hidden=false;
+ const intro=document.getElementById("catchUpIntro");
+ const active=document.getElementById("catchUpActive");
+ const choices=document.getElementById("catchUpChoices");
+ const stop=document.getElementById("catchUpStop");
  const done=doneSet();
+ let statusText="";
  if(plan){
    active.hidden=false;
    stop.hidden=false;
@@ -1194,26 +1194,35 @@ function renderCarryRecovery(carry){
      const total=plan.chapters.length,caught=plan.chapters.filter(i=>done.has(i)).length;
      if(carry.length===0&&total>0&&caught>=total){
        active.innerHTML=`<p style="margin:0"><strong>All caught up.</strong> You worked through all ${total} carry-over chapters, one extra a day. Well done.</p>`;
+       statusText="All caught up.";
      }else{
        active.innerHTML=`<p style="margin:0"><strong>One extra a day is on.</strong> ${caught} of ${total} carry-over chapters caught up. Your daily reading includes the oldest carry-over chapter until they are done.</p>`;
+       statusText=`One extra a day is on. ${caught} of ${total} carry-over chapters caught up.`;
      }
    }else if(plan.mode==="spread"){
      const total=plan.chapters.length,caught=plan.chapters.filter(i=>done.has(i)).length;
      const offset=Math.floor((parseDate(todayISO())-parseDate(plan.startDate))/86400000);
      if(carry.length===0&&total>0&&caught>=total){
        active.innerHTML=`<p style="margin:0"><strong>All caught up.</strong> You worked through all ${total} carry-over chapters. Well done.</p>`;
+       statusText="All caught up.";
      }else if(offset>6){
        active.innerHTML=`<p style="margin:0"><strong>The 7 days are over.</strong> ${caught} of ${total} carry-over chapters caught up. The rest are back in your carry-over, and you can pick a new plan below.</p>`;
+       statusText=`The 7 days are over. ${caught} of ${total} carry-over chapters caught up.`;
      }else{
        active.innerHTML=`<p style="margin:0"><strong>Spread over 7 days is on.</strong> Day ${Math.min(7,offset+1)} of 7 · ${caught} of ${total} carry-over chapters caught up.</p>`;
+       statusText=`Spread over 7 days is on. Day ${Math.min(7,offset+1)} of 7 · ${caught} of ${total} carry-over chapters caught up.`;
      }
    }else if(plan.mode==="reschedule"){
      const next=firstUnread();
      active.innerHTML=`<p style="margin:0"><strong>A fresh start is on.</strong> Your plan now continues from ${next<CHAPTERS.length?CHAPTERS[next]:"the end of the sequence"} at your normal pace. Your finish date moves later, and nothing you finished is lost.</p>`;
+     statusText=`A fresh start is on. Your plan continues from ${next<CHAPTERS.length?CHAPTERS[next]:"the end of the sequence"} at your normal pace.`;
    }else if(plan.mode==="ignore"){
      active.innerHTML=`<p style="margin:0"><strong>${plan.chapters.length} carry-over chapter${plan.chapters.length===1?" is":"s are"} set aside.</strong> They are in your Skipped list on the Read page, and you can bring them back any time.</p>`;
+     statusText=`${plan.chapters.length} carry-over chapter${plan.chapters.length===1?" is":"s are"} set aside.`;
    }
- }else{active.hidden=true;stop.hidden=true;}
+   status.textContent=statusText;
+   status.hidden=false;
+ }else{active.hidden=true;stop.hidden=true;status.hidden=true;}
  if(carry.length){
    intro.textContent=`You have ${carry.length} chapter${carry.length===1?"":"s"} from earlier days still to read. Here are some gentle ways to work through them — or let them go. No rush, no guilt.`;
    choices.innerHTML="";
@@ -1234,7 +1243,7 @@ function renderCarryRecovery(carry){
      choices.appendChild(b);
    }
  }else{
-   intro.textContent="No carry-over chapters right now. Your plan below is still on, and you can stop it any time.";
+   intro.textContent="No carry-over chapters right now. Your plan is still on, and you can stop it any time.";
    choices.innerHTML="";
  }
 }
@@ -1303,7 +1312,6 @@ function renderDashboard(){
  }
  document.getElementById("dashCarryCount").textContent=carry.length;
  renderDashCarry(carry);
- renderCarryRecovery(carry);
  document.getElementById("dashReadToday").textContent=completedToday.length;
  const todayDone=completedToday.length, todayGoal=todaysPlanned.length;
  const todaySummary=document.getElementById("todaySummary");
@@ -1365,7 +1373,7 @@ function renderToday(){
  const carryShown=carry.filter(i=>!recoveryToday.includes(i));
  const completedToday=(log.chapters||[]),target=planned.length+(log.extra||0);
  document.getElementById("todayIntro").textContent=state.planAnchor&&date>=state.planAnchor.date?"Your plan has been reset to your next unread chapter. No carry-over is added to today's goal.":"Your original plan stays consistent. Earlier unfinished chapters are tracked separately as carry-over.";
- document.getElementById("catchUpAction").style.display=carry.length?"block":"none";
+ renderCarryRecovery(carry);
  document.getElementById("todayReadingTitle").textContent="Your daily reading";
  document.getElementById("dailyProgressPill").textContent=`${completedToday.length} completed today`;
  document.getElementById("targetLabel").textContent=`Daily target: ${target}`;
@@ -2102,6 +2110,28 @@ document.addEventListener("click",event=>{
  closeMoreMenu();
 });
 document.addEventListener("keydown",event=>{if(event.key==="Escape")closeMoreMenu();});
+function closeCatchUpMenu(){
+ const menu=document.getElementById("catchUpMenu");
+ if(menu)menu.classList.remove("open");
+ const btn=document.getElementById("catchUpToggle");
+ if(btn)btn.setAttribute("aria-expanded","false");
+}
+function toggleCatchUpMenu(){
+ const menu=document.getElementById("catchUpMenu");
+ const btn=document.getElementById("catchUpToggle");
+ if(!menu||!btn)return;
+ if(menu.classList.contains("open")){closeCatchUpMenu();return;}
+ menu.classList.add("open");
+ btn.setAttribute("aria-expanded","true");
+}
+document.addEventListener("click",event=>{
+ const menu=document.getElementById("catchUpMenu");
+ if(!menu||!menu.classList.contains("open"))return;
+ const btn=document.getElementById("catchUpToggle");
+ if(menu.contains(event.target)||(btn&&btn.contains(event.target)))return;
+ closeCatchUpMenu();
+});
+document.addEventListener("keydown",event=>{if(event.key==="Escape")closeCatchUpMenu();});
 async function handleAuthSession(session){
  const nextUser=session?.user||null;
  const previousId=cloudUser?.id||null;
