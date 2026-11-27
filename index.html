@@ -84,6 +84,19 @@ main{padding:34px clamp(18px,4vw,60px) 90px;min-width:0}.topbar{display:flex;jus
 .today-chapters{font-size:15px;line-height:1.7}
 .today-chapter{font-weight:650}
 .today-chapter.done{color:var(--muted);text-decoration:line-through;font-weight:400}
+.today-chapter-row{padding:9px 0;border-top:1px solid var(--line)}
+.today-chapter-row:first-child{border-top:0;padding-top:2px}
+.today-chapter-name{font-weight:650;font-size:15px}
+.today-chapter-row.done .today-chapter-name{color:var(--muted);text-decoration:line-through;font-weight:400}
+.today-chapter-tag{font-size:12px;color:var(--muted)}
+.today-tiles{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:14px}
+.home-links{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:0 0 18px}
+.home-link-card{background:var(--paper);border:1px solid var(--line);border-radius:var(--radius);box-shadow:0 8px 24px rgba(58,32,110,.06);padding:16px;text-align:left;cursor:pointer;font:inherit;color:var(--ink);width:100%}
+.home-link-title{display:block;font:20px Georgia,serif;color:var(--green)}
+.home-link-sub{display:block;color:var(--muted);font-size:12px;margin-top:5px;line-height:1.5}
+.ireap-line{display:flex;align-items:center;justify-content:space-between;gap:10px;width:100%;background:var(--paper);border:1px solid var(--line);border-radius:var(--radius);box-shadow:0 8px 24px rgba(58,32,110,.06);padding:16px 18px;font:inherit;font-size:14px;color:var(--ink);cursor:pointer;text-align:left;margin:0 0 18px}
+.finish-line-row{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.finish-line-row .btn{margin-left:auto}
 #catchUpMenu{display:none;position:absolute;top:calc(100% + 8px);left:0;z-index:20;background:#fff;border:1px solid var(--line);border-radius:14px;box-shadow:0 8px 24px rgba(58,32,110,.12);min-width:280px;max-width:100%;padding:14px}
 #catchUpMenu.open{display:block}
 .pager{display:flex;gap:8px;align-items:center;margin-top:14px;flex-wrap:wrap}
@@ -105,10 +118,9 @@ main{padding:34px clamp(18px,4vw,60px) 90px;min-width:0}.topbar{display:flex;jus
 .book-actions .btn{flex:1;min-width:0;display:flex;align-items:center;justify-content:center;gap:3px;padding:7px 4px;font-size:11px}.book-actions .btn-icon{width:16px;height:16px;flex:none;display:inline-flex;align-items:center;justify-content:center}.book-actions .btn-icon svg{width:15px;height:15px;display:block}
 @media(max-width:900px){.book-actions .btn{flex-direction:column;gap:2px;padding:8px 4px}.book-actions .btn-label{font-size:10px;line-height:1.2}.book-actions .btn-icon svg{width:16px;height:16px;display:block}}
 @media(max-width:380px){.book-grid{grid-template-columns:1fr}}
-@media(max-width:700px){.stats.three{grid-template-columns:1fr}#dashPlannedNames,#dashCarryNames{display:block;max-height:132px;overflow-y:auto}.hero-art{display:flex;justify-content:center}.topbar h1{font-size:32px}#moreMenu.open{display:block}.award-grid{grid-template-columns:1fr}.book-actions{flex-wrap:nowrap}.book-actions .btn{flex:1;flex-direction:column;gap:2px;min-width:0;min-height:0;padding:8px 4px}.book-actions .btn-label{display:block;font-size:10px;line-height:1.2}.book-actions .btn-icon svg{width:16px;height:16px;display:block}.pager .pager-word{display:none}}
+@media(max-width:700px){.stats.three{grid-template-columns:1fr}.hero-art{display:flex;justify-content:center}.topbar h1{font-size:32px}#moreMenu.open{display:block}.award-grid{grid-template-columns:1fr}.book-actions{flex-wrap:nowrap}.book-actions .btn{flex:1;flex-direction:column;gap:2px;min-width:0;min-height:0;padding:8px 4px}.book-actions .btn-label{display:block;font-size:10px;line-height:1.2}.book-actions .btn-icon svg{width:16px;height:16px;display:block}.pager .pager-word{display:none}}
 @media(max-width:700px){.hero-text-full{display:none}.hero-text-short{display:inline}.hero h2{margin:5px 0 6px}.hero-actions{margin-top:12px}.hero-art svg{width:64px;height:48px}}
 @media(max-width:360px){.hero-actions{flex-direction:column}.hero-actions .btn{width:100%}}
-@media(max-width:700px){#dashStats{grid-template-columns:1fr 1fr;background:var(--paper);border:1px solid var(--line);border-radius:var(--radius);box-shadow:0 8px 24px rgba(58,32,110,.06);padding:14px}#dashStats .stat{background:transparent;border:0;box-shadow:none;padding:0}#dashStats .stat:first-child{grid-column:1/-1}#dashStats .stat:first-child>label,#dashStats .stat:first-child>strong,#dashStats .stat:first-child>small{display:none}.today-summary{display:block}.today-summary .bar{margin-top:8px}}
 
 </style>
 </head>
@@ -135,61 +147,33 @@ main{padding:34px clamp(18px,4vw,60px) 90px;min-width:0}.topbar{display:flex;jus
     <div class="hero">
       <div class="hero-intro"><div class="hero-art" aria-hidden="true"><svg width="104" height="78" viewBox="0 0 104 78"><path d="M52 74V58" stroke="#8a5a1d" stroke-width="5" stroke-linecap="round"/><path d="M52 58C36 58 26 48 26 36c0-4 2-7 5-9 1-5 5-8 10-8 2-3 5-5 11-5s9 2 11 5c5 0 9 3 10 8 3 2 5 5 5 9 0 12-10 22-26 22z" fill="#d9ae62"/><path d="M52 44c-4-2-6-6-5-10 1 1 2 2 4 2 0-4 2-7 5-9-1 3 0 5 1 6 1-2 3-4 6-4-1 2 0 4 1 5 2 2 3 5 1 8-2 4-9 5-13 2z" fill="#fff7e0"/></svg></div><div class="eyebrow">Keep showing up</div><h2>Small steps. Lasting growth.</h2></div>
       <div class="progress-ring" id="progressRing"><div><strong id="progressPct">0%</strong><small>completed</small></div></div>
-      <div class="hero-body"><p><span class="hero-text-full" id="heroTextFull">Your plan moves with you. Miss a day? Pick up where you left off. Read extra? Your finish date moves closer.</span><span class="hero-text-short" id="heroTextShort">Miss a day? Pick up where you left off.</span></p><div class="hero-actions"><button class="btn primary" onclick="showView('today')">Open today's reading →</button><button class="btn light" onclick="showView('calendar')">View calendar</button></div></div>
+      <div class="hero-body"><p><span class="hero-text-full" id="heroTextFull">Your plan moves with you. Miss a day? Pick up where you left off. Read extra? Your finish date moves closer.</span><span class="hero-text-short" id="heroTextShort">Miss a day? Pick up where you left off.</span></p><div class="hero-actions"><button class="btn primary" onclick="showView('today')">Open today's reading →</button></div></div>
     </div>
-    <div class="panel" id="todayStartPanel" style="margin:0 0 18px">
-      <div class="panel-head"><h3>Today's reading</h3><span class="subtle" id="todayStartCount"></span></div>
+    <div class="panel" id="todayPanel" style="margin:0 0 18px">
+      <div class="panel-head"><h3 id="todayPanelHeading">Today</h3><span class="subtle" id="todayOverall"></span></div>
       <div id="todayStartChapters" class="today-chapters"></div>
       <p class="subtle" id="todayStartNote" style="margin:0" hidden></p>
+      <p class="subtle" id="todayCarryLine" style="margin:10px 0 0"></p>
+      <div class="today-tiles">
+        <div class="stat"><label>Current streak</label><strong id="streakStat">0</strong><small id="streakDelta">days in a row</small></div>
+        <div class="stat"><label>Next milestone</label><strong id="milestoneStat">—</strong><small id="milestoneDelta"></small></div>
+      </div>
       <div style="margin-top:16px"><button class="btn primary" type="button" id="todayStartBtn" onclick="showView('today')">Start reading</button><button class="btn ghost" type="button" id="todayStartLink" onclick="showView('today')" hidden>Open today's reading</button></div>
     </div>
-    <div class="stats three" id="dashStats">
-      <div class="stat"><label>Completed today</label><strong id="todayStat">0</strong><small>Chapters completed today</small><div class="today-summary"><label>Today:</label> <strong id="todaySummary">0 of 3</strong><div class="bar" id="todayBar" role="progressbar" aria-label="Today's reading progress" aria-valuemin="0" aria-valuemax="3" aria-valuenow="0"><span id="todayBarFill" style="width:0%"></span></div></div></div>
-      <div class="stat"><label>Current streak</label><strong id="streakStat">0</strong><small id="streakDelta">days in a row</small></div>
-      <div class="stat"><label>Next milestone</label><strong id="milestoneStat">—</strong><small id="milestoneDelta"></small></div>
+    <div class="home-links">
+      <button type="button" class="home-link-card" onclick="showView('calendar')"><span class="home-link-title">Reading calendar</span><span class="home-link-sub"><span id="insightWeek">0</span> chapters this week · <span id="insightMonth">0</span> this month · <span id="insightDays">0</span> reading days</span></button>
+      <button type="button" class="home-link-card" onclick="showView('awards')"><span class="home-link-title">Your awards</span><span class="home-link-sub" id="achievementCount">0 of 23 earned</span></button>
     </div>
+    <button type="button" class="ireap-line" onclick="showView('ireap')"><span id="ireapLineText">IREAP reflections</span><span aria-hidden="true">›</span></button>
     <div class="panel" style="margin:0 0 18px">
-      <div class="panel-head"><h3>Today's reading overview</h3></div>
-      <div class="stats three" style="margin:0 0 14px">
-        <div class="stat"><label>Planned chapters</label><strong id="dashPlannedCount">0</strong><small id="dashPlannedNames">Planned today</small></div>
-        <div class="stat"><label>Carry-over chapters</label><strong id="dashCarryCount">0</strong><small id="dashCarryNames">Outstanding from earlier days</small><div class="dash-carry-actions"><button type="button" id="dashCarryToggle" aria-expanded="false" onclick="toggleDashCarry()" hidden>Show all</button><button type="button" id="dashCarryReview" onclick="showView('today')" hidden>Review carry-over plan</button></div></div>
-        <div class="stat"><label>Completed today</label><strong id="dashReadToday">0</strong><small>Chapters completed today</small></div>
+      <div class="finish-line-row"><span>The finish line: <strong id="finishLarge">—</strong> at your pace</span><button type="button" class="btn ghost" id="changeDateBtn" onclick="toggleFinishDateEditor()" aria-expanded="false">Change date</button></div>
+      <div id="finishDateEditor" hidden>
+        <p class="subtle" id="finishMessage" style="margin:12px 0 0">Your estimate updates whenever you complete or miss reading days.</p>
+        <p class="subtle" style="margin:10px 0 0">Original target: <strong>December 31, 2027</strong>. Your estimate uses your recent reading pace and the chapters you have left.</p>
+        <div class="form-row" style="margin:14px 0 0"><label for="targetFinishDate">I want to finish by</label><input id="targetFinishDate" type="date" onchange="setTargetFinishDate(this.value)"></div>
+        <p class="subtle" id="targetPaceLine" style="margin:10px 0 0"></p>
       </div>
-      <div class="panel-head" style="margin:8px 0 10px"><h3>IREAP reflections</h3><span class="subtle">Tracked separately from reading</span></div>
-      <div class="stats three" style="margin:0">
-        <div class="stat"><label>Outstanding</label><strong id="dashIreapOutstanding">0</strong><small>Need reflection</small></div>
-        <div class="stat"><label>IREAP done today</label><strong id="dashIreapToday">0</strong><small>Reflections finished today</small></div>
-        <div class="stat"><label>Total completed</label><strong id="dashIreapTotal">0</strong><small>All-time reflections</small></div>
-      </div>
-      <div id="dashOutstandingIreaps" class="subtle" style="margin-top:12px"></div>
     </div>
-    <div class="feature-section panel">
-      <div class="panel-head"><h3>Reading rhythm</h3><span class="subtle">Your recent rhythm</span></div>
-      <div class="feature-grid">
-        <div class="feature-card"><label>This week</label><strong id="insightWeek">0</strong><small>chapters completed</small></div>
-        <div class="feature-card"><label>This month</label><strong id="insightMonth">0</strong><small>chapters completed</small></div>
-        <div class="feature-card"><label>Reading days</label><strong id="insightDays">0</strong><small>days with at least one chapter</small></div>
-      </div>
-      <div class="panel-head" style="margin:18px 0 10px"><h3>Reading calendar</h3><span class="subtle">Tap a day to view details</span></div>
-      <div class="cal-nav">
-        <select id="dashMonthSelect" aria-label="Choose month"></select>
-        <select id="dashYearSelect" aria-label="Choose year"></select>
-        <button class="btn primary" type="button" onclick="goToTodayDash()">Today</button>
-      </div>
-      <div class="calendar-grid" id="dashCalendarGrid"></div>
-      <p class="subtle" style="margin:12px 0 0">Darker purple means more chapters read that day.</p>
-      <div class="panel-head" style="margin:18px 0 10px"><h3>The finish line</h3><span class="subtle">A living estimate</span></div>
-      <div class="finish-box"><div class="subtle">Projected Bible completion</div><strong id="finishLarge">—</strong><p id="finishMessage">Your estimate updates whenever you complete or miss reading days.</p></div>
-      <p class="subtle" style="margin:14px 0 0">Original target: <strong>December 31, 2027</strong>. Your estimate uses your recent reading pace and the chapters you have left.</p>
-      <div class="form-row" style="margin:14px 0 0"><label for="targetFinishDate">I want to finish by</label><input id="targetFinishDate" type="date" onchange="setTargetFinishDate(this.value)"></div>
-      <p class="subtle" id="targetPaceLine" style="margin:10px 0 0"></p>
-    </div>
-    <div class="feature-section panel">
-      <div class="panel-head"><h3>Your awards</h3><span class="subtle" id="achievementCount">0 of 23 earned</span></div>
-      <div class="achievement-list" id="achievementList"></div>
-      <button class="btn ghost" style="margin-top:14px" onclick="showView('awards')">View all awards →</button>
-    </div>
-    <div class="panel"><div class="panel-head"><h3>Up next</h3><span class="pill" id="todayTargetPill">Daily target</span></div><div id="dashboardNext"></div><button class="btn ghost" style="margin-top:14px" onclick="showView('today')">Open today's reading</button></div>
   </section>
 
   <section class="view" id="view-today">
@@ -1059,8 +1043,8 @@ function renderAchievements(){
  const awards=computeAwards();
  const earned=awards.filter(m=>m.earned).length;
  document.getElementById("achievementCount").textContent=`${earned} of ${awards.length} earned`;
- const list=document.getElementById("achievementList");list.innerHTML="";
- awards.slice(0,6).forEach(m=>{const el=document.createElement("div");el.className="achievement"+(m.earned?"":" locked");el.innerHTML=awardCardHTML(m);list.appendChild(el)});
+ const list=document.getElementById("achievementList");
+ if(list){list.innerHTML="";awards.slice(0,6).forEach(m=>{const el=document.createElement("div");el.className="achievement"+(m.earned?"":" locked");el.innerHTML=awardCardHTML(m);list.appendChild(el)});}
 }
 function renderAwards(){
  const awards=computeAwards();
@@ -1142,7 +1126,6 @@ function setupReminderTimer(){
  updateReminderStatus();syncReminderCheckbox();
 }
 
-let dashCarryExpanded=false;
 function carryOverSummary(indexes){
  const groups=[];
  for(const i of indexes){
@@ -1154,17 +1137,6 @@ function carryOverSummary(indexes){
  return groups;
 }
 function formatCarryGroup(g){return g.start===g.end?g.book+" "+g.start:g.book+" "+g.start+"–"+g.end}
-function renderDashCarry(carry){
- const names=document.getElementById("dashCarryNames"),toggle=document.getElementById("dashCarryToggle"),review=document.getElementById("dashCarryReview");
- if(!carry.length){names.textContent="No outstanding carry-over";toggle.hidden=true;review.hidden=true;return}
- review.hidden=false;
- const groups=carryOverSummary(carry),shown=groups.slice(0,3),shownCount=shown.reduce((n,g)=>n+g.count,0),remaining=carry.length-shownCount;
- if(remaining<=0){toggle.hidden=true;names.textContent=groups.map(formatCarryGroup).join(", ");return}
- toggle.hidden=false;
- if(dashCarryExpanded){names.textContent=carry.map(i=>CHAPTERS[i]).join(" · ");toggle.textContent="Show less";toggle.setAttribute("aria-expanded","true")}
- else{names.textContent=shown.map(formatCarryGroup).join(", ")+", and "+remaining+" more";toggle.textContent="Show all";toggle.setAttribute("aria-expanded","false")}
-}
-function toggleDashCarry(){dashCarryExpanded=!dashCarryExpanded;renderDashCarry(getCarryOverChapterIndexes())}
 // Catch-up choices live on the Read page as a dropdown, above the
 // carry-over list. They show whenever there are carry-over chapters,
 // or whenever a catch-up plan is running, so the plan can always be
@@ -1251,7 +1223,7 @@ function renderDashboard(){
  const n=activeCompletedCount(),total=planTotal(),remain=total-n,pct=total?n/total*100:0,finish=projectedFinish();
  document.getElementById("progressPct").textContent=pct.toFixed(1)+"%";
  document.getElementById("progressRing").style.setProperty("--progress",(pct*3.6)+"deg");
- document.getElementById("todayStat").textContent=((state.logs[todayISO()]||{}).chapters||[]).length;
+ document.getElementById("todayOverall").textContent=`${n} of ${total.toLocaleString()} chapters`;
  const milestone=nextMilestone();
  document.getElementById("milestoneStat").textContent=milestone?milestone.name:"All done";
  document.getElementById("milestoneDelta").textContent=milestone?milestone.text(milestone.remaining):"Every milestone earned";
@@ -1263,25 +1235,24 @@ function renderDashboard(){
  updateTargetPace();
  const date=todayISO(), planned=getPlannedChapterIndexes(date), carry=getCarryOverChapterIndexes(date);
  const todayLog=state.logs[date]||{chapters:[]}, completedToday=todayLog.chapters||[];
- document.getElementById("dashPlannedCount").textContent=planned.length;
- document.getElementById("dashPlannedNames").textContent=planned.length?planned.map(i=>CHAPTERS[i]).join(" · "):"No scheduled chapters";
  const todaysPlanned=getTodaysPlannedChapterIndexes(date), doneAll=doneSet();
- const todayStartCount=document.getElementById("todayStartCount");
+ const todayPanelHeading=document.getElementById("todayPanelHeading");
  const todayStartChapters=document.getElementById("todayStartChapters");
  const todayStartNote=document.getElementById("todayStartNote");
  const todayStartBtn=document.getElementById("todayStartBtn");
  const todayStartLink=document.getElementById("todayStartLink");
  if(todaysPlanned.length){
    const allDone=todaysPlanned.every(i=>doneAll.has(i));
-   todayStartCount.textContent=todaysPlanned.length===1?"1 chapter":todaysPlanned.length+" chapters";
-   todayStartChapters.innerHTML=todaysPlanned.map(i=>`<span class="today-chapter${doneAll.has(i)?" done":""}">${doneAll.has(i)?"✓ ":""}${CHAPTERS[i]}</span>`).join(" · ");
+   const doneTodayCount=todaysPlanned.filter(i=>doneAll.has(i)).length;
+   todayPanelHeading.textContent=`Today · ${doneTodayCount} of ${todaysPlanned.length}`;
+   todayStartChapters.innerHTML=todaysPlanned.map(i=>`<div class="today-chapter-row${doneAll.has(i)?" done":""}"><div class="today-chapter-name">${doneAll.has(i)?"✓ ":""}${CHAPTERS[i]}</div><div class="today-chapter-tag">${doneAll.has(i)?"Done":"Planned today"}</div></div>`).join("");
    todayStartChapters.hidden=false;
    todayStartNote.textContent=allDone?"Today's reading is complete.":"";
    todayStartNote.hidden=!allDone;
    todayStartBtn.hidden=allDone;
    todayStartLink.hidden=!allDone;
  } else {
-   todayStartCount.textContent="";
+   todayPanelHeading.textContent="Today";
    todayStartChapters.innerHTML="";
    todayStartChapters.hidden=true;
    todayStartNote.textContent="No scheduled chapters";
@@ -1310,32 +1281,21 @@ function renderDashboard(){
   else{full="You're right on pace. Keep showing up, one chapter at a time.";short="You're right on pace.";}
   heroFull.textContent=full;heroShort.textContent=short;
  }
- document.getElementById("dashCarryCount").textContent=carry.length;
- renderDashCarry(carry);
- document.getElementById("dashReadToday").textContent=completedToday.length;
- const todayDone=completedToday.length, todayGoal=todaysPlanned.length;
- const todaySummary=document.getElementById("todaySummary");
- if(todaySummary)todaySummary.textContent=todayDone+" of "+todayGoal;
- const todayBar=document.getElementById("todayBar");
- if(todayBar){todayBar.setAttribute("aria-valuemax",todayGoal);todayBar.setAttribute("aria-valuenow",todayDone);}
- const todayBarFill=document.getElementById("todayBarFill");
- if(todayBarFill)todayBarFill.style.width=(todayGoal?Math.min(100,todayDone/todayGoal*100):0)+"%";
+ const carryLine=document.getElementById("todayCarryLine");
+ if(carryLine){
+   if(!carry.length)carryLine.textContent="No carry-over today";
+   else{
+     const groups=carryOverSummary(carry),shownGroups=groups.slice(0,3),shownCount=shownGroups.reduce((s,g)=>s+g.count,0),restCount=carry.length-shownCount;
+     carryLine.textContent=`${carry.length} carry-over chapter${carry.length===1?"":"s"}: `+shownGroups.map(formatCarryGroup).join(", ")+(restCount>0?`, and ${restCount} more`:"");
+   }
+ }
  const completedIreaps=state.ireapCompleted||[];
  const outstanding=state.completed.filter(i=>!completedIreaps.includes(i));
  const todayIreap=completedIreaps.filter(i=>state.ireapCompletedAt?.[i]?.slice(0,10)===date);
- document.getElementById("dashIreapOutstanding").textContent=outstanding.length;
- document.getElementById("dashIreapToday").textContent=todayIreap.length;
- document.getElementById("dashIreapTotal").textContent=completedIreaps.length;
- document.getElementById("dashOutstandingIreaps").textContent=outstanding.length?"Outstanding: "+outstanding.map(i=>CHAPTERS[i]).join(" · "):"No outstanding IREAP reflections.";
+ const ireapLineText=document.getElementById("ireapLineText");
+ if(ireapLineText)ireapLineText.textContent=`IREAP reflections · ${todayIreap.length} done today · ${completedIreaps.length} total · ${outstanding.length?outstanding.length+" outstanding":"none outstanding"}`;
  renderInsights();
  renderAchievements();
- renderDashCalendar();
- const target=totalTarget();document.getElementById("todayTargetPill").textContent=`Today's plan · ${planned.length} chapters`;
- const idx=firstUnread(), box=document.getElementById("dashboardNext");box.innerHTML="";
- const next=[...carry,...planned].filter((v,i,a)=>a.indexOf(v)===i&&!doneSet().has(v));
- if(!next.length){box.innerHTML='<p class="subtle">No outstanding reading assignments. Well done!</p>';return}
- next.slice(0,3).forEach((i,k)=>{const div=document.createElement("div");div.className="next-reading";div.innerHTML=`<div><div class="chapter-name">${CHAPTERS[i]}</div><div class="chapter-tag">${carry.includes(i)?"Carry-over": "Planned today"}</div></div>${k===0?`<span class="pill">${n} of ${total.toLocaleString()} completed</span>`:""}`;box.appendChild(div)});
-
 }
 function updateTargetPace(){
  const line=document.getElementById("targetPaceLine");if(!line)return;
@@ -1353,6 +1313,13 @@ function setTargetFinishDate(value){
  state.targetFinishDate=value||"";
  saveState();
  updateTargetPace();
+}
+function toggleFinishDateEditor(){
+ const editor=document.getElementById("finishDateEditor"),btn=document.getElementById("changeDateBtn");
+ if(!editor)return;
+ const open=editor.hidden;
+ editor.hidden=!open;
+ if(btn)btn.setAttribute("aria-expanded",String(open));
 }
 const todayPages={};
 function buildPager(page,totalPages,onPage){
@@ -1671,7 +1638,6 @@ function calendarDayButton(year,month,d){
  b.innerHTML=`<span class="num">${d}</span>${read?`<small>${chCount} ch · IREAP ${ireapCount}/${chCount}</small>`:""}`;
  return b;
 }
-let dashCalendarMonth=new Date();
 function fillMonthYearSelects(monthSel,yearSel){
  if(monthSel&&!monthSel.options.length){
    const months=["January","February","March","April","May","June","July","August","September","October","November","December"];
@@ -1683,37 +1649,15 @@ function fillMonthYearSelects(monthSel,yearSel){
 }
 function syncCalendarNav(){
  fillMonthYearSelects(document.getElementById("calMonthSelect"),document.getElementById("calYearSelect"));
- fillMonthYearSelects(document.getElementById("dashMonthSelect"),document.getElementById("dashYearSelect"));
  const cm=document.getElementById("calMonthSelect"),cy=document.getElementById("calYearSelect");
  if(cm)cm.value=calendarMonth.getMonth();
  if(cy)cy.value=calendarMonth.getFullYear();
- const dm=document.getElementById("dashMonthSelect"),dy=document.getElementById("dashYearSelect");
- if(dm)dm.value=dashCalendarMonth.getMonth();
- if(dy)dy.value=dashCalendarMonth.getFullYear();
 }
 function goToToday(){calendarMonth=new Date();selectedCalendarDate=todayISO();syncCalendarNav();renderCalendar();}
-function goToTodayDash(){dashCalendarMonth=new Date();syncCalendarNav();renderDashCalendar();}
 function initCalendarControls(){
  const cm=document.getElementById("calMonthSelect"),cy=document.getElementById("calYearSelect");
  if(cm)cm.addEventListener("change",()=>{calendarMonth=new Date(Number(cy.value)||calendarMonth.getFullYear(),Number(cm.value),1);renderCalendar();});
  if(cy)cy.addEventListener("change",()=>{calendarMonth=new Date(Number(cy.value),Number(cm.value),1);renderCalendar();});
- const dm=document.getElementById("dashMonthSelect"),dy=document.getElementById("dashYearSelect");
- if(dm)dm.addEventListener("change",()=>{dashCalendarMonth=new Date(Number(dy.value)||dashCalendarMonth.getFullYear(),Number(dm.value),1);renderDashCalendar();});
- if(dy)dy.addEventListener("change",()=>{dashCalendarMonth=new Date(Number(dy.value),Number(dm.value),1);renderDashCalendar();});
- syncCalendarNav();
-}
-function renderDashCalendar(){
- const grid=document.getElementById("dashCalendarGrid");if(!grid)return;
- const year=dashCalendarMonth.getFullYear(),month=dashCalendarMonth.getMonth(),first=new Date(year,month,1),days=new Date(year,month+1,0).getDate();
- grid.innerHTML="";
- ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"].forEach(x=>{const e=document.createElement("div");e.className="cal-head";e.textContent=x;grid.appendChild(e)});
- for(let i=0;i<first.getDay();i++){const e=document.createElement("div");e.className="cal-day empty";grid.appendChild(e)}
- for(let d=1;d<=days;d++){
-   const date=localISO(new Date(year,month,d));
-   const b=calendarDayButton(year,month,d);
-   b.addEventListener("click",()=>{selectedCalendarDate=date;calendarMonth=new Date(year,month,1);syncCalendarNav();showView("calendar");});
-   grid.appendChild(b);
- }
  syncCalendarNav();
 }
 function renderCalendar(){
