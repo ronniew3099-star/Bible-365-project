@@ -149,6 +149,7 @@ main{padding:34px clamp(18px,4vw,60px) 90px;min-width:0}.topbar{display:flex;jus
       <div class="progress-ring" id="progressRing"><div><strong id="progressPct">0%</strong><small>completed</small></div></div>
       <div class="hero-body"><p><span class="hero-text-full" id="heroTextFull">Your plan moves with you. Miss a day? Pick up where you left off. Read extra? Your finish date moves closer.</span><span class="hero-text-short" id="heroTextShort">Miss a day? Pick up where you left off.</span></p><div class="hero-actions"><button class="btn primary" onclick="showView('today')">Open today's reading →</button></div></div>
     </div>
+    <div class="panel" id="checkInCard" style="margin:0 0 18px" hidden></div>
     <div class="panel" id="todayPanel" style="margin:0 0 18px">
       <div class="panel-head"><h3 id="todayPanelHeading">Today</h3><span class="subtle" id="todayOverall"></span></div>
       <div id="todayStartChapters" class="today-chapters"></div>
@@ -215,10 +216,14 @@ main{padding:34px clamp(18px,4vw,60px) 90px;min-width:0}.topbar{display:flex;jus
         </section>
         <div id="goalReached" style="display:none;padding-top:18px"><div class="pill">Today's reading is complete ✓</div><p class="subtle">Wonderful. You've completed today's carry-over and planned chapters.</p></div>
         <div id="nextChapterPreview" style="display:none;margin-top:16px;padding:16px;border:1px solid var(--line);border-radius:14px">
-          <div class="eyebrow">NEXT IN THE SEQUENCE</div>
-          <div id="nextChapterName" class="chapter-name" style="font-size:18px;margin:7px 0"></div>
-          <p class="subtle" style="margin:0 0 12px">You've finished today's assignments. If you'd like, you can continue with the next unread chapter.</p>
-          <button class="btn ghost" id="readNextChapterBtn" type="button">＋ Mark this chapter completed</button>
+          <p style="margin:0 0 4px"><strong>You finished today's reading.</strong></p>
+          <p class="subtle" style="margin:0 0 12px">Want to read more? Next up:</p>
+          <div id="nextChapterName" class="chapter-name" style="font-size:18px;margin:0 0 12px"></div>
+          <div style="display:flex;gap:10px;flex-wrap:wrap">
+            <button class="btn primary" id="readNextChapterBtn" type="button">Read one more chapter</button>
+            <button class="btn outline" id="readMoreDoneBtn" type="button">Done for today</button>
+          </div>
+          <p class="subtle" style="margin:12px 0 0">Extra chapters count for today and move your plan forward.</p>
         </div>
         <button class="btn ghost" id="extraBtn" style="margin-top:17px" onclick="addExtra()">＋ Read one more chapter</button>
       </div>
@@ -368,6 +373,7 @@ let restoringBackup=false;
 let bookSortPreference = localStorage.getItem("rbc.bookSort") || "plan";
 let reminderTimer = null;
 let lastReminderDate = localStorage.getItem("rbc.lastReminderDate") || "";
+let stateVersion=0;
 
 
 function localISO(d){const x=new Date(d.getTime()-d.getTimezoneOffset()*60000);return x.toISOString().slice(0,10)}
@@ -402,10 +408,12 @@ function loadState(){
       loaded.scheduleName=typeof loaded.scheduleName==="string"&&loaded.scheduleName.trim()?loaded.scheduleName:"Ronnie's Reading Schedule";
       loaded.targetFinishDate=typeof loaded.targetFinishDate==="string"?loaded.targetFinishDate:"";
       loaded.carryOverPlan=normalizeCarryOverPlan(loaded.carryOverPlan);
+      loaded.dayCheckIns=normalizeDayCheckIns(loaded.dayCheckIns);
+      loaded.readMoreDismissedDate=typeof loaded.readMoreDismissedDate==="string"?loaded.readMoreDismissedDate:"";
       return reconcileState(loaded);
     }
   } catch(e){}
-  return {completed:[],logs:{},ireapCompleted:[],ireapCompletedAt:{},planAnchor:null,readingOrder:defaultReadingOrder(),detourBook:null,detourBeforeBook:null,dailyTarget:3,excludedBooks:[],scheduleName:"Ronnie's Reading Schedule",targetFinishDate:"",carryOverPlan:null,createdAt:new Date().toISOString()};
+  return {completed:[],logs:{},ireapCompleted:[],ireapCompletedAt:{},planAnchor:null,readingOrder:defaultReadingOrder(),detourBook:null,detourBeforeBook:null,dailyTarget:3,excludedBooks:[],scheduleName:"Ronnie's Reading Schedule",targetFinishDate:"",carryOverPlan:null,dayCheckIns:{},readMoreDismissedDate:"",createdAt:new Date().toISOString()};
 }
 // Validate a catch-up plan from storage, a backup, or the cloud. Anything
 // malformed becomes no plan rather than breaking the daily schedule.
@@ -418,7 +426,19 @@ function normalizeCarryOverPlan(plan){
  if(plan.prevAnchor&&typeof plan.prevAnchor==="object"&&typeof plan.prevAnchor.date==="string"&&Number.isInteger(plan.prevAnchor.chapterIndex)&&Number.isInteger(plan.prevAnchor.scheduleIndex))prevAnchor={date:plan.prevAnchor.date,chapterIndex:plan.prevAnchor.chapterIndex,scheduleIndex:plan.prevAnchor.scheduleIndex};
  return {mode:plan.mode,startDate,chapters,prevAnchor};
 }
+// Check-in answers for past days, keyed by date: "read" (all read),
+// "some" (partly read) or "notyet" (not read yet — the chapters carry
+// over). Anything malformed is dropped rather than breaking the plan.
+function normalizeDayCheckIns(value){
+ if(!value||typeof value!=="object"||Array.isArray(value))return {};
+ const out={};
+ for(const [date,answer] of Object.entries(value)){
+   if(/^\d{4}-\d{2}-\d{2}$/.test(date)&&["read","some","notyet"].includes(answer))out[date]=answer;
+ }
+ return out;
+}
 function saveState({sync=true}={}){
+  stateVersion++;
   reconcileState(state);
   localStorage.setItem(STORAGE_KEY,JSON.stringify(state));
   renderAll();
@@ -608,7 +628,127 @@ function getRecoveryChapterIndexes(date=todayISO(),includeDone=false){
 }
 function getCarryOverChapterIndexes(date=todayISO()){
  const sequence=getReadingSequence(),done=doneSet(),skipped=skippedSet(),start=plannedStartPosition(date);
- return sequence.slice(0,start).filter(index=>!done.has(index)&&!skipped.has(index));
+ // Gate: chapters from a past day that has not been checked in yet are
+ // NOT carry-over. An unmarked day is not the same as a missed day, so
+ // its chapters stay out of every carry-over surface (Read lists, Home,
+ // previews, catch-up recovery) until the day is answered.
+ const gated=new Set();
+ for(const day of unresolvedPastDays())for(const i of day.chapters)gated.add(i);
+ return sequence.slice(0,start).filter(index=>!done.has(index)&&!skipped.has(index)&&!gated.has(index));
+}
+function addDaysISO(date,n){const d=parseDate(date);d.setDate(d.getDate()+n);return localISO(d)}
+// The chapters the plan itself assigned to a date: that day's fixed
+// window, without catch-up recovery additions (those are resolved
+// carry-over being re-offered, never a fresh obligation for that day).
+function fixedPlannedIndexes(date){
+ const sequence=getReadingSequence(),skipped=skippedSet(),start=plannedStartPosition(date),target=getTarget(date),out=[];
+ for(let pos=start;pos<sequence.length&&out.length<target;pos++){const index=sequence[pos];if(!skipped.has(index))out.push(index)}
+ return out;
+}
+// Chapters of a day that still have no outcome. "Unable" chapters are not
+// pending: the fixed window already leaves them out, and marking a day
+// unable was an update to that day.
+function pendingChaptersFor(date){
+ const done=doneSet();
+ return fixedPlannedIndexes(date).filter(i=>!done.has(i));
+}
+let unresolvedCache=null,unresolvedCacheVersion=-1;
+// Past days that were never checked in: the day had assigned chapters,
+// some still have no outcome, and no check-in answer is recorded for it.
+// Oldest first, so the check-in card works through them in order.
+function unresolvedPastDays(){
+ if(unresolvedCache&&unresolvedCacheVersion===stateVersion)return unresolvedCache;
+ const today=todayISO(),checkIns=state.dayCheckIns||{},out=[];
+ let date=state.planAnchor&&state.planAnchor.date?state.planAnchor.date:(SCHEDULE.length?SCHEDULE[0].date:today);
+ const earliest=addDaysISO(today,-400);
+ if(date<earliest)date=earliest;
+ for(let d=date;d<today;d=addDaysISO(d,1)){
+   if(checkIns[d])continue;
+   const pending=pendingChaptersFor(d);
+   if(pending.length)out.push({date:d,chapters:pending});
+ }
+ unresolvedCache=out;unresolvedCacheVersion=stateVersion;
+ return out;
+}
+function oldestUnresolvedDay(){const days=unresolvedPastDays();return days.length?days[0]:null}
+let checkInSomeFor=null;
+// "Ephesians 4, Ephesians 5, and Ephesians 6" style list for sentences.
+function chapterNameList(indexes){
+ const names=indexes.map(i=>CHAPTERS[i]);
+ if(names.length<=1)return names.join("");
+ if(names.length===2)return names.join(" and ");
+ return names.slice(0,-1).join(", ")+", and "+names[names.length-1];
+}
+// Record a check-in answer for a past day. Chapters read are completed in
+// THAT day's log, so streaks and history credit the right date; chapters
+// not read simply stay unfinished, and the recorded answer is what lets
+// them become carry-over through the normal mechanics.
+function resolveCheckIn(date,mode,readIndexes){
+ const pending=pendingChaptersFor(date);
+ let read=[];
+ if(mode==="read")read=pending;
+ else if(mode==="some")read=pending.filter(i=>(readIndexes||[]).includes(i));
+ if(read.length){
+   const log=logFor(date);
+   log.chapters=[...new Set([...(log.chapters||[]),...read])].sort((a,b)=>a-b);
+ }
+ state.dayCheckIns={...(state.dayCheckIns||{}),[date]:mode};
+ if(checkInSomeFor===date)checkInSomeFor=null;
+ saveState();
+ showToast(mode==="read"?"Marked as read. Well done.":mode==="some"?"Saved. The rest will carry over.":"No problem. Those chapters will carry over.");
+}
+// The check-in flow, shared by the Home card and the calendar day detail.
+function buildCheckInUI(container,day,rerender){
+ container.innerHTML="";
+ const title=document.createElement("h3");
+ title.style.cssText="font:400 21px Georgia,serif;margin:0 0 7px";
+ title.textContent="A quick check-in";
+ container.appendChild(title);
+ const question=document.createElement("p");
+ question.style.margin="0 0 14px";
+ question.textContent=`${prettyDate(day.date,{weekday:"long"})}'s reading was not marked. Did you read ${chapterNameList(day.chapters)}?`;
+ container.appendChild(question);
+ if(checkInSomeFor===day.date){
+   const hint=document.createElement("p");
+   hint.className="subtle";hint.style.margin="0 0 8px";
+   hint.textContent="Tap the chapters you read, then Save.";
+   container.appendChild(hint);
+   const boxes=[];
+   day.chapters.forEach(i=>{
+     const label=document.createElement("label");
+     label.className="chapter-row";
+     const box=document.createElement("input");
+     box.type="checkbox";box.className="chapter-check";
+     const name=document.createElement("span");name.className="chapter-name";name.textContent=CHAPTERS[i];
+     const tag=document.createElement("span");tag.className="chapter-meta";tag.textContent="Read";
+     label.append(box,name,tag);
+     container.appendChild(label);
+     boxes.push({box,index:i});
+   });
+   const save=document.createElement("button");
+   save.className="btn primary";save.type="button";save.textContent="Save";
+   save.style.marginTop="12px";
+   save.addEventListener("click",()=>{resolveCheckIn(day.date,"some",boxes.filter(b=>b.box.checked).map(b=>b.index));rerender();});
+   container.appendChild(save);
+ }else{
+   const row=document.createElement("div");
+   row.style.cssText="display:flex;gap:10px;flex-wrap:wrap";
+   const readBtn=document.createElement("button");
+   readBtn.className="btn primary";readBtn.type="button";readBtn.textContent="I read them";
+   readBtn.addEventListener("click",()=>{resolveCheckIn(day.date,"read");rerender();});
+   const someBtn=document.createElement("button");
+   someBtn.className="btn outline";someBtn.type="button";someBtn.textContent="I read some of them";
+   someBtn.addEventListener("click",()=>{checkInSomeFor=day.date;rerender();});
+   const notBtn=document.createElement("button");
+   notBtn.className="btn ghost";notBtn.type="button";notBtn.textContent="Not yet";
+   notBtn.addEventListener("click",()=>{resolveCheckIn(day.date,"notyet");rerender();});
+   row.append(readBtn,someBtn,notBtn);
+   container.appendChild(row);
+ }
+ const note=document.createElement("p");
+ note.className="subtle";note.style.margin="12px 0 0";
+ note.textContent="Until you answer, these chapters will not show as carry-over.";
+ container.appendChild(note);
 }
 // Chapters marked "unable to complete" are skipped for now: they leave the
 // daily plan (carry-over and planned) until the user brings them back.
@@ -1294,6 +1434,15 @@ function renderDashboard(){
  const todayIreap=completedIreaps.filter(i=>state.ireapCompletedAt?.[i]?.slice(0,10)===date);
  const ireapLineText=document.getElementById("ireapLineText");
  if(ireapLineText)ireapLineText.textContent=`IREAP reflections · ${todayIreap.length} done today · ${completedIreaps.length} total · ${outstanding.length?outstanding.length+" outstanding":"none outstanding"}`;
+ // Check-in card: the oldest past day that was never marked, one day at
+ // a time, above the Today panel. Its chapters are not carry-over until
+ // it is answered (see the gate in getCarryOverChapterIndexes).
+ const checkInCard=document.getElementById("checkInCard");
+ if(checkInCard){
+   const checkInDay=oldestUnresolvedDay();
+   if(checkInDay){checkInCard.hidden=false;buildCheckInUI(checkInCard,checkInDay,renderDashboard);}
+   else{checkInCard.hidden=true;checkInCard.innerHTML="";if(checkInSomeFor)checkInSomeFor=null;}
+ }
  renderInsights();
  renderAchievements();
 }
@@ -1402,20 +1551,29 @@ function updateScrollHint(box){
      });
    }else skippedSection.style.display="none";
  }
- const dailyAssignments=[...new Set([...carry,...planned])];
+ // "Finished" is judged against today's fixed assignment — the chapters
+ // actually assigned to today, which stay listed once read — plus any
+ // resolved carry-over. The rolling planned list cannot judge this: it
+ // always refills with the next unread chapters, so it is never "done".
+ const fixedToday=getTodaysPlannedChapterIndexes(date);
+ const dailyAssignments=[...new Set([...carry,...fixedToday])];
  const allDailyReadingDone=dailyAssignments.length>0&&dailyAssignments.every(i=>doneSet().has(i));
  const nextIndex=firstUnread();
  document.getElementById("goalReached").style.display=allDailyReadingDone?"block":"none";
  const nextPreview=document.getElementById("nextChapterPreview");
  const nextButton=document.getElementById("readNextChapterBtn");
- if(allDailyReadingDone&&nextIndex<CHAPTERS.length){
+ const readMoreDismissed=state.readMoreDismissedDate===date;
+ if(allDailyReadingDone&&nextIndex<CHAPTERS.length&&!readMoreDismissed){
    nextPreview.style.display="block";
    document.getElementById("nextChapterName").textContent=CHAPTERS[nextIndex];
    nextButton.onclick=()=>completeChapter(nextIndex,date);
+   const readMoreDoneBtn=document.getElementById("readMoreDoneBtn");
+   if(readMoreDoneBtn)readMoreDoneBtn.onclick=()=>{state.readMoreDismissedDate=date;saveState();};
  }else{
    nextPreview.style.display="none";
  }
- document.getElementById("extraBtn").style.display=allDailyReadingDone?"inline-block":"none";
+ // The read-more card above replaces the old "read one more" goal bump.
+ document.getElementById("extraBtn").style.display="none";
  renderOutstandingIreaps();
 }
 function isIreapComplete(i){return (state.ireapCompleted||[]).includes(i)}
@@ -1682,55 +1840,83 @@ function renderCalendar(){
  const isPastOrToday=selectedCalendarDate<=todayISO();
  const title=`<div class="subtle">${prettyDate(selectedCalendarDate,{weekday:"long",month:"long",day:"numeric",year:"numeric"})}</div>`;
 
- // Future dates: show carryover and planned chapters separately, with editable status controls.
- if(!isPastOrToday && scheduleIndex>=0){
-  const carryOver=getCarryOverChapterIndexes(selectedCalendarDate);
-  const planned=getPlannedChapterIndexes(selectedCalendarDate);
-  const renderFutureRows=(indexes)=>{
-   if(!indexes.length)return `<p class="subtle">None</p>`;
-   return indexes.map(i=>{
-    const done=(log.chapters||[]).includes(i);
-    const unable=(log.unable||[]).includes(i);
-    const locked=isIreapComplete(i);
-    return `
-     <div class="chapter-row" data-future-chapter="${i}">
-      <div style="flex:1;min-width:0">
-       <strong class="chapter-name">${CHAPTERS[i]}</strong>
-       <div class="subtle">Chapter ${i+1} of ${CHAPTERS.length}</div>
-       <div style="display:flex;gap:18px;flex-wrap:wrap;margin-top:10px">
-        <label><input type="checkbox" class="chapter-check" data-future-status="completed" data-chapter="${i}" ${done?'checked':''} disabled> Completed</label>
-        <label><input type="checkbox" class="chapter-check" data-future-status="unable" data-chapter="${i}" ${unable?'checked':''} disabled> Unable to complete</label>
-       </div>
-      </div>
-      <span class="chapter-meta">${done?'✓ Done':unable?'Carried forward':''}${done&&locked?' · '+ICON_LOCK+' Locked':''}</span>
-     </div>`;
-   }).join('');
-  };
+ // Future dates: a preview of the day's own plan, with "Read now" so a
+ // planned chapter can be read early (it counts today and comes off this
+ // day's plan). There is no carry-over section: carry-over is never
+ // guessed, and chapters from a day that has not been checked in yet are
+ // gated out of the carry-over derivation itself.
+ if(!isPastOrToday){
+  const plannedRows=getTodaysPlannedChapterIndexes(selectedCalendarDate);
+  const doneAll=doneSet();
+  const rows=plannedRows.length?plannedRows.map(i=>{
+   if(doneAll.has(i))return `<div class="chapter-row"><div style="flex:1;min-width:0"><strong class="chapter-name">${CHAPTERS[i]}</strong><div class="subtle">Chapter ${i+1} of ${CHAPTERS.length}</div></div><span class="chapter-meta">✓ Done · Read early</span></div>`;
+   return `<div class="chapter-row"><div style="flex:1;min-width:0"><strong class="chapter-name">${CHAPTERS[i]}</strong><div class="subtle">Chapter ${i+1} of ${CHAPTERS.length}</div></div><span class="pill">Planned</span><button class="btn primary" type="button" data-read-now="${i}" style="flex:none;padding:8px 14px">Read now</button></div>`;
+  }).join(""):`<p class="subtle">No chapters are planned for this day.</p>`;
+  const unresolved=unresolvedPastDays();
+  let note="";
+  if(unresolved.length){
+   note=`<div class="finish-box" style="margin-top:14px"><p style="margin:0">Carry-over is not shown yet. ${prettyDate(unresolved[0].date,{weekday:"long",month:"long",day:"numeric"})} is not checked in.</p></div>`;
+  }else{
+   const futureCarry=getCarryOverChapterIndexes(selectedCalendarDate);
+   if(futureCarry.length){
+    const groups=carryOverSummary(futureCarry),shownGroups=groups.slice(0,3),shownCount=shownGroups.reduce((sum,g)=>sum+g.count,0),restCount=futureCarry.length-shownCount;
+    note=`<p class="subtle" style="margin-top:14px">${futureCarry.length} carry-over chapter${futureCarry.length===1?"":"s"} from earlier days will also be due by this day: ${shownGroups.map(formatCarryGroup).join(", ")}${restCount>0?`, and ${restCount} more`:""}.</p>`;
+   }
+  }
   box.innerHTML=title+`
-   <p style="margin:8px 0 12px">Here's a preview of your plan for this day. Come back on the day itself to mark chapters complete.</p>
-   <h3 style="margin:16px 0 8px">Carry-over Chapters</h3>
-   <p class="subtle">Outstanding chapters from earlier days.</p>
-   <div>${renderFutureRows(carryOver)}</div>
-   <h3 style="margin:20px 0 8px">Planned Daily Chapters</h3>
-   <p class="subtle">Your planned chapters for that day.</p>
-   <div>${renderFutureRows(planned)}</div>
+   <p style="margin:8px 0 12px">Here's a preview of your plan for this day.</p>
+   <h3 style="margin:16px 0 8px">Planned Daily Chapters</h3>
+   <div>${rows}</div>
+   <p class="subtle" style="margin-top:12px">Chapters you read early count today and come off this day's plan.</p>
+   ${note}
   `;
-  box.querySelectorAll('input[data-future-status]').forEach(input=>{
-   input.addEventListener('change',e=>{
-    const i=Number(e.target.dataset.chapter);
-    const status=e.target.checked?e.target.dataset.futureStatus:'clear';
-    markScheduledChapter(selectedCalendarDate,i,status);
-    renderCalendar();
-   });
+  box.querySelectorAll('button[data-read-now]').forEach(btn=>{
+   btn.addEventListener('click',()=>{markScheduledChapter(todayISO(),Number(btn.dataset.readNow),'completed');});
   });
 
  // Past and current dates: retain the existing completion and IREAP tracker.
  }else if(isPastOrToday){
   // Show only what was actually recorded on this day. A day with no log
   // must not show the cumulative catch-up list as if it were recorded reading.
-  if(!recordedForDay.length){
-    const planned=getPlannedChapterIndexes(selectedCalendarDate);
-    box.innerHTML=title+`<p>Nothing recorded for this day.</p>`+(planned.length?`<p class="subtle">Planned for this day: ${planned.map(i=>CHAPTERS[i]).join(" · ")}</p>`:"");
+  const unresolvedDay=unresolvedPastDays().find(d=>d.date===selectedCalendarDate);
+  if(unresolvedDay){
+    // A past day that was never marked gets the check-in flow inline, not
+    // a plain carry-over listing.
+    box.innerHTML=title+`<p style="margin:8px 0 12px">This day was never marked.</p><div id="calendarCheckIn"></div>`;
+    buildCheckInUI(box.querySelector('#calendarCheckIn'),unresolvedDay,renderCalendar);
+  }else if(!recordedForDay.length){
+    // Nothing recorded yet: offer the day's own planned chapters with
+    // working status controls, so today (or any past day) can be marked
+    // from here, not only from the Read page.
+    const plannedRows=getTodaysPlannedChapterIndexes(selectedCalendarDate);
+    box.innerHTML=title+`<p style="margin:8px 0 12px">${selectedCalendarDate===todayISO()?"Nothing recorded yet today. Mark your chapters here, or on the Read page.":"Nothing recorded for this day. You can still mark what you read."}</p>`+(plannedRows.length?`<div id="scheduledChapterList"></div>`:`<p class="subtle">No chapters were planned for this day.</p>`);
+    const plannedList=box.querySelector('#scheduledChapterList');
+    if(plannedList){
+      const doneAll=doneSet();
+      plannedRows.forEach(i=>{
+        const done=doneAll.has(i);
+        const row=document.createElement('div');
+        row.className='chapter-row';
+        row.innerHTML=`
+      <div style="flex:1;min-width:0">
+        <strong class="chapter-name">${CHAPTERS[i]}</strong>
+        <div class="subtle">Scheduled chapter ${i+1} of ${CHAPTERS.length}</div>
+        <div style="display:flex;gap:18px;flex-wrap:wrap;margin-top:10px">
+          <label><input type="checkbox" class="chapter-check" data-status="completed" ${done?'checked':''}> Completed</label>
+          <label><input type="checkbox" class="chapter-check" data-status="unable"> Unable to complete</label>
+        </div>
+      </div>
+      <span class="chapter-meta">${done?'✓ Done':''}</span>`;
+        row.querySelectorAll('input[data-status]').forEach(input=>{
+          input.addEventListener('change',e=>{
+            const status=e.target.checked?e.target.dataset.status:'clear';
+            markScheduledChapter(selectedCalendarDate,i,status);
+            renderCalendar();
+          });
+        });
+        plannedList.appendChild(row);
+      });
+    }
   }else{
   box.innerHTML=title+`<p style="margin:8px 0 12px">Your recorded reading for this day. Completed chapters remain attached to the date you recorded them, even when you change your reading order.</p><div id="scheduledChapterList"></div>`;
 
@@ -1781,6 +1967,40 @@ function renderCalendar(){
 
     list.appendChild(row);
   });
+  // Chapters planned for this day that have no record yet stay editable
+  // here too, so marking one chapter never hides the rest of the day.
+  const plannedForDay=selectedCalendarDate===todayISO()?getTodaysPlannedChapterIndexes(selectedCalendarDate):fixedPlannedIndexes(selectedCalendarDate);
+  const alsoPlanned=plannedForDay.filter(i=>!recordedForDay.includes(i));
+  if(alsoPlanned.length){
+    const head=document.createElement('h3');
+    head.style.cssText='margin:20px 0 8px';
+    head.textContent='Also planned for this day';
+    box.appendChild(head);
+    const doneAll=doneSet();
+    alsoPlanned.forEach(i=>{
+      const done=doneAll.has(i);
+      const row=document.createElement('div');
+      row.className='chapter-row';
+      row.innerHTML=`
+      <div style="flex:1;min-width:0">
+        <strong class="chapter-name">${CHAPTERS[i]}</strong>
+        <div class="subtle">Scheduled chapter ${i+1} of ${CHAPTERS.length}</div>
+        <div style="display:flex;gap:18px;flex-wrap:wrap;margin-top:10px">
+          <label><input type="checkbox" class="chapter-check" data-status="completed" ${done?'checked':''}> Completed</label>
+          <label><input type="checkbox" class="chapter-check" data-status="unable"> Unable to complete</label>
+        </div>
+      </div>
+      <span class="chapter-meta">${done?'✓ Done':''}</span>`;
+      row.querySelectorAll('input[data-status]').forEach(input=>{
+        input.addEventListener('change',e=>{
+          const status=e.target.checked?e.target.dataset.status:'clear';
+          markScheduledChapter(selectedCalendarDate,i,status);
+          renderCalendar();
+        });
+      });
+      box.appendChild(row);
+    });
+  }
   }
 
  // Keep the original history display for dates outside the plan (future dates with no schedule entry).
@@ -1889,6 +2109,8 @@ async function importBackup(e){
         scheduleName:typeof incoming.scheduleName==="string"&&incoming.scheduleName.trim()?incoming.scheduleName:"Ronnie's Reading Schedule",
         targetFinishDate:typeof incoming.targetFinishDate==="string"?incoming.targetFinishDate:"",
         carryOverPlan:normalizeCarryOverPlan(incoming.carryOverPlan),
+        dayCheckIns:normalizeDayCheckIns(incoming.dayCheckIns),
+        readMoreDismissedDate:typeof incoming.readMoreDismissedDate==="string"?incoming.readMoreDismissedDate:"",
         createdAt:incoming.createdAt||new Date().toISOString()
       };
       saveState({sync:false});
@@ -2172,6 +2394,8 @@ function mergeStates(localState, cloudState) {
    scheduleName:localState?.scheduleName||cloudState?.scheduleName||"Ronnie's Reading Schedule",
    targetFinishDate:localState?.targetFinishDate||cloudState?.targetFinishDate||"",
    carryOverPlan:normalizeCarryOverPlan(localState?.carryOverPlan||cloudState?.carryOverPlan||null),
+   dayCheckIns:normalizeDayCheckIns({...(cloudState?.dayCheckIns||{}),...(localState?.dayCheckIns||{})}),
+   readMoreDismissedDate:[localState?.readMoreDismissedDate||"",cloudState?.readMoreDismissedDate||""].sort().pop()||"",
    createdAt:localState?.createdAt||cloudState?.createdAt||new Date().toISOString()
  };
  return reconcileState(merged);
@@ -2187,6 +2411,7 @@ async function pullAndMerge(){
   // Merge remote progress with this device's progress so neither device's
   // completed chapters or reflections are accidentally discarded.
   if(data?.progress)state=mergeStates(state,data.progress);
+  stateVersion++;
   localStorage.setItem(STORAGE_KEY,JSON.stringify(state));
   renderAll();
   const {error:upErr}=await cloud.from("bible_progress").upsert({user_id:syncingUser.id,progress:state,updated_at:new Date().toISOString()},{onConflict:"user_id"});
