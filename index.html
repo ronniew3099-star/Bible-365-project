@@ -94,6 +94,8 @@ main{padding:34px clamp(18px,4vw,60px) 90px;min-width:0}.topbar{display:flex;jus
 .home-link-card{background:var(--paper);border:1px solid var(--line);border-radius:var(--radius);box-shadow:0 8px 24px rgba(58,32,110,.06);padding:16px;text-align:left;cursor:pointer;font:inherit;color:var(--ink);width:100%}
 .home-link-title{display:block;font:20px Georgia,serif;color:var(--green)}
 .home-link-sub{display:block;color:var(--muted);font-size:12px;margin-top:5px;line-height:1.5}
+.home-link-goto{display:block;width:100%;margin-top:12px}
+.hero-finish{font-weight:700;color:#fde68a;font-size:17px}
 .mini-cal-month{display:block;color:var(--muted);font-size:12px;margin-top:6px}
 .mini-cal{display:grid;grid-template-columns:repeat(7,1fr);gap:2px;margin-top:8px}
 .mini-cal .mc-head{text-align:center;font-size:9px;color:var(--muted);font-weight:700;padding:2px 0}
@@ -162,7 +164,7 @@ main{padding:34px clamp(18px,4vw,60px) 90px;min-width:0}.topbar{display:flex;jus
     <div class="hero">
       <div class="hero-intro"><div class="hero-art" aria-hidden="true"><svg width="104" height="78" viewBox="0 0 104 78"><path d="M52 74V58" stroke="#8a5a1d" stroke-width="5" stroke-linecap="round"/><path d="M52 58C36 58 26 48 26 36c0-4 2-7 5-9 1-5 5-8 10-8 2-3 5-5 11-5s9 2 11 5c5 0 9 3 10 8 3 2 5 5 5 9 0 12-10 22-26 22z" fill="#d9ae62"/><path d="M52 44c-4-2-6-6-5-10 1 1 2 2 4 2 0-4 2-7 5-9-1 3 0 5 1 6 1-2 3-4 6-4-1 2 0 4 1 5 2 2 3 5 1 8-2 4-9 5-13 2z" fill="#fff7e0"/></svg></div><div class="eyebrow">Keep showing up</div><h2>Small steps. Lasting growth.</h2></div>
       <div class="progress-ring" id="progressRing"><div><strong id="progressPct">0%</strong><small>completed</small></div></div>
-      <div class="hero-body"><p><span class="hero-text-full" id="heroTextFull">Your plan moves with you. Miss a day? Pick up where you left off. Read extra? Your finish date moves closer.</span><span class="hero-text-short" id="heroTextShort">Miss a day? Pick up where you left off.</span></p><div class="hero-actions"><button class="btn primary" onclick="showView('today')">Open today's reading →</button></div></div>
+      <div class="hero-body"><p><span class="hero-text-full" id="heroTextFull">Your plan moves with you. Miss a day? Pick up where you left off. Read extra? Your finish date moves closer.</span><span class="hero-text-short" id="heroTextShort">Miss a day? Pick up where you left off.</span></p><div class="hero-actions"><span class="hero-finish" id="heroFinish">Completion date: —</span></div></div>
     </div>
     <div class="panel" id="checkInCard" style="margin:0 0 18px" hidden></div>
     <div class="panel" id="todayPanel" style="margin:0 0 18px">
@@ -174,11 +176,11 @@ main{padding:34px clamp(18px,4vw,60px) 90px;min-width:0}.topbar{display:flex;jus
         <div class="stat"><label>Current streak</label><strong id="streakStat">0</strong><small id="streakDelta">days in a row</small></div>
         <div class="stat"><label>Next milestone</label><strong id="milestoneStat">—</strong><small id="milestoneDelta"></small></div>
       </div>
-      <div style="margin-top:16px"><button class="btn primary" type="button" id="todayStartBtn" onclick="showView('today')">Start reading</button><button class="btn ghost" type="button" id="todayStartLink" onclick="showView('today')" hidden>Open today's reading</button></div>
+      <div style="margin-top:16px"><button class="btn primary" type="button" id="todayStartBtn" onclick="showView('today')">Go to today's reading</button><button class="btn ghost" type="button" id="todayStartLink" onclick="showView('today')" hidden>Open today's reading</button></div>
     </div>
     <div class="home-links">
-      <button type="button" class="home-link-card" onclick="showView('calendar')"><span class="home-link-title">Reading calendar</span><span class="mini-cal-month" id="miniCalMonth"></span><span class="mini-cal" id="miniCal" aria-hidden="true"></span><span class="home-link-sub"><span id="insightWeek">0</span> chapters this week · <span id="insightMonth">0</span> this month · <span id="insightDays">0</span> reading days</span></button>
-      <button type="button" class="home-link-card" onclick="showView('awards')"><span class="home-link-title">Your awards</span><span class="next-award" id="nextAwardBox"></span><span class="home-link-sub" id="achievementCount">0 of 23 earned</span></button>
+      <div role="button" tabindex="0" class="home-link-card" onclick="showView('calendar')" onkeydown="cardKeyActivate(event,'calendar')"><span class="home-link-title">Reading calendar</span><span class="mini-cal-month" id="miniCalMonth"></span><span class="mini-cal" id="miniCal" aria-hidden="true"></span><span class="home-link-sub"><span id="insightWeek">0</span> chapters this week · <span id="insightMonth">0</span> this month · <span id="insightDays">0</span> reading days</span><button type="button" class="btn ghost home-link-goto" onclick="event.stopPropagation();showView('calendar')">Go to calendar</button></div>
+      <div role="button" tabindex="0" class="home-link-card" onclick="showView('awards')" onkeydown="cardKeyActivate(event,'awards')"><span class="home-link-title">Your awards</span><span class="next-award" id="nextAwardBox"></span><span class="home-link-sub" id="achievementCount">0 of 23 earned</span><button type="button" class="btn ghost home-link-goto" onclick="event.stopPropagation();showView('awards')">Go to awards</button></div>
     </div>
     <div class="panel" id="ireapPanel" style="margin:0 0 18px">
       <div class="ireap-panel-head"><h3 style="font:400 21px Georgia,serif;margin:0">IREAP reflections</h3><button type="button" class="btn ghost" onclick="openIreapGuide()"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:-3px"><path d="M9.5 18h5"/><path d="M11 21h2"/><path d="M12 3a6 6 0 0 0-3.4 10.8c.8.6 1.4 1.3 1.4 2.2h4c0-.9.6-1.6 1.4-2.2A6 6 0 0 0 12 3z"/></svg> What is IREAP?</button></div>
@@ -955,6 +957,7 @@ function projectedFinish(){
 }
 function currentBook(){const i=firstUnread();return i>=CHAPTERS.length?"Completed":bookAndChapter(CHAPTERS[i]).book}
 function bookAndChapter(ch){const m=ch.match(/^(.*)\s(\d+)$/);return m?{book:m[1],chapter:+m[2]}:{book:ch,chapter:1}}
+function cardKeyActivate(event,view){if(event.target!==event.currentTarget)return;if(event.key==="Enter"||event.key===" "){event.preventDefault();showView(view);}}
 function showView(v){
  activeView=v;
  document.querySelectorAll(".view").forEach(x=>x.classList.toggle("active",x.id==="view-"+v));
@@ -1397,6 +1400,7 @@ function renderDashboard(){
  document.getElementById("streakStat").textContent=streak;
  document.getElementById("streakDelta").textContent=streak===1?"day in a row":"days in a row";
  document.getElementById("finishLarge").textContent=prettyDate(finish);
+ document.getElementById("heroFinish").textContent="Completion date: "+prettyDate(finish);
  document.getElementById("finishMessage").textContent=remain===0?"You've completed the entire reading sequence. Praise God!":`At your recent pace of ${recentPace().toFixed(1)} chapters per day.`;
  updateTargetPace();
  const date=todayISO(), planned=getPlannedChapterIndexes(date), carry=getCarryOverChapterIndexes(date);
