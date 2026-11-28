@@ -575,14 +575,13 @@ function getPlannedChapterIndexes(date=todayISO()){
  const recovery=getRecoveryChapterIndexes(date).filter(i=>!done.has(i)&&!skipped.has(i)&&!out.includes(i));
  return [...recovery,...out];
 }
-// Today's fixed assignment: the day's window from fixedPlannedIndexes
-// (derived from actual progress recorded before that day), but chapters
-// stay listed after they are read, so the dashboard can show them as
-// done instead of rolling forward to the next unread chapters. Skipped
-// ("unable") chapters are still left out.
+// Today's fixed assignment: the same schedule position and target as
+// getPlannedChapterIndexes, but chapters stay listed after they are read, so
+// the dashboard can show them as done instead of rolling forward to the
+// next unread chapters. Skipped ("unable") chapters are still left out.
 function getTodaysPlannedChapterIndexes(date=todayISO()){
- const out=fixedPlannedIndexes(date);
- const skipped=skippedSet();
+ const sequence=getReadingSequence(),skipped=skippedSet(),start=plannedStartPosition(date),target=getTarget(date),out=[];
+ for(let pos=start;pos<sequence.length&&out.length<target;pos++){const index=sequence[pos];if(!skipped.has(index))out.push(index)}
  const recovery=getRecoveryChapterIndexes(date,true).filter(i=>!skipped.has(i)&&!out.includes(i));
  return [...recovery,...out];
 }
@@ -638,36 +637,12 @@ function getCarryOverChapterIndexes(date=todayISO()){
  return sequence.slice(0,start).filter(index=>!done.has(index)&&!skipped.has(index)&&!gated.has(index));
 }
 function addDaysISO(date,n){const d=parseDate(date);d.setDate(d.getDate()+n);return localISO(d)}
-// Outcomes recorded in logs dated before `date`: chapters completed on
-// an earlier day, and chapters marked "unable to complete" on an earlier
-// day. A day's own marks never shrink its own window — they live in that
-// day's log, not in an earlier one.
-function outcomesBefore(date){
- const done=new Set(),unable=new Set();
- for(const d of Object.keys(state.logs||{})){
-  if(d>=date)continue;
-  const log=state.logs[d]||{};
-  for(const i of log.chapters||[])done.add(i);
-  for(const i of log.unable||[])unable.add(i);
- }
- return {done,unable};
-}
-// A day's fixed assignment window, derived from actual progress rather
-// than the calendar: the first <daily target> chapters in reading order
-// that had no outcome recorded before that day and are not currently
-// skipped. The old derivation counted forward from the plan anchor by
-// elapsed days, which assumed perfect pace and could name chapters far
-// ahead of (or behind) what Ronnie had actually reached. Because this
-// window is computed from the logs every time, marking a past day read
-// shifts every later day's window on the next render — the plan follows
-// what was actually read, not the date.
+// The chapters the plan itself assigned to a date: that day's fixed
+// window, without catch-up recovery additions (those are resolved
+// carry-over being re-offered, never a fresh obligation for that day).
 function fixedPlannedIndexes(date){
- const sequence=getReadingSequence(),skipped=skippedSet(),target=getTarget(date),before=outcomesBefore(date),out=[];
- for(const index of sequence){
-  if(out.length>=target)break;
-  if(before.done.has(index)||before.unable.has(index)||skipped.has(index))continue;
-  out.push(index);
- }
+ const sequence=getReadingSequence(),skipped=skippedSet(),start=plannedStartPosition(date),target=getTarget(date),out=[];
+ for(let pos=start;pos<sequence.length&&out.length<target;pos++){const index=sequence[pos];if(!skipped.has(index))out.push(index)}
  return out;
 }
 // Chapters of a day that still have no outcome. "Unable" chapters are not
